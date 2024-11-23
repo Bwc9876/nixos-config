@@ -21,7 +21,7 @@ in {
     enable = true;
     openFirewall = true;
     banner = ''
-      === ${lib.toUpper config.networking.hostName} ===
+      -=≡ ${lib.toUpper config.networking.hostName} ≡=-
 
     '';
     listenAddresses = [

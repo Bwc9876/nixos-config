@@ -9,7 +9,7 @@
 
     includeBaseMods = true;
 
-    roles = ["latest-linux" "dev" "graphics" "vm" "fun" "secureboot" "wireless" "hypervisor"];
+    roles = ["latest-linux" "dev" "graphics" "fun" "secureboot" "wireless" "hypervisor"];
     extraModules = [inputs.nixos-hardware.nixosModules.framework-13th-gen-intel];
   };
 }
