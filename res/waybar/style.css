@@ -1,0 +1,283 @@
+* {
+  font-family: Noto Sans, FiraCode Nerd Font Mono;
+}
+
+window#waybar {
+  background: rgba(252, 116, 150, 0);
+  color: #fdf6e3;
+}
+
+.modules-left > * > *,
+.modules-right > * > * {
+  font-size: 1.5rem;
+  background: rgb(241, 213, 213);
+  background: linear-gradient(
+    180deg,
+    rgba(34, 34, 34, 0.8) 0%,
+    rgba(5, 5, 5, 0.7) 100%
+  );
+  border-radius: 5rem;
+  padding: 5px 15px;
+  margin: 5px 2px;
+}
+
+#idle_inhibitor,
+#custom-notification,
+#pulseaudio.muted,
+#custom-power-menu,
+#custom-kde-connect.disconnected,
+#bluetooth.disconnected,
+#bluetooth.off,
+#bluetooth.disabled {
+  font-size: 30px;
+}
+
+#waybar .modules-left > *:first-child > * {
+  margin-left: 25px;
+}
+
+#waybar .modules-right > *:last-child > * {
+  margin-right: 25px;
+}
+
+#waybar .modules-left,
+#waybar .modules-right {
+  margin-top: 10px;
+}
+
+#waybar .modules-center {
+  margin-bottom: 10px;
+}
+
+#battery.warning {
+  background: linear-gradient(
+    180deg,
+    rgb(137, 137, 0) 0%,
+    rgb(131, 102, 0) 100%
+  );
+}
+
+#battery.critical {
+  background: linear-gradient(180deg, rgb(220, 66, 0) 0%, rgb(110, 0, 0) 100%);
+}
+
+* > #battery.charging {
+  background: linear-gradient(180deg, rgb(0, 209, 31) 0%, rgb(0, 90, 15) 100%);
+}
+
+#taskbar,
+#workspaces {
+  padding: 10px;
+  border-radius: 5rem;
+  background: linear-gradient(
+    180deg,
+    rgba(85, 85, 85, 0.8) 0%,
+    rgba(60, 60, 60, 0.7) 100%
+  );
+}
+
+#workspaces {
+  margin-bottom: 15px;
+}
+
+#taskbar button,
+#workspaces button {
+  color: #fdf6e3;
+  border-radius: 5rem;
+  padding: 10px 15px;
+  margin: 0 5px;
+  background: linear-gradient(
+    180deg,
+    rgba(34, 34, 34, 0.8) 0%,
+    rgba(5, 5, 5, 0.7) 100%
+  );
+}
+
+#workspaces button {
+  font-size: 1.5rem;
+}
+
+#cpu,
+#memory,
+#temperature {
+    font-size: 1.5rem;
+    padding: 5px 25px;
+    margin-bottom: 25px;
+}
+
+#cpu.warning,
+#memory.warning {
+    background: linear-gradient(
+        180deg,
+        rgb(137, 137, 0) 0%,
+        rgb(131, 102, 0) 100%
+    );
+}
+
+#cpu.critical,
+#memory.critical,
+#temperature.critical {
+    background: linear-gradient(
+        180deg,
+        rgb(220, 66, 0) 0%,
+        rgb(110, 0, 0) 100%
+    );
+}
+
+#workspaces button.active {
+  background: linear-gradient(
+    180deg,
+    rgb(0, 209, 209) 0%,
+    rgb(0, 60, 164) 100%
+  );
+}
+
+#taskbar button.active {
+  border: 2px solid rgb(0, 209, 209);
+}
+
+#idle_inhibitor.activated {
+  background: linear-gradient(
+    180deg,
+    rgb(202, 0, 209) 0%,
+    rgb(131, 0, 164) 100%
+  );
+}
+
+#custom-notification.notification {
+  background: linear-gradient(
+    180deg,
+    rgb(0, 209, 209) 0%,
+    rgb(0, 60, 164) 100%
+  );
+}
+
+#custom-notification.dnd-none,
+#custom-notification.dnd-notification,
+#custom-notification.dnd-inhibited-none,
+#custom-notification.dnd-inhibited-notification {
+  background: linear-gradient(180deg, rgb(220, 66, 0) 0%, rgb(110, 0, 0) 100%);
+}
+
+#custom-notification.inhibited-none,
+#custom-notification.inhibited-notification {
+  background: linear-gradient(
+    180deg,
+    rgb(202, 0, 209) 0%,
+    rgb(110, 0, 138) 100%
+  );
+}
+
+#network.disconnected {
+  background: linear-gradient(180deg, rgb(220, 66, 0) 0%, rgb(110, 0, 0) 100%);
+}
+
+#privacy {
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+
+#privacy-item {
+  font-size: 1.5rem;
+  border-radius: 5rem;
+  padding: 5px 15px;
+  margin: 5px 2px;
+  background: linear-gradient(180deg, rgb(220, 66, 0) 0%, rgb(110, 0, 0) 100%);
+}
+
+#custom-weather.VeryCloudy,
+#custom-weather.Cloudy,
+#custom-weather.Fog {
+  background: linear-gradient(
+    180deg,
+    rgb(110, 110, 110) 0%,
+    rgb(62, 62, 62) 100%
+  );
+}
+
+#custom-weather.HeavyRain,
+#custom-weather.ThunderyHeavyRain,
+#custom-weather.ThunderyRain,
+#custom-weather.ThunderyShowers,
+#custom-weather.HeavyShowers,
+#custom-weather.LightRain,
+#custom-weather.LightShowers {
+  background: linear-gradient(
+    180deg,
+    rgb(0, 209, 209) 0%,
+    rgb(129, 157, 207) 100%
+  );
+}
+
+#custom-weather.HeavySnow,
+#custom-weather.LightSnow,
+#custom-weather.Sleet,
+#custom-weather.Snow,
+#custom-weather.LightSnowShowers,
+#custom-weather.LightSleetShowers {
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 0%,
+    rgb(160, 160, 160) 100%
+  );
+  color: #242424;
+}
+
+#custom-weather.Clear,
+#custom-weather.Sunny {
+  background: linear-gradient(
+    180deg,
+    rgb(187, 187, 0) 0%,
+    rgb(158, 124, 0) 100%
+  );
+}
+
+#custom-weather.Clear.night,
+#custom-weather.Sunny.night {
+  background: linear-gradient(
+    180deg,
+    rgb(103, 52, 131) 0%,
+    rgb(58, 29, 74) 100%
+  );
+}
+
+#custom-weather.PartlyCloudy {
+  background: linear-gradient(
+    180deg,
+    rgb(130, 128, 92) 0%,
+    rgb(77, 75, 53) 100%
+  );
+}
+
+#custom-weather.PartlyCloudy.night {
+  background: linear-gradient(
+    180deg,
+    rgb(117, 95, 129) 0%,
+    rgb(72, 58, 79) 100%
+  );
+}
+
+#custom-news.utd {
+    font-size: 1.5rem;
+}
+
+#custom-news.unread {
+  background: linear-gradient(
+    180deg,
+    rgb(0, 209, 209) 0%,
+    rgb(0, 60, 164) 100%
+  );
+}
+
+#mpris.playing {
+  background: linear-gradient(
+    180deg,
+    rgb(0, 209, 209) 0%,
+    rgb(0, 60, 164) 100%
+  );
+}
+
+#mpris.paused.kdeconnect {
+  opacity: 0;
+}

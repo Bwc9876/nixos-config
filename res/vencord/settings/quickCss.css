@@ -1,0 +1,66 @@
+body {
+    /* zoom: 150% !important; /* I like big UI :) */
+}
+  
+:root {
+  /* amount of spacing and padding */
+  --spacing: 12px;
+  /* radius of round corners */
+  --roundness: 16px;
+
+  --hue-main: 130;
+  --saturation: 70%;
+
+  /* font, change to 'gg sans' for default discord font*/
+  --font: "gg sans";
+
+  /* color of green online dot, change to #23a55a for default green */
+  --online-indicator: var(--accent-2);
+
+  /* color of links */
+  --accent-1: hsl(var(--hue-main), var(--saturation), 60%);
+  /* color of unread dividers and some indicators */
+  --accent-2: hsl(var(--hue-main), var(--saturation), 48%);
+  /* color of accented buttons */
+  --accent-3: hsl(var(--hue-main), var(--saturation), 42%);
+  /* color of accented buttons when hovered */
+  --accent-4: hsl(var(--hue-main), var(--saturation), 36%);
+  /* color of accented buttons when clicked */
+  --accent-5: hsl(var(--hue-main), var(--saturation), 30%);
+
+  /* color of mentions and messages that mention you */
+  --mention: hsla(var(--hue-main), var(--saturation), 52%, 0.1);
+  /* color of mentions and messages that mention you when hovered */
+  --mention-hover: hsla(var(--hue-main), var(--saturation), 52%, 0.05);
+
+  /* color of bright text on colored buttons */
+  --text-1: hsl(220, 40%, 90%);
+  /* color of headings and important text */
+  --text-2: hsl(220, 25%, 70%);
+  /* color of normal text */
+  --text-3: hsl(220, 15%, 60%);
+  /* color of icon buttons and channels */
+  --text-4: hsl(220, 15%, 40%);
+  /* color of muted channels/chats and timestamps */
+  --text-5: hsl(220, 15%, 25%);
+
+  /* color of dark buttons when clicked */
+  --bg-1: hsl(220, 15%, 20%);
+  /* color of dark buttons */
+  --bg-2: hsl(220, 15%, 16%);
+  /* color of spacing around panels and secondary elements */
+  --bg-3: hsl(220, 15%, 13%);
+  /* main background color */
+  --bg-4: hsl(220, 15%, 10%);
+
+  /* color of channels and icon buttons when hovered */
+  --hover: hsla(230, 20%, 40%, 0.1);
+  /* color of channels and icon buttons when clicked or selected */
+  --active: hsla(220, 20%, 40%, 0.2);
+  /* color of messages when hovered */
+  --message-hover: hsla(220, 0%, 0%, 0.1);
+
+  /* top left icon */
+  --moon-icon: none; /* change to 'none' to hide moon icon */
+  --discord-icon: block; /* change to 'block' to show default discord icon */
+}
