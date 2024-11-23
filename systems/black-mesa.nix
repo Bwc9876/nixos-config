@@ -9,7 +9,7 @@
 
     includeBaseMods = true;
 
-    roles = ["latest-linux" "dev" "secureboot" "mc-server"];
+    roles = ["latest-linux" "ssh" "dev" "secureboot" "mc-server"];
 
     extraModules = [
       ({modulesPath}: {
