@@ -2,7 +2,6 @@
   gtk3,
   runCommand,
   fetchFromGitHub,
-  inputs,
 }: let
   src = fetchFromGitHub {
     owner = "EliverLara";
@@ -16,8 +15,8 @@
     rev = "6f6eb3d7dbdb4fb9aab31ec5aebeb7155225f0ab"; # master: https://github.com/EliverLara/candy-icons/commits/master/
     hash = "sha256-VOUFs45n+5zQqk3pPsiQeL6aCWEUUje90PGt2ni7Bgg=";
   };
-  cursor-src = "${inputs.self}/res/cursors/Sweet-cursors.tar.xz";
-  hypr-cursor-src = "${inputs.self}/res/cursors/Sweet-cursors-hypr.tar.xz";
+  cursor-src = ../res/cursors/Sweet-cursors.tar.xz;
+  hypr-cursor-src = ../res/cursors/Sweet-cursors-hypr.tar.xz;
 in
   runCommand "sweet-ambar-blue" {} ''
 

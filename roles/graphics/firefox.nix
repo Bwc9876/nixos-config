@@ -98,7 +98,7 @@
 
       Extensions.Install = map (x: "https://addons.mozilla.org/firefox/downloads/latest/${x}/latest.xpi") [
         # Appearance
-        "nicothin-space"
+        "catppuccin-mocha-green"
         "darkreader"
         "material-icons-for-github"
         "refined-github-"

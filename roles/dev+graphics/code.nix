@@ -8,8 +8,18 @@
 
     extensions = with pkgs.vscode-extensions; [
       # Theme
-      zhuangtongfa.material-theme
-      pkief.material-icon-theme
+      (pkgs.catppuccin-vsc.override {
+        accent = "green";
+        boldKeywords = true;
+        italicComments = true;
+        italicKeywords = true;
+        extraBordersEnabled = false;
+        workbenchMode = "default";
+        bracketMode = "rainbow";
+        colorOverrides = {};
+        customUIColors = {};
+      })
+      catppuccin.catppuccin-vsc-icons
 
       # Nix
       bbenoist.nix
@@ -86,10 +96,10 @@
       "editor.minimap.enabled" = false;
       "editor.fontSize" = 16;
       "terminal.integrated.fontSize" = 16;
-      "workbench.colorTheme" = "One Dark Pro Darker";
+      "workbench.colorTheme" = "Catppuccin Mocha";
+      "workbench.iconTheme" = "catppuccin-mocha";
       "workbench.startupEditor" = "none";
       "workbench.welcomePage.walkthroughs.openOnInstall" = false;
-      "workbench.iconTheme" = "material-icon-theme";
       "terminal.integrated.fontFamily" = "monospace";
       "terminal.integrated.smoothScrolling" = true;
       "explorer.compactFolders" = false;

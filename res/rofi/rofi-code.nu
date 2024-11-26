@@ -1,10 +1,10 @@
 #!/usr/bin/env nu
 
-let paths = ls ~/.config/Code/User/workspaceStorage/*/workspace.json 
+let paths = ls ~/.config/VSCodium/User/workspaceStorage/*/workspace.json 
                     | get name 
                     | each {|it| open $it | get folder | str substring 7..};
 
-let paths_display = $paths | each {|it| $it | str replace $"/home/($env.USER)" "󰋜" | str replace "󰋜/Documents/GitHub" "󰊤"};
+let paths_display = $paths | each {|it| $it | str replace $"/home/($env.USER)" "󰋜 " | str replace "󰋜/Documents/GitHub" "󰊤 "};
 
 let res = $paths_display | str join "\n" | rofi -dmenu -i -p "VSCode" | complete;
 

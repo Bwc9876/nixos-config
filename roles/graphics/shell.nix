@@ -8,6 +8,7 @@
   environment.systemPackages = with pkgs; [
     # Shell Components
     hyprlock
+    hypridle
     swaynotificationcenter
     swayosd
 
@@ -60,21 +61,12 @@
 
   home-manager.users.bean = {
     xdg.configFile = {
-      waybar.source = "${inputs.self}/res/waybar";
-      swaync.source = "${inputs.self}/res/swaync";
       dolphinrc.source = "${inputs.self}/res/theming/dolphinrc";
       "swayosd/style.css".source = "${inputs.self}/res/swayosd.css";
 
       "kdeconnect/config".text = ''
         [General]
         name=${lib.toUpper config.networking.hostName}
-      '';
-
-      "hypr/hyprpaper.conf".text = ''
-        ipc = off
-        splash = off
-        preload = "${inputs.self}/res/pictures/background.jpg"
-        wallpaper = ,"${inputs.self}/res/pictures/background.jpg"
       '';
     };
 
@@ -93,14 +85,12 @@
           ];
         };
         location = "center";
-        theme = "${inputs.self}/res/rofi/rofi-style.rasi";
       };
     };
 
     wayland.windowManager.hyprland.settings = {
       exec-once = [
-        "${pkgs.hyprpaper}/bin/hyprpaper"
-        "${pkgs.hypridle}/bin/hypridle"
+        "hypridle"
         "dolphin --daemon"
         "waybar"
         "wl-paste --watch bash ${inputs.self}/res/clipboard_middleman.sh"
@@ -125,10 +115,10 @@
         "SUPER,I,exec,${pkgs.rofi-pulse-select}/bin/rofi-pulse-select source"
         "SUPER,O,exec,${pkgs.rofi-pulse-select}/bin/rofi-pulse-select sink"
         "SUPER,B,exec,${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"
-        "SUPER,D,exec,nu ${inputs.self}/res/rofi/rofi-code.nu"
+        "SUPER,D,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-code.nu"
         "SUPER,Tab,exec,rofi -show window -show-icons"
-        "SUPER,E,exec,nu ${inputs.self}/res/rofi/rofi-places.nu"
-        "SUPER SHIFT,T,exec,nu ${inputs.self}/res/rofi/rofi-zoxide.nu"
+        "SUPER,E,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-places.nu"
+        "SUPER SHIFT,T,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-zoxide.nu"
         "SUPER,N,exec,${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
         "SUPER,A,exec,pavucontrol --tab 5"
         "SUPER,V,exec,cliphist list | sed -r \"s|binary data image/(.*)|󰋩 Image (\\1)|g\" | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy"

@@ -52,6 +52,7 @@ lib: rec {
           specialArgs.inputs.nix-index-db.nixosModules.nix-index
           {
             networking.hostName = name;
+            environment.variables."HOSTNAME" = name;
             environment.etc."flake-src".source = specialArgs.inputs.self;
             home-manager.extraSpecialArgs = specialArgs;
             home-manager.useGlobalPkgs = true;

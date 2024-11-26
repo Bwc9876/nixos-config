@@ -6,6 +6,7 @@
   users.users.bean.shell = pkgs.nushell;
   programs.fish.enable = true;
   documentation.man.generateCaches = false;
+  programs.ssh.startAgent = true;
   environment = {
     shells = with pkgs; [nushell fish];
     variables.EDITOR = "nvim";
@@ -21,11 +22,6 @@
       nix-output-monitor
       man-pages
     ];
-  };
-
-  programs.starship = {
-    enable = true;
-    settings = fromTOML (lib.fileContents ../res/starship.toml);
   };
 
   programs.git.enable = true;
@@ -44,14 +40,7 @@
       ripgrep.enable = true;
       bat = {
         enable = true;
-        config = {
-          theme = "OneHalfDark";
-        };
         extraPackages = with pkgs.bat-extras; [prettybat batman batgrep batwatch];
-      };
-      starship = {
-        enable = true;
-        settings = fromTOML (lib.fileContents ../res/starship.toml);
       };
       neovim = {
         enable = true;

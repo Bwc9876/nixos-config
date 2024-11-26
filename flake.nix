@@ -18,6 +18,8 @@
     wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    catppuccin.url = "github:catppuccin/nix";
+    catppuccin-vsc.url = "github:catppuccin/vscode";
   };
 
   outputs = inputs @ {
@@ -31,6 +33,8 @@
     gh-grader-preview,
     wayland-mpris-idle-inhibit,
     rust-overlay,
+    catppuccin,
+    catppuccin-vsc,
   }: let
     lib = (import ./lib.nix) nixpkgs.lib;
     pkgsForWithOverlays = system: overlays:
@@ -42,6 +46,7 @@
             ow-mod-man.overlays.default
             rust-overlay.overlays.default
             nix-index-db.overlays.nix-index
+            catppuccin-vsc.overlays.default
           ]
           ++ overlays;
       };

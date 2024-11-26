@@ -4,6 +4,8 @@
   inputs,
   ...
 }: {
+  time.timeZone = "America/New_York";
+
   users.users.bean = {
     isNormalUser = true;
     description = "Benjamin Crocker";

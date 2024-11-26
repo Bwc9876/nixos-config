@@ -142,7 +142,7 @@ def main [] {
         error-exit $err.msg;
     }
 
-    if ($raw | str starts-with "Unknown location;") {
+    if ((($raw | describe) == "string") and ($raw | str starts-with "Unknown location;")) {
         error-exit $raw;
     }
 

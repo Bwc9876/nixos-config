@@ -9,15 +9,10 @@
     style = "kvantum";
   };
 
-  environment.pathsToLink = [
-    "/share/Kvantum"
-    "/share/icons"
-  ]; # Kvantum needs linking
-
   home-manager.users.bean = {
     qt = {
       enable = true;
-      platformTheme.name = "qtct";
+      platformTheme.name = "kvantum";
       style.name = "kvantum";
     };
 
@@ -27,14 +22,19 @@
       "qt6ct/qt6ct.conf".source = "${inputs.self}/res/theming/qt6ct.conf";
       "gtk-3.0/settings.ini".source = "${inputs.self}/res/theming/gtk/settings.ini";
       "gtk-4.0/settings.ini".source = "${inputs.self}/res/theming/gtk/settings.ini";
-      "Kvantum/kvantum.kvconfig".text = ''
-        [General]
-        theme=Sweet-Ambar-Blue
-      '';
+    };
+
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        ipc = "on";
+        splash = false;
+        preload = ["${inputs.self}/res/pictures/background.jpg"];
+        wallpaper = [",${inputs.self}/res/pictures/background.jpg"];
+      };
     };
 
     wayland.windowManager.hyprland.settings = {
-      systemd.variables = ["--all"];
       env = let
         cursorSize = "24";
       in [
@@ -45,6 +45,7 @@
         "XCURSOR_THEME,Sweet-cursors"
         "XCURSOR_SIZE,${cursorSize}"
         "GRIMBLAST_EDITOR,swappy -f "
+        "TERMINAL,foot"
       ];
       exec-once = [
         ''dconf write /org/gnome/desktop/interface/cursor-theme "Sweet-cursors"''
@@ -72,7 +73,7 @@
     kdePackages.qt6ct
     libsForQt5.qtstyleplugin-kvantum
     kdePackages.qtstyleplugin-kvantum
-    (callPackage "${inputs.self}/pkgs/themes.nix" {inherit inputs;}) # Custom themes
+    (callPackage "${inputs.self}/pkgs/theming.nix" {})
     adwaita-icon-theme # For fallback icons
   ];
 }
