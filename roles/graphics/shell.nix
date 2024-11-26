@@ -31,6 +31,7 @@
     xdg-utils
     grimblast
     swappy
+    libnotify
 
     keepassxc
 
@@ -62,7 +63,27 @@
   home-manager.users.bean = {
     xdg.configFile = {
       dolphinrc.source = "${inputs.self}/res/theming/dolphinrc";
-      "swayosd/style.css".source = "${inputs.self}/res/swayosd.css";
+      "swappy/config".text = ''
+        [Default]
+        save_dir=$HOME/Pictures/Screenshots
+        save_filename_format=%Y-%m-%dT%H:%M:%S-edited.png
+        show_panel=true
+        line_size=5
+        text_size=20
+        text_font=monospace
+        paint_mode=brush
+        early_exit=false
+        fill_shape=false
+      '';
+      "swayosd/style.css".text = ''
+        window#osd {
+          border-radius: 5rem;
+        }
+
+        #container {
+          padding: 5px 10px;
+        }
+      '';
 
       "kdeconnect/config".text = ''
         [General]
