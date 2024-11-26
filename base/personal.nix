@@ -9,7 +9,6 @@
   users.users.bean = {
     isNormalUser = true;
     description = "Benjamin Crocker";
-    password = "asdf"; # TODO: TESTING: DELETE
     autoSubUidGidRange = true;
     extraGroups = ["libvirtd" "networkmanager" "wheel" "video" "lpadmin" "wireshark"]; # TODO: Break up groups across files?
   };
