@@ -443,7 +443,7 @@ in {
           format = "{icon} {temperatureC} °C";
           format-critical = "{icon}! {temperatureC} °C";
           format-icons = ["󱃃" "󰔏" "󱃂"];
-          thermal-zone = 10;
+          thermal-zone = 1;
         };
         "wlr/taskbar" = {
           format = "{icon}";

@@ -13,28 +13,43 @@
     programs.hyprlock = {
       enable = true;
 
-      settings = {
+      settings = let
+        mauve = "rgb(cba6f7)";
+        crust = "rgb(11111b)";
+        mantle = "rgb(181825)";
+        text = "rgb(cdd6f4)";
+        sapphire = "rgb(74c7ec)";
+        peach = "rgb(fab387)";
+        red = "rgb(f38ba8)";
+        base = "rgb(1e1e2e)";
+        surface0 = "rgb(313244)";
+      in {
         general.grace = 5;
         background = {
           monitor = "";
           path = "${inputs.self}/res/pictures/background.png";
           blur_passes = 1;
         };
+        shape = {
+          monitor = "";
+          color = crust;
+          position = "0, 30";
+          rounding = 10;
+          border_size = 2;
+          border_color = mauve;
+          size = "500, 500";
+        };
         image = {
           monitor = "";
           path = "${inputs.self}/res/pictures/cow.png";
           size = 150;
           rounding = -1;
-          border_size = 2;
-          border_color = "rgb(109, 237, 153)";
+          border_size = 4;
+          border_color = mauve;
           rotate = 0;
           position = "0, 120";
           halign = "center";
           valign = "center";
-
-          shadow_passes = 1;
-          shadow_size = 5;
-          shadow_boost = 1.6;
         };
         "input-field" = {
           monitor = "";
@@ -44,16 +59,16 @@
           dots_spacing = 0.15; # Scale of dots' absolute size, 0.0 - 1.0
           dots_center = false;
           dots_rounding = -1; # -1 default circle, -2 follow input-field rounding
-          outer_color = "rgb(150, 150, 150)";
-          inner_color = "rgb(16, 16, 19)";
-          font_color = "rgb(255, 255, 255)";
+          outer_color = surface0;
+          inner_color = base;
+          font_color = text;
           fade_on_empty = false;
           fade_timeout = 1000; # Milliseconds before fade_on_empty is triggered.
-          placeholder_text = ''<span foreground="##dddddd" style="italic">Password</span>'';
+          placeholder_text = ''<span foreground="##cdd6f4" style="italic">Password</span>'';
           hide_input = false;
           rounding = -1; # -1 means complete rounding (circle/oval)
-          check_color = "rgb(15, 219, 255)";
-          fail_color = "rgb(237, 37, 78)"; # if authentication failed, changes outer_color and fail message color
+          check_color = peach;
+          fail_color = red; # if authentication failed, changes outer_color and fail message color
           fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
           fail_transition = 300; # transition time in ms between normal outer_color and fail_color
           capslock_color = -1;
@@ -70,7 +85,7 @@
           {
             monitor = "";
             text = "$DESC";
-            color = "rgba(255, 255, 255, 1.0)";
+            color = text;
             font_size = 25;
             font_family = "sans-serif";
             rotate = 0; # degrees, counter-clockwise
@@ -80,13 +95,12 @@
             valign = "center";
 
             shadow_passes = 1;
-            shadow_size = 5;
-            shadow_boost = 1.6;
+            shadow_size = 2;
           }
           {
             monitor = "";
-            text = ''cmd[update:30000] echo "$(date +"%A, %B %-d | %I:%M %p") | $(${pkgs.nushell}/bin/nu ${inputs.self}/res/bat_display.nu)"'';
-            color = "rgba(255, 255, 255, 1.0)";
+            text = ''cmd[update:30000] echo "  $(date +"%A, %B %-d | %I:%M %p") | $(${pkgs.nushell}/bin/nu ${inputs.self}/res/bat_display.nu)  "'';
+            color = text;
             font_size = 20;
             font_family = "sans-serif";
             rotate = 0; # degrees, counter-clockwise
@@ -96,8 +110,7 @@
             valign = "top";
 
             shadow_passes = 1;
-            shadow_size = 5;
-            shadow_boost = 1.6;
+            shadow_size = 2;
           }
         ];
       };
