@@ -70,7 +70,6 @@ in {
         wrap-scroll yes
         text-width 90
 
-        color info black green bold
         color listnormal color8 default
         color listnormal_unread default default
         color listfocus black green

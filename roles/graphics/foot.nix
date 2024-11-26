@@ -1,4 +1,8 @@
-{...}: {
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    libsixel
+  ];
+
   programs.foot = {
     enable = true;
     settings = {

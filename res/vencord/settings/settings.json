@@ -4,7 +4,7 @@
   "autoUpdateNotification": false,
   "useQuickCss": true,
   "themeLinks": [
-    "https://raw.githubusercontent.com/refact0r/midnight-discord/master/midnight.css"
+    "https://catppuccin.github.io/discord/dist/catppuccin-mocha-green.theme.css"
   ],
   "enabledThemes": [],
   "enableReactDevtools": false,

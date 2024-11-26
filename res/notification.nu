@@ -28,7 +28,8 @@ let name = $env.SWAYNC_APP_NAME? | default "" | str downcase
 # $log | append $name | str join "\n" | save -f $LOG_FILE
 
 def main [sounds_path: string] {
-    if ($name not-in $SILENCED_APP_NAMES) {
+    let dnd = swaync-client -D | from json;
+    if (not $dnd) and ($name not-in $SILENCED_APP_NAMES) {
         let sound = $APP_SOUNDS | get -i $name | default $APP_SOUNDS.DEFAULT;
         aplay $"($sounds_path)/($sound).wav"
     }
