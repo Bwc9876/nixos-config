@@ -207,7 +207,7 @@ pub fn add_system_dialog(flake_root: &Path) -> Result {
 
     let file = sys.generate_file();
 
-    let edited_file = Editor::new("Review the new system file with (e), confirm with (enter)").with_predefined_text(&file).with_file_extension("nix").prompt().context("Failed to get edits")?;
+    let edited_file = Editor::new("Review the new system file with (e), confirm with (enter)").with_predefined_text(&file).with_file_extension(".nix").prompt().context("Failed to get edits")?;
 
     let path = flake_root.join("systems").join(format!("{}.nix", sys.name));
 

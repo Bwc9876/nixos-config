@@ -29,7 +29,15 @@ in {
         general = {
           border_size = 2;
           resize_on_border = true;
-          "col.active_border" = "rgb(ff0000) rgb(ff9a00) rgb(d0de21) rgb(4fdc4a) rgb(3fdad8) rgb(2fc9e2) rgb(1c7fee) rgb(5f15f2) rgb(ba0cf8) rgb(fb07d9) 45deg";
+          "col.active_border" = let
+            red = "rgb(f38ba8)";
+            peach = "rgb(fab387)";
+            yellow = "rgb(f9e2af)";
+            green = "rgb(a6e3a1)";
+            sapphire = "rgb(74c7ec)";
+            lavender = "rgb(b4befe)";
+            mauve = "rgb(cba6f7)";
+          in "${red} ${peach} ${yellow} ${green} ${sapphire} ${lavender} ${mauve} 225deg";
         };
         decoration = {
           rounding = 10;

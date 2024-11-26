@@ -29,8 +29,8 @@
       settings = {
         ipc = "on";
         splash = false;
-        preload = ["${inputs.self}/res/pictures/background.jpg"];
-        wallpaper = [",${inputs.self}/res/pictures/background.jpg"];
+        preload = ["${inputs.self}/res/pictures/background.png"];
+        wallpaper = [",${inputs.self}/res/pictures/background.png"];
       };
     };
 

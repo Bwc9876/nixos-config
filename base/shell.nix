@@ -45,6 +45,7 @@
       neovim = {
         enable = true;
         defaultEditor = true;
+        catppuccin.enable = false;
         plugins = with pkgs; [
           vimPlugins.transparent-nvim
         ];

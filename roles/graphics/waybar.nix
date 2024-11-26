@@ -18,7 +18,7 @@ in {
       }
 
       window#waybar {
-        background: rgba(252, 116, 150, 0);
+        background: rgba(49, 50, 68, 0.65);
         color: @text;
       }
 
@@ -58,10 +58,12 @@ in {
       #waybar .modules-left,
       #waybar .modules-right {
         margin-top: 10px;
+        margin-bottom: 5px;
       }
 
       #waybar .modules-center {
-        margin-bottom: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
       }
 
       #battery.warning {
@@ -80,20 +82,22 @@ in {
       #workspaces {
         padding: 10px;
         border-radius: 5rem;
-        background: @mantle;
-      }
-
-      #workspaces {
-        margin-bottom: 15px;
+        border: none;
+        background: none;
       }
 
       #taskbar button,
       #workspaces button {
         color: @text;
         border-radius: 5rem;
-        padding: 10px 15px;
+        padding: 5px 15px;
         margin: 0 5px;
         background: @crust;
+        border: 2px solid @base;
+      }
+
+      #taskbar button:hover, #workspaces button:hover {
+        background: @mantle;
       }
 
       #workspaces button {
@@ -103,9 +107,8 @@ in {
       #cpu,
       #memory,
       #temperature {
-          font-size: 1.5rem;
-          padding: 5px 25px;
-          margin-bottom: 25px;
+        font-size: 1.5rem;
+        padding: 10px 25px;
       }
 
       #cpu.warning,
