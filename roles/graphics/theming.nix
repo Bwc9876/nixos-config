@@ -56,7 +56,7 @@
   };
 
   fonts = {
-    packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];}) noto-fonts noto-fonts-color-emoji liberation_ttf];
+    packages = with pkgs; [nerd-fonts.fira-code nerd-fonts.fira-mono noto-fonts noto-fonts-color-emoji liberation_ttf];
     fontconfig = {
       enable = true;
       defaultFonts = rec {

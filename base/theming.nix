@@ -18,4 +18,12 @@ in {
 
     inherit catppuccin;
   };
+
+  home-manager.users.root = {
+    imports = [
+      inputs.catppuccin.homeManagerModules.catppuccin
+    ];
+
+    inherit catppuccin;
+  };
 }

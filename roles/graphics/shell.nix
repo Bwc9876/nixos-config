@@ -60,6 +60,8 @@
     })
   ];
 
+  services.udisks2.enable = true;
+
   home-manager.users.bean = {
     xdg.configFile = {
       dolphinrc.source = "${inputs.self}/res/theming/dolphinrc";

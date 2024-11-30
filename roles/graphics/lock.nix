@@ -30,15 +30,31 @@
           path = "${inputs.self}/res/pictures/background.png";
           blur_passes = 1;
         };
-        shape = {
-          monitor = "";
-          color = crust;
-          position = "0, 30";
-          rounding = 10;
-          border_size = 2;
-          border_color = mauve;
-          size = "500, 500";
-        };
+        shape = [
+          {
+            monitor = "";
+            color = crust;
+            position = "0, 30";
+            rounding = 10;
+            border_size = 2;
+            border_color = mauve;
+            size = "500, 500";
+            shadow_passes = 1;
+            shadow_size = 2;
+          }
+          {
+            monitor = "";
+            color = crust;
+            position = "0, -35";
+            rounding = 10;
+            border_size = 2;
+            border_color = mauve;
+            size = "580, 50";
+            valign = "top";
+            shadow_passes = 1;
+            shadow_size = 2;
+          }
+        ];
         image = {
           monitor = "";
           path = "${inputs.self}/res/pictures/cow.png";
@@ -93,9 +109,6 @@
             position = "0, 0";
             halign = "center";
             valign = "center";
-
-            shadow_passes = 1;
-            shadow_size = 2;
           }
           {
             monitor = "";
@@ -108,9 +121,6 @@
             position = "0, -40";
             halign = "center";
             valign = "top";
-
-            shadow_passes = 1;
-            shadow_size = 2;
           }
         ];
       };

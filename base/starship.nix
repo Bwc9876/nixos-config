@@ -127,4 +127,9 @@ in {
     enable = true;
     inherit settings;
   };
+
+  home-manager.users.root.programs.starship = {
+    enable = true;
+    inherit settings;
+  };
 }

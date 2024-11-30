@@ -41,4 +41,4 @@ garbage-collect:
 [private]
 alias iso := generate-iso
 generate-iso:
-    nom build .#nixosConfigurations.iso.config.system.build.isoImage
+    nom build .#nixosConfigurations.installer.config.system.build.isoImage
