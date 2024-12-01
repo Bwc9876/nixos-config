@@ -50,6 +50,11 @@
     "UCJXa3_WNNmIpewOtCHf3B0g" # LaurieWired
   ];
 in {
+  environment.systemPackages = with pkgs; [
+    w3m
+    rdrview
+  ];
+
   home-manager.users.bean = {
     xdg.dataFile."applications/newsboat.desktop".text = ''
       [Desktop Entry]

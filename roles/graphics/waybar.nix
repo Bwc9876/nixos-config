@@ -156,6 +156,7 @@ in {
 
       #privacy {
         background: none;
+        border: none;
         margin: 0;
         padding: 0;
       }
@@ -165,7 +166,8 @@ in {
         border-radius: 5rem;
         padding: 5px 15px;
         margin: 5px 2px;
-        border-color: @red;
+        border: 2px solid @red;
+        background-color: @crust;
       }
 
       #custom-weather.VeryCloudy,
