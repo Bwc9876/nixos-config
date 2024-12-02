@@ -53,8 +53,6 @@
           modesetting.enable = true;
           powerManagement.finegrained = false;
         };
-
-        services.xserver.videoDrivers = ["nvidia"];
       })
     ];
   };
