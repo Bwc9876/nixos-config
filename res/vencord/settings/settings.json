@@ -536,7 +536,7 @@
       "enabled": false
     },
     "NoOnboardingDelay": {
-      "enabled": false
+      "enabled": true
     },
     "NoServerEmojis": {
       "enabled": false,
@@ -558,7 +558,7 @@
       "enabled": false
     },
     "ReviewDB": {
-      "enabled": true
+      "enabled": false
     },
     "Summaries": {
       "enabled": false,
@@ -589,7 +589,7 @@
       "enabled": false
     },
     "WebScreenShareFixes": {
-      "enabled": false
+      "enabled": true
     },
     "XSOverlay": {
       "enabled": false
