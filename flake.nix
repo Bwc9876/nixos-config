@@ -20,6 +20,7 @@
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
     catppuccin.url = "github:catppuccin/nix";
     catppuccin-vsc.url = "github:catppuccin/vscode";
+    catppuccin-vsc.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {
