@@ -128,6 +128,7 @@
         # Misc
         "plasma-integration" # integration with MPRIS & KDE Connect
         "keepassxc-browser" # integration with KeepassXC
+        "meowad" # Replace ads on Twitter with :3
       ];
 
       ExtensionSettings."*" = {

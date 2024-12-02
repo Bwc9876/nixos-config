@@ -22,6 +22,7 @@
       just
       nix-output-monitor
       man-pages
+      htop
     ];
   };
 
