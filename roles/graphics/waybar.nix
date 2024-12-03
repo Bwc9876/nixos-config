@@ -14,7 +14,7 @@ in {
       @import "${catppuccinCss}";
 
       * {
-        font-family: Noto Sans, FiraCode Nerd Font Mono;
+        font-family: sans-serif;
       }
 
       window#waybar {
@@ -30,17 +30,6 @@ in {
         border-radius: 5rem;
         padding: 5px 15px;
         margin: 5px 2px;
-      }
-
-      #idle_inhibitor,
-      #custom-notification,
-      #pulseaudio.muted,
-      #custom-power-menu,
-      #custom-kde-connect.disconnected,
-      #bluetooth.disconnected,
-      #bluetooth.off,
-      #bluetooth.disabled {
-        font-size: 30px;
       }
 
       #bluetooth.disabled {

@@ -20,7 +20,7 @@
     mimeApps = {
       enable = true;
       defaultApplications = let
-        textEditors = ["codium.desktop"];
+        textEditors = ["code.desktop"];
         browsers = ["firefox-devedition.desktop" "firefox.desktop" "chromium.desktop"];
         imageViewers = ["gimp.desktop"];
       in {

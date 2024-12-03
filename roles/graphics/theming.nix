@@ -55,19 +55,6 @@
     };
   };
 
-  fonts = {
-    packages = with pkgs; [nerd-fonts.fira-code nerd-fonts.fira-mono noto-fonts noto-fonts-color-emoji liberation_ttf];
-    fontconfig = {
-      enable = true;
-      defaultFonts = rec {
-        serif = ["Noto Sans" "FiraCode Nerd Font" "Noto Color Emoji"];
-        sansSerif = serif;
-        monospace = ["FiraCode Nerd Font Mono" "Noto Color Emoji"];
-        emoji = ["FiraCode Nerd Font" "Noto Color Emoji"];
-      };
-    };
-  };
-
   environment.systemPackages = with pkgs; [
     libsForQt5.qt5ct
     kdePackages.qt6ct

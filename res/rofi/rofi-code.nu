@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-let paths = ls ~/.config/VSCodium/User/workspaceStorage/*/workspace.json 
+let paths = ls ~/.config/Code/User/workspaceStorage/*/workspace.json 
                     | get name 
                     | each {|it| open $it | get folder | str substring 7..};
 
@@ -15,6 +15,6 @@ if $res.exit_code == 1 {
     let idx = $paths_display | enumerate | where {|it| $it.item == $choice} | first | get index;
     let path = $paths | get $idx;
     echo $"Opening ($path)"
-    codium $path
+    code $path
 }
 

@@ -45,11 +45,11 @@
           {
             monitor = "";
             color = crust;
-            position = "0, -35";
+            position = "0, -30";
             rounding = 10;
             border_size = 2;
             border_color = mauve;
-            size = "580, 50";
+            size = "600, 50";
             valign = "top";
             shadow_passes = 1;
             shadow_size = 2;

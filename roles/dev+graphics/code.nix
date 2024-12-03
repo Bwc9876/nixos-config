@@ -1,145 +1,155 @@
 {pkgs, ...}: {
-  home-manager.users.bean.programs.vscode = {
-    enable = true;
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
-    mutableExtensionsDir = false;
-    package = pkgs.vscodium;
+  # Because vsc is annoying with not following fallbacks
+  fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
-    extensions = with pkgs.vscode-extensions; [
-      # Theme
-      (pkgs.catppuccin-vsc.override {
-        accent = "green";
-        boldKeywords = true;
-        italicComments = true;
-        italicKeywords = true;
-        extraBordersEnabled = false;
-        workbenchMode = "default";
-        bracketMode = "rainbow";
-        colorOverrides = {};
-        customUIColors = {};
-      })
-      catppuccin.catppuccin-vsc-icons
+  home-manager.users.bean = {
+    home.file.".vscode/argv.json".text = builtins.toJSON {
+      "enable-crash-reporter" = false;
+      "crash-reporter-id" = "";
+      "password-store" = "gnome-libsecret";
+    };
 
-      # Nix
-      bbenoist.nix
-      kamadorueda.alejandra
+    programs.vscode = {
+      enable = true;
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
+      mutableExtensionsDir = false;
 
-      # Markdown
-      yzhang.markdown-all-in-one
-      bierner.markdown-mermaid
-      davidanson.vscode-markdownlint
+      extensions = with pkgs.vscode-extensions; [
+        # Theme
+        (pkgs.catppuccin-vsc.override {
+          accent = "green";
+          boldKeywords = true;
+          italicComments = true;
+          italicKeywords = true;
+          extraBordersEnabled = false;
+          workbenchMode = "default";
+          bracketMode = "rainbow";
+          colorOverrides = {};
+          customUIColors = {};
+        })
+        catppuccin.catppuccin-vsc-icons
 
-      # Rust
-      rust-lang.rust-analyzer
-      tamasfe.even-better-toml
+        # Nix
+        bbenoist.nix
+        kamadorueda.alejandra
 
-      # C / C++
-      ms-vscode.cpptools
-      twxs.cmake
+        # Markdown
+        yzhang.markdown-all-in-one
+        bierner.markdown-mermaid
+        davidanson.vscode-markdownlint
 
-      # Java
-      redhat.java
+        # Rust
+        rust-lang.rust-analyzer
+        tamasfe.even-better-toml
 
-      # Typescript / Javascript
-      denoland.vscode-deno
-      yoavbls.pretty-ts-errors
-      dbaeumer.vscode-eslint
-      esbenp.prettier-vscode
+        # C / C++
+        ms-vscode.cpptools
+        twxs.cmake
 
-      # Astro
-      astro-build.astro-vscode
-      unifiedjs.vscode-mdx
+        # Java
+        redhat.java
 
-      # Misc. Web
-      bradlc.vscode-tailwindcss
+        # Typescript / Javascript
+        denoland.vscode-deno
+        yoavbls.pretty-ts-errors
+        dbaeumer.vscode-eslint
+        esbenp.prettier-vscode
 
-      # .NET
-      ms-dotnettools.csharp
-      ms-dotnettools.vscode-dotnet-runtime
+        # Astro
+        astro-build.astro-vscode
+        unifiedjs.vscode-mdx
 
-      # Python
-      ms-python.python
-      ms-python.vscode-pylance
-      ms-python.black-formatter
-      wholroyd.jinja
+        # Misc. Web
+        bradlc.vscode-tailwindcss
 
-      # XML
-      redhat.vscode-xml
+        # .NET
+        ms-dotnettools.csharp
+        ms-dotnettools.vscode-dotnet-runtime
 
-      # Spelling / Grammar
-      yzhang.dictionary-completion
-      tekumara.typos-vscode
+        # Python
+        ms-python.python
+        ms-python.vscode-pylance
+        wholroyd.jinja
 
-      # GitHub
-      github.vscode-pull-request-github
-      github.vscode-github-actions
+        # XML
+        redhat.vscode-xml
 
-      # Misc.
-      skellock.just
-      thenuprojectcontributors.vscode-nushell-lang
-      fill-labs.dependi
-      zhwu95.riscv
-      redhat.vscode-yaml
-      ms-vsliveshare.vsliveshare
-      leonardssh.vscord
-    ];
+        # Spelling / Grammar
+        yzhang.dictionary-completion
+        tekumara.typos-vscode
 
-    userSettings = {
-      "window.zoomLevel" = 2;
-      "telemetry.telemetryLevel" = "off";
-      "update.mode" = "manual";
-      "update.showReleaseNotes" = false;
-      "editor.fontFamily" = "monospace";
-      "editor.detectIndentation" = true;
-      "editor.multiCursorModifier" = "ctrlCmd";
-      "editor.minimap.enabled" = false;
-      "editor.fontSize" = 16;
-      "terminal.integrated.fontSize" = 16;
-      "workbench.colorTheme" = "Catppuccin Mocha";
-      "workbench.iconTheme" = "catppuccin-mocha";
-      "workbench.startupEditor" = "none";
-      "workbench.welcomePage.walkthroughs.openOnInstall" = false;
-      "terminal.integrated.fontFamily" = "monospace";
-      "terminal.integrated.smoothScrolling" = true;
-      "explorer.compactFolders" = false;
-      "explorer.confirmDelete" = false;
-      "explorer.confirmDragAndDrop" = false;
-      "git.openRepositoryInParentFolders" = "never";
-      "extensions.autoUpdate" = false;
-      "extensions.ignoreRecommendations" = true;
-      "javascript.updateImportsOnFileMove.enabled" = "always";
-      "typescript.updateImportsOnFileMove.enabled" = "always";
-      "githubPullRequests.pullBranch" = "never";
-      "vscord.app.name" = "Visual Studio Code";
-      "vscord.status.idle.disconnectOnIdle" = true;
-      "vscord.behaviour.suppressNotifications" = true;
-      "material-icon-theme.folders.color" = "#546E7B";
-      "redhat.telemetry.enabled" = false;
-      "rust-analyzer.server.path" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
-      "prettier.prettierPath" = "${pkgs.nodePackages.prettier}/lib/node_modules/prettier";
-      "rust-analyzer.cargo.allTargets" = false;
-      "rust-analyzer.hover.actions.references.enable" = true;
-      "dotnetAcquisitionExtension.enableTelemetry" = false;
+        # GitHub
+        github.vscode-pull-request-github
+        github.vscode-github-actions
 
-      "[json][yaml][javascript][typescript][javascriptreact][typescriptreact][css][scss][less][tailwindcss][html][astro]" = {
-        "editor.defaultFormatter" = "esbenp.prettier-vscode";
-      };
+        # Misc.
+        skellock.just
+        thenuprojectcontributors.vscode-nushell-lang
+        fill-labs.dependi
+        zhwu95.riscv
+        redhat.vscode-yaml
+        ms-vsliveshare.vsliveshare
+        leonardssh.vscord
+      ];
 
-      "[python]" = {
-        "editor.defaultFormatter" = "ms-python.black-formatter";
-      };
+      userSettings = {
+        "window.zoomLevel" = 2;
+        "telemetry.telemetryLevel" = "off";
+        "update.mode" = "manual";
+        "update.showReleaseNotes" = false;
+        "editor.fontFamily" = "Monospace, FiraCode Nerd Font Mono";
+        "terminal.integrated.fontFamily" = "Monospace, FiraCode Nerd Font Mono";
+        "editor.fontLigatures" = true;
+        "editor.detectIndentation" = true;
+        "editor.multiCursorModifier" = "ctrlCmd";
+        "editor.minimap.enabled" = false;
+        "editor.fontSize" = 16;
+        "terminal.integrated.fontSize" = 16;
+        "workbench.colorTheme" = "Catppuccin Mocha";
+        "workbench.iconTheme" = "catppuccin-mocha";
+        "workbench.startupEditor" = "none";
+        "workbench.welcomePage.walkthroughs.openOnInstall" = false;
+        "terminal.integrated.smoothScrolling" = true;
+        "explorer.compactFolders" = false;
+        "explorer.confirmDelete" = false;
+        "explorer.confirmDragAndDrop" = false;
+        "git.openRepositoryInParentFolders" = "never";
+        "extensions.autoUpdate" = false;
+        "extensions.ignoreRecommendations" = true;
+        "javascript.updateImportsOnFileMove.enabled" = "always";
+        "typescript.updateImportsOnFileMove.enabled" = "always";
+        "githubPullRequests.pullBranch" = "never";
+        "vscord.app.name" = "Visual Studio Code";
+        "vscord.status.idle.disconnectOnIdle" = true;
+        "vscord.behaviour.suppressNotifications" = true;
+        "material-icon-theme.folders.color" = "#546E7B";
+        "redhat.telemetry.enabled" = false;
+        "rust-analyzer.server.path" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+        "prettier.prettierPath" = "${pkgs.nodePackages.prettier}/lib/node_modules/prettier";
+        "rust-analyzer.cargo.allTargets" = false;
+        "rust-analyzer.hover.actions.references.enable" = true;
+        "dotnetAcquisitionExtension.enableTelemetry" = false;
 
-      "[rust]" = {
-        "editor.defaultFormatter" = "rust-lang.rust-analyzer";
-      };
+        "[json][yaml][javascript][typescript][javascriptreact][typescriptreact][css][scss][less][tailwindcss][html][astro]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
 
-      "[nix]" = {
-        "editor.defaultFormatter" = "kamadorueda.alejandra";
-      };
+        "[python]" = {
+          "editor.defaultFormatter" = "ms-python.black-formatter";
+        };
 
-      "[markdown]" = {
-        "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
+        "[rust]" = {
+          "editor.defaultFormatter" = "rust-lang.rust-analyzer";
+        };
+
+        "[nix]" = {
+          "editor.defaultFormatter" = "kamadorueda.alejandra";
+        };
+
+        "[markdown]" = {
+          "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
+        };
       };
     };
   };
