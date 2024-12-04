@@ -201,6 +201,7 @@
         "Noogle" = mkEngine ["@noogle" "@nixlib"] "https://noogle.dev/q?limit=100&term={searchTerms}" "png";
         "SourceGraph Nix" = mkEngine ["@sgn" "@yoink"] "https://sourcegraph.com/search?q=lang:Nix+-repo:NixOS/*+-repo:nix-community/*+{searchTerms}" "png";
         "Nixpkgs Issues" = mkEngineForceFavicon ["@nixissues"] "https://github.com/NixOS/nixpkgs/issues?q=sort%3Aupdated-desc+is%3Aissue+is%3Aopen+{searchTerms}" "https://github.githubassets.com/favicons/favicon-dark.svg";
+        "NixVim Options" = mkEngineForceFavicon ["@nixvim"] "https://nix-community.github.io/nixvim/search/?option_scope=0&query={searchTerms}" "https://nix-community.github.io/nixvim/search/favicon.ico";
 
         # Media
         "YouTube" = mkEngine ["@yt"] "https://www.youtube.com/results?search_query={searchTerms}" "ico";

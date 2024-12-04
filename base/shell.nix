@@ -43,10 +43,5 @@
       enable = true;
       extraPackages = with pkgs.bat-extras; [prettybat batman batgrep batwatch];
     };
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      catppuccin.enable = false;
-    };
   };
 }

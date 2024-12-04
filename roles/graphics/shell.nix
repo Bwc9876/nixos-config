@@ -138,7 +138,6 @@
         "SUPER,I,exec,${pkgs.rofi-pulse-select}/bin/rofi-pulse-select source"
         "SUPER,O,exec,${pkgs.rofi-pulse-select}/bin/rofi-pulse-select sink"
         "SUPER,B,exec,${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"
-        "SUPER,D,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-code.nu"
         "SUPER,Tab,exec,rofi -show window -show-icons"
         "SUPER,E,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-places.nu"
         "SUPER SHIFT,T,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-zoxide.nu"

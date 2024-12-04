@@ -7,6 +7,7 @@
     hyfetch
     lolcat
     cowsay
+    kittysay
     toilet
     gay
     pipes-rs

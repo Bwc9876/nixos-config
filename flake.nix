@@ -21,6 +21,9 @@
     catppuccin.url = "github:catppuccin/nix";
     catppuccin-vsc.url = "github:catppuccin/vscode";
     catppuccin-vsc.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.inputs.home-manager.follows = "hm";
   };
 
   outputs = inputs @ {
@@ -36,6 +39,7 @@
     rust-overlay,
     catppuccin,
     catppuccin-vsc,
+    nixvim,
   }: let
     lib = (import ./lib.nix) nixpkgs.lib;
     pkgsForWithOverlays = system: overlays:
