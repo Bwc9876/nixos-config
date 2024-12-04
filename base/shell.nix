@@ -23,6 +23,8 @@
       nix-output-monitor
       man-pages
       htop
+      dig
+      doggo
     ];
   };
 

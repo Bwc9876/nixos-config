@@ -11,6 +11,9 @@
   environment.systemPackages = with pkgs; [
     chromium
 
+    # Office
+    libreoffice-qt6
+
     ## Media
     libsForQt5.kdenlive
     obs-studio

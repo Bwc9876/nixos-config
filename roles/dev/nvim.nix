@@ -26,11 +26,24 @@
         settings.flavor = config.catppuccin.flavor;
       };
 
-      performance.byteCompileLua = {
-        enable = true;
-        nvimRuntime = true;
-        plugins = true;
+      performance = {
+        byteCompileLua = {
+          enable = true;
+          nvimRuntime = true;
+          plugins = true;
+        };
+        combinePlugins = {
+          enable = true;
+        };
       };
+
+      keymaps = [
+        {
+          action = "<cmd>Lspsaga code_action code_action<cr>";
+          key = "<C-.>";
+          options.desc = "Open Code Actions";
+        }
+      ];
 
       plugins = {
         telescope = {
@@ -90,6 +103,7 @@
 
         treesitter = {
           enable = true;
+          settings.highlight.enable = true;
         };
 
         illuminate.enable = true;
@@ -171,7 +185,7 @@
         lsp-format.enable = true;
         lsp-status.enable = true;
         lspkind.enable = true;
-        jupytext.enable = true;
+        # jupytext.enable = true;
         hex.enable = true;
 
         lspsaga = {
@@ -185,6 +199,7 @@
             openCmd = "!xdg-open";
             openLink = "<leader>o";
           };
+          codeAction.keys.quit = "<ESC>";
         };
 
         lsp = {

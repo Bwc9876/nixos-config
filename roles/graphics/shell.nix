@@ -149,13 +149,6 @@
         "SUPER SHIFT,S,exec,${screenshot}"
         "SUPER SHIFT,C,exec,${pkgs.hyprpicker}/bin/hyprpicker -a"
       ];
-      bindl = [
-        ",XF86AudioPlay,exec,playerctl play-pause"
-        ",XF86AudioPause,exec,playerctl pause"
-        ",XF86AudioStop,exec,playerctl stop"
-        ",XF86AudioNext,exec,playerctl next"
-        ",XF86AudioPrev,exec,playerctl previous"
-      ];
       bindr = [
         "SUPER SHIFT,R,exec,pkill wf-recorder --signal SIGINT || nu ${inputs.self}/res/screenrec.nu"
         "CAPS,Caps_Lock,exec,swayosd-client --caps-lock"
@@ -165,11 +158,6 @@
       bindel = [
         ",XF86MonBrightnessUp,exec,swayosd-client --brightness raise"
         ",XF86MonBrightnessDown,exec,swayosd-client --brightness lower"
-      ];
-      binde = [
-        ",XF86AudioRaiseVolume,exec,swayosd-client --output-volume raise"
-        ",XF86AudioLowerVolume,exec,swayosd-client --output-volume lower"
-        ",XF86AudioMute,exec,swayosd-client --output-volume mute-toggle"
       ];
     };
   };

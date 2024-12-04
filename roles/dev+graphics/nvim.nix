@@ -12,7 +12,7 @@
         settings = {
           fork = true;
           font = {
-            normal = [];
+            normal = [{family = "monospace";}];
             size = 18.0;
           };
           title-hidden = false;

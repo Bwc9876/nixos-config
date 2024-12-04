@@ -17,6 +17,7 @@ in rec {
       cat = "bat";
       pcat = "prettybat";
       pbat = "prettybat";
+      dog = "doggo";
       man = "__batman";
       bgrep = "batgrep";
       neofetch = "hyfetch";
