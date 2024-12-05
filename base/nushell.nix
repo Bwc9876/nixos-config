@@ -20,8 +20,6 @@ in rec {
       dog = "doggo";
       man = "__batman";
       bgrep = "batgrep";
-      neofetch = "hyfetch";
-      screensaver = "pipes-rs -k curved -p 10 --fps 30";
     };
     configFile.text = ''
       let fish_completer = {|spans|
