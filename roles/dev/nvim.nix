@@ -26,14 +26,50 @@
         settings.flavor = config.catppuccin.flavor;
       };
 
+      autoGroups = {
+        restore_cursor = {};
+      };
+
+      opts = {
+        number = true;
+        smartindent = true;
+        cursorline = true;
+        showtabline = 2;
+        breakindent = true;
+        foldenable = true;
+      };
+
+      autoCmd = [
+        {
+          group = "restore_cursor";
+          event = ["BufReadPost"];
+          pattern = "*";
+          callback = {
+            __raw = ''
+              function()
+                if
+                  vim.fn.line "'\"" > 1
+                  and vim.fn.line "'\"" <= vim.fn.line "$"
+                  and vim.bo.filetype ~= "commit"
+                  and vim.fn.index({ "xxd", "gitrebase" }, vim.bo.filetype) == -1
+                then
+                  vim.cmd "normal! g`\""
+                end
+              end
+            '';
+          };
+        }
+      ];
+
       performance = {
         byteCompileLua = {
           enable = true;
           nvimRuntime = true;
-          plugins = true;
+          plugins = false;
         };
         combinePlugins = {
           enable = true;
+          standalonePlugins = ["telescope-nvim"];
         };
       };
 
@@ -42,6 +78,16 @@
           action = "<cmd>Lspsaga code_action code_action<cr>";
           key = "<C-.>";
           options.desc = "Open Code Actions";
+        }
+        {
+          action = "<cmd>Telescope<cr>";
+          key = "<leader><leader>";
+          options.desc = "Telescope Launch";
+        }
+        {
+          action = "<cmd>Navbuddy<cr>";
+          key = "<leader>j";
+          options.desc = "Jump To...";
         }
       ];
 
@@ -53,38 +99,135 @@
           };
           extensions = {
             file-browser.enable = true;
-            frecency.enable = true;
             ui-select.enable = true;
           };
-          keymaps = {
-            "<leader>ff" = {
+          keymaps = lib.fix (self: {
+            "<leader>p" = {
+              action = "projects";
+              options.desc = "Projects";
+            };
+            "<leader>c" = {
+              action = "commands";
+              options.desc = "Browse Commands";
+            };
+            "<leader>x" = {
+              action = "keymaps";
+              options.desc = "Keymaps";
+            };
+            "<leader>w" = {
+              action = "spell_suggest";
+              options.desc = "Spell Suggest";
+            };
+            "<leader>s" = {
+              action = "treesitter";
+              options.desc = "Treesitter Symbols";
+            };
+            "<leader>b" = {
+              action = "file_browser";
+              options.desc = "File Browser";
+            };
+            "<leader>f" = {
               action = "find_files";
-              options.desc = "Find files with Telescope";
+              options.desc = "Files";
             };
-            "<leader>fr" = {
-              action = "frecency";
-              options.desc = "Open Recently Edited File";
-            };
-            "<leader>fgs" = {
+            "<leader>gs" = {
               action = "git_status";
-              options.desc = "Get Git Status";
+              options.desc = "Git Status";
             };
-            "<leader>fgb" = {
+            "<leader>gb" = {
               action = "git_branches";
-              options.desc = "View Git Branches";
+              options.desc = "Git Branches";
             };
-            "<leader>fgc" = {
+            "<leader>gc" = {
               action = "git_commits";
-              options.desc = "View Git Commits";
+              options.desc = "Git Commits";
             };
+            "<leader>r" = {
+              action = "oldfiles";
+              options.desc = "Recent Files";
+            };
+
+            "<leader>l" = self."<C-S-F>";
             "<C-S-F>" = {
               action = "live_grep";
               options.desc = "Live Grep";
             };
-          };
+          });
         };
 
-        dashboard.enable = true;
+        alpha = {
+          enable = true;
+          opts = {
+            position = "center";
+          };
+          layout = let
+            o = {position = "center";};
+            txt = s: {
+              type = "text";
+              val = s;
+              opts = {hl = "Keyword";} // o;
+            };
+            grp = g: {
+              type = "group";
+              val = g;
+              opts.spacing = 1;
+            };
+            btn = {
+              val,
+              onClick,
+              ...
+            }: {
+              type = "button";
+              inherit val;
+              opts = o;
+              on_press.__raw = "function() vim.cmd[[${onClick}]] end";
+            };
+            cmd = {
+              command,
+              width,
+              height,
+            }: {
+              type = "terminal";
+              inherit command width height;
+              opts = o;
+            };
+            pad = {
+              type = "padding";
+              val = 2;
+            };
+          in
+            [pad pad pad]
+            ++ (lib.intersperse pad [
+              (let
+                banner = pkgs.runCommand "nvim-banner" {} ''${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border > $out'';
+                bannerText = builtins.readFile banner;
+              in
+                cmd {
+                  command = ''mut i = 1; loop { let s = (open ${banner}) | ${pkgs.lolcat}/bin/lolcat -f -S $i; clear; print -n -r $s; sleep 100ms; $i += 3; }'';
+                  width = (builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
+                  height = (builtins.length (lib.splitString "\n" bannerText)) - 1;
+                })
+              (grp [
+                (btn {
+                  val = " 󰉋 Open Project";
+                  onClick = "Telescope projects";
+                  shortcut = "<leader>p";
+                })
+                (btn {
+                  val = " 󱋡 Open Recent File";
+                  onClick = "Telescope oldfiles";
+                  shortcut = "<leader>r";
+                })
+                (btn {
+                  val = " 󰅙 Quit";
+                  onClick = "q";
+                  shortcut = "q";
+                })
+              ])
+              (txt "::<シ>")
+            ])
+            ++ [pad];
+        };
 
         trouble = {
           enable = true;
@@ -103,13 +246,31 @@
 
         treesitter = {
           enable = true;
-          settings.highlight.enable = true;
+          settings = {
+            highlight.enable = true;
+            folding.enable = true;
+          };
         };
 
         illuminate.enable = true;
         cursorline.enable = true;
 
-        neocord.enable = true;
+        navbuddy = {
+          enable = true;
+          lsp.autoAttach = true;
+          mappings = {
+            "<Left>" = "parent";
+            "<Right>" = "children";
+            "<Up>" = "previous_sibling";
+            "<Down>" = "next_sibling";
+            "<C-Left>" = "root";
+          };
+        };
+
+        neocord = {
+          enable = true;
+          settings.logo = "https://raw.githubusercontent.com/IogaMaster/neovim/main/.github/assets/nixvim-dark.webp";
+        };
 
         barbar = {
           enable = true;
@@ -121,6 +282,20 @@
           };
         };
 
+        statuscol = {
+          enable = true;
+        };
+
+        lualine = {
+          enable = true;
+          settings = {
+            extensions = [
+              "trouble"
+              "toggleterm"
+            ];
+          };
+        };
+
         project-nvim = {
           enable = true;
           enableTelescope = true;
@@ -129,7 +304,6 @@
         web-devicons.enable = true;
 
         guess-indent.enable = true;
-        indent-blankline.enable = true;
         intellitab.enable = true;
 
         which-key = {
