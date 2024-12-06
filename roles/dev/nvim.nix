@@ -65,7 +65,7 @@
         byteCompileLua = {
           enable = true;
           nvimRuntime = true;
-          plugins = false;
+          plugins = true;
         };
         combinePlugins = {
           enable = true;
@@ -141,7 +141,7 @@
         }
       ];
 
-      extraPlugins = with pkgs.vimPlugins; [{plugin = tiny-devicons-auto-colors-nvim;} {plugin = nvim-scrollbar;}];
+      extraPlugins = with pkgs.vimPlugins; [{plugin = nvim-scrollview;} {plugin = tiny-devicons-auto-colors-nvim;}];
 
       plugins = {
         telescope = {
@@ -161,10 +161,6 @@
             "<leader>c" = {
               action = "commands";
               options.desc = "Browse Commands";
-            };
-            "<leader>x" = {
-              action = "keymaps";
-              options.desc = "Keymaps";
             };
             "<leader>w" = {
               action = "spell_suggest";
@@ -439,6 +435,7 @@
         };
 
         rustaceanvim.enable = true;
+        vim-css-color.enable = true;
 
         lsp = {
           enable = true;
@@ -450,11 +447,13 @@
             ts_ls.enable = true;
             html.enable = true;
             cssls.enable = true;
+            tailwindcss.enable = true;
             jsonls.enable = true;
             yamlls.enable = true;
             pylsp.enable = true;
             nixd.enable = true;
             csharp_ls.enable = true;
+            bashls.enable = true;
             nushell.enable = true;
             taplo.enable = true;
             #rust_analyzer.enable = true;
