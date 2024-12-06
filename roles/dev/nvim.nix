@@ -76,8 +76,58 @@
       keymaps = [
         {
           action = "<cmd>Lspsaga code_action code_action<cr>";
-          key = "<C-.>";
-          options.desc = "Open Code Actions";
+          key = "<C-.>a";
+          options.desc = "Code Actions";
+        }
+        {
+          action = "<cmd>Lspsaga rename<cr>";
+          key = "<C-.>r";
+          options.desc = "LSP Rename";
+        }
+        {
+          action = "<cmd>Lspsaga diagnostic_jump_next<cr>";
+          key = "<C-.>e";
+          options.desc = "Next Diagnostic";
+        }
+        {
+          action = "<cmd>Lspsaga diagnostic_jump_previous<cr>";
+          key = "<C-.>E";
+          options.desc = "Previous Diagnostic";
+        }
+        {
+          action = "<cmd>Lspsaga goto_definition<cr>";
+          key = "<C-.>d";
+          options.desc = "Jump to Definition";
+        }
+        {
+          action = "<cmd>Lspsaga peek_definition<cr>";
+          key = "<C-.>D";
+          options.desc = "Peek Definition";
+        }
+        {
+          action = "<cmd>Lspsaga finder ref<cr>";
+          key = "<C-.>fr";
+          options.desc = "Find References";
+        }
+        {
+          action = "<cmd>Lspsaga finder imp<cr>";
+          key = "<C-.>fi";
+          options.desc = "Find Implementations";
+        }
+        {
+          action = "<cmd>Lspsaga finder def<cr>";
+          key = "<C-.>fd";
+          options.desc = "Find Definitions";
+        }
+        {
+          action = "<cmd>Lspsaga finder<cr>";
+          key = "<C-.>ff";
+          options.desc = "Finder";
+        }
+        {
+          action = "<cmd>Lspsaga hover_doc<cr>";
+          key = "<C-.>h";
+          options.desc = "Hover Doc";
         }
         {
           action = "<cmd>Telescope<cr>";
@@ -90,6 +140,8 @@
           options.desc = "Jump To...";
         }
       ];
+
+      extraPlugins = with pkgs.vimPlugins; [{plugin = tiny-devicons-auto-colors-nvim;} {plugin = nvim-scrollbar;}];
 
       plugins = {
         telescope = {
@@ -203,7 +255,7 @@
                 bannerText = builtins.readFile banner;
               in
                 cmd {
-                  command = ''mut i = 1; loop { let s = (open ${banner}) | ${pkgs.lolcat}/bin/lolcat -f -S $i; clear; print -n -r $s; sleep 100ms; $i += 3; }'';
+                  command = ''mut i = 1; loop { let s = (open ${banner}) | ${pkgs.lolcat}/bin/lolcat -f -S $i; clear; print -n -r $s; sleep 50ms; $i += 3; }'';
                   width = (builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
                   height = (builtins.length (lib.splitString "\n" bannerText)) - 1;
                 })
@@ -286,6 +338,13 @@
           enable = true;
         };
 
+        gitsigns.enable = true;
+
+        dap = {
+          enable = true;
+          extensions.dap-virtual-text.enable = true;
+        };
+
         lualine = {
           enable = true;
           settings = {
@@ -313,9 +372,6 @@
             preset = "modern";
           };
         };
-
-        # Rust
-        # rustaceanvim.enable = true;
 
         none-ls = {
           enable = true;
@@ -372,9 +428,17 @@
           hover = {
             openCmd = "!xdg-open";
             openLink = "<leader>o";
+            maxWidth = 0.5;
+            maxHeight = 0.4;
+          };
+          rename.autoSave = true;
+          finder = {
+            keys.close = "<ESC>";
           };
           codeAction.keys.quit = "<ESC>";
         };
+
+        rustaceanvim.enable = true;
 
         lsp = {
           enable = true;
@@ -382,6 +446,7 @@
 
           servers = {
             astro.enable = true;
+            denols.enable = true;
             ts_ls.enable = true;
             html.enable = true;
             cssls.enable = true;
@@ -392,9 +457,9 @@
             csharp_ls.enable = true;
             nushell.enable = true;
             taplo.enable = true;
-            rust_analyzer.enable = true;
-            rust_analyzer.installCargo = false;
-            rust_analyzer.installRustc = false;
+            #rust_analyzer.enable = true;
+            #rust_analyzer.installCargo = false;
+            #rust_analyzer.installRustc = false;
             lemminx.enable = true;
           };
         };
