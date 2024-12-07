@@ -328,6 +328,10 @@
             next.key = "<C-Tab>";
             previous.key = "<C-S-Tab>";
           };
+          settings.icons = {
+            diagnostics."vim.diagnostic.severity.ERROR".enabled = true;
+            diagnostics."vim.diagnostic.severity.WARN".enabled = true;
+          };
         };
 
         statuscol = {

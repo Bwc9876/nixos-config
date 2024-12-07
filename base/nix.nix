@@ -25,4 +25,9 @@
     enable = false;
     enableNg = true;
   };
+
+  system.extraDependencies = with builtins; let
+    flakeDeps = flake: [flake.outPath] ++ (foldl' (a: b: a ++ b) [] (map flakeDeps (attrValues flake.inputs or {})));
+  in
+    flakeDeps inputs.self;
 }

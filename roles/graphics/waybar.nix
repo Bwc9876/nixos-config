@@ -194,13 +194,17 @@ in {
           border-color: @yellow;
         }
 
+        #custom-weather.PartlyCloudy {
+          border-color: @flamingo;
+        }
+
+        #custom-weather.PartlyCloudy.night {
+          border-color: @lavender;
+        }
+
         #custom-weather.Clear.night,
         #custom-weather.Sunny.night {
           border-color: @mauve;
-        }
-
-        #custom-weather.PartlyCloudy {
-          border-color: @flamingo;
         }
 
         #custom-news.utd {
