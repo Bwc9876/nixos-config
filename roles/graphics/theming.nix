@@ -45,7 +45,6 @@
         "XCURSOR_THEME,Sweet-cursors"
         "XCURSOR_SIZE,${cursorSize}"
         "GRIMBLAST_EDITOR,swappy -f "
-        "TERMINAL,foot"
       ];
       exec-once = [
         ''dconf write /org/gnome/desktop/interface/cursor-theme "Sweet-cursors"''

@@ -15,6 +15,7 @@
 
     programs.nixvim = {
       enable = true;
+      enableMan = false;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
@@ -36,7 +37,8 @@
         cursorline = true;
         showtabline = 2;
         breakindent = true;
-        foldenable = true;
+        # fillchars.__raw = "[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]";
+        # foldcolumn = "1";
       };
 
       autoCmd = [
@@ -74,6 +76,21 @@
       };
 
       keymaps = [
+        {
+          action = ''"+y'';
+          key = "<C-S-C>";
+          options.desc = "Copy to System Clipboard";
+        }
+        {
+          action = ''"+p'';
+          key = "<C-S-V>";
+          options.desc = "Paste from System Clipboard";
+        }
+        {
+          action = ''"+x'';
+          key = "<C-S-X>";
+          options.desc = "Cut to System Clipboard";
+        }
         {
           action = "<cmd>Lspsaga code_action code_action<cr>";
           key = "<C-.>a";
@@ -141,7 +158,7 @@
         }
       ];
 
-      extraPlugins = with pkgs.vimPlugins; [{plugin = nvim-scrollview;} {plugin = tiny-devicons-auto-colors-nvim;}];
+      extraPlugins = with pkgs.vimPlugins; [{plugin = tiny-devicons-auto-colors-nvim;}];
 
       plugins = {
         telescope = {
@@ -248,12 +265,13 @@
             ++ (lib.intersperse pad [
               (let
                 banner = pkgs.runCommand "nvim-banner" {} ''${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border > $out'';
-                bannerText = builtins.readFile banner;
+                # bannerText = builtins.readFile banner;
               in
                 cmd {
                   command = ''mut i = 1; loop { let s = (open ${banner}) | ${pkgs.lolcat}/bin/lolcat -f -S $i; clear; print -n -r $s; sleep 50ms; $i += 3; }'';
-                  width = (builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
-                  height = (builtins.length (lib.splitString "\n" bannerText)) - 1;
+                  # Hardcoding to prevent IFD
+                  width = 83; #(builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
+                  height = 12; #(builtins.length (lib.splitString "\n" bannerText)) - 1;
                 })
               (grp [
                 (btn {
@@ -296,12 +314,13 @@
           enable = true;
           settings = {
             highlight.enable = true;
-            folding.enable = true;
           };
         };
 
         illuminate.enable = true;
         cursorline.enable = true;
+
+        scrollview.enable = true;
 
         navbuddy = {
           enable = true;
@@ -338,6 +357,7 @@
           enable = true;
         };
 
+        # nvim-ufo.enable = true;
         gitsigns.enable = true;
 
         dap = {
@@ -352,6 +372,7 @@
               "trouble"
               "toggleterm"
             ];
+            # sections.lualine_c = ["lsp_progress"];
           };
         };
 
@@ -360,6 +381,7 @@
           enableTelescope = true;
         };
 
+        # image.enable = true;
         web-devicons.enable = true;
 
         guess-indent.enable = true;
@@ -370,6 +392,15 @@
           settings = {
             show_help = true;
             preset = "modern";
+            win.wo.winblend = 8;
+          };
+        };
+
+        fidget = {
+          enable = true;
+          notification = {
+            overrideVimNotify = true;
+            window.align = "top";
           };
         };
 
@@ -382,6 +413,10 @@
               disableTsServerFormatter = true;
             };
             yamlfmt.enable = true;
+            markdownlint.enable = true;
+          };
+          sources.diagnostics = {
+            markdownlint.enable = true;
           };
         };
 
@@ -413,7 +448,6 @@
         preview.enable = true;
 
         lsp-format.enable = true;
-        lsp-status.enable = true;
         lspkind.enable = true;
         # jupytext.enable = true;
         hex.enable = true;
@@ -438,7 +472,7 @@
           codeAction.keys.quit = "<ESC>";
         };
 
-        rustaceanvim.enable = true;
+        # rustaceanvim.enable = true;
         vim-css-color.enable = true;
 
         lsp = {
@@ -450,19 +484,24 @@
             denols.enable = true;
             ts_ls.enable = true;
             html.enable = true;
+            marksman.enable = true;
             cssls.enable = true;
             tailwindcss.enable = true;
             jsonls.enable = true;
             yamlls.enable = true;
             pylsp.enable = true;
-            nixd.enable = true;
+            nixd = lib.fix (self: {
+              enable = true;
+              settings.options.nixos.expr = ''(builtins.getFlake "${inputs.self}").nixosConfigurations.${config.networking.hostName}.options'';
+              settings.options.home-manager.expr = ''${self.settings.options.nixos.expr}.home-manager.users.type.getSubOptions []'';
+            });
             csharp_ls.enable = true;
             bashls.enable = true;
             nushell.enable = true;
             taplo.enable = true;
-            #rust_analyzer.enable = true;
-            #rust_analyzer.installCargo = false;
-            #rust_analyzer.installRustc = false;
+            rust_analyzer.enable = true;
+            rust_analyzer.installCargo = false;
+            rust_analyzer.installRustc = false;
             lemminx.enable = true;
           };
         };

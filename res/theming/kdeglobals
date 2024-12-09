@@ -2,7 +2,7 @@
 ShowDeleteCommand=false
 
 [General]
-TerminalApplication=foot
+TerminalApplication=kitty
 
 [KFileDialog Settings]
 Allow Expansion=false

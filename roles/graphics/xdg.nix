@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{config, ...}: {
   home-manager.users.bean.xdg = {
     enable = true;
     userDirs = with config.home-manager.users.bean.home; {
@@ -20,7 +16,7 @@
     mimeApps = {
       enable = true;
       defaultApplications = let
-        textEditors = ["code.desktop"];
+        textEditors = ["neovide.desktop"];
         browsers = ["firefox-devedition.desktop" "firefox.desktop" "chromium.desktop"];
         imageViewers = ["gimp.desktop"];
       in {
@@ -43,7 +39,7 @@
         "image/x-portable-graymap" = imageViewers;
         "image/x-portable-anymap" = imageViewers;
         "image/svg+xml" = imageViewers;
-        "x-terminal-emulator" = ["foot"];
+        "x-terminal-emulator" = ["kitty"];
         "x-scheme-handler/http" = browsers;
         "x-scheme-handler/https" = browsers;
         "x-scheme-handler/chrome" = browsers;

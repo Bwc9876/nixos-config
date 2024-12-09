@@ -71,7 +71,6 @@
         # };
         misc = {
           enable_swallow = true;
-          # swallow_regex = "^(foot)$";
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
           focus_on_activate = true;
@@ -79,7 +78,7 @@
           key_press_enables_dpms = true;
         };
         env = [
-          "TERMINAL,foot"
+          "TERMINAL,kitty"
         ];
         windowrulev2 = [
           "workspace 1 silent,class:(.*)vesktop(.*),title:(.*)[Vv]esktop(.*)"
@@ -87,7 +86,7 @@
         ];
         submap = "reset";
         bind = let
-          openTerminal = "foot";
+          openTerminal = "kitty";
           forEachWorkspace = {
             mod,
             dispatch,

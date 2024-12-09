@@ -15,12 +15,12 @@ def main [
     if ($type == "image/svg+xml") {
         xdg-open $url
     } else if ($type | str starts-with "image/") {
-        http get $url | img2sixel
+        http get $url | kitten icat
         input "Press enter to close the image viewer"
     } else if ($type | str starts-with "video/") or ($url =~ $YT_REGEX) {
         qmplay2 --open $url
     } else if ($type | str starts-with "text/html") {
-        let w3m_opts = $"-sixel -no-cookie -o confirm_qq=FALSE -o display_link_number=TRUE -o extbrowser=($env.CURRENT_FILE)";
+        let w3m_opts = $"-no-cookie -o confirm_qq=FALSE -o display_link_number=TRUE -o extbrowser=($env.CURRENT_FILE)";
         let w3m_cmd = $"w3m ($w3m_opts)";
         let s = (term size).columns;
         stty cols 90;        

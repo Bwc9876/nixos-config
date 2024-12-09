@@ -10,5 +10,5 @@ if $res.exit_code == 1 {
     echo "Cancelled"
 } else {
     let dir = $res.stdout | split row " <span color=\"#A2A2A2\"><i><small>(" | get 1 | split row ")</small>" | get 0
-    foot -D ($dir | str replace "~" $"/home/($env.USER)")
+    kitty -d ($dir | str replace "~" $"/home/($env.USER)")
 }

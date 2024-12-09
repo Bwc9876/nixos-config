@@ -291,7 +291,7 @@ in {
             exec = "${pkgs.nushell}/bin/nu ${inputs.self}/res/custom_waybar_modules/newsboat.nu";
             exec-on-event = true;
             format = "{}";
-            on-click = "pidof -q newsboat && hyprctl dispatch focuswindow newsboat || foot --title=\"Newsboat\" --app-id=\"newsboat\" newsboat; pkill -SIGRTMIN+6 waybar";
+            on-click = "pidof -q newsboat && hyprctl dispatch focuswindow newsboat || kitty --title=\"Newsboat\" --app-id=\"newsboat\" newsboat; pkill -SIGRTMIN+6 waybar";
             on-click-right = "pkill waybar -SIGRTMIN+6";
             restart-interval = 1800;
             return-type = "json";
@@ -419,7 +419,7 @@ in {
         {
           cpu = {
             format = "󰍛 {usage}󰏰";
-            on-click = "foot --title=\"Htop\" --app-id=\"htop\" htop --sort-key=PERCENT_CPU";
+            on-click = "kitty --title=\"Htop\" --app-id=\"htop\" htop --sort-key=PERCENT_CPU";
             states = {
               critical = 95;
               warning = 80;
@@ -432,7 +432,7 @@ in {
           layer = "top";
           memory = {
             format = " {}󰏰 ({used:0.1f}/{total:0.1f} GiB)";
-            on-click = "foot --title=\"Htop\" --app-id=\"htop\" htop --sort-key=PERCENT_MEM";
+            on-click = "kitty --title=\"Htop\" --app-id=\"htop\" htop --sort-key=PERCENT_MEM";
             states = {
               critical = 90;
               warning = 70;
