@@ -248,6 +248,11 @@ in {
             tags = ["personal-blog"];
           }
           {
+            title = "Kerkour";
+            url = "https://kerkour.com/feed.xml";
+            tags = ["personal-blog"];
+          }
+          {
             title = "Scripting News";
             url = "http://scripting.com/rss.xml";
             tags = ["personal-blog"];

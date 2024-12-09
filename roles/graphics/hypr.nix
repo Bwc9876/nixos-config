@@ -56,6 +56,7 @@
         };
         input = {
           numlock_by_default = true;
+          kb_options = "caps:escape";
           touchpad = {
             natural_scroll = true;
           };

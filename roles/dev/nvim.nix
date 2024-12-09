@@ -33,6 +33,7 @@
 
       opts = {
         number = true;
+        relativenumber = true;
         smartindent = true;
         cursorline = true;
         showtabline = 2;
@@ -71,7 +72,6 @@
         };
         combinePlugins = {
           enable = true;
-          standalonePlugins = ["telescope-nvim"];
         };
       };
 
@@ -158,7 +158,7 @@
         }
       ];
 
-      extraPlugins = with pkgs.vimPlugins; [{plugin = tiny-devicons-auto-colors-nvim;}];
+      extraPlugins = with pkgs.vimPlugins; [{plugin = tiny-devicons-auto-colors-nvim;} {plugin = nvim-biscuits;}];
 
       plugins = {
         telescope = {
@@ -169,11 +169,16 @@
           extensions = {
             file-browser.enable = true;
             ui-select.enable = true;
+            undo.enable = true;
           };
           keymaps = lib.fix (self: {
             "<leader>p" = {
               action = "projects";
               options.desc = "Projects";
+            };
+            "<leader>u" = {
+              action = "undo";
+              options.desc = "Undo Tree";
             };
             "<leader>c" = {
               action = "commands";
@@ -472,6 +477,10 @@
           codeAction.keys.quit = "<ESC>";
         };
 
+        crates-nvim.enable = true;
+
+        numbertoggle.enable = true;
+
         # rustaceanvim.enable = true;
         vim-css-color.enable = true;
 
@@ -481,6 +490,7 @@
 
           servers = {
             astro.enable = true;
+            sqls.enable = true;
             denols.enable = true;
             ts_ls.enable = true;
             html.enable = true;
