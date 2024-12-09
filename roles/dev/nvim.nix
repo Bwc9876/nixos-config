@@ -490,12 +490,8 @@
             jsonls.enable = true;
             yamlls.enable = true;
             pylsp.enable = true;
-            nixd = lib.fix (self: {
-              enable = true;
-              settings.options.nixos.expr = ''(builtins.getFlake "${inputs.self}").nixosConfigurations.${config.networking.hostName}.options'';
-              settings.options.home-manager.expr = ''${self.settings.options.nixos.expr}.home-manager.users.type.getSubOptions []'';
-            });
             csharp_ls.enable = true;
+            nil_ls.enable = true;
             bashls.enable = true;
             nushell.enable = true;
             taplo.enable = true;
