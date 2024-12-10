@@ -12,7 +12,7 @@
   environment.systemPackages = with pkgs; [
     prismlauncher
     ace-of-penguins
-    inputs.ow-mod-man.packages.${system}.owmods-gui
+    # inputs.ow-mod-man.packages.${system}.owmods-gui
     libsForQt5.kmousetool
   ];
 }
