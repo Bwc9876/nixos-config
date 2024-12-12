@@ -177,7 +177,7 @@ in {
         #custom-weather.HeavyShowers,
         #custom-weather.LightRain,
         #custom-weather.LightShowers {
-          border-color: @teal;
+          border-color: @blue;
         }
 
         #custom-weather.HeavySnow,
