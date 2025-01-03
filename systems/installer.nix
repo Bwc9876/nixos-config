@@ -8,7 +8,7 @@
 
     includeBaseMods = true;
 
-    roles = ["latest-linux" "normalboot" "wireless" "vm"];
+    roles = ["latest-linux"];
     extraModules = [
       ({
         pkgs,
@@ -35,6 +35,7 @@
         };
 
         boot = rec {
+          initrd.systemd.enable = false;
           supportedFilesystems = {
             btrfs = true;
             reiserfs = true;

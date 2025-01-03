@@ -1,5 +1,4 @@
 {
-  pkgs,
   inputs,
   lib,
   ...
@@ -12,7 +11,7 @@
 
     lanzaboote = {
       enable = true;
-      pkiBundle = "/etc/secureboot";
+      pkiBundle = lib.mkDefault "/etc/secureboot";
     };
   };
 }

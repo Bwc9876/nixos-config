@@ -19,11 +19,15 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
     catppuccin.url = "github:catppuccin/nix";
-    catppuccin-vsc.url = "github:catppuccin/vscode";
-    catppuccin-vsc.inputs.nixpkgs.follows = "nixpkgs";
+    catppuccin.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      home-manager.follows = "hm";
+    };
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.home-manager.follows = "hm";
+    hyprland-qtutils.url = "github:hyprwm/hyprland-qtutils";
+    hyprland-qtutils.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {
@@ -38,8 +42,8 @@
     wayland-mpris-idle-inhibit,
     rust-overlay,
     catppuccin,
-    catppuccin-vsc,
     nixvim,
+    hyprland-qtutils,
   }: let
     lib = (import ./lib.nix) nixpkgs.lib;
     pkgsForWithOverlays = system: overlays:
@@ -51,7 +55,7 @@
             ow-mod-man.overlays.default
             rust-overlay.overlays.default
             nix-index-db.overlays.nix-index
-            catppuccin-vsc.overlays.default
+            hyprland-qtutils.overlays.default
           ]
           ++ overlays;
       };

@@ -3,6 +3,6 @@
     dotnet-sdk
     dotnet-runtime
     dotnetPackages.Nuget
-    mono
+    # mono
   ];
 }

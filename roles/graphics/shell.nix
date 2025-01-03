@@ -9,6 +9,8 @@
     # Shell Components
     hyprlock
     hypridle
+    hyprpolkitagent
+    hyprland-qtutils
     swaynotificationcenter
     swayosd
 
@@ -113,6 +115,7 @@
 
     wayland.windowManager.hyprland.settings = {
       exec-once = [
+        "systemctl --user start hyprpolkitagent"
         "hypridle"
         "dolphin --daemon"
         "waybar"
@@ -143,7 +146,7 @@
         "SUPER SHIFT,T,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-zoxide.nu"
         "SUPER,N,exec,${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
         "SUPER,A,exec,pavucontrol --tab 5"
-        "SUPER,V,exec,cliphist list | sed -r \"s|binary data image/(.*)|󰋩 Image (\\1)|g\" | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy"
+        ''SUPER,V,exec,cliphist list | sed -r 's/\[\[ binary data (.* .iB) (.*) (.*) \]\]/ 󰋩 \2 Image (\3, \1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy''
         "SUPER ALT,V,exec,echo -e \"Yes\\nNo\" | [[ $(rofi -dmenu -mesg \"Clear Clipboard History?\" -p Clear) == \"Yes\" ]] && cliphist wipe"
         ",Print,exec,${screenshot}"
         "SUPER SHIFT,S,exec,${screenshot}"

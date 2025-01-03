@@ -31,6 +31,33 @@
       enable = true;
       support32Bit = true;
     };
-    pulse.enable = true;
+    extraConfig.pipewire = {
+      "92-low-latency" = {
+        "context.properties" = {
+          "default.clock.rate" = 48000;
+          "default.clock.quantum" = 2048;
+          "default.clock.min-quantum" = 2048;
+          "default.clock.max-quantum" = 2048;
+        };
+      };
+    };
+    extraConfig.pipewire-pulse."92-low-latency" = {
+      context.modules = [
+        {
+          name = "libpipewire-module-protocol-pulse";
+          args = {
+            pulse.min.req = "1024/48000";
+            pulse.default.req = "1024/48000";
+            pulse.max.req = "1024/48000";
+            pulse.min.quantum = "1024/48000";
+            pulse.max.quantum = "1024/48000";
+          };
+        }
+      ];
+      stream.properties = {
+        node.latency = "1024/48000";
+        resample.quality = 1;
+      };
+    };
   };
 }

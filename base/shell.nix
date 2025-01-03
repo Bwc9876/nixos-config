@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   users.users.bean.shell = pkgs.nushell;
   users.users.root.shell = pkgs.nushell;
   programs.fish.enable = true;

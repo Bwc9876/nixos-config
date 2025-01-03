@@ -52,7 +52,7 @@
 in {
   environment.systemPackages = with pkgs; [
     w3m
-    rdrview
+    (callPackage "${inputs.self}/pkgs/rdrview.nix" {})
   ];
 
   home-manager.users.bean = {
@@ -250,6 +250,11 @@ in {
           {
             title = "Kerkour";
             url = "https://kerkour.com/feed.xml";
+            tags = ["personal-blog"];
+          }
+          {
+            title = "Avis";
+            url = "https://avris.it/blog.atom";
             tags = ["personal-blog"];
           }
           {

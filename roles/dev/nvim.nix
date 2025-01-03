@@ -477,7 +477,7 @@
           codeAction.keys.quit = "<ESC>";
         };
 
-        crates-nvim.enable = true;
+        crates.enable = true;
 
         numbertoggle.enable = true;
 
@@ -509,6 +509,7 @@
             rust_analyzer.installCargo = false;
             rust_analyzer.installRustc = false;
             lemminx.enable = true;
+            eslint.enable = true;
           };
         };
       };

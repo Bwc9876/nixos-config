@@ -1,11 +1,4 @@
-{
-  lib,
-  hostName,
-  system,
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   xdg.portal = {
     enable = true;
     config = {
@@ -17,7 +10,9 @@
   };
 
   environment = {
-    systemPackages = with pkgs; [hyprpicker];
+    systemPackages = with pkgs; [
+      hyprpicker
+    ];
     pathsToLink = ["/share/xdg-desktop-portal" "/share/applications"];
   };
 

@@ -5,7 +5,7 @@
 }: {
   boot = {
     initrd.systemd = {
-      enable = true;
+      enable = lib.mkDefault true;
     };
 
     # Use latest kernel with sysrqs and lockdown enabled

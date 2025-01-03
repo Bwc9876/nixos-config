@@ -340,6 +340,7 @@ in {
           mpris = {
             album-len = 20;
             artist-len = 25;
+            interval = 1;
             dynamic-importance-order = ["title" "position" "length" "artist" "album"];
             dynamic-len = 50;
             dynamic-order = ["title" "artist" "album" "position" "length"];
