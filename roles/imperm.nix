@@ -1,10 +1,35 @@
-{config, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: let
+  persistRoot = "/nix/persist"; # Anything important we want backed up
+  secureRoot = "${persistRoot}/secure"; # Files and directories we want only root to access
+  cacheRoot = "/nix/cache"; # Anything not as important that we can stand losing
+in {
+  imports = [inputs.imperm.nixosModules.default];
   # Requires /nix/persist to exist
   # TODO: Bind mount game save directories
 
   environment.etc."machine-id".text = builtins.hashString "md5" config.networking.hostName;
 
-  environment.persistence."/nix/persist" = {
+  users.mutableUsers = false;
+  users.users = {
+    bean.hashedPasswordFile = "${secureRoot}/hashed-passwd";
+    root.hashedPasswordFile = "${secureRoot}/hashed-passwd";
+  };
+
+  fileSystems."/tmp/nix-build" = {
+    device = "${cacheRoot}/nix-build";
+    options = ["bind" "X-fstrim.notrim" "x-gvfs-hide"];
+  };
+
+  systemd.services.nix-daemon = {
+    environment.TMPDIR = "/tmp/nix-build";
+    unitConfig.RequiresMountsFor = ["/tmp/nix-build" "/nix/store"];
+  };
+
+  environment.persistence.${cacheRoot} = {
     enable = true;
     hideMounts = true;
     directories = [
@@ -15,16 +40,25 @@
       "/var/lib/systemd/timers"
       "/var/lib/systemd/backlight"
       "/var/lib/systemd/rfkill"
-      "/etc/NetworkManager/system-connections"
-      "/etc/passwd"
-      "/etc/shadow"
-      "/etc/secureboot"
       {
         directory = "/var/lib/colord";
         user = "colord";
         group = "colord";
         mode = "u=rwx,g=rx,o=";
       }
+    ];
+    users.bean.directories = [
+      ".cache"
+      ".local/share/Steam" # Most saves are cloud backed up or in .local/share and I don't want to back up games themselves
+      ""
+    ];
+  };
+
+  environment.persistence.${persistRoot} = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "/etc/NetworkManager/system-connections"
     ];
     files = [
       {
@@ -65,11 +99,6 @@
         ".local/share/nvim"
         ".local/share/user-places.xbel"
         ".config/vesktop"
-        {
-          directory = ".local/share/Steam";
-          method = "symlink";
-        }
-        ".local/share/zoxide"
       ];
       files = [
         ".config/nushell/history.txt"

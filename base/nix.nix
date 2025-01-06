@@ -4,6 +4,12 @@
   lib,
   ...
 }: {
+  environment.systemPackages = with pkgs; [
+    nh
+    nix-output-monitor
+    comma-with-db
+  ];
+
   nix = {
     channel.enable = false;
     registry.p.flake = inputs.self;

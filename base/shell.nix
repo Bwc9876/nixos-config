@@ -4,19 +4,22 @@
   programs.fish.enable = true;
   documentation.man.generateCaches = false;
   programs.ssh.startAgent = true;
+
+  security.sudo.extraConfig = ''
+    Defaults lecture = never
+  '';
+
   environment = {
     shells = with pkgs; [nushell fish];
     variables.EDITOR = "nvim";
 
     systemPackages = with pkgs; [
       nushell
-      comma-with-db
       file
       screen
       util-linux
       inetutils
       just
-      nix-output-monitor
       man-pages
       htop
       dig

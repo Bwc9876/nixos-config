@@ -26,8 +26,7 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.home-manager.follows = "hm";
-    hyprland-qtutils.url = "github:hyprwm/hyprland-qtutils";
-    hyprland-qtutils.inputs.nixpkgs.follows = "nixpkgs";
+    imperm.url = "github:nix-community/impermanence";
   };
 
   outputs = inputs @ {
@@ -43,7 +42,7 @@
     rust-overlay,
     catppuccin,
     nixvim,
-    hyprland-qtutils,
+    imperm,
   }: let
     lib = (import ./lib.nix) nixpkgs.lib;
     pkgsForWithOverlays = system: overlays:
@@ -55,7 +54,6 @@
             ow-mod-man.overlays.default
             rust-overlay.overlays.default
             nix-index-db.overlays.nix-index
-            hyprland-qtutils.overlays.default
           ]
           ++ overlays;
       };

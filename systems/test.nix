@@ -8,7 +8,7 @@
 
     includeBaseMods = true;
 
-    roles = ["latest-linux" "normalboot" "vm"];
+    roles = ["latest-linux" "normalboot" "imperm"];
     extraModules = [];
   };
 }

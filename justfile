@@ -11,13 +11,13 @@ update:
 alias b := build
 # b:    build the configuration
 build:
-    nom build .#nixosConfigurations.$HOSTNAME.config.system.build.toplevel
+    nh os build .
 
 [private]
 alias s := switch
 # s:    activate configuration & add to boot menu
 switch: 
-    sudo nixos-rebuild switch --flake .# --log-format internal-json |& nom --json
+    nh os switch --ask .
 
 [private]
 alias c := check
@@ -35,8 +35,7 @@ format:
 alias gc := garbage-collect
 # gc: Run nix collect-garbage -d
 garbage-collect:
-    nix-collect-garbage -d
-    sudo nix-collect-garbage -d
+    nh clean all
 
 [private]
 alias iso := generate-iso
