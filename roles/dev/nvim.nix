@@ -158,7 +158,7 @@
         }
       ];
 
-      extraPlugins = with pkgs.vimPlugins; [{plugin = tiny-devicons-auto-colors-nvim;} {plugin = nvim-biscuits;}];
+      extraPlugins = with pkgs.vimPlugins; [{plugin = pkgs.callPackage "${inputs.self}/pkgs/nvim-mdx.nix" {};} {plugin = tiny-devicons-auto-colors-nvim;} {plugin = nvim-biscuits;}];
 
       plugins = {
         telescope = {
@@ -317,6 +317,10 @@
 
         treesitter = {
           enable = true;
+          languageRegister.mdx = "markdown";
+          luaConfig.post = ''
+            require('mdx').setup()
+          '';
           settings = {
             highlight.enable = true;
           };
@@ -403,7 +407,7 @@
 
         fidget = {
           enable = true;
-          notification = {
+          settings.notification = {
             overrideVimNotify = true;
             window.align = "top";
           };
@@ -501,6 +505,7 @@
             yamlls.enable = true;
             pylsp.enable = true;
             csharp_ls.enable = true;
+            svelte.enable = true;
             nil_ls.enable = true;
             bashls.enable = true;
             nushell.enable = true;
