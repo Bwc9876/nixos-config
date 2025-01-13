@@ -9,7 +9,7 @@
 
     includeBaseMods = true;
 
-    roles = ["latest-linux" "dev" "graphics" "games" "fun" "social" "secureboot" "wireless" "hypervisor"];
+    roles = ["latest-linux" "dev" "graphics" "games" "fun" "social" "imperm" "secureboot" "wireless" "hypervisor" "black-mesa-cache"];
     extraModules = [
       inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
       (
@@ -28,26 +28,40 @@
           boot.extraModulePackages = [];
           boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
+          hardware.framework.enableKmod = false;
+
           fileSystems."/" = {
-            device = "/dev/disk/by-uuid/2c002966-4572-4094-8d3f-18d455b611ca";
-            fsType = "ext4";
+            fsType = "tmpfs";
+            options = ["size=512M" "mode=755"];
+            neededForBoot = true;
+          };
+
+          fileSystems."/home" = {
+            fsType = "tmpfs";
+            options = ["size=2G"];
+            neededForBoot = true;
           };
 
           fileSystems."/boot" = {
-            device = "/dev/disk/by-uuid/A57C-E5FF";
+            device = "/dev/disk/by-uuid/88E4-A64F";
             fsType = "vfat";
+            options = ["fmask=0022" "dmask=0022" "nosuid" "nodev" "noexec" "noatime"];
           };
 
-          hardware.framework.enableKmod = false;
+          fileSystems."/nix" = {
+            device = "/dev/disk/by-uuid/fd9f484a-a5ef-4378-b054-d292b0204afb";
+            fsType = "ext4";
+            neededForBoot = true;
+          };
 
-          swapDevices = [{device = "/dev/disk/by-uuid/fde5784f-93e8-4e3b-8ca2-74bf44b00479";}];
+          boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/330c8e83-23cd-46bf-99b3-75a7f5d7c5dc";
+          boot.initrd.luks.devices."cryptswap".device = "/dev/disk/by-uuid/c599ad48-750b-458d-8361-601bee3eb066";
 
-          # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-          # (the default) this is the recommended approach. When using systemd-networkd it's
-          # still possible to use this option, but it's recommended to use it in conjunction
-          # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+          swapDevices = [
+            {device = "/dev/disk/by-uuid/834d0d23-6a06-416f-853f-36c6ce81f355";}
+          ];
+
           networking.useDHCP = lib.mkDefault true;
-          # networking.interfaces.wlp170s0.useDHCP = lib.mkDefault true;
 
           nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
           powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
@@ -58,3 +72,4 @@
     ];
   };
 }
+

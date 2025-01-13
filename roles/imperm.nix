@@ -109,11 +109,14 @@ in {
           "newsboat"
           "zoxide"
           "nvim"
+        ]);
+      files =
+        (preConf [
+          "nushell/history.txt"
+        ])
+        ++ (preShare [
           "user-places.xbel"
         ]);
-      files = [
-        ".config/nushell/history.txt"
-      ];
     };
   };
 }
