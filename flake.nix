@@ -10,8 +10,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
-    ow-mod-man.url = "github:ow-mods/ow-mod-man";
-    ow-mod-man.inputs.nixpkgs.follows = "nixpkgs";
     gh-grader-preview.url = "github:Bwc9876/gh-grader-preview";
     gh-grader-preview.inputs.nixpkgs.follows = "nixpkgs";
     wayland-mpris-idle-inhibit.url = "github:Bwc9876/wayland-mpris-idle-inhibit";
@@ -36,7 +34,6 @@
     hm,
     nixos-hardware,
     lanzaboote,
-    ow-mod-man,
     gh-grader-preview,
     wayland-mpris-idle-inhibit,
     rust-overlay,
@@ -51,7 +48,6 @@
         config.allowUnfree = true;
         overlays =
           [
-            ow-mod-man.overlays.default
             rust-overlay.overlays.default
             nix-index-db.overlays.nix-index
           ]

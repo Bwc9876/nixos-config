@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -12,7 +8,8 @@
 
   environment.systemPackages = with pkgs; [
     prismlauncher
-    # inputs.ow-mod-man.packages.${system}.owmods-gui
     libsForQt5.kmousetool
+    owmods-gui
+    owmods-cli
   ];
 }
