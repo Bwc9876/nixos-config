@@ -8,7 +8,7 @@
 
     includeBaseMods = true;
 
-    roles = ["latest-linux"];
+    roles = ["latest-linux" "black-mesa-cache"];
     extraModules = [
       ({
         pkgs,
