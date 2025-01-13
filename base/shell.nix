@@ -42,7 +42,8 @@
     ripgrep.enable = true;
     bat = {
       enable = true;
-      extraPackages = with pkgs.bat-extras; [prettybat batman batgrep batwatch];
+      # Broken
+      # extraPackages = with pkgs.bat-extras; [batman batgrep batwatch];
     };
   };
 }
