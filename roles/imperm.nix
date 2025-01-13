@@ -64,15 +64,17 @@ in {
         ".cargo"
         ".npm"
         ".pnpm"
+        ".local/state/wireplumber"
       ]
-      ++ (preShare ["Steam" "Trash"])
-      ++ (preConf ["gh" "GitHub Desktop" "spotify" "vesktop" "VencordDesktop" "kdeconnect"]);
+      ++ (preShare ["Steam" "Trash" "dolphin"])
+      ++ (preConf ["gh" "GitHub Desktop" "spotify" "vesktop" "kdeconnect" "keepassxc"]);
   };
 
   environment.persistence.${persistRoot} = {
     enable = true;
     hideMounts = true;
     directories = [
+      "/var/lib/fprint"
       "/etc/NetworkManager/system-connections"
     ];
     users.bean = {
