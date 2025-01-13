@@ -53,6 +53,12 @@
           modesetting.enable = true;
           powerManagement.finegrained = false;
         };
+
+        services.nix-serve = {
+          enable = true;
+          secretKeyFile = "/etc/nix-serve-key";
+          openFirewall = true;
+        };
       })
     ];
   };

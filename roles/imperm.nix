@@ -5,7 +5,7 @@
 }: let
   persistRoot = "/nix/persist"; # Anything important we want backed up
   secureRoot = "${persistRoot}/secure"; # Files and directories we want only root to access
-  cacheRoot = "/nix/cache"; # Anything not as important that we can stand losing
+  cacheRoot = "/nix/perist-cache"; # Anything not as important that we can stand losing
   preWith = pre: paths: builtins.map (p: "${pre}/${p}") paths;
   preShare = preWith ".local/share";
   preConf = preWith ".config";

@@ -46,4 +46,12 @@
       # extraPackages = with pkgs.bat-extras; [batman batgrep batwatch];
     };
   };
+
+  home-manager.users.root.programs = {
+    zoxide.enable = true;
+    ripgrep.enable = true;
+    command-not-found.enable = false;
+    bat.enable = true;
+    nix-index.enable = true;
+  };
 }
