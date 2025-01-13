@@ -1,4 +1,4 @@
-{}: {
+{...}: {
   nix.settings = {
     substituters = [
       "http://black-mesa:5000"
