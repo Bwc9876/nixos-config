@@ -57,6 +57,7 @@
         services.nix-serve = {
           enable = true;
           secretKeyFile = "/etc/nix-serve-key";
+          openFirewall = true;
         };
       })
     ];
