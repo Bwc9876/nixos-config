@@ -165,6 +165,7 @@
   environment.systemPackages = with pkgs; [
     chromium
     kitty
+    catppuccinifier-gui
 
     # Office
     libreoffice-qt6

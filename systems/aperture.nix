@@ -30,7 +30,7 @@
           boot.extraModulePackages = [];
           boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
-          hardware.framework.enableKmod = false;
+          hardware.framework.enableKmod = true;
 
           fileSystems."/" = {
             fsType = "tmpfs";
@@ -53,6 +53,7 @@
           fileSystems."/nix" = {
             device = "/dev/disk/by-uuid/fd9f484a-a5ef-4378-b054-d292b0204afb";
             fsType = "ext4";
+            options = ["lazytime" "nodev" "nosuid"];
             neededForBoot = true;
           };
 
@@ -65,7 +66,6 @@
 
           networking.useDHCP = lib.mkDefault true;
 
-          nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
           powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
           hardware.cpu.intel.updateMicrocode =
             lib.mkDefault config.hardware.enableRedistributableFirmware;

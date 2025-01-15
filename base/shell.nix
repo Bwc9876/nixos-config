@@ -43,7 +43,7 @@
     bat = {
       enable = true;
       # Broken
-      # extraPackages = with pkgs.bat-extras; [batman batgrep batwatch];
+      extraPackages = with pkgs.bat-extras; [batman batgrep batwatch];
     };
   };
 

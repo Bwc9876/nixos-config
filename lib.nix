@@ -43,7 +43,6 @@ lib: rec {
   }:
     lib.nixosSystem {
       inherit pkgs;
-      system = target;
       specialArgs = {inherit edition target;} // specialArgs;
 
       modules =
