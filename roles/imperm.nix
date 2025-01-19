@@ -11,7 +11,6 @@
   preConf = preWith ".config";
 in {
   imports = [inputs.imperm.nixosModules.default];
-  # Requires /nix/persist and /nix/cache to exist
 
   environment.etc."machine-id".text = builtins.hashString "md5" config.networking.hostName;
 

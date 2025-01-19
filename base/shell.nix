@@ -4,6 +4,7 @@
   programs.fish.enable = true;
   documentation.man.generateCaches = false;
   programs.ssh.startAgent = true;
+  services.upower.enable = true;
 
   security.sudo.extraConfig = ''
     Defaults lecture = never
