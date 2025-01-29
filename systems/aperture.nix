@@ -30,7 +30,7 @@
           boot.extraModulePackages = [];
           boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
-          hardware.framework.enableKmod = true;
+          hardware.framework.enableKmod = false;
 
           fileSystems."/" = {
             fsType = "tmpfs";

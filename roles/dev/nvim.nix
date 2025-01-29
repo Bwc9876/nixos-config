@@ -371,8 +371,9 @@
 
         dap = {
           enable = true;
-          extensions.dap-virtual-text.enable = true;
         };
+
+        dap-virtual-text.enable = true;
 
         lualine = {
           enable = true;
@@ -381,7 +382,6 @@
               "trouble"
               "toggleterm"
             ];
-            # sections.lualine_c = ["lsp_progress"];
           };
         };
 

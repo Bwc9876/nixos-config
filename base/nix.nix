@@ -22,6 +22,7 @@
         "flakes"
       ];
       auto-optimise-store = true;
+      fallback = true;
     };
     gc = {
       automatic = true;
