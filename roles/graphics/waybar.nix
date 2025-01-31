@@ -291,7 +291,6 @@ in {
             exec = "${pkgs.nushell}/bin/nu ${inputs.self}/res/custom_waybar_modules/newsboat.nu";
             exec-on-event = true;
             format = "{}";
-            on-click = "pidof -q newsboat && hyprctl dispatch focuswindow newsboat || kitty --title=\"Newsboat\" --app-id=\"newsboat\" newsboat; pkill -SIGRTMIN+6 waybar";
             on-click-right = "pkill waybar -SIGRTMIN+6";
             restart-interval = 1800;
             return-type = "json";
