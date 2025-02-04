@@ -39,18 +39,10 @@
     imperm,
   }: let
     lib = (import ./lib.nix) nixpkgs.lib;
-    pkgsForWithOverlays = system: overlays:
+    pkgsFor = system:
       import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
-        overlays =
-          [
-            rust-overlay.overlays.default
-            nix-index-db.overlays.nix-index
-          ]
-          ++ overlays;
       };
-    pkgsFor = system: pkgsForWithOverlays system [];
     baseMods = builtins.map (name: "${self}/base/${name}") (builtins.attrNames (builtins.readDir ./base));
     availableRoles = lib.getRoles ./roles;
     mkSystem = lib.mkmkSystem {
@@ -64,15 +56,14 @@
     legacyPackages = lib.forAllSystems pkgsFor;
     formatter = lib.forAllSystems (system: (pkgsFor system).alejandra);
     nixosConfigurations = builtins.mapAttrs (name: value: let
-      pkgs = pkgsForWithOverlays value.target value.extraOverlays;
       sys = value.eval {
-        inherit inputs pkgs;
+        inherit inputs;
       };
     in
       mkSystem (sys
         // {
           target = value.target;
-          inherit name pkgs;
+          inherit name;
         })) (lib.parseAllFiles ./systems);
   };
 }

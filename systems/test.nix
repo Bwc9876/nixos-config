@@ -1,6 +1,5 @@
 {
   target = "x86_64-linux";
-  extraOverlays = [];
 
   eval = {...}: {
     description = "Test / Example System";

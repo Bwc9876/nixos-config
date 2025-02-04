@@ -39,10 +39,8 @@ lib: rec {
     roles,
     extraModules,
     includeBaseMods,
-    pkgs,
   }:
     lib.nixosSystem {
-      inherit pkgs;
       specialArgs = {inherit edition target;} // specialArgs;
 
       modules =
@@ -50,6 +48,11 @@ lib: rec {
           specialArgs.inputs.hm.nixosModules.default
           specialArgs.inputs.nix-index-db.nixosModules.nix-index
           {
+            nixpkgs = {
+              system = target;
+              config.allowUnfree = true;
+            };
+
             networking.hostName = name;
             environment.variables."HOSTNAME" = name;
             environment.etc."flake-src".source = specialArgs.inputs.self;

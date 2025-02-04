@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   users.users.bean.shell = pkgs.nushell;
   users.users.root.shell = pkgs.nushell;
   programs.fish.enable = true;
@@ -35,6 +39,10 @@
     viAlias = true;
     vimAlias = true;
   };
+
+  nixpkgs.overlays = [
+    inputs.nix-index-db.overlays.nix-index
+  ];
 
   home-manager.users.bean.programs = {
     command-not-found.enable = false;

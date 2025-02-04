@@ -1,6 +1,5 @@
 {
   target = "x86_64-linux";
-  extraOverlays = [];
 
   eval = {inputs, ...}: {
     description = "Framework 13 Laptop";
@@ -9,7 +8,7 @@
 
     includeBaseMods = true;
 
-    roles = ["latest-linux" "dev" "graphics" "games" "fun" "social" "imperm" "secureboot" "wireless" "hypervisor" "black-mesa-cache"];
+    roles = ["latest-linux" "dev" "graphics" "games" "fun" "social" "imperm" "secureboot" "wireless" "hypervisor"];
     extraModules = [
       inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
       (
