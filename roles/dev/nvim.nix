@@ -20,6 +20,8 @@
       viAlias = true;
       vimAlias = true;
 
+      nixpkgs.pkgs = pkgs;
+
       globals.mapleader = " ";
 
       colorschemes.catppuccin = {
