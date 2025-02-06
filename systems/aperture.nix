@@ -23,6 +23,8 @@
 
           services.fprintd.enable = true;
 
+          boot.extraModprobeConfig = lib.mkForce "";
+
           boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
           boot.initrd.kernelModules = [];
           boot.kernelModules = ["kvm-intel"];
