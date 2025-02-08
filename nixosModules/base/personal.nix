@@ -1,9 +1,11 @@
 {
-  pkgs,
   edition,
   inputs,
+  config,
   ...
 }: {
+  imports = [inputs.hm.nixosModules.default];
+
   time.timeZone = "America/New_York";
 
   users.users.bean = {
@@ -18,7 +20,7 @@
     home = {
       username = "root";
       homeDirectory = "/root";
-      stateVersion = edition;
+      stateVersion = config.system.stateVersion;
     };
   };
 
@@ -27,8 +29,8 @@
     home = {
       username = "bean";
       homeDirectory = "/home/bean";
-      file.".face".source = ../res/pictures/cow.png;
-      stateVersion = edition;
+      file.".face".source = "${inputs.self}/res/pictures/cow.png";
+      stateVersion = config.system.stateVersion;
     };
   };
 }

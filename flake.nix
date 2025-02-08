@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flakelight.url = "github:nix-community/flakelight";
+    flakelight.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-db.url = "github:Mic92/nix-index-database";
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
     hm.url = "github:nix-community/home-manager";
@@ -29,6 +31,7 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    flakelight,
     nix-index-db,
     hm,
     nixos-hardware,
@@ -40,33 +43,23 @@
     nixvim,
     imperm,
     nu_plugin_dbus,
-  }: let
-    lib = (import ./lib.nix) nixpkgs.lib;
-    pkgsFor = system:
-      import nixpkgs {
-        inherit system;
+  }:
+    flakelight ./. {
+      inherit inputs;
+      formatters = pkgs: {
+        "*.nix" = pkgs.lib.getExe pkgs.alejandra;
+        "*.sh" = pkgs.lib.getExe pkgs.shfmt;
       };
-    baseMods = builtins.map (name: "${self}/base/${name}") (builtins.attrNames (builtins.readDir ./base));
-    availableRoles = lib.getRoles ./roles;
-    mkSystem = lib.mkmkSystem {
-      inherit baseMods availableRoles;
-      specialArgs = {
-        inherit inputs;
+      packages =
+        nixpkgs.lib.genAttrs ["gh-grader-preview" "wayland-mpris-idle-inhibit" "nu_plugin_dbus"]
+        (i: {pkgs}: let input = builtins.getAttr i inputs; in input.packages.${pkgs.system}.default);
+      nixDir = ./.;
+      nixDirAliases = {
+        nixosConfigurations = ["systemConfigs"];
+      };
+      legacyPackages = pkgs: pkgs;
+      nixpkgs.config = {
+        allowUnfree = true;
       };
     };
-  in {
-    inherit lib;
-    legacyPackages = lib.forAllSystems pkgsFor;
-    formatter = lib.forAllSystems (system: (pkgsFor system).alejandra);
-    nixosConfigurations = builtins.mapAttrs (name: value: let
-      sys = value.eval {
-        inherit inputs;
-      };
-    in
-      mkSystem (sys
-        // {
-          target = value.target;
-          inherit name;
-        })) (lib.parseAllFiles ./systems);
-  };
 }

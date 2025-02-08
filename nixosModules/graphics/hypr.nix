@@ -87,7 +87,8 @@
             mod,
             dispatch,
           }:
-            builtins.genList (i: let
+            builtins.genList
+            (i: let
               num = builtins.toString i;
             in "${mod},${num},${dispatch},${
               if num == "0"

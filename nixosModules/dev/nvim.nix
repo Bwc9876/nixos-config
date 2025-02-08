@@ -160,7 +160,7 @@
         }
       ];
 
-      extraPlugins = with pkgs.vimPlugins; [{plugin = pkgs.callPackage "${inputs.self}/pkgs/nvim-mdx.nix" {};} {plugin = tiny-devicons-auto-colors-nvim;} {plugin = nvim-biscuits;}];
+      extraPlugins = with pkgs.vimPlugins; [{plugin = pkgs.nvim-mdx;} {plugin = tiny-devicons-auto-colors-nvim;} {plugin = nvim-biscuits;}];
 
       plugins = {
         telescope = {
@@ -270,16 +270,18 @@
           in
             [pad pad pad]
             ++ (lib.intersperse pad [
-              (let
-                banner = pkgs.runCommand "nvim-banner" {} ''${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border > $out'';
-                # bannerText = builtins.readFile banner;
-              in
-                cmd {
-                  command = ''mut i = 1; loop { let s = (open ${banner}) | ${pkgs.lolcat}/bin/lolcat -f -S $i; clear; print -n -r $s; sleep 50ms; $i += 3; }'';
-                  # Hardcoding to prevent IFD
-                  width = 83; #(builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
-                  height = 12; #(builtins.length (lib.splitString "\n" bannerText)) - 1;
-                })
+              (
+                let
+                  banner = pkgs.runCommand "nvim-banner" {} ''${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border > $out'';
+                  # bannerText = builtins.readFile banner;
+                in
+                  cmd {
+                    command = ''mut i = 1; loop { let s = (open ${banner}) | ${pkgs.lolcat}/bin/lolcat -f -S $i; clear; print -n -r $s; sleep 50ms; $i += 3; }'';
+                    # Hardcoding to prevent IFD
+                    width = 83; #(builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
+                    height = 12; #(builtins.length (lib.splitString "\n" bannerText)) - 1;
+                  }
+              )
               (grp [
                 (btn {
                   val = " 󰉋 Open Project";

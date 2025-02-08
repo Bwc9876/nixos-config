@@ -150,17 +150,19 @@
           urls = [{template = queryUrl;}];
         };
         mkEngine = aliases: queryUrl: iconExt: (
-          mkEngineForceFavicon aliases queryUrl (let
-            noPath =
-              lib.strings.concatStrings
-              (
-                lib.strings.intersperse "/"
+          mkEngineForceFavicon aliases queryUrl (
+            let
+              noPath =
+                lib.strings.concatStrings
                 (
-                  lib.lists.take 3
-                  (lib.strings.splitString "/" queryUrl)
-                )
-              );
-          in "${noPath}/favicon.${iconExt}")
+                  lib.strings.intersperse "/"
+                  (
+                    lib.lists.take 3
+                    (lib.strings.splitString "/" queryUrl)
+                  )
+                );
+            in "${noPath}/favicon.${iconExt}"
+          )
         );
       in {
         # Dev

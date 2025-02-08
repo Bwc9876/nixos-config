@@ -59,7 +59,7 @@
     kdePackages.qt6ct
     libsForQt5.qtstyleplugin-kvantum
     kdePackages.qtstyleplugin-kvantum
-    (callPackage "${inputs.self}/pkgs/theming.nix" {})
+    theming
     adwaita-icon-theme # For fallback icons
   ];
 }

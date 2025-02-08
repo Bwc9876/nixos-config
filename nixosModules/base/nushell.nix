@@ -74,7 +74,7 @@ in rec {
 
       source ${init-starship}
 
-      plugin add ${inputs.nu_plugin_dbus.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/nu_plugin_dbus
+      plugin add ${pkgs.nu_plugin_dbus}/bin/nu_plugin_dbus
 
     '';
   };

@@ -1,8 +1,7 @@
 {
-  config,
-  lib,
   pkgs,
   inputs,
+  config,
   ...
 }: let
   yt-feed = id: {
@@ -52,7 +51,7 @@
 in {
   environment.systemPackages = with pkgs; [
     w3m
-    (callPackage "${inputs.self}/pkgs/rdrview.nix" {})
+    rdrview
   ];
 
   home-manager.users.bean = {

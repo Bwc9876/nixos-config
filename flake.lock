@@ -149,6 +149,26 @@
     "flakelight": {
       "inputs": {
         "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1738586370,
+        "narHash": "sha256-oNDm2sfLm9jdfOskRq2ABn85gwXusbsHEOC181peno4=",
+        "owner": "nix-community",
+        "repo": "flakelight",
+        "rev": "d05bcabfc1efb84a7d8689de6e50b84d7f23b427",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "flakelight",
+        "type": "github"
+      }
+    },
+    "flakelight_2": {
+      "inputs": {
+        "nixpkgs": [
           "nu_plugin_dbus",
           "nixpkgs"
         ]
@@ -465,7 +485,7 @@
     },
     "nu_plugin_dbus": {
       "inputs": {
-        "flakelight": "flakelight",
+        "flakelight": "flakelight_2",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -537,6 +557,7 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
+        "flakelight": "flakelight",
         "gh-grader-preview": "gh-grader-preview",
         "hm": "hm",
         "imperm": "imperm",

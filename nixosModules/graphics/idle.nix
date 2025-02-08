@@ -1,8 +1,6 @@
 {
   pkgs,
-  inputs,
-  config,
-  target,
+  inputs',
   ...
 }: let
   sunsetCmd = "${pkgs.wlsunset}/bin/wlsunset -S 6:00 -s 22:00";
@@ -13,7 +11,7 @@ in {
     wayland.windowManager.hyprland.settings = {
       exec-once = [
         sunsetCmd
-        ''${inputs.wayland-mpris-idle-inhibit.packages.${target}.default}/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"''
+        ''${inputs'.wayland-mpris-idle-inhibit.packages.default}/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"''
       ];
 
       bindl = [
