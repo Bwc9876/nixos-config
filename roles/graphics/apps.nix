@@ -164,7 +164,7 @@
     ## Media
     libsForQt5.kdenlive
     obs-studio
-    qmplay2
+    # qmplay2
     gimp
     inkscape
     lorien

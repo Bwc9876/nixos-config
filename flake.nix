@@ -22,6 +22,8 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.home-manager.follows = "hm";
     imperm.url = "github:nix-community/impermanence";
+    nu_plugin_dbus.url = "github:Bwc9876/nu_plugin_dbus";
+    nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {
@@ -37,6 +39,7 @@
     catppuccin,
     nixvim,
     imperm,
+    nu_plugin_dbus,
   }: let
     lib = (import ./lib.nix) nixpkgs.lib;
     pkgsFor = system:

@@ -3,6 +3,7 @@
     python3
     poetry
     pipenv
+    uv
     black
   ];
 }
