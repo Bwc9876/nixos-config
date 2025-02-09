@@ -47,8 +47,8 @@
     flakelight ./. {
       inherit inputs;
       formatters = pkgs: {
-        "*.nix" = pkgs.lib.getExe pkgs.alejandra;
-        "*.sh" = pkgs.lib.getExe pkgs.shfmt;
+        "*.nix" = "alejandra .";
+        "*.sh" = "shfmt -w .";
       };
       packages =
         nixpkgs.lib.genAttrs ["gh-grader-preview" "wayland-mpris-idle-inhibit" "nu_plugin_dbus"]
