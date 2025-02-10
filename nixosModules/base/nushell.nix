@@ -73,9 +73,6 @@ in rec {
       }
 
       source ${init-starship}
-
-      plugin add ${pkgs.nu_plugin_dbus}/bin/nu_plugin_dbus
-
     '';
   };
   home-manager.users.root.programs.nushell = with home-manager.users.bean.programs.nushell; {

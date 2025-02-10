@@ -10,6 +10,13 @@ in {
     beanPubkey
   ];
 
+  environment = {
+    enableAllTerminfo = true;
+    systemPackages = with pkgs; [
+      kitty # Needed for terminfo to work over ssh
+    ];
+  };
+
   services.openssh = {
     enable = true;
     openFirewall = true;

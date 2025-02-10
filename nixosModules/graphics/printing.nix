@@ -4,6 +4,8 @@
     stateless = true;
   };
 
+  users.users.bean.extraGroups = ["lpadmin"];
+
   hardware.printers = {
     ensurePrinters = [
       {

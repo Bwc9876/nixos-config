@@ -12,7 +12,7 @@
     isNormalUser = true;
     description = "Benjamin Crocker";
     autoSubUidGidRange = true;
-    extraGroups = ["libvirtd" "networkmanager" "wheel" "video" "lpadmin" "wireshark"]; # TODO: Break up groups across files?
+    extraGroups = ["wheel"]; # For sudo
   };
 
   home-manager.users.root = {

@@ -33,7 +33,7 @@
         initrd.systemd.enable = false;
         supportedFilesystems = {
           btrfs = true;
-          reiserfs = true;
+          reiserfs = lib.mkForce false;
           vfat = true;
           f2fs = true;
           xfs = true;

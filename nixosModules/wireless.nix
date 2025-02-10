@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   networking.networkmanager.enable = true;
 
+  users.users.bean.extraGroups = ["networkmanager"];
+
   hardware.bluetooth = {
     enable = true;
     settings = {

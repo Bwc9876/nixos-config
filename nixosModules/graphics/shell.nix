@@ -5,6 +5,8 @@
   lib,
   ...
 }: {
+  users.users.bean.extraGroups = ["video"];
+
   environment.systemPackages = with pkgs; [
     # Shell Components
     hyprlock
@@ -111,6 +113,9 @@
         };
         location = "center";
       };
+      nushell.extraConfig = ''
+        plugin add ${pkgs.nu_plugin_dbus}/bin/nu_plugin_dbus
+      '';
     };
 
     wayland.windowManager.hyprland.settings = {
