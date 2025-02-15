@@ -9,7 +9,11 @@
     settings = {
       default_session = let
         greeting = ''--greeting "Authenticate into ${lib.toUpper config.networking.hostName}"'';
-        cmd = ''--cmd "systemd-inhibit --what=handle-power-key:handle-lid-switch Hyprland"'';
+        deCmd = pkgs.writeScript "start-session.sh" ''
+          #!/usr/bin/env sh
+          exec uwsm start ${pkgs.hyprland}/share/wayland-sessions/hyprland.desktop
+        '';
+        cmd = ''--cmd "systemd-inhibit --what=handle-power-key:handle-lid-switch ${deCmd}"'';
       in {
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --time ${greeting} ${cmd}";
       };

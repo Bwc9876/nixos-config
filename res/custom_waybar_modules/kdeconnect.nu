@@ -22,11 +22,11 @@ def get_devices [] {
     get_device_list | each {|it| device_info $it | insert "id" $it}
 }
 
-def is_reachable [device: record] : bool -> bool {
+def is_reachable [device: record] {
     $device.isReachable? | default false
 }
 
-def supports_battery [device: record] : bool -> bool {
+def supports_battery [device: record] {
     let reachable = is_reachable $device;
     let supported = "kdeconnect_battery" in ($device.supportedPlugins? | default []);
     let exists = dbus introspect --session --dest=$BUS_NAME (dev_path $device.id) | get -i children | default [] | any {|it| $it.name == "battery"}
@@ -95,6 +95,8 @@ def main [] {
             tooltip: $"($icon) ($name) -($percent)"
         }
     };
+
+    print $status;
 
     let output = {
         text: ($status | get chip | str join "  "),

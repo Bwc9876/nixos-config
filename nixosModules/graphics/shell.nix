@@ -122,50 +122,48 @@
       exec-once = [
         "systemctl --user start hyprpolkitagent"
         "hypridle"
-        "dolphin --daemon"
-        "waybar"
+        "uwsm app -- dolphin --daemon"
+        "uwsm app -- waybar"
         "wl-paste --watch bash ${inputs.self}/res/clipboard_middleman.sh"
-        "swaync"
-        "swayosd-server"
-        "nm-applet"
+        "uwsm app -- swaync"
+        "uwsm app -- swayosd-server"
+        "uwsm app -- nm-applet"
         "${pkgs.udiskie}/bin/udiskie -A -f dolphin"
         "${pkgs.nushell}/bin/nu ${inputs.self}/res/battery_notif.nu"
         "playerctld"
-        "[workspace 3] keepassxc /home/bean/Documents/Database.kdbx"
+        "[workspace 3] uwsm app -- keepassxc /home/bean/Documents/Database.kdbx"
       ];
 
       bind = let
         powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p --symbols-font \"FiraMono Nerd Font Mono\"";
         screenshot = "${pkgs.nushell}/bin/nu ${inputs.self}/res/screenshot.nu";
       in [
-        "SUPER,S,exec,rofi -show drun -icon-theme \"candy-icons\" -show-icons"
-        "SUPER SHIFT,E,exec,rofi -modi emoji -show emoji"
-        "SUPER,Delete,exec,${powerMenu}"
-        ",XF86PowerOff,exec,${powerMenu}"
-        "SUPER ALT,C,exec,rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\""
-        "SUPER,I,exec,${pkgs.rofi-pulse-select}/bin/rofi-pulse-select source"
-        "SUPER,O,exec,${pkgs.rofi-pulse-select}/bin/rofi-pulse-select sink"
-        "SUPER,B,exec,${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"
-        "SUPER,Tab,exec,rofi -show window -show-icons"
-        "SUPER,E,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-places.nu"
-        "SUPER SHIFT,T,exec,${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-zoxide.nu"
-        "SUPER,N,exec,${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
-        "SUPER,A,exec,pavucontrol --tab 5"
+        "SUPER,S,exec,uwsm app -- rofi -show drun -icon-theme \"candy-icons\" -show-icons"
+        "SUPER SHIFT,E,exec,uwsm app -- rofi -modi emoji -show emoji"
+        "SUPER,Delete,exec,uwsm app -- ${powerMenu}"
+        ",XF86PowerOff,exec,uwsm app -- ${powerMenu}"
+        "SUPER ALT,C,exec,uwsm app -- rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\""
+        "SUPER,B,exec,uwsm app -- ${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"
+        "SUPER,Tab,exec,uwsm app -- rofi -show window -show-icons"
+        "SUPER,E,exec,uwsm app -- ${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-places.nu"
+        "SUPER SHIFT,T,exec,uwsm app -- ${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-zoxide.nu"
+        "SUPER,N,exec,uwsm app -- ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
+        "SUPER,A,exec,uwsm app -- pavucontrol --tab 5"
         ''SUPER,V,exec,cliphist list | sed -r 's/\[\[ binary data (.* .iB) (.*) (.*) \]\]/ 󰋩 \2 Image (\3, \1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy''
         "SUPER ALT,V,exec,echo -e \"Yes\\nNo\" | [[ $(rofi -dmenu -mesg \"Clear Clipboard History?\" -p Clear) == \"Yes\" ]] && cliphist wipe"
-        ",Print,exec,${screenshot}"
-        "SUPER SHIFT,S,exec,${screenshot}"
-        "SUPER SHIFT,C,exec,${pkgs.hyprpicker}/bin/hyprpicker -a"
+        ",Print,exec,uwsm app -- ${screenshot}"
+        "SUPER SHIFT,S,exec,uwsm app -- ${screenshot}"
+        "SUPER SHIFT,C,exec,uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker -a"
       ];
       bindr = [
-        "SUPER SHIFT,R,exec,pkill wf-recorder --signal SIGINT || nu ${inputs.self}/res/screenrec.nu"
-        "CAPS,Caps_Lock,exec,swayosd-client --caps-lock"
-        ",Scroll_Lock,exec,swayosd-client --scroll-lock"
-        ",Num_Lock,exec,swayosd-client --num-lock"
+        "SUPER SHIFT,R,exec,pkill wf-recorder --signal SIGINT || uwsm app -- nu ${inputs.self}/res/screenrec.nu"
+        "CAPS,Caps_Lock,exec,uwsm app -- swayosd-client --caps-lock"
+        ",Scroll_Lock,exec,uwsm app -- swayosd-client --scroll-lock"
+        ",Num_Lock,exec,uwsm app -- swayosd-client --num-lock"
       ];
       bindel = [
-        ",XF86MonBrightnessUp,exec,swayosd-client --brightness raise"
-        ",XF86MonBrightnessDown,exec,swayosd-client --brightness lower"
+        ",XF86MonBrightnessUp,exec,uwsm app -- swayosd-client --brightness raise"
+        ",XF86MonBrightnessDown,exec,uwsm app -- swayosd-client --brightness lower"
       ];
     };
   };

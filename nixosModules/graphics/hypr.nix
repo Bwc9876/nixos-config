@@ -1,26 +1,22 @@
 {pkgs, ...}: {
-  xdg.portal = {
-    enable = true;
-    config = {
-      preferred = {
-        default = ["hyprland" "gtk"];
-      };
-    };
-    extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
-  };
-
   environment = {
     systemPackages = with pkgs; [
       hyprpicker
+      uwsm
     ];
-    pathsToLink = ["/share/xdg-desktop-portal" "/share/applications"];
+  };
+
+  xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-gtk];
+
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
   };
 
   home-manager.users.bean = {
     wayland.windowManager.hyprland = {
+      systemd.enable = false;
       enable = true;
-      package = pkgs.hyprland;
-      systemd.variables = ["--all"];
       extraConfig = ''
         bind = SUPER,M,submap,passthru
         submap = passthru
@@ -82,7 +78,7 @@
         ];
         submap = "reset";
         bind = let
-          openTerminal = "kitty";
+          openTerminal = "uwsm app -- kitty.desktop";
           forEachWorkspace = {
             mod,
             dispatch,
@@ -99,13 +95,12 @@
         in
           [
             "SUPER,M,submap,passthru"
-            "SUPER,Q,exec,firefox-devedition"
+            "SUPER,Q,exec,uwsm app -- firefox-devedition.desktop"
             "SUPER,Z,exec,systemctl suspend"
             ",XF86AudioMedia,exec,${openTerminal}"
             "SUPER,T,exec,${openTerminal}"
             "SUPER ALT CTRL SHIFT,L,exec,xdg-open https://linkedin.com"
             "SUPER,C,killactive,"
-            "SUPER SHIFT,D,exec,code"
             "SUPER,P,pseudo,"
             "SUPER,R,togglefloating,"
             "SUPER,F,fullscreen,1"

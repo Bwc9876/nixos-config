@@ -507,7 +507,7 @@
             tailwindcss.enable = true;
             jsonls.enable = true;
             yamlls.enable = true;
-            pylsp.enable = true;
+            ruff.enable = true;
             csharp_ls.enable = true;
             svelte.enable = true;
             nil_ls.enable = true;
