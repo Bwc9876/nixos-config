@@ -96,8 +96,6 @@ def main [] {
         }
     };
 
-    print $status;
-
     let output = {
         text: ($status | get chip | str join "  "),
         tooltip: ($status | get tooltip | str join "\n"),

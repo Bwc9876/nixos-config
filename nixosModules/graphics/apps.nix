@@ -157,14 +157,11 @@
   environment.systemPackages = with pkgs; [
     chromium
     kitty
-    catppuccinifier-gui
-    zoom-us
 
     # Office
     libreoffice-qt6
 
     ## Media
-    libsForQt5.kdenlive
     obs-studio
     # qmplay2
     gimp
@@ -173,7 +170,7 @@
     cavalier
 
     ## 3D
-    prusa-slicer
+    # prusa-slicer
 
     ## Music
     spotify
