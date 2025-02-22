@@ -442,14 +442,12 @@
               "path"
               "buffer"
             ];
-            mapping = lib.fix (self: {
+            mapping = {
               "<Esc>" = "cmp.mapping.abort()";
-              "<CR>" = "cmp.mapping.confirm({ select = true })";
+              "<Tab>" = "cmp.mapping.confirm({ select = true })";
               "<Up>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
               "<Down>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-              "<Tab>" = self."<Up>";
-              "<S-Tab>" = self."<Down>";
-            });
+            };
           };
         };
 
@@ -463,7 +461,14 @@
         lsp-format.enable = true;
         lspkind.enable = true;
         # jupytext.enable = true;
-        hex.enable = true;
+
+        hex = {
+          enable = true;
+          settings = {
+            assemble_cmd = "xxd -r";
+            dump_cmd = "xxd -g 1 -u";
+          };
+        };
 
         lspsaga = {
           enable = true;
@@ -514,6 +519,7 @@
             bashls.enable = true;
             nushell.enable = true;
             taplo.enable = true;
+            typos_lsp.enable = true;
             rust_analyzer.enable = true;
             rust_analyzer.installCargo = false;
             rust_analyzer.installRustc = false;

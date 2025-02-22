@@ -70,7 +70,7 @@
           key_press_enables_dpms = true;
         };
         env = [
-          "TERMINAL,kitty"
+          "TERMINAL,wezterm"
         ];
         windowrulev2 = [
           "workspace 1 silent,class:(.*)vesktop(.*),title:(.*)[Vv]esktop(.*)"
@@ -78,7 +78,7 @@
         ];
         submap = "reset";
         bind = let
-          openTerminal = "uwsm app -- kitty.desktop";
+          openTerminal = "uwsm app -- org.wezfurlong.wezterm.desktop";
           forEachWorkspace = {
             mod,
             dispatch,

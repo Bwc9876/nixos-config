@@ -2,7 +2,7 @@
 ShowDeleteCommand=false
 
 [General]
-TerminalApplication=kitty
+TerminalApplication=wezterm
 
 [KFileDialog Settings]
 Allow Expansion=false

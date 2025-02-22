@@ -4,7 +4,7 @@
     [Desktop Entry]
     Type=Application
     Name=Htop
-    Exec=kitty --title="Htop" --app-id="htop" htop
+    Exec=wezterm start --class="htop" htop
     Icon=htop
   '';
 
@@ -156,7 +156,6 @@
 
   environment.systemPackages = with pkgs; [
     chromium
-    kitty
 
     # Office
     libreoffice-qt6

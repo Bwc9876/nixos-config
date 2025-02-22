@@ -419,7 +419,6 @@ in {
         {
           cpu = {
             format = "󰍛 {usage}󰏰";
-            on-click = "kitty --title=\"Htop\" --app-id=\"htop\" htop --sort-key=PERCENT_CPU";
             states = {
               critical = 95;
               warning = 80;
@@ -432,7 +431,6 @@ in {
           layer = "top";
           memory = {
             format = " {}󰏰 ({used:0.1f}/{total:0.1f} GiB)";
-            on-click = "kitty --title=\"Htop\" --app-id=\"htop\" htop --sort-key=PERCENT_MEM";
             states = {
               critical = 90;
               warning = 70;

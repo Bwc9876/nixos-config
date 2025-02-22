@@ -146,7 +146,6 @@
         "SUPER,B,exec,uwsm app -- ${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"
         "SUPER,Tab,exec,uwsm app -- rofi -show window -show-icons"
         "SUPER,E,exec,uwsm app -- ${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-places.nu"
-        "SUPER SHIFT,T,exec,uwsm app -- ${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-zoxide.nu"
         "SUPER,N,exec,uwsm app -- ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
         "SUPER,A,exec,uwsm app -- pavucontrol --tab 5"
         ''SUPER,V,exec,cliphist list | sed -r 's/\[\[ binary data (.* .iB) (.*) (.*) \]\]/ 󰋩 \2 Image (\3, \1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy''

@@ -39,7 +39,7 @@
         "image/x-portable-graymap" = imageViewers;
         "image/x-portable-anymap" = imageViewers;
         "image/svg+xml" = imageViewers;
-        "x-terminal-emulator" = ["kitty"];
+        "x-terminal-emulator" = ["wezterm.desktop"];
         "x-scheme-handler/http" = browsers;
         "x-scheme-handler/https" = browsers;
         "x-scheme-handler/chrome" = browsers;
