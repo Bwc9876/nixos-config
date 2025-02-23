@@ -2,7 +2,7 @@
   system = "x86_64-linux";
 
   modules = [
-    (outputs.lib.applyRoles ["base" "latest-linux" "ssh" "fun" "dev" "secureboot" "mc-server"])
+    (outputs.lib.applyRoles ["base" "latest-linux" "ssh" "fun" "dev" "secureboot" "mc-server" "steam-rplay"])
     ({
       modulesPath,
       lib,
