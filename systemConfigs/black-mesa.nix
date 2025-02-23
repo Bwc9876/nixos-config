@@ -2,7 +2,7 @@
   system = "x86_64-linux";
 
   modules = [
-    (outputs.lib.applyRoles ["base" "latest-linux" "ssh" "fun" "dev" "secureboot" "mc-server" "steam-rplay"])
+    (outputs.lib.applyRoles ["base" "latest-linux" "ssh" "fun" "dev" "secureboot" "mc-server"])
     ({
       modulesPath,
       lib,
@@ -42,7 +42,7 @@
       networking.interfaces.enp4s0.wakeOnLan.enable = true;
 
       hardware.nvidia = {
-        open = true;
+        open = false;
         modesetting.enable = true;
         powerManagement.finegrained = false;
       };
