@@ -22,7 +22,6 @@
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    nixvim.inputs.home-manager.follows = "hm";
     imperm.url = "github:nix-community/impermanence";
     nu_plugin_dbus.url = "github:Bwc9876/nu_plugin_dbus";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
