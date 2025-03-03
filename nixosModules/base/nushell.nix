@@ -53,7 +53,7 @@ in rec {
           } | do $in $spans
       }
 
-      let command_not_found = ${fileContents "${inputs.self}/res/command_not_found.nu"}
+      let command_not_found = ${fileContents ../../res/command_not_found.nu}
 
       def --env __batman [...rest:string] {
         BAT_THEME="Monokai Extended" batman ...$rest

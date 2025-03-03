@@ -37,7 +37,7 @@ in {
       script-fail-notify = true;
       scripts = {
         all = {
-          exec = "${pkgs.nushell}/bin/nu ${inputs.self}/res/notification.nu ${inputs.self}/res/notif-sounds";
+          exec = "${pkgs.nushell}/bin/nu ${../../res/notification.nu} ${../../res/notif-sounds}";
           urgency = ".*";
         };
       };

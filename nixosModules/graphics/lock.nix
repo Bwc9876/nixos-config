@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   home-manager.users.bean = {
     wayland.windowManager.hyprland.settings = {
       bind = [
@@ -27,7 +23,7 @@
         general.grace = 5;
         background = {
           monitor = "";
-          path = "${inputs.self}/res/pictures/background.png";
+          path = "${../../res/pictures/background.png}";
           blur_passes = 1;
         };
         shape = [
@@ -57,7 +53,7 @@
         ];
         image = {
           monitor = "";
-          path = "${inputs.self}/res/pictures/cow.png";
+          path = "${../../res/pictures/cow.png}";
           size = 150;
           rounding = -1;
           border_size = 4;
@@ -112,7 +108,7 @@
           }
           {
             monitor = "";
-            text = ''cmd[update:30000] echo "  $(date +"%A, %B %-d | %I:%M %p") | $(${pkgs.nushell}/bin/nu ${inputs.self}/res/bat_display.nu)  "'';
+            text = ''cmd[update:30000] echo "  $(date +"%A, %B %-d | %I:%M %p") | $(${pkgs.nushell}/bin/nu ${../../res/bat_display.nu})  "'';
             color = text;
             font_size = 20;
             font_family = "sans-serif";

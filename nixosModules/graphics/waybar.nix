@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: let
+{pkgs, ...}: let
   catppuccinCss = pkgs.fetchurl {
     url = "https://github.com/catppuccin/waybar/raw/refs/heads/main/themes/mocha.css";
     hash = "sha256-puMFl8zIKOiYhE6wzqnffXOHn/VnKmpVDzrMJMk+3Rc=";
@@ -281,14 +277,14 @@ in {
             tooltip-format = "{:%F at %T in %Z (UTC%Ez)}";
           };
           "custom/kde-connect" = {
-            exec = "${pkgs.nushell}/bin/nu ${inputs.self}/res/custom_waybar_modules/kdeconnect.nu";
+            exec = "${pkgs.nushell}/bin/nu ${../../res/custom_waybar_modules/kdeconnect.nu}";
             format = "{}";
             interval = 30;
             on-click = "kdeconnect-settings";
             return-type = "json";
           };
           "custom/news" = {
-            exec = "${pkgs.nushell}/bin/nu ${inputs.self}/res/custom_waybar_modules/newsboat.nu";
+            exec = "${pkgs.nushell}/bin/nu ${../../res/custom_waybar_modules/newsboat.nu}";
             exec-on-event = true;
             format = "{}";
             on-click-right = "pkill waybar -SIGRTMIN+6";
@@ -319,7 +315,7 @@ in {
             tooltip = false;
           };
           "custom/weather" = {
-            exec = "${pkgs.nushell}/bin/nu ${inputs.self}/res/custom_waybar_modules/weather.nu";
+            exec = "${pkgs.nushell}/bin/nu ${../../res/custom_waybar_modules/weather.nu}";
             format = "{}";
             interval = 600;
             on-click = "xdg-open https://duckduckgo.com/?q=weather";

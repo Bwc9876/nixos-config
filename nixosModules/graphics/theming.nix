@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   qt = {
     enable = true;
     platformTheme = "qt5ct";
@@ -17,11 +13,11 @@
     };
 
     xdg.configFile = {
-      kdeglobals.source = "${inputs.self}/res/theming/kdeglobals";
-      "qt5ct/qt5ct.conf".source = "${inputs.self}/res/theming/qt5ct.conf";
-      "qt6ct/qt6ct.conf".source = "${inputs.self}/res/theming/qt6ct.conf";
-      "gtk-3.0/settings.ini".source = "${inputs.self}/res/theming/gtk/settings.ini";
-      "gtk-4.0/settings.ini".source = "${inputs.self}/res/theming/gtk/settings.ini";
+      kdeglobals.source = ../../res/theming/kdeglobals;
+      "qt5ct/qt5ct.conf".source = ../../res/theming/qt5ct.conf;
+      "qt6ct/qt6ct.conf".source = ../../res/theming/qt6ct.conf;
+      "gtk-3.0/settings.ini".source = ../../res/theming/gtk/settings.ini;
+      "gtk-4.0/settings.ini".source = ../../res/theming/gtk/settings.ini;
     };
 
     services.hyprpaper = {
@@ -29,8 +25,8 @@
       settings = {
         ipc = "on";
         splash = false;
-        preload = ["${inputs.self}/res/pictures/background.png"];
-        wallpaper = [",${inputs.self}/res/pictures/background.png"];
+        preload = ["${../../res/pictures/background.png}"];
+        wallpaper = [",${../../res/pictures/background.png}"];
       };
     };
 

@@ -1,5 +1,4 @@
 {
-  edition,
   inputs,
   config,
   ...
@@ -29,7 +28,7 @@
     home = {
       username = "bean";
       homeDirectory = "/home/bean";
-      file.".face".source = "${inputs.self}/res/pictures/cow.png";
+      file.".face".source = "${../../res/pictures/cow.png}";
       stateVersion = config.system.stateVersion;
     };
   };

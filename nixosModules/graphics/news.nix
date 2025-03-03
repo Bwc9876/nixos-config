@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}: let
+{pkgs, ...}: let
   yt-feed = id: {
     url = "https://www.youtube.com/feeds/videos.xml?channel_id=" + id;
     tags = ["!" "youtube"];
@@ -64,7 +59,7 @@ in {
 
     programs.newsboat = {
       enable = true;
-      browser = ''"${inputs.self}/res/news-open.nu %u"'';
+      browser = ''"${../../res/news-open.nu} %u"'';
 
       # notify-program ${../res/news-notify.nu}
 

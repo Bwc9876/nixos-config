@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   config,
   lib,
   ...
@@ -69,7 +68,7 @@
 
   home-manager.users.bean = {
     xdg.configFile = {
-      dolphinrc.source = "${inputs.self}/res/theming/dolphinrc";
+      dolphinrc.source = "${../../res/theming/dolphinrc}";
       "swappy/config".text = ''
         [Default]
         save_dir=$HOME/Pictures/Screenshots
@@ -125,19 +124,19 @@
         "hypridle"
         "uwsm app -- dolphin --daemon"
         "uwsm app -- waybar"
-        "wl-paste --watch bash ${inputs.self}/res/clipboard_middleman.sh"
+        "wl-paste --watch bash ${../../res/clipboard_middleman.sh}"
         "uwsm app -- swaync"
         "uwsm app -- swayosd-server"
         "uwsm app -- nm-applet"
         "${pkgs.udiskie}/bin/udiskie -A -f dolphin"
-        "${pkgs.nushell}/bin/nu ${inputs.self}/res/battery_notif.nu"
+        "${pkgs.nushell}/bin/nu ${../../res/battery_notif.nu}"
         "playerctld"
         "[workspace 3] uwsm app -- keepassxc /home/bean/Documents/Database.kdbx"
       ];
 
       bind = let
         powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p --symbols-font \"FiraMono Nerd Font Mono\"";
-        screenshot = "${pkgs.nushell}/bin/nu ${inputs.self}/res/screenshot.nu";
+        screenshot = "${pkgs.nushell}/bin/nu ${../../res/screenshot.nu}";
       in [
         "SUPER,S,exec,uwsm app -- rofi -show drun -icon-theme \"candy-icons\" -show-icons"
         "SUPER SHIFT,E,exec,uwsm app -- rofi -modi emoji -show emoji"
@@ -146,18 +145,18 @@
         "SUPER ALT,C,exec,uwsm app -- rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\""
         "SUPER,B,exec,uwsm app -- ${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"
         "SUPER,Tab,exec,uwsm app -- rofi -show window -show-icons"
-        "SUPER,E,exec,uwsm app -- ${pkgs.nushell}/bin/nu ${inputs.self}/res/rofi/rofi-places.nu"
+        "SUPER,E,exec,uwsm app -- ${pkgs.nushell}/bin/nu ${../../res/rofi/rofi-places.nu}"
         "SUPER,N,exec,uwsm app -- ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
         "SUPER,A,exec,uwsm app -- pavucontrol --tab 5"
         ''SUPER,V,exec,cliphist list | sed -r 's/\[\[ binary data (.* .iB) (.*) (.*) \]\]/ 󰋩 \2 Image (\3, \1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy''
         "SUPER ALT,V,exec,echo -e \"Yes\\nNo\" | [[ $(rofi -dmenu -mesg \"Clear Clipboard History?\" -p Clear) == \"Yes\" ]] && cliphist wipe"
         ",Print,exec,uwsm app -- ${screenshot}"
         "SUPER SHIFT,S,exec,uwsm app -- ${screenshot}"
-        "SUPER SHIFT,T,exec,nu ${../../res/ocr.nu}"
+        "SUPER SHIFT,T,exec,${pkgs.nushell}/bin/nu ${../../res/ocr.nu}"
         "SUPER SHIFT,C,exec,uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker -a"
       ];
       bindr = [
-        "SUPER SHIFT,R,exec,pkill wf-recorder --signal SIGINT || uwsm app -- nu ${inputs.self}/res/screenrec.nu"
+        "SUPER SHIFT,R,exec,pkill wf-recorder --signal SIGINT || uwsm app -- ${pkgs.nushell}/bin/nu ${../../res/screenrec.nu}"
         "CAPS,Caps_Lock,exec,uwsm app -- swayosd-client --caps-lock"
         ",Scroll_Lock,exec,uwsm app -- swayosd-client --scroll-lock"
         ",Num_Lock,exec,uwsm app -- swayosd-client --num-lock"
