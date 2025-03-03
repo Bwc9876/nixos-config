@@ -34,6 +34,7 @@
     grim
     xdg-utils
     grimblast
+    tesseract
     swappy
     libnotify
 
@@ -152,6 +153,7 @@
         "SUPER ALT,V,exec,echo -e \"Yes\\nNo\" | [[ $(rofi -dmenu -mesg \"Clear Clipboard History?\" -p Clear) == \"Yes\" ]] && cliphist wipe"
         ",Print,exec,uwsm app -- ${screenshot}"
         "SUPER SHIFT,S,exec,uwsm app -- ${screenshot}"
+        "SUPER SHIFT,T,exec,nu ${../../res/ocr.nu}"
         "SUPER SHIFT,C,exec,uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker -a"
       ];
       bindr = [
