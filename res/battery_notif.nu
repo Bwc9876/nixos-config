@@ -11,7 +11,7 @@ def device_info [name: string] {
     dbus get-all --system --dest=$BUS_NAME $"($PATH_PREFIX)/devices/($name)" $"($BUS_NAME).Device"
 }
 
-def should_consider [device: record] : bool -> bool {
+def should_consider [device: record] {
     match $device.Type {
         2 => $device.PowerSupply, # Battery, we want to make sure PowerSupply is true to ensure it's a laptop battery
         17 => true # Bluetooth Headset
@@ -20,7 +20,7 @@ def should_consider [device: record] : bool -> bool {
 }
 
 
-def get_name [device: record] : string -> string {
+def get_name [device: record] {
 
     let fallback = "(" + ($device.upower_path | path basename) + ")";
 
@@ -50,7 +50,7 @@ def list_devices [] {
     $devices | each {|it| device_info ($it | path basename) | insert "upower_path" $it} | each {|it| $it | insert "friendly_name" (get_name $it)} | where {|it| should_consider $it}
 }
 
-def should_display_notif [device: record] : bool -> bool {
+def should_display_notif [device: record] {
 
     let charging = match ($device.State? | default 0) {
         1 | 4 | 5 => true, # Charging or Fully Charged or Pending Charge
