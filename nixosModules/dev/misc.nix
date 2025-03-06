@@ -20,7 +20,6 @@
     wev
   ];
 
-
   users.users.bean.extraGroups = ["wireshark"];
   programs.wireshark = {
     enable = true;
