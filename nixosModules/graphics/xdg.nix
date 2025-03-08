@@ -17,7 +17,7 @@
       enable = true;
       defaultApplications = let
         textEditors = ["neovide.desktop"];
-        browsers = ["firefox-devedition.desktop" "firefox.desktop" "chromium.desktop"];
+        browsers = ["floorp.desktop" "chromium.desktop"];
         imageViewers = ["gimp.desktop"];
       in {
         "inode/directory" = ["org.kde.dolphin.desktop"];

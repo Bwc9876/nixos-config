@@ -1,14 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
-  programs.firefox = {
+{lib, ...}: {
+  home-manager.users.bean.programs.floorp = {
     enable = true;
-    package = pkgs.firefox-devedition;
-    wrapperConfig = {
-      pipeWireSupport = true;
-    };
     policies = {
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
@@ -83,19 +75,6 @@
         "privacy.globalprivacycontrol.enabled" = lock true;
       };
 
-      Containers = {
-        Testing = {
-          name = "Testing 1";
-          icon = "pet";
-          color = "purple";
-        };
-        Testing2 = {
-          name = "Testing 2";
-          icon = "pet";
-          color = "green";
-        };
-      };
-
       Extensions.Install = map (x: "https://addons.mozilla.org/firefox/downloads/latest/${x}/latest.xpi") [
         # Appearance
         "catppuccin-mocha-green"
@@ -135,12 +114,7 @@
         default_area = "menupanel";
       };
     };
-  };
-
-  home-manager.users.bean.programs.firefox = {
-    enable = true;
-    package = pkgs.firefox-devedition;
-    profiles.dev-edition-default.search = {
+    profiles.floorp-default.search = {
       force = true;
       default = "DuckDuckGo";
       engines = let
