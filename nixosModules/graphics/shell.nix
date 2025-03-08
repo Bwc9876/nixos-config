@@ -97,6 +97,9 @@
       '';
     };
 
+    # Doing our own thing for rofi
+    catppuccin.rofi.enable = false;
+
     programs = {
       rofi = {
         enable = true;
@@ -110,6 +113,95 @@
             })
             rofi-pulse-select
           ];
+        };
+        theme = let
+          inherit (config.home-manager.users.bean.lib.formats.rasi) mkLiteral;
+        in {
+          "@import" = "${config.catppuccin.sources.rofi}/catppuccin-${config.home-manager.users.bean.catppuccin.rofi.flavor}.rasi";
+          "*" =
+            (builtins.mapAttrs (name: value: mkLiteral "@${value}") {
+              "bg0" = "base";
+              "bg1" = "mantle";
+              "bg2" = "crust";
+              "bg3" = config.catppuccin.accent;
+              "fg0" = "subtext1";
+              "fg1" = "text";
+              "fg2" = "subtext0";
+              "fg3" = "overlay0";
+              "fg4" = "surface0";
+            })
+            // {
+              font = mkLiteral ''"Roboto 14"'';
+              background-color = mkLiteral ''transparent'';
+              text-color = mkLiteral ''@fg0'';
+              margin = mkLiteral ''0px'';
+              padding = mkLiteral ''0px'';
+              spacing = mkLiteral ''0px'';
+            };
+          "window" = {
+            location = mkLiteral ''north'';
+            y-offset = mkLiteral ''calc(50% - 176px)'';
+            width = mkLiteral ''600'';
+            border-radius = mkLiteral ''24px'';
+            background-color = mkLiteral ''@bg0'';
+          };
+          "mainbox" = {
+            padding = mkLiteral ''12px'';
+          };
+          "inputbar" = {
+            background-color = mkLiteral ''@bg1'';
+            border-color = mkLiteral ''@bg3'';
+            border = mkLiteral ''2px'';
+            border-radius = mkLiteral ''16px'';
+            padding = mkLiteral ''8px 16px'';
+            spacing = mkLiteral ''8px'';
+            children = mkLiteral ''[ prompt, entry ]'';
+          };
+          "prompt" = {
+            text-color = mkLiteral ''@fg2'';
+          };
+          "entry" = {
+            placeholder = mkLiteral ''"Search"'';
+            placeholder-color = mkLiteral ''@fg3'';
+          };
+          "message" = {
+            margin = mkLiteral ''12px 0 0'';
+            border-radius = mkLiteral ''16px'';
+            border-color = mkLiteral ''@bg2'';
+            background-color = mkLiteral ''@bg2'';
+          };
+          "textbox" = {
+            padding = mkLiteral ''8px 24px'';
+          };
+          "listview" = {
+            background-color = mkLiteral ''transparent'';
+            margin = mkLiteral ''12px 0 0'';
+            lines = mkLiteral ''8'';
+            columns = mkLiteral ''2'';
+            fixed-height = mkLiteral ''false'';
+          };
+          "element" = {
+            padding = mkLiteral ''8px 16px'';
+            spacing = mkLiteral ''8px'';
+            border-radius = mkLiteral ''16px'';
+          };
+          "element normal active" = {
+            text-color = mkLiteral ''@bg3'';
+          };
+          "element alternate active" = {
+            text-color = mkLiteral ''@bg3'';
+          };
+          "element selected normal, element selected active" = {
+            text-color = mkLiteral ''@fg4'';
+            background-color = mkLiteral ''@bg3'';
+          };
+          "element-icon" = {
+            size = mkLiteral ''1em'';
+            vertical-align = mkLiteral ''0.5'';
+          };
+          "element-text" = {
+            text-color = mkLiteral ''inherit'';
+          };
         };
         location = "center";
       };
