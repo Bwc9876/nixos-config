@@ -10,7 +10,6 @@
 
   environment.systemPackages = with pkgs; [
     prismlauncher
-    libsForQt5.kmousetool
     owmods-gui
     owmods-cli
   ];

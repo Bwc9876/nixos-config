@@ -2,11 +2,12 @@
   system = "x86_64-linux";
 
   modules = [
-    (outputs.lib.applyRoles ["base" "latest-linux" "ssh" "fun" "dev" "secureboot" "mc-server"])
+    (outputs.lib.applyRoles ["base" "latest-linux" "wireless" "ssh" "fun" "dev" "secureboot" "mc-server"])
     ({
       modulesPath,
       lib,
       config,
+      pkgs,
       ...
     }: {
       imports = [(modulesPath + "/installer/scan/not-detected.nix")];
@@ -14,9 +15,22 @@
       system.stateVersion = "25.05";
 
       boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
-      boot.initrd.kernelModules = [];
+      boot.initrd.kernelModules = ["amdgpu"];
       boot.kernelModules = ["kvm-amd"];
       boot.extraModulePackages = [];
+
+      programs.steam = {
+        enable = true;
+        remotePlay.openFirewall = true;
+        dedicatedServer.openFirewall = true;
+        localNetworkGameTransfers.openFirewall = true;
+      };
+
+      programs.gamescope.enable = true;
+
+      environment.systemPackages = with pkgs; [
+        cage
+      ];
 
       fileSystems."/" = {
         device = "/dev/disk/by-uuid/77e539a3-813d-465b-ac11-8aad37300858";
@@ -38,14 +52,9 @@
       hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
       hardware.graphics.enable = true;
+      services.xserver.videoDrivers = ["amdgpu"];
 
       networking.interfaces.enp4s0.wakeOnLan.enable = true;
-
-      hardware.nvidia = {
-        open = false;
-        modesetting.enable = true;
-        powerManagement.finegrained = false;
-      };
 
       services.nix-serve = {
         enable = true;
