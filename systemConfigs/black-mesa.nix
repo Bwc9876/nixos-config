@@ -26,11 +26,11 @@
         localNetworkGameTransfers.openFirewall = true;
       };
 
-      programs.gamescope.enable = true;
-
-      environment.systemPackages = with pkgs; [
-        cage
-      ];
+      programs.gamescope = {
+        enable = true;
+        args = ["--rt"];
+        capSysNice = true;
+      };
 
       fileSystems."/" = {
         device = "/dev/disk/by-uuid/77e539a3-813d-465b-ac11-8aad37300858";
