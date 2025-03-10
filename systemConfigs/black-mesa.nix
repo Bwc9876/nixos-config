@@ -53,6 +53,11 @@
             fetchSubmodules = true;
             hash = "sha256-zAzIi3syJYtbKjydp19d1OxZvMjXb+eO+mXT/mJPEuA=";
           };
+          patches =
+            old.patches
+            ++ [
+              ../res/gs-pw-amd.patch
+            ];
         });
         capSysNice = true;
       };
