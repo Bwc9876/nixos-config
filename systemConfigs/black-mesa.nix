@@ -19,6 +19,23 @@
       boot.kernelModules = ["kvm-amd"];
       boot.extraModulePackages = [];
 
+      services.pulseaudio.enable = false;
+
+      security.rtkit.enable = true; # Allows pipewire and friends to run realtime
+
+      programs.nix-ld = {
+        enable = true;
+      };
+
+      services.pipewire = {
+        enable = true;
+        pulse.enable = true;
+        alsa = {
+          enable = true;
+          support32Bit = true;
+        };
+      };
+
       programs.steam = {
         enable = true;
         remotePlay.openFirewall = true;
@@ -28,7 +45,15 @@
 
       programs.gamescope = {
         enable = true;
-        args = ["--rt"];
+        package = pkgs.gamescope.overrideAttrs (new: old: {
+          src = pkgs.fetchFromGitHub {
+            owner = "ValveSoftware";
+            repo = "gamescope";
+            rev = "186f3a3ed0ce8eb5f3a956d3916a3331ea4e3ab2";
+            fetchSubmodules = true;
+            hash = "sha256-zAzIi3syJYtbKjydp19d1OxZvMjXb+eO+mXT/mJPEuA=";
+          };
+        });
         capSysNice = true;
       };
 
