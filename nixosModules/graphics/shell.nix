@@ -117,7 +117,7 @@
         theme = let
           inherit (config.home-manager.users.bean.lib.formats.rasi) mkLiteral;
         in {
-          "@import" = "${config.catppuccin.sources.rofi}/catppuccin-${config.home-manager.users.bean.catppuccin.rofi.flavor}.rasi";
+          "@import" = "${config.catppuccin.sources.rofi}/themes/catppuccin-${config.home-manager.users.bean.catppuccin.rofi.flavor}.rasi";
           "*" =
             (builtins.mapAttrs (name: value: mkLiteral "@${value}") {
               "bg0" = "base";
