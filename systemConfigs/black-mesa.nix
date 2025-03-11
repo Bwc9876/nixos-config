@@ -23,10 +23,6 @@
 
       security.rtkit.enable = true; # Allows pipewire and friends to run realtime
 
-      programs.nix-ld = {
-        enable = true;
-      };
-
       services.pipewire = {
         enable = true;
         pulse.enable = true;
@@ -56,11 +52,6 @@
         });
         capSysNice = true;
       };
-
-      environment.systemPackages = with pkgs; [
-        cage
-        uwsm
-      ];
 
       fileSystems."/" = {
         device = "/dev/disk/by-uuid/77e539a3-813d-465b-ac11-8aad37300858";
