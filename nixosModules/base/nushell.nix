@@ -30,7 +30,7 @@ in rec {
       let zoxide_completer = {|spans|
           let query = $spans | skip 1
           let z_results = $query | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
-          let l_results = ls -a | where type != "file" | where (($it.name | str downcase) | str starts-with ($query | get 0 | str downcase)) | get name
+          let l_results = fish_completer $spans
           $l_results | append $z_results
       }
       let multiple_completers = {|spans|
