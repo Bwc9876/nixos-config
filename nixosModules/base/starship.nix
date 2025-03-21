@@ -1,6 +1,5 @@
 {...}: let
   settings = {
-    "$schema" = "https://starship.rs/config-schema.json";
     add_newline = false;
     character = {
       disabled = false;

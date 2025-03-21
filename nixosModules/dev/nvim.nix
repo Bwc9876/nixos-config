@@ -426,6 +426,7 @@
               disableTsServerFormatter = true;
             };
             yamlfmt.enable = true;
+            typstyle.enable = true;
             markdownlint.enable = true;
           };
           sources.diagnostics = {
@@ -525,6 +526,7 @@
             rust_analyzer.installRustc = false;
             lemminx.enable = true;
             eslint.enable = true;
+            tinymist.enable = true;
           };
         };
       };

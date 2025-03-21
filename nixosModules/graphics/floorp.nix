@@ -116,11 +116,11 @@
     };
     profiles.floorp-default.search = {
       force = true;
-      default = "DuckDuckGo";
+      default = "ddg";
       engines = let
         mkEngineForceFavicon = aliases: queryUrl: iconUrl: {
           definedAliases = aliases;
-          iconUpdateURL = iconUrl;
+          icon = iconUrl;
           urls = [{template = queryUrl;}];
         };
         mkEngine = aliases: queryUrl: iconExt: (
@@ -180,7 +180,7 @@
         "NixVim Options" = mkEngineForceFavicon ["@nixvim"] "https://nix-community.github.io/nixvim/search/?option_scope=0&query={searchTerms}" "https://nix-community.github.io/nixvim/search/favicon.ico";
 
         # Media
-        "YouTube" = mkEngine ["@yt"] "https://www.youtube.com/results?search_query={searchTerms}" "ico";
+        "youtube" = mkEngine ["@yt"] "https://www.youtube.com/results?search_query={searchTerms}" "ico";
         "Spotify" = mkEngineForceFavicon ["@sp" "@spotify"] "https://open.spotify.com/search/{searchTerms}" "https://open.spotifycdn.com/cdn/images/favicon16.1c487bff.png";
         "Netflix" = mkEngine ["@nfx"] "https://www.netflix.com/search?q={searchTerms}" "ico";
         "IMDb" = mkEngine ["@imdb"] "https://www.imdb.com/find?q={searchTerms}" "ico";
@@ -193,10 +193,10 @@
         "History".metaData.alias = "@h";
         "Bookmarks".metaData.alias = "@b";
         "Tabs".metaData.alias = "@t";
-        "Bing".metaData.hidden = true;
-        "Amazon.com".metaData.alias = "@amz";
-        "Google".metaData.alias = "@g";
-        "Wikipedia (en)".metaData.alias = "@w";
+        "bing".metaData.hidden = true;
+        "amazondotcom-us".metaData.alias = "@amz";
+        "google".metaData.alias = "@g";
+        "wikipedia".metaData.alias = "@w";
       };
     };
   };
