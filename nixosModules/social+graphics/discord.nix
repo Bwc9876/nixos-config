@@ -60,7 +60,7 @@
         FixYoutubeEmbeds.enabled = true;
         FriendsSince.enabled = true;
         MemberCount = {
-          enabled = true;
+          enabled = false;
           memberList = true;
           toolTip = true;
         };
@@ -81,9 +81,6 @@
           inverseShiftReply = false;
           shouldPingListed = true;
           userList = "1234567890123445,1234567890123445";
-        };
-        NoServerEmojis = {
-          shownEmojis = "onlyUnicode";
         };
         NoTrack = {
           disableAnalytics = true;
@@ -114,9 +111,6 @@
           theme = "https://raw.githubusercontent.com/shikijs/shiki/0b28ad8ccfbf2615f2d9d38ea8255416b8ac3043/packages/shiki/themes/dark-plus.json";
           useDevIcon = "GREYSCALE";
         };
-        Summaries = {
-          summaryExpiryThresholdDays = 3;
-        };
         SupportHelper.enabled = true;
         TypingTweaks.enabled = true;
         UserSettingsAPI.enabled = true;
@@ -127,7 +121,7 @@
           addBack = true;
         };
         WebScreenShareFixes.enabled = true;
-        WhoReacted.enabled = true;
+        WhoReacted.enabled = false;
       };
       themeLinks = ["https://catppuccin.github.io/discord/dist/catppuccin-mocha-green.theme.css"];
       transparent = false;

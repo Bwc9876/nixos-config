@@ -1,20 +1,10 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: let
-  css = pkgs.fetchurl {
-    url = "https://github.com/catppuccin/swaync/releases/latest/download/mocha.css";
-    hash = "sha256-Hie/vDt15nGCy4XWERGy1tUIecROw17GOoasT97kIfc=";
-  };
-in {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     alsa-utils
   ];
 
   home-manager.users.bean.services.swaync = {
     enable = true;
-    style = css;
     settings = {
       control-center-exclusive-zone = false;
       control-center-height = 1000;

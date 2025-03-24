@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home-manager.users.bean = {
+    catppuccin.hyprlock.useDefaultConfig = false;
     wayland.windowManager.hyprland.settings = {
       bind = [
         "SUPER,L,exec,pidof hyprlock || hyprlock --immediate"
@@ -9,17 +10,7 @@
     programs.hyprlock = {
       enable = true;
 
-      settings = let
-        mauve = "rgb(cba6f7)";
-        crust = "rgb(11111b)";
-        mantle = "rgb(181825)";
-        text = "rgb(cdd6f4)";
-        sapphire = "rgb(74c7ec)";
-        peach = "rgb(fab387)";
-        red = "rgb(f38ba8)";
-        base = "rgb(1e1e2e)";
-        surface0 = "rgb(313244)";
-      in {
+      settings = {
         general.grace = 5;
         background = {
           monitor = "";
@@ -29,22 +20,22 @@
         shape = [
           {
             monitor = "";
-            color = crust;
+            color = "$crust";
             position = "0, 30";
             rounding = 10;
             border_size = 2;
-            border_color = mauve;
+            border_color = "$mauve";
             size = "500, 500";
             shadow_passes = 1;
             shadow_size = 2;
           }
           {
             monitor = "";
-            color = crust;
+            color = "$crust";
             position = "0, -30";
             rounding = 10;
             border_size = 2;
-            border_color = mauve;
+            border_color = "$mauve";
             size = "600, 50";
             valign = "top";
             shadow_passes = 1;
@@ -57,7 +48,7 @@
           size = 150;
           rounding = -1;
           border_size = 4;
-          border_color = mauve;
+          border_color = "$mauve";
           rotate = 0;
           position = "0, 120";
           halign = "center";
@@ -71,16 +62,16 @@
           dots_spacing = 0.15; # Scale of dots' absolute size, 0.0 - 1.0
           dots_center = false;
           dots_rounding = -1; # -1 default circle, -2 follow input-field rounding
-          outer_color = surface0;
-          inner_color = base;
-          font_color = text;
+          outer_color = "$surface0";
+          inner_color = "$base";
+          font_color = "$text";
           fade_on_empty = false;
           fade_timeout = 1000; # Milliseconds before fade_on_empty is triggered.
           placeholder_text = ''<span foreground="##cdd6f4" style="italic">Password</span>'';
           hide_input = false;
           rounding = -1; # -1 means complete rounding (circle/oval)
-          check_color = peach;
-          fail_color = red; # if authentication failed, changes outer_color and fail message color
+          check_color = "$peach";
+          fail_color = "$red"; # if authentication failed, changes outer_color and fail message color
           fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
           fail_transition = 300; # transition time in ms between normal outer_color and fail_color
           capslock_color = -1;
@@ -97,7 +88,7 @@
           {
             monitor = "";
             text = "$DESC";
-            color = text;
+            color = "$text";
             font_size = 25;
             font_family = "sans-serif";
             rotate = 0; # degrees, counter-clockwise
@@ -109,7 +100,7 @@
           {
             monitor = "";
             text = ''cmd[update:30000] echo "  $(date +"%A, %B %-d | %I:%M %p") | $(${pkgs.nushell}/bin/nu ${../../res/bat_display.nu})  "'';
-            color = text;
+            color = "$text";
             font_size = 20;
             font_family = "sans-serif";
             rotate = 0; # degrees, counter-clockwise
