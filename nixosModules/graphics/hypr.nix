@@ -32,15 +32,7 @@
         general = {
           border_size = 2;
           resize_on_border = true;
-          "col.active_border" = let
-            red = "rgb(f38ba8)";
-            peach = "rgb(fab387)";
-            yellow = "rgb(f9e2af)";
-            green = "rgb(a6e3a1)";
-            sapphire = "rgb(74c7ec)";
-            lavender = "rgb(b4befe)";
-            mauve = "rgb(cba6f7)";
-          in "${red} ${peach} ${yellow} ${green} ${sapphire} ${lavender} ${mauve} 225deg";
+          "col.active_border" = "$red $peach $yellow $green $sapphire $lavender $mauve 225deg";
         };
         decoration = {
           rounding = 10;
