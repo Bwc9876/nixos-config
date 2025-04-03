@@ -20,6 +20,7 @@ in rec {
       dog = "doggo";
       man = "__batman";
       bgrep = "batgrep";
+      "🥺" = "sudo";
     };
     configFile.text = ''
       let fish_completer = {|spans|

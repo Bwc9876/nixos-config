@@ -13,7 +13,7 @@ in {
 
   home-manager.users.bean = {
     imports = [
-      inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.catppuccin.homeModules.catppuccin
     ];
 
     inherit catppuccin;
@@ -21,7 +21,7 @@ in {
 
   home-manager.users.root = {
     imports = [
-      inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.catppuccin.homeModules.catppuccin
     ];
 
     inherit catppuccin;
