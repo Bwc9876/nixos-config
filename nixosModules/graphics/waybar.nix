@@ -11,6 +11,7 @@ in {
     ];
     programs.waybar = {
       enable = true;
+      systemd.enable = true;
       style = ''
         @import "${catppuccinCss}";
 
@@ -448,7 +449,6 @@ in {
           "wlr/taskbar" = {
             format = "{icon}";
             icon-size = 35;
-            icon-theme = "candy-icons";
             on-click = "activate";
           };
         }

@@ -9,24 +9,18 @@
   environment.systemPackages = with pkgs; [
     # Shell Components
     hyprlock
-    hypridle
-    hyprpolkitagent
     hyprland-qtutils
-    swaynotificationcenter
-    swayosd
 
     ## Waybar
-    waybar
     qt6.qttools # For component
 
-    libsForQt5.dolphin
-    libsForQt5.ark # For archive support
-    libsForQt5.kio-extras # For thumbnails
-    libsForQt5.kdegraphics-thumbnailers # For thumbnails
+    ## Dolphin
+    kdePackages.dolphin
+    kdePackages.ark # For archive support
+    kdePackages.kio-extras # For thumbnails
+    kdePackages.kdegraphics-thumbnailers # For thumbnails
 
-    networkmanagerapplet
     pavucontrol
-    udiskie
 
     wf-recorder
     slurp
@@ -36,10 +30,10 @@
     tesseract
     swappy
     libnotify
+    swaynotificationcenter
+    networkmanagerapplet
 
     keepassxc
-
-    plasma5Packages.kdeconnect-kde
 
     hunspell
     hunspellDicts.en_US
@@ -68,7 +62,6 @@
 
   home-manager.users.bean = {
     xdg.configFile = {
-      dolphinrc.source = "${../../res/theming/dolphinrc}";
       "swappy/config".text = ''
         [Default]
         save_dir=$HOME/Pictures/Screenshots
@@ -81,16 +74,6 @@
         early_exit=false
         fill_shape=false
       '';
-      "swayosd/style.css".text = ''
-        window#osd {
-          border-radius: 5rem;
-        }
-
-        #container {
-          padding: 5px 10px;
-        }
-      '';
-
       "kdeconnect/config".text = ''
         [General]
         name=${lib.toUpper config.networking.hostName}
@@ -99,6 +82,50 @@
 
     # Doing our own thing for rofi
     catppuccin.rofi.enable = false;
+
+    systemd.user.services.dolphin = let
+      target = config.home-manager.users.bean.wayland.systemd.target;
+    in {
+      Install = {WantedBy = [target];};
+
+      Unit = {
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+        Description = "Dolphin File Manager Daemon";
+        After = [target];
+        PartOf = [target];
+      };
+
+      Service = {
+        ExecStart = "${pkgs.kdePackages.dolphin}/bin/dolphin --daemon";
+        Restart = "always";
+        RestartSec = "10";
+        BusName = "org.freedesktop.FileManager1";
+      };
+    };
+
+    services = {
+      hyprpolkitagent.enable = true;
+      kdeconnect.enable = true;
+      udiskie = {
+        enable = true;
+        automount = false;
+        tray = "never";
+      };
+      playerctld.enable = true;
+      network-manager-applet.enable = true;
+      swayosd = {
+        enable = true;
+        stylePath = pkgs.writeText "swayosd-style.css" ''
+          window#osd {
+            border-radius: 5rem;
+          }
+
+          #container {
+            padding: 5px 10px;
+          }
+        '';
+      };
+    };
 
     programs = {
       rofi = {
@@ -211,18 +238,13 @@
     };
 
     wayland.windowManager.hyprland.settings = {
+      env = [
+        "GRIMBLAST_EDITOR,swappy -f "
+      ];
+
       exec-once = [
-        "systemctl --user start hyprpolkitagent"
-        "hypridle"
-        "uwsm app -- dolphin --daemon"
-        "uwsm app -- waybar"
-        "wl-paste --watch bash ${../../res/clipboard_middleman.sh}"
-        "uwsm app -- swaync"
-        "uwsm app -- swayosd-server"
-        "uwsm app -- nm-applet"
-        "${pkgs.udiskie}/bin/udiskie -A -f dolphin"
-        "${pkgs.nushell}/bin/nu ${../../res/battery_notif.nu}"
-        "playerctld"
+        "uwsm app -- wl-paste --watch bash ${../../res/clipboard_middleman.sh}"
+        "uwsm app -- ${pkgs.nushell}/bin/nu ${../../res/battery_notif.nu}"
         "[workspace 3] uwsm app -- keepassxc /home/bean/Documents/Database.kdbx"
       ];
 

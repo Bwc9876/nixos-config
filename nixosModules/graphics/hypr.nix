@@ -14,6 +14,7 @@
   };
 
   home-manager.users.bean = {
+    wayland.systemd.target = "wayland-session@hyprland.desktop.target";
     wayland.windowManager.hyprland = {
       systemd.enable = false;
       enable = true;
@@ -63,6 +64,8 @@
         };
         env = [
           "TERMINAL,wezterm"
+          "QT_QPA_PLATFORM,wayland;xcb"
+          "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         ];
         windowrulev2 = [
           "workspace 1 silent,class:(.*)vesktop(.*),title:(.*)[Vv]esktop(.*)"

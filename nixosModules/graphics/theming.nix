@@ -1,7 +1,37 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  iconTheme = {
+    name = "Tela-green";
+    package = pkgs.tela-icon-theme;
+  };
+  cursorTheme = {
+    name = "Qogir";
+    package = pkgs.qogir-icon-theme;
+    size = 24;
+  };
+  hyprThemeName = "${cursorTheme.name}-hypr";
+  hyprCursorTheme = let
+    utils = "${pkgs.hyprcursor}/bin/hyprcursor-util";
+  in
+    pkgs.runCommand hyprThemeName {} ''
+      export PATH="$PATH:${pkgs.xcur2png}/bin"
+      ${utils} -x ${cursorTheme.package}/share/icons/${cursorTheme.name} --output .
+      mkdir -p $out/share/icons
+      ${utils} -c ./extracted_${cursorTheme.name} --output .
+      cp -r "./theme_Extracted Theme" $out/share/icons/${hyprThemeName}
+    '';
+in {
+  environment.systemPackages = [
+    hyprCursorTheme
+    cursorTheme.package
+    iconTheme.package
+  ];
+
   qt = {
     enable = true;
-    platformTheme = "qt5ct";
     style = "kvantum";
   };
 
@@ -12,13 +42,27 @@
       style.name = "kvantum";
     };
 
-    xdg.configFile = {
-      kdeglobals.source = ../../res/theming/kdeglobals;
-      "qt5ct/qt5ct.conf".source = ../../res/theming/qt5ct.conf;
-      "qt6ct/qt6ct.conf".source = ../../res/theming/qt6ct.conf;
-      "gtk-3.0/settings.ini".source = ../../res/theming/gtk/settings.ini;
-      "gtk-4.0/settings.ini".source = ../../res/theming/gtk/settings.ini;
+    home.pointerCursor = {
+      inherit (cursorTheme) name package size;
+      enable = true;
+      gtk.enable = true;
+      x11.enable = true;
     };
+
+    wayland.windowManager.hyprland.settings.env = [
+      "HYPRCURSOR_THEME,${hyprThemeName}"
+      "HYPRCURSOR_SIZE,${builtins.toJSON cursorTheme.size}"
+    ];
+
+    gtk = {
+      enable = true;
+      inherit iconTheme;
+      gtk2.extraConfig = "gtk-application-prefer-dark-theme=true";
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+      gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+    };
+
+    dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
     services.hyprpaper = {
       enable = true;
@@ -29,33 +73,5 @@
         wallpaper = [",${../../res/pictures/background.png}"];
       };
     };
-
-    wayland.windowManager.hyprland.settings = {
-      env = let
-        cursorSize = "24";
-      in [
-        "QT_QPA_PLATFORM,wayland;xcb"
-        "QT_AUTO_SCREEN_SCALE_FACTOR,1"
-        "HYPRCURSOR_THEME,Sweet-cursors-hypr"
-        "HYPRCURSOR_SIZE,${cursorSize}"
-        "XCURSOR_THEME,Sweet-cursors"
-        "XCURSOR_SIZE,${cursorSize}"
-        "GRIMBLAST_EDITOR,swappy -f "
-      ];
-      exec-once = [
-        ''dconf write /org/gnome/desktop/interface/cursor-theme "Sweet-cursors"''
-        ''dconf write /org/gnome/desktop/interface/icon-theme "candy-icons"''
-        ''dconf write /org/gnome/desktop/interface/gtk-theme "Sweet-Ambar-Blue:dark"''
-      ];
-    };
   };
-
-  environment.systemPackages = with pkgs; [
-    libsForQt5.qt5ct
-    kdePackages.qt6ct
-    libsForQt5.qtstyleplugin-kvantum
-    kdePackages.qtstyleplugin-kvantum
-    theming
-    adwaita-icon-theme # For fallback icons
-  ];
 }

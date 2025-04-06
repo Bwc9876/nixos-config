@@ -116,7 +116,8 @@
     };
     profiles.floorp-default.search = {
       force = true;
-      default = "ddg";
+      default = "ddg@search.mozilla.orgdefault";
+      privateDefault = "ddg@search.mozilla.orgdefault";
       engines = let
         mkEngineForceFavicon = aliases: queryUrl: iconUrl: {
           definedAliases = aliases;
@@ -193,10 +194,10 @@
         "History".metaData.alias = "@h";
         "Bookmarks".metaData.alias = "@b";
         "Tabs".metaData.alias = "@t";
-        "bing".metaData.hidden = true;
-        "amazondotcom-us".metaData.alias = "@amz";
-        "google".metaData.alias = "@g";
-        "wikipedia".metaData.alias = "@w";
+        "bing@search.mozilla.orgdefault".metaData.hidden = true;
+        "amazondotcom-us@search.mozilla.orgdefault".metaData.alias = "@amz";
+        "google@search.mozilla.orgdefault".metaData.alias = "@g";
+        "wikipedia@search.mozilla.orgdefault".metaData.alias = "@w";
       };
     };
   };

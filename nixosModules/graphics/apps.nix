@@ -148,10 +148,6 @@
     '';
   };
 
-  programs.kdeconnect.enable = true;
-
-  home-manager.users.bean.services.kdeconnect.enable = true;
-
   environment.variables.NIXOS_OZONE_WL = "1";
 
   environment.systemPackages = with pkgs; [

@@ -3,8 +3,20 @@
     alsa-utils
   ];
 
+  nixpkgs.overlays = [
+    (new: old: {
+      swaynotificationcenter = old.swaynotificationcenter.overrideAttrs {
+        postFixup = ''
+          rm -r $out/share/systemd
+          rm -r $out/lib/systemd
+        '';
+      };
+    })
+  ];
+
   home-manager.users.bean.services.swaync = {
-    enable = true;
+    # TODO: Remove after checking
+    enable = false;
     settings = {
       control-center-exclusive-zone = false;
       control-center-height = 1000;
