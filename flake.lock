@@ -1,5 +1,30 @@
 {
   "nodes": {
+    "bingus": {
+      "inputs": {
+        "flakelight": "flakelight",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pyproject-build-systems": "pyproject-build-systems",
+        "pyproject-nix": "pyproject-nix",
+        "uv2nix": "uv2nix"
+      },
+      "locked": {
+        "lastModified": 1744117789,
+        "narHash": "sha256-KHPAE52WtLZZuQaBZA8v/avEB5X8PHIXOdQ+9twqork=",
+        "owner": "Bwc9876",
+        "repo": "bingus-bot",
+        "rev": "1e823a8da3fa1dd3568a12a69405e5cc068c65ec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Bwc9876",
+        "ref": "module",
+        "repo": "bingus-bot",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
@@ -129,15 +154,16 @@
     "flakelight": {
       "inputs": {
         "nixpkgs": [
+          "bingus",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1744029987,
-        "narHash": "sha256-J1hZh9FHHCHKLGByZveXTnWK6G/oXjnbs9BS+GX+8jg=",
+        "lastModified": 1741610597,
+        "narHash": "sha256-dA8dIKrIZfyD07Xms/67y3eMU5yXJO+8K1s0mdMrobg=",
         "owner": "nix-community",
         "repo": "flakelight",
-        "rev": "a9deddc856e2d279d616e5f4f1fdd43c5d1c8ac3",
+        "rev": "a4698f0f05f8e9f57b3a621b93edae444747ad15",
         "type": "github"
       },
       "original": {
@@ -149,7 +175,7 @@
     "flakelight-rust": {
       "inputs": {
         "crane": "crane",
-        "flakelight": "flakelight_2"
+        "flakelight": "flakelight_3"
       },
       "locked": {
         "lastModified": 1738672886,
@@ -168,7 +194,6 @@
     "flakelight_2": {
       "inputs": {
         "nixpkgs": [
-          "gh-grader-preview",
           "nixpkgs"
         ]
       },
@@ -189,6 +214,27 @@
     "flakelight_3": {
       "inputs": {
         "nixpkgs": [
+          "gh-grader-preview",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744029987,
+        "narHash": "sha256-J1hZh9FHHCHKLGByZveXTnWK6G/oXjnbs9BS+GX+8jg=",
+        "owner": "nix-community",
+        "repo": "flakelight",
+        "rev": "a9deddc856e2d279d616e5f4f1fdd43c5d1c8ac3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "flakelight",
+        "type": "github"
+      }
+    },
+    "flakelight_4": {
+      "inputs": {
+        "nixpkgs": [
           "nu_plugin_dbus",
           "nixpkgs"
         ]
@@ -207,7 +253,7 @@
         "type": "github"
       }
     },
-    "flakelight_4": {
+    "flakelight_5": {
       "inputs": {
         "nixpkgs": [
           "wayland-mpris-idle-inhibit",
@@ -434,7 +480,7 @@
     },
     "nu_plugin_dbus": {
       "inputs": {
-        "flakelight": "flakelight_3",
+        "flakelight": "flakelight_4",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -502,10 +548,61 @@
         "type": "github"
       }
     },
+    "pyproject-build-systems": {
+      "inputs": {
+        "nixpkgs": [
+          "bingus",
+          "nixpkgs"
+        ],
+        "pyproject-nix": [
+          "bingus",
+          "pyproject-nix"
+        ],
+        "uv2nix": [
+          "bingus",
+          "uv2nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1741647088,
+        "narHash": "sha256-y/Aj21rMGdE23dcFfD4lRhNMgkhIRucp+uuWLWUXv0M=",
+        "owner": "pyproject-nix",
+        "repo": "build-system-pkgs",
+        "rev": "6d7eced86469cf89ed4d19d91b870163deb0dca2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "build-system-pkgs",
+        "type": "github"
+      }
+    },
+    "pyproject-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "bingus",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1741648141,
+        "narHash": "sha256-jQEZCSCgm60NGmBg3JPu290DDhNVI1GVVEd0P8VCnME=",
+        "owner": "pyproject-nix",
+        "repo": "pyproject.nix",
+        "rev": "7747e5a058245c7abe033a798f818f0572d8e155",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "pyproject.nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "bingus": "bingus",
         "catppuccin": "catppuccin",
-        "flakelight": "flakelight",
+        "flakelight": "flakelight_2",
         "gh-grader-preview": "gh-grader-preview",
         "hm": "hm",
         "imperm": "imperm",
@@ -575,9 +672,34 @@
         "type": "github"
       }
     },
+    "uv2nix": {
+      "inputs": {
+        "nixpkgs": [
+          "bingus",
+          "nixpkgs"
+        ],
+        "pyproject-nix": [
+          "bingus",
+          "pyproject-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1741780535,
+        "narHash": "sha256-B4seqoWl9HlKZ7m+nDosVtmDw9i6KbhvfonQlYhRrJg=",
+        "owner": "pyproject-nix",
+        "repo": "uv2nix",
+        "rev": "7de0e836e005f971a252e20b478d12b8b64909d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "uv2nix",
+        "type": "github"
+      }
+    },
     "wayland-mpris-idle-inhibit": {
       "inputs": {
-        "flakelight": "flakelight_4",
+        "flakelight": "flakelight_5",
         "nixpkgs": [
           "nixpkgs"
         ]

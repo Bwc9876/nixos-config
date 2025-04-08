@@ -1,8 +1,21 @@
-{outputs, ...}: {
+{
+  outputs,
+  inputs,
+  ...
+}: {
   system = "x86_64-linux";
 
   modules = [
     (outputs.lib.applyRoles ["base" "latest-linux" "wireless" "ssh" "graphics" "games" "fun" "dev" "secureboot" "mc-server"])
+    {
+      imports = [inputs.bingus.nixosModules.default];
+      nixpkgs.overlays = [inputs.bingus.overlays.default];
+
+      services.bingus-bot = {
+        enable = true;
+        replyChannels = [1295447496948191262 1295245646542143489];
+      };
+    }
     ({
       modulesPath,
       lib,
