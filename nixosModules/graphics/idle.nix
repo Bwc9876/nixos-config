@@ -3,14 +3,12 @@
   inputs',
   ...
 }: let
-  sunsetCmd = "uwsm app -- ${pkgs.wlsunset}/bin/wlsunset -S 6:00 -s 22:00";
-  screenOffCmd = "hyprctl dispatch dpms off; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-add \"timeout\"; pkill wlsunset;";
-  screenOnCmd = "hyprctl dispatch dpms on; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-remove \"timeout\"; ${sunsetCmd};";
+  screenOffCmd = "hyprctl dispatch dpms off; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-add \"timeout\"";
+  screenOnCmd = "hyprctl dispatch dpms on; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-remove \"timeout\"";
 in {
   home-manager.users.bean = {
     wayland.windowManager.hyprland.settings = {
       exec-once = [
-        sunsetCmd
         ''uwsm app -- ${inputs'.wayland-mpris-idle-inhibit.packages.default}/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"''
       ];
 

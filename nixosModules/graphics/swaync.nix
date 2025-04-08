@@ -16,7 +16,7 @@
 
   home-manager.users.bean.services.swaync = {
     # TODO: Remove after checking
-    enable = false;
+    enable = true;
     settings = {
       control-center-exclusive-zone = false;
       control-center-height = 1000;

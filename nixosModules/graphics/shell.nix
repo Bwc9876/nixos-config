@@ -113,6 +113,11 @@
       };
       playerctld.enable = true;
       network-manager-applet.enable = true;
+      wlsunset = {
+        enable = true;
+        sunrise = "6:00";
+        sunset = "22:00";
+      };
       swayosd = {
         enable = true;
         stylePath = pkgs.writeText "swayosd-style.css" ''
