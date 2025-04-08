@@ -2,9 +2,23 @@
   pkgs,
   config,
   lib,
+  inputs',
   ...
 }: {
   users.users.bean.extraGroups = ["video"];
+
+  nixpkgs.overlays = [
+    (next: prev: {
+      wl-clipboard = prev.wl-clipboard.overrideAttrs {
+        src = pkgs.fetchFromGitHub {
+          owner = "bugaevc";
+          repo = "wl-clipboard";
+          rev = "424517085c45849edfeff72a4e3cc0724f54404a";
+          sha256 = "sha256-SueQw+/fR9B7Vbw4SvkaBN8Ifu1dMp3ymDr3a0lTdSs=";
+        };
+      };
+    })
+  ];
 
   environment.systemPackages = with pkgs; [
     # Shell Components
@@ -32,35 +46,21 @@
     libnotify
     swaynotificationcenter
     networkmanagerapplet
+    wl-clipboard
 
     keepassxc
 
     hunspell
     hunspellDicts.en_US
     hunspellDicts.en_US-large
-
-    (callPackage wl-clipboard.overrideAttrs {
-      src = fetchFromGitHub {
-        owner = "Bwc9876";
-        repo = "wl-clipboard";
-        rev = "bwc9876/x-kde-passwordManagerHint-sensitive";
-        sha256 = "sha256-DD0efaKaqAMqp4KwQPwuKlNtGuHIXvfE0SBfTKSADOM=";
-      };
-    })
-    (callPackage cliphist.overrideAttrs {
-      src = fetchFromGitHub {
-        owner = "sentriz";
-        repo = "cliphist";
-        rev = "8c48df70bb3d9d04ae8691513e81293ed296231a";
-        sha256 = "sha256-tImRbWjYCdIY8wVMibc5g5/qYZGwgT9pl4pWvY7BDlI=";
-      };
-      vendorHash = "sha256-gG8v3JFncadfCEUa7iR6Sw8nifFNTciDaeBszOlGntU=";
-    })
   ];
 
   services.udisks2.enable = true;
 
-  home-manager.users.bean = {
+  home-manager.users.bean = let
+    screenOffCmd = "hyprctl dispatch dpms off; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-add \"timeout\"";
+    screenOnCmd = "hyprctl dispatch dpms on; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-remove \"timeout\"";
+  in {
     xdg.configFile = {
       "swappy/config".text = ''
         [Default]
@@ -83,29 +83,94 @@
     # Doing our own thing for rofi
     catppuccin.rofi.enable = false;
 
-    systemd.user.services.dolphin = let
+    systemd.user.services = let
       target = config.home-manager.users.bean.wayland.systemd.target;
-    in {
-      Install = {WantedBy = [target];};
+      mkShellService = {
+        desc,
+        service,
+      }: {
+        Install = {WantedBy = [target];};
 
-      Unit = {
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-        Description = "Dolphin File Manager Daemon";
-        After = [target];
-        PartOf = [target];
+        Unit = {
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+          Description = desc;
+          After = [target];
+          PartOf = [target];
+        };
+
+        Service = service;
+      };
+    in {
+      dolphin = mkShellService {
+        desc = "Dolphin File Manager Daemon";
+
+        service = {
+          ExecStart = "${pkgs.kdePackages.dolphin}/bin/dolphin --daemon";
+          Restart = "on-failure";
+          RestartSec = "10";
+          BusName = "org.freedesktop.FileManager1";
+        };
       };
 
-      Service = {
-        ExecStart = "${pkgs.kdePackages.dolphin}/bin/dolphin --daemon";
-        Restart = "always";
-        RestartSec = "10";
-        BusName = "org.freedesktop.FileManager1";
+      battery-notif = mkShellService {
+        desc = "Batter Notification Service";
+
+        service = {
+          ExecStart = "${pkgs.nushell}/bin/nu ${../../res/battery_notif.nu}";
+          Restart = "on-failure";
+          RestartSec = "10";
+        };
+      };
+
+      mpris-idle-inhibit = mkShellService {
+        desc = "MPRIS Idle Inhibitor";
+
+        service = {
+          ExecStart = ''${inputs'.wayland-mpris-idle-inhibit.packages.default}/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"'';
+          Restart = "on-failure";
+          RestartSec = "10";
+        };
       };
     };
 
     services = {
       hyprpolkitagent.enable = true;
       kdeconnect.enable = true;
+      hypridle = {
+        enable = true;
+        settings = {
+          general = {
+            lock_cmd = "pidof hyprlock || hyprlock";
+            unlock_cmd = "pkill hyprlock --signal SIGUSR1";
+            before_sleep_cmd = "loginctl lock-session";
+            after_sleep_cmd = screenOnCmd;
+          };
+
+          listener = let
+            lockTimeout = 120;
+          in [
+            {
+              timeout = lockTimeout; # Lock the screen after 2 minutes of inactivity
+              on-timeout = "loginctl lock-session";
+            }
+            {
+              timeout = lockTimeout + 120; # Turn off the screen 2 minutes after locking
+              on-timeout = screenOffCmd;
+              on-resume = screenOnCmd;
+            }
+            {
+              timeout = lockTimeout + 600; # Suspend 10 minutes after locking
+              on-timeout = "systemctl suspend";
+            }
+          ];
+        };
+      };
+      cliphist = {
+        enable = true;
+        systemdTargets = lib.mkForce [
+          config.home-manager.users.bean.wayland.systemd.target
+        ];
+      };
       udiskie = {
         enable = true;
         automount = false;
@@ -248,8 +313,6 @@
       ];
 
       exec-once = [
-        "uwsm app -- wl-paste --watch bash ${../../res/clipboard_middleman.sh}"
-        "uwsm app -- ${pkgs.nushell}/bin/nu ${../../res/battery_notif.nu}"
         "[workspace 3] uwsm app -- keepassxc /home/bean/Documents/Database.kdbx"
       ];
 
@@ -279,6 +342,10 @@
         "CAPS,Caps_Lock,exec,uwsm app -- swayosd-client --caps-lock"
         ",Scroll_Lock,exec,uwsm app -- swayosd-client --scroll-lock"
         ",Num_Lock,exec,uwsm app -- swayosd-client --num-lock"
+      ];
+      bindl = [
+        ",switch:on:Lid Switch,exec,${screenOffCmd}"
+        ",switch:off:Lid Switch,exec,${screenOnCmd}"
       ];
       bindel = [
         ",XF86MonBrightnessUp,exec,uwsm app -- swayosd-client --brightness raise"

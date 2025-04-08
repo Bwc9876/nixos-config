@@ -50,6 +50,8 @@ def list_devices [] {
     $devices | each {|it| device_info ($it | path basename) | insert "upower_path" $it} | each {|it| $it | insert "friendly_name" (get_name $it)} | where {|it| should_consider $it}
 }
 
+const WARN_LEVEL = 10.0
+
 def should_display_notif [device: record] {
 
     let charging = match ($device.State? | default 0) {
@@ -57,7 +59,7 @@ def should_display_notif [device: record] {
         _ => false
     }
 
-    ($device.Percentage? | default 100) < 10.0 and not $charging
+    ($device.Percentage? | default 100) < $WARN_LEVEL and not $charging
 }
 
 def main [poll_interval: duration = 1min] {
@@ -79,7 +81,7 @@ def main [poll_interval: duration = 1min] {
 
             if ((should_display_notif $dev) and not $has_shown_notif) {
                 #print $"Device ($dev.friendly_name) is below 10% charge, showing notification";
-                notify-send --icon="battery-caution-symbolic" --app-name="battery-notif" --urgency="critical" $"Battery Low" $"Device (get_name $dev) is below 10% charge";
+                notify-send --icon="battery-caution-symbolic" --app-name="battery-notif" --urgency="critical" $"Battery Low" $"Device (get_name $dev) is below ($WARN_LEVEL)% charge";
                 $shown_notifs = ($shown_notifs | update $dev.upower_path true);
             } else if ($has_shown_notif) {
                 #print $"Device ($dev.friendly_name) is now above 10% charge, removing notification shown";
