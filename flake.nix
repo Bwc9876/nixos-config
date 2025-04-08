@@ -25,7 +25,7 @@
     imperm.url = "github:nix-community/impermanence";
     nu_plugin_dbus.url = "github:Bwc9876/nu_plugin_dbus";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
-    bingus.url = "github:Bwc9876/bingus-bot/module";
+    bingus.url = "github:Bwc9876/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
   };
 
