@@ -6,8 +6,4 @@
   services.logind.extraConfig = ''
     RuntimeDirectorySize=100M
   '';
-
-  # Don't do Wait Online
-  systemd.services.NetworkManager-wait-online.enable = false;
-  systemd.network.wait-online.enable = false;
 }

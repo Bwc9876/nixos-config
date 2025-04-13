@@ -3,6 +3,10 @@
 
   users.users.bean.extraGroups = ["networkmanager"];
 
+  # Don't do Wait Online
+  systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.network.wait-online.enable = false;
+
   hardware.bluetooth = {
     enable = true;
     settings = {
