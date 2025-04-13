@@ -11,11 +11,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1744121535,
-        "narHash": "sha256-akykXcXEzHNOEpcTbWY/Ja/dlgMm5YfTIEKSNSKwn4E=",
+        "lastModified": 1744560787,
+        "narHash": "sha256-sJoBWYcGiNF1+v8uZNKobJmA2WQ97a3bopV8GsHFUzQ=",
         "owner": "Bwc9876",
         "repo": "bingus-bot",
-        "rev": "2fc889788e549ff50e88058c07edf868df548e4b",
+        "rev": "0c32d44b94832d1f38afd4c36fb3dd3df04a3a76",
         "type": "github"
       },
       "original": {
