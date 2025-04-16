@@ -227,6 +227,11 @@ in {
             tags = ["personal-blog"];
           }
           {
+            title = "Dylan Beattie";
+            url = "https://dylanbeattie.net/feed.xml";
+            tags = ["personal-blog"];
+          }
+          {
             title = "Xe Iaso";
             url = "https://xeiaso.net/blog.rss";
             tags = ["personal-blog"];

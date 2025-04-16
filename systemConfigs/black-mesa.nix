@@ -6,7 +6,7 @@
   system = "x86_64-linux";
 
   modules = [
-    (outputs.lib.applyRoles ["base" "latest-linux" "wireless" "ssh" "graphics" "games" "fun" "dev" "secureboot" "mc-server"])
+    (outputs.lib.applyRoles ["base" "latest-linux" "wireless" "ssh" "graphics" "games" "fun" "dev" "normalboot" "mc-server"])
     {
       imports = [inputs.bingus.nixosModules.default];
       nixpkgs.overlays = [inputs.bingus.overlays.default];
@@ -67,12 +67,12 @@
       };
 
       fileSystems."/" = {
-        device = "/dev/disk/by-uuid/77e539a3-813d-465b-ac11-8aad37300858";
+        device = "/dev/nvme0n1p2";
         fsType = "ext4";
       };
 
       fileSystems."/boot" = {
-        device = "/dev/disk/by-uuid/605A-7728";
+        device = "/dev/nvme0n1p1";
         fsType = "vfat";
       };
 
@@ -90,11 +90,11 @@
 
       networking.interfaces.enp4s0.wakeOnLan.enable = true;
 
-      services.nix-serve = {
-        enable = true;
-        secretKeyFile = "/etc/nix-serve-key";
-        openFirewall = true;
-      };
+      # services.nix-serve = {
+      #   enable = true;
+      #   secretKeyFile = "/etc/nix-serve-key";
+      #   openFirewall = true;
+      # };
     })
   ];
 }
