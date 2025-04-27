@@ -57,6 +57,9 @@
 
   services.udisks2.enable = true;
 
+  # Needed to open the firewall, actual service is managed in HM
+  programs.kdeconnect.enable = true;
+
   home-manager.users.bean = let
     screenOffCmd = "hyprctl dispatch dpms off; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-add \"timeout\"";
     screenOnCmd = "hyprctl dispatch dpms on; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-remove \"timeout\"";

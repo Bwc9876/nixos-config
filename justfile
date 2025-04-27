@@ -13,6 +13,9 @@ alias b := build
 build:
     nh os build .
 
+boot:
+    nh os boot .
+
 [private]
 alias s := switch
 # s:    activate configuration & add to boot menu
