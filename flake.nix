@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flakelight.url = "github:nix-community/flakelight";
     flakelight.inputs.nixpkgs.follows = "nixpkgs";
-    nix-index-db.url = "github:Mic92/nix-index-database";
+    nix-index-db.url = "github:nix-community/nix-index-database";
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +27,15 @@
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
     bingus.url = "github:Bwc9876/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
+
+    spoon.url = "git+https://codeberg.org/spoonbaker/mono?dir=nixos-config";
+    spoon.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flakelight.follows = "flakelight";
+      home-manager.follows = "hm";
+      impermanence.follows = "imperm";
+      nix-index-database.follows = "nix-index-db";
+    };
   };
 
   outputs = inputs @ {
@@ -45,8 +54,13 @@
     imperm,
     nu_plugin_dbus,
     bingus,
+    spoon,
   }:
     flakelight ./. {
+      imports = [
+        spoon.flakelightModules.repl
+        spoon.flakelightModules.ubercheck
+      ];
       inherit inputs;
       formatters = pkgs: {
         "*.nix" = "alejandra .";
@@ -54,7 +68,7 @@
       };
       packages =
         nixpkgs.lib.genAttrs ["gh-grader-preview" "wayland-mpris-idle-inhibit" "nu_plugin_dbus"]
-        (i: {pkgs}: let input = builtins.getAttr i inputs; in input.packages.${pkgs.system}.default);
+        (i: {pkgs}: inputs.${i}.packages.${pkgs.system}.default);
       nixDir = ./.;
       nixDirAliases = {
         nixosConfigurations = ["systemConfigs"];

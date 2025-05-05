@@ -419,7 +419,7 @@
         "type": "github"
       },
       "original": {
-        "owner": "Mic92",
+        "owner": "nix-community",
         "repo": "nix-index-database",
         "type": "github"
       }
@@ -612,6 +612,7 @@
         "nixvim": "nixvim",
         "nu_plugin_dbus": "nu_plugin_dbus",
         "rust-overlay": "rust-overlay_2",
+        "spoon": "spoon",
         "wayland-mpris-idle-inhibit": "wayland-mpris-idle-inhibit"
       }
     },
@@ -654,6 +655,40 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "spoon": {
+      "inputs": {
+        "flakelight": [
+          "flakelight"
+        ],
+        "home-manager": [
+          "hm"
+        ],
+        "impermanence": [
+          "imperm"
+        ],
+        "nix-index-database": [
+          "nix-index-db"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "nixos-config",
+        "lastModified": 1746468574,
+        "narHash": "sha256-zcYPT4WLhJYZoMVMTHX2nX0Y7zv77+ZfCyYAgTYO67I=",
+        "ref": "refs/heads/main",
+        "rev": "4e4891620f7532e32d2d7976f62505ee2bda044a",
+        "revCount": 134,
+        "type": "git",
+        "url": "https://codeberg.org/spoonbaker/mono"
+      },
+      "original": {
+        "dir": "nixos-config",
+        "type": "git",
+        "url": "https://codeberg.org/spoonbaker/mono"
       }
     },
     "systems": {

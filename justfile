@@ -3,40 +3,49 @@ _default:
 
 [private]
 alias u := update
-# u:    update all inputs
+# u:  update all inputs
 update:
     nix flake update
 
 [private]
 alias b := build
-# b:    build the configuration
+# b:  build the configuration
 build:
     nh os build .
 
+[private]
+alias bt := boot
+# bt: make the configuration the boot default without activating it
 boot:
     nh os boot .
 
 [private]
 alias s := switch
-# s:    activate configuration & add to boot menu
+# s:  activate configuration & add to boot menu
 switch: 
     nh os switch --ask .
 
 [private]
 alias c := check
-# c:    run flake checks, including making sure `.#repl` and the system config evaluate
+# c:  run all checks for the current system
 check:
-    nix flake check .# --show-trace
+    nix build --show-trace .#uberCheck.$(nix eval --impure --raw --expr 'builtins.currentSystem')
 
 [private]
 alias f := format
-# f: run nix fmt on the flake
+# f:  format this flake
 format:
     nix fmt
 
 [private]
+alias r := repl
+# r:  start a debugging repl
+repl:
+    nix repl .#repl
+
+[private]
 alias gc := garbage-collect
-# gc: Run nix collect-garbage -d
+# gc: run a garbage collection
 garbage-collect:
     nh clean all
 
