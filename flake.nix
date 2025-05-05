@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flakelight.url = "github:nix-community/flakelight";
     flakelight.inputs.nixpkgs.follows = "nixpkgs";
-    nix-index-db.url = "github:Mic92/nix-index-database";
+    nix-index-db.url = "github:nix-community/nix-index-database";
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
@@ -54,7 +54,7 @@
       };
       packages =
         nixpkgs.lib.genAttrs ["gh-grader-preview" "wayland-mpris-idle-inhibit" "nu_plugin_dbus"]
-        (i: {pkgs}: let input = builtins.getAttr i inputs; in input.packages.${pkgs.system}.default);
+        (i: {pkgs}: inputs.${i}.packages.${pkgs.system}.default);
       nixDir = ./.;
       nixDirAliases = {
         nixosConfigurations = ["systemConfigs"];
