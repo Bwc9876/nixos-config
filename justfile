@@ -27,15 +27,21 @@ switch:
 
 [private]
 alias c := check
-# c:  run all flake checks, including making sure all system configs evaluate
+# c:  run all checks for the current system
 check:
-    nix flake check .# --show-trace
+    nix build --show-trace .#uberCheck.$(nix eval --impure --raw --expr 'builtins.currentSystem')
 
 [private]
 alias f := format
 # f:  format this flake
 format:
     nix fmt
+
+[private]
+alias r := repl
+# r:  start a debugging repl
+repl:
+    nix repl .#repl
 
 [private]
 alias gc := garbage-collect

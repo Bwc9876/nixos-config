@@ -27,6 +27,15 @@
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
     bingus.url = "github:Bwc9876/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
+
+    spoon.url = "git+https://codeberg.org/spoonbaker/mono?dir=nixos-config";
+    spoon.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flakelight.follows = "flakelight";
+      home-manager.follows = "hm";
+      impermanence.follows = "imperm";
+      nix-index-database.follows = "nix-index-db";
+    };
   };
 
   outputs = inputs @ {
@@ -45,8 +54,13 @@
     imperm,
     nu_plugin_dbus,
     bingus,
+    spoon,
   }:
     flakelight ./. {
+      imports = [
+        spoon.flakelightModules.repl
+        spoon.flakelightModules.ubercheck
+      ];
       inherit inputs;
       formatters = pkgs: {
         "*.nix" = "alejandra .";
