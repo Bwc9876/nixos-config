@@ -16,7 +16,11 @@ in {
       inputs.catppuccin.homeModules.catppuccin
     ];
 
-    inherit catppuccin;
+    catppuccin =
+      {
+        mako.enable = false;
+      }
+      // catppuccin;
   };
 
   home-manager.users.root = {
@@ -24,6 +28,10 @@ in {
       inputs.catppuccin.homeModules.catppuccin
     ];
 
-    inherit catppuccin;
+    catppuccin =
+      {
+        mako.enable = false;
+      }
+      // catppuccin;
   };
 }
