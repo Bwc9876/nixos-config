@@ -20,6 +20,7 @@
       experimental-features = [
         "nix-command"
         "flakes"
+        "pipe-operator"
       ];
       auto-optimise-store = true;
       fallback = true;
