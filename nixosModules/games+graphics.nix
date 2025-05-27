@@ -13,5 +13,6 @@
     prismlauncher
     owmods-gui
     owmods-cli
+    cemu
   ];
 }

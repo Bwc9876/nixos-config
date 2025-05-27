@@ -111,6 +111,7 @@ in {
           "newsboat"
           "zoxide"
           "nvim"
+          "Cemu"
         ]);
       files =
         (preConf [
