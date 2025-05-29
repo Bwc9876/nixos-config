@@ -103,6 +103,9 @@ in {
             mode = "0700";
           }
         ]
+        ++ (preConf [
+          "Cemu"
+        ])
         ++ (preShare [
           "direnv"
           "ow-mod-man"
