@@ -21,6 +21,7 @@
         "nix-command"
         "flakes"
         "pipe-operator"
+        "repl-flake"
       ];
       auto-optimise-store = true;
       fallback = true;
