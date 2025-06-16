@@ -505,7 +505,7 @@
           servers = {
             astro.enable = true;
             sqls.enable = true;
-            denols.enable = true;
+            # denols.enable = true;
             ts_ls.enable = true;
             html.enable = true;
             marksman.enable = true;

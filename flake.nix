@@ -12,8 +12,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
-    gh-grader-preview.url = "github:Bwc9876/gh-grader-preview";
-    gh-grader-preview.inputs.nixpkgs.follows = "nixpkgs";
     wayland-mpris-idle-inhibit.url = "github:Bwc9876/wayland-mpris-idle-inhibit";
     wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -46,7 +44,6 @@
     hm,
     nixos-hardware,
     lanzaboote,
-    gh-grader-preview,
     wayland-mpris-idle-inhibit,
     rust-overlay,
     catppuccin,
@@ -67,7 +64,7 @@
         "*.sh" = "shfmt -w .";
       };
       packages =
-        nixpkgs.lib.genAttrs ["gh-grader-preview" "wayland-mpris-idle-inhibit" "nu_plugin_dbus"]
+        nixpkgs.lib.genAttrs ["wayland-mpris-idle-inhibit" "nu_plugin_dbus"]
         (i: {pkgs}: inputs.${i}.packages.${pkgs.system}.default);
       nixDir = ./.;
       nixDirAliases = {

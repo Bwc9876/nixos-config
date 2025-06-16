@@ -11,6 +11,6 @@
     nodejs
     nodePackages.pnpm
     yarn
-    deno
+    # deno
   ];
 }
