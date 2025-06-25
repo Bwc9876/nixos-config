@@ -6,8 +6,8 @@
 in {
   home-manager.users.bean = {
     wayland.windowManager.hyprland.settings.bind = [
-      "SUPER,W,exec,pidof waybar || waybar"
-      "SUPER SHIFT,W,exec,pkill waybar"
+      "SUPER,W,exec,systemctl restart --user waybar"
+      "SUPER SHIFT,W,exec,systemctl stop --user waybar"
     ];
     programs.waybar = {
       enable = true;
@@ -230,8 +230,30 @@ in {
             format = "{icon} {capacity}󰏰";
             format-charging = "{icon} {capacity}󰏰";
             format-icons = {
-              charging = ["󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅"];
-              default = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+              charging = [
+                "󰢜"
+                "󰂆"
+                "󰂇"
+                "󰂈"
+                "󰢝"
+                "󰂉"
+                "󰢞"
+                "󰂊"
+                "󰂋"
+                "󰂅"
+              ];
+              default = [
+                "󰁺"
+                "󰁻"
+                "󰁼"
+                "󰁽"
+                "󰁾"
+                "󰁿"
+                "󰂀"
+                "󰂁"
+                "󰂂"
+                "󰁹"
+              ];
             };
             states = {
               critical = 15;
@@ -331,15 +353,44 @@ in {
           };
           layer = "top";
           modules-center = [];
-          modules-left = ["user" "clock#1" "clock#2" "custom/news" "custom/weather" "mpris"];
-          modules-right = ["network" "battery" "bluetooth" "pulseaudio" "custom/kde-connect" "idle_inhibitor" "custom/notification" "privacy" "tray"];
+          modules-left = [
+            "user"
+            "clock#1"
+            "clock#2"
+            "custom/news"
+            "custom/weather"
+            "mpris"
+          ];
+          modules-right = [
+            "network"
+            "battery"
+            "bluetooth"
+            "pulseaudio"
+            "custom/kde-connect"
+            "idle_inhibitor"
+            "custom/notification"
+            "privacy"
+            "tray"
+          ];
           mpris = {
             album-len = 20;
             artist-len = 25;
             interval = 1;
-            dynamic-importance-order = ["title" "position" "length" "artist" "album"];
+            dynamic-importance-order = [
+              "title"
+              "position"
+              "length"
+              "artist"
+              "album"
+            ];
             dynamic-len = 50;
-            dynamic-order = ["title" "artist" "album" "position" "length"];
+            dynamic-order = [
+              "title"
+              "artist"
+              "album"
+              "position"
+              "length"
+            ];
             format = "{player_icon} {dynamic}";
             format-paused = "{status_icon} {dynamic}";
             player-icons = {
@@ -362,7 +413,12 @@ in {
             format = "{ifname}";
             format-disconnected = "󰪎";
             format-ethernet = "󱎔 {ifname}";
-            format-icons = ["󰤟" "󰤢" "󰤥" "󰤨"];
+            format-icons = [
+              "󰤟"
+              "󰤢"
+              "󰤥"
+              "󰤨"
+            ];
             format-linked = "󰌷 {ifname}";
             format-wifi = "{icon} {essid}";
             tooltip-disconnected = "Disconnected";
@@ -393,7 +449,10 @@ in {
             format-bluetooth = "{icon}  {volume}󰏰";
             format-icons = {
               car = "";
-              default = ["󰖀" "󰕾"];
+              default = [
+                "󰖀"
+                "󰕾"
+              ];
               hands-free = "󰋋";
               headphone = "󰋋";
               headset = "󰋋";
@@ -437,13 +496,21 @@ in {
           };
           modules-center = ["wlr/taskbar"];
           modules-left = ["hyprland/workspaces"];
-          modules-right = ["temperature" "cpu" "memory"];
+          modules-right = [
+            "temperature"
+            "cpu"
+            "memory"
+          ];
           position = "bottom";
           temperature = {
             critical-threshold = 80;
             format = "{icon} {temperatureC} °C";
             format-critical = "{icon}! {temperatureC} °C";
-            format-icons = ["󱃃" "󰔏" "󱃂"];
+            format-icons = [
+              "󱃃"
+              "󰔏"
+              "󱃂"
+            ];
             thermal-zone = 1;
           };
           "wlr/taskbar" = {

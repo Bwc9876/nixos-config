@@ -92,7 +92,9 @@
         desc,
         service,
       }: {
-        Install = {WantedBy = [target];};
+        Install = {
+          WantedBy = [target];
+        };
 
         Unit = {
           ConditionEnvironment = "WAYLAND_DISPLAY";
@@ -116,7 +118,7 @@
       };
 
       battery-notif = mkShellService {
-        desc = "Batter Notification Service";
+        desc = "Battery Notification Service";
 
         service = {
           ExecStart = "${pkgs.nushell}/bin/nu ${../../res/battery_notif.nu}";

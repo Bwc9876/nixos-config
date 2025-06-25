@@ -33,10 +33,10 @@
   };
 
   # Switch ng is not as weird
-  system.switch = {
-    enable = false;
-    enableNg = true;
-  };
+  # system.switch = {
+  #   enable = false;
+  #   enableNg = true;
+  # };
 
   # Kill nix daemon builds over user sessions
   systemd.services.nix-daemon.serviceConfig.OOMScoreAdjust = lib.mkDefault 250;
