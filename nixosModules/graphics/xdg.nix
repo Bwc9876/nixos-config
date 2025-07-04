@@ -17,8 +17,17 @@
       enable = true;
       defaultApplications = let
         textEditors = ["neovide.desktop"];
-        browsers = ["floorp.desktop" "chromium.desktop"];
-        imageViewers = ["gimp.desktop"];
+        browsers = [
+          "floorp.desktop"
+          "chromium.desktop"
+        ];
+        imageViewers = [
+          "org.gnome.Loupe.desktop"
+          "gimp.desktop"
+        ];
+        videoPlayers = [
+          "QMPlay2.desktop"
+        ];
       in {
         "inode/directory" = ["org.kde.dolphin.desktop"];
         "text/plain" = textEditors;
@@ -31,6 +40,7 @@
         "text/x-install" = textEditors;
         "text/html" = browsers;
         "image/png" = imageViewers;
+        "image/webp" = imageViewers;
         "image/jpeg" = imageViewers;
         "image/gif" = browsers;
         "image/bmp" = imageViewers;
@@ -39,6 +49,11 @@
         "image/x-portable-graymap" = imageViewers;
         "image/x-portable-anymap" = imageViewers;
         "image/svg+xml" = imageViewers;
+        "video/mp4" = videoPlayers;
+        "video/AV1" = videoPlayers;
+        "video/m4a" = videoPlayers;
+        "video/mpeg" = videoPlayers;
+        "video/3gpp" = videoPlayers;
         "x-terminal-emulator" = ["wezterm.desktop"];
         "x-scheme-handler/http" = browsers;
         "x-scheme-handler/https" = browsers;

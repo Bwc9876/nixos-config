@@ -30,9 +30,15 @@
 
     ## Dolphin
     kdePackages.dolphin
-    kdePackages.ark # For archive support
-    kdePackages.kio-extras # For thumbnails
-    kdePackages.kdegraphics-thumbnailers # For thumbnails
+    kdePackages.ark
+    kdePackages.kio-extras
+    kdePackages.kdegraphics-thumbnailers
+    kdePackages.kimageformats
+    kdePackages.taglib
+    nufraw-thumbnailer
+    kdePackages.phonon
+    kdePackages.ffmpegthumbs
+    ffmpegthumbnailer
 
     pavucontrol
 

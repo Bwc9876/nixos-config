@@ -27,7 +27,7 @@
       fallback = true;
     };
     gc = {
-      automatic = true;
+      automatic = false;
       dates = "weekly";
     };
   };

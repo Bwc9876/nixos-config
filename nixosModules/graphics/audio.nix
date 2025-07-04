@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  # When you squint and don't think about it, audio is graphics (I don't wanna make anoher role bc why would I do that)
+  # When you squint and don't think about it, audio is graphics (I don't wanna make another role bc why would I do that)
   services.pulseaudio.enable = false;
 
   security.rtkit.enable = true; # Allows pipewire and friends to run realtime

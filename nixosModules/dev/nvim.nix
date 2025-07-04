@@ -26,11 +26,68 @@
 
       colorschemes.catppuccin = {
         enable = true;
-        settings.flavor = config.catppuccin.flavor;
+        settings = {
+          inherit (config.catppuccin) flavor;
+          no_underline = false;
+          no_bold = false;
+          no_italics = false;
+          # transparent_background = true;
+          integrations = {
+            alpha = true;
+            dropbar.enabled = true;
+            fidget = true;
+            markdown = true;
+            dap = true;
+            ufo = true;
+            rainbow_delimiters = true;
+            lsp_trouble = true;
+            which_key = true;
+            telescope.enabled = true;
+            treesitter = true;
+            lsp_saga = true;
+            illuminate = {
+              enabled = true;
+              lsp = true;
+            };
+            gitsigns = true;
+            neotree = true;
+            native_lsp = {
+              enabled = true;
+              inlay_hints = {
+                background = true;
+              };
+              virtual_text = {
+                errors = ["italic"];
+                hints = ["italic"];
+                information = ["italic"];
+                warnings = ["italic"];
+                ok = ["italic"];
+              };
+              underlines = {
+                errors = ["underline"];
+                hints = ["underline"];
+                information = ["underline"];
+                warnings = ["underline"];
+              };
+            };
+          };
+        };
       };
+
+      extraConfigLua = ''
+        vim.diagnostic.config({
+         signs = {
+          text = {
+           [vim.diagnostic.severity.ERROR] = "",
+           [vim.diagnostic.severity.WARN] = "",
+          },
+         },
+        })
+      '';
 
       autoGroups = {
         restore_cursor = {};
+        open_neotree = {};
       };
 
       opts = {
@@ -40,8 +97,11 @@
         cursorline = true;
         showtabline = 2;
         breakindent = true;
-        # fillchars.__raw = "[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]";
-        # foldcolumn = "1";
+        fillchars.__raw = ''[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]'';
+        foldcolumn = "1";
+        foldlevel = 10;
+        foldlevelstart = 10;
+        foldenable = true;
       };
 
       autoCmd = [
@@ -49,20 +109,35 @@
           group = "restore_cursor";
           event = ["BufReadPost"];
           pattern = "*";
-          callback = {
-            __raw = ''
-              function()
-                if
-                  vim.fn.line "'\"" > 1
-                  and vim.fn.line "'\"" <= vim.fn.line "$"
-                  and vim.bo.filetype ~= "commit"
-                  and vim.fn.index({ "xxd", "gitrebase" }, vim.bo.filetype) == -1
-                then
-                  vim.cmd "normal! g`\""
-                end
+          callback.__raw = ''
+            function()
+              if
+                vim.fn.line "'\"" > 1
+                and vim.fn.line "'\"" <= vim.fn.line "$"
+                and vim.bo.filetype ~= "commit"
+                and vim.fn.index({ "xxd", "gitrebase" }, vim.bo.filetype) == -1
+              then
+                vim.cmd "normal! g`\""
               end
-            '';
-          };
+            end
+          '';
+        }
+        {
+          group = "open_neotree";
+          event = ["BufRead"];
+          pattern = "*";
+          once = true;
+          callback.__raw = ''
+            function()
+              if
+               vim.bo.filetype ~= "alpha"
+               and (not vim.g.neotree_opened)
+              then
+               vim.cmd "Neotree show"
+               vim.g.neotree_opened = true
+              end
+            end
+          '';
         }
       ];
 
@@ -160,7 +235,12 @@
         }
       ];
 
-      extraPlugins = with pkgs.vimPlugins; [{plugin = pkgs.nvim-mdx;} {plugin = tiny-devicons-auto-colors-nvim;} {plugin = nvim-biscuits;}];
+      extraPlugins = with pkgs.vimPlugins; [
+        {plugin = pkgs.nvim-mdx;}
+        {plugin = pkgs.nvim-flatten;}
+        {plugin = tiny-devicons-auto-colors-nvim;}
+        {plugin = nvim-biscuits;}
+      ];
 
       plugins = {
         telescope = {
@@ -233,11 +313,17 @@
             position = "center";
           };
           layout = let
-            o = {position = "center";};
+            o = {
+              position = "center";
+            };
             txt = s: {
               type = "text";
               val = s;
-              opts = {hl = "Keyword";} // o;
+              opts =
+                {
+                  hl = "Keyword";
+                }
+                // o;
             };
             grp = g: {
               type = "group";
@@ -268,18 +354,24 @@
               val = 2;
             };
           in
-            [pad pad pad]
+            [
+              pad
+              pad
+              pad
+            ]
             ++ (lib.intersperse pad [
               (
                 let
-                  banner = pkgs.runCommand "nvim-banner" {} ''${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border > $out'';
+                  banner =
+                    pkgs.runCommand "nvim-banner" {}
+                    ''${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border > $out'';
                   # bannerText = builtins.readFile banner;
                 in
                   cmd {
-                    command = ''mut i = 1; loop { let s = (open ${banner}) | ${pkgs.lolcat}/bin/lolcat -f -S $i; clear; print -n -r $s; sleep 50ms; $i += 3; }'';
+                    command = ''open ${banner} | ${pkgs.lolcat}/bin/lolcat -f -S (random int 1..360)'';
                     # Hardcoding to prevent IFD
-                    width = 83; #(builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
-                    height = 12; #(builtins.length (lib.splitString "\n" bannerText)) - 1;
+                    width = 83; # (builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
+                    height = 12; # (builtins.length (lib.splitString "\n" bannerText)) - 1;
                   }
               )
               (grp [
@@ -310,6 +402,53 @@
 
         toggleterm = {
           enable = true;
+          luaConfig.post = ''
+            local flatten = require('flatten')
+
+            ---@type Terminal?
+            local saved_terminal
+
+            flatten.setup({
+              hooks = {
+                should_block = function(argv)
+                  return vim.tbl_contains(argv, "-b")
+                end,
+                pre_open = function()
+                  local term = require("toggleterm.terminal")
+                  local termid = term.get_focused_id()
+                  saved_terminal = term.get(termid)
+                end,
+                post_open = function(opts)
+                  if opts.is_blocking and saved_terminal then
+                    saved_terminal:close()
+                  else
+                    vim.api.nvim_set_current_win(opts.winnr)
+                  end
+
+                  if ft == "gitcommit" or ft == "gitrebase" then
+                    vim.api.nvim_create_autocmd("BufWritePost", {
+                      buffer = opts.bufnr,
+                      once = true,
+                      callback = vim.schedule_wrap(function()
+                        vim.api.nvim_buf_delete(opts.bufnr, {})
+                      end),
+                    })
+                  end
+                end,
+                block_end = function()
+                  vim.schedule(function()
+                    if saved_terminal then
+                      saved_terminal:open()
+                      saved_terminal = nil
+                    end
+                  end)
+                end,
+              },
+              window = {
+                open = "alternate",
+              },
+            })
+          '';
           settings = {
             open_mapping = "[[<C-x>]]";
             direction = "horizontal";
@@ -333,6 +472,10 @@
         illuminate.enable = true;
         cursorline.enable = true;
 
+        neoscroll = {
+          enable = true;
+          settings.easing_function = "cubic";
+        };
         scrollview.enable = true;
 
         navbuddy = {
@@ -352,25 +495,80 @@
           settings.logo = "https://raw.githubusercontent.com/IogaMaster/neovim/main/.github/assets/nixvim-dark.webp";
         };
 
-        barbar = {
+        bufdelete.enable = true;
+
+        bufferline = {
           enable = true;
-          keymaps = {
-            close.key = "<C-q>";
-            closeAllButCurrent.key = "<C-S-q-Up>";
-            next.key = "<C-Tab>";
-            previous.key = "<C-S-Tab>";
-          };
-          settings.icons = {
-            diagnostics."vim.diagnostic.severity.ERROR".enabled = true;
-            diagnostics."vim.diagnostic.severity.WARN".enabled = true;
+          settings.options = {
+            indicator.style = "none";
+            close_icon = "";
+            buffer_close_icon = "";
+            offsets = [
+              {
+                filetype = "neo-tree";
+                text = " Neovim";
+                text_align = "center";
+                separator = true;
+              }
+            ];
+            separator_style = "slant";
+            close_command.__raw = ''require('bufdelete').bufdelete'';
+            hover = {
+              enabled = true;
+              delay = 150;
+              reveal = ["close"];
+            };
+            sort_by = "insert_at_end";
+            diagnostics = "nvim_lsp";
+            diagnostics_indicator.__raw = ''
+              function(count, level, diagnostics_dict, context)
+               local icon = level:match("error") and " " or " "
+               return " " .. icon .. count
+              end
+            '';
           };
         };
 
         statuscol = {
           enable = true;
+          settings.segments = [
+            {
+              click = "v:lua.ScSa";
+              text = [
+                "%s"
+              ];
+            }
+            {
+              click = "v:lua.ScLa";
+              text = [
+                {
+                  __raw = "require('statuscol.builtin').lnumfunc";
+                }
+              ];
+            }
+            {
+              click = "v:lua.ScFa";
+              condition = [
+                true
+                {
+                  __raw = "require('statuscol.builtin').not_empty";
+                }
+              ];
+              text = [
+                {
+                  __raw = "require('statuscol.builtin').foldfunc";
+                }
+                " "
+              ];
+            }
+          ];
         };
 
-        # nvim-ufo.enable = true;
+        dropbar.enable = true;
+
+        nvim-ufo = {
+          enable = true;
+        };
         gitsigns.enable = true;
 
         dap = {
@@ -386,12 +584,24 @@
               "trouble"
               "toggleterm"
             ];
+
+            options = {
+              theme = "catppuccin";
+              disabled_filetypes = ["neo-tree"];
+            };
           };
         };
 
         project-nvim = {
           enable = true;
           enableTelescope = true;
+        };
+
+        neo-tree = {
+          enable = true;
+          addBlankLineAtTop = true;
+          window.width = 30;
+          closeIfLastWindow = true;
         };
 
         # image.enable = true;
@@ -412,8 +622,10 @@
         fidget = {
           enable = true;
           settings.notification = {
-            overrideVimNotify = true;
-            window.align = "top";
+            window = {
+              align = "top";
+              winblend = 0;
+            };
           };
         };
 
@@ -473,6 +685,7 @@
 
         lspsaga = {
           enable = true;
+          symbolInWinbar.enable = false;
           lightbulb.enable = false;
           ui = {
             codeAction = "󰛨";
@@ -510,7 +723,7 @@
             html.enable = true;
             marksman.enable = true;
             cssls.enable = true;
-            tailwindcss.enable = true;
+            # tailwindcss.enable = true; Disabled until it doesn't build nodejs from source, bad tailwind!!
             jsonls.enable = true;
             yamlls.enable = true;
             ruff.enable = true;

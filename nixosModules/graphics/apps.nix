@@ -158,7 +158,7 @@
 
     ## Media
     obs-studio
-    # qmplay2
+    loupe
     gimp
     inkscape
     lorien
