@@ -25,4 +25,11 @@
     enable = true;
     package = pkgs.wireshark;
   };
+
+  home-manager.users.bean.programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+    nix-direnv.enable = true;
+  };
 }

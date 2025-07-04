@@ -10,6 +10,19 @@
     fd
   ];
 
+  # TODO: Wish list
+  # - https://github.com/al1-ce/just.nvim
+  # - DAP Setup? If not just get rid of the plugin...
+  # - Proper Start screen / projects
+  # - On project open with no session saved, show a little screen or smth?
+  # - Neovide let me paste from system clipboard in insert mode
+  # - Fix hex stuff, working hex editor please
+  # - Image viewer would be cool
+  # - More customization of toggleterm, tabs would be really nice
+  # - Switch project combo if not already present
+  # - Neotree look nicer
+  # - Bufferline color "Neovim" in space, im thinking logo in green bold and text in normal green
+
   home-manager.users.bean = {
     imports = [inputs.nixvim.homeManagerModules.nixvim];
 
@@ -19,6 +32,8 @@
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
+
+      dependencies.direnv.enable = true;
 
       nixpkgs.pkgs = pkgs;
 
@@ -592,6 +607,8 @@
           };
         };
 
+        direnv.enable = true;
+
         project-nvim = {
           enable = true;
           enableTelescope = true;
@@ -723,7 +740,7 @@
             html.enable = true;
             marksman.enable = true;
             cssls.enable = true;
-            # tailwindcss.enable = true; Disabled until it doesn't build nodejs from source, bad tailwind!!
+            # tailwindcss.enable = true; Disabled until it doesn't build nodejs from source, bad tailwind
             jsonls.enable = true;
             yamlls.enable = true;
             ruff.enable = true;
@@ -740,6 +757,7 @@
             lemminx.enable = true;
             eslint.enable = true;
             tinymist.enable = true;
+            just.enable = true;
           };
         };
       };
