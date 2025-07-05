@@ -4,14 +4,15 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   environment.systemPackages = with pkgs; [
     ripgrep
     fd
   ];
 
   home-manager.users.bean = {
-    imports = [inputs.nixvim.homeManagerModules.nixvim];
+    imports = [ inputs.nixvim.homeManagerModules.nixvim ];
 
     programs.nixvim = {
       enable = true;
@@ -62,17 +63,17 @@
                 background = true;
               };
               virtual_text = {
-                errors = ["italic"];
-                hints = ["italic"];
-                information = ["italic"];
-                warnings = ["italic"];
-                ok = ["italic"];
+                errors = [ "italic" ];
+                hints = [ "italic" ];
+                information = [ "italic" ];
+                warnings = [ "italic" ];
+                ok = [ "italic" ];
               };
               underlines = {
-                errors = ["underline"];
-                hints = ["underline"];
-                information = ["underline"];
-                warnings = ["underline"];
+                errors = [ "underline" ];
+                hints = [ "underline" ];
+                information = [ "underline" ];
+                warnings = [ "underline" ];
               };
             };
           };
@@ -93,8 +94,8 @@
       '';
 
       autoGroups = {
-        restore_cursor = {};
-        open_neotree = {};
+        restore_cursor = { };
+        open_neotree = { };
       };
 
       opts = {
@@ -114,7 +115,7 @@
       autoCmd = [
         {
           group = "restore_cursor";
-          event = ["BufReadPost"];
+          event = [ "BufReadPost" ];
           pattern = "*";
           callback.__raw = ''
             function()
@@ -131,7 +132,7 @@
         }
         {
           group = "open_neotree";
-          event = ["BufRead"];
+          event = [ "BufRead" ];
           pattern = "*";
           once = true;
           callback.__raw = ''
@@ -228,10 +229,10 @@
       ];
 
       extraPlugins = with pkgs.vimPlugins; [
-        {plugin = pkgs.nvim-mdx;}
-        {plugin = pkgs.nvim-flatten;}
-        {plugin = tiny-devicons-auto-colors-nvim;}
-        {plugin = nvim-biscuits;}
+        { plugin = pkgs.nvim-mdx; }
+        { plugin = pkgs.nvim-flatten; }
+        { plugin = tiny-devicons-auto-colors-nvim; }
+        { plugin = nvim-biscuits; }
       ];
 
       plugins = {
@@ -304,48 +305,51 @@
           opts = {
             position = "center";
           };
-          layout = let
-            o = {
-              position = "center";
-            };
-            txt = s: {
-              type = "text";
-              val = s;
-              opts =
-                {
+          layout =
+            let
+              o = {
+                position = "center";
+              };
+              txt = s: {
+                type = "text";
+                val = s;
+                opts = {
                   hl = "Keyword";
-                }
-                // o;
-            };
-            grp = g: {
-              type = "group";
-              val = g;
-              opts.spacing = 1;
-            };
-            btn = {
-              val,
-              onClick,
-              ...
-            }: {
-              type = "button";
-              inherit val;
-              opts = o;
-              on_press.__raw = "function() vim.cmd[[${onClick}]] end";
-            };
-            cmd = {
-              command,
-              width,
-              height,
-            }: {
-              type = "terminal";
-              inherit command width height;
-              opts = o;
-            };
-            pad = {
-              type = "padding";
-              val = 2;
-            };
-          in
+                } // o;
+              };
+              grp = g: {
+                type = "group";
+                val = g;
+                opts.spacing = 1;
+              };
+              btn =
+                {
+                  val,
+                  onClick,
+                  ...
+                }:
+                {
+                  type = "button";
+                  inherit val;
+                  opts = o;
+                  on_press.__raw = "function() vim.cmd[[${onClick}]] end";
+                };
+              cmd =
+                {
+                  command,
+                  width,
+                  height,
+                }:
+                {
+                  type = "terminal";
+                  inherit command width height;
+                  opts = o;
+                };
+              pad = {
+                type = "padding";
+                val = 2;
+              };
+            in
             [
               pad
               pad
@@ -355,16 +359,16 @@
               (
                 let
                   banner =
-                    pkgs.runCommand "nvim-banner" {}
-                    ''${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border > $out'';
+                    pkgs.runCommand "nvim-banner" { }
+                      ''${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border > $out'';
                   # bannerText = builtins.readFile banner;
                 in
-                  cmd {
-                    command = ''open ${banner} | ${pkgs.lolcat}/bin/lolcat -f -S (random int 1..360)'';
-                    # Hardcoding to prevent IFD
-                    width = 83; # (builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
-                    height = 12; # (builtins.length (lib.splitString "\n" bannerText)) - 1;
-                  }
+                cmd {
+                  command = ''open ${banner} | ${pkgs.lolcat}/bin/lolcat -f -S (random int 1..360)'';
+                  # Hardcoding to prevent IFD
+                  width = 83; # (builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
+                  height = 12; # (builtins.length (lib.splitString "\n" bannerText)) - 1;
+                }
               )
               (grp [
                 (btn {
@@ -385,7 +389,7 @@
               ])
               (txt "::<シ>")
             ])
-            ++ [pad];
+            ++ [ pad ];
         };
 
         trouble = {
@@ -417,12 +421,12 @@
                     vim.api.nvim_set_current_win(opts.winnr)
                   end
 
-                  if ft == "gitcommit" or ft == "gitrebase" then
+                  if opts.filetype == "gitcommit" or opts.filetype == "gitrebase" then
                     vim.api.nvim_create_autocmd("BufWritePost", {
                       buffer = opts.bufnr,
                       once = true,
                       callback = vim.schedule_wrap(function()
-                        vim.api.nvim_buf_delete(opts.bufnr, {})
+                        require('bufdelete').bufdelete(opts.bufnr, true)
                       end),
                     })
                   end
@@ -517,7 +521,7 @@
             hover = {
               enabled = true;
               delay = 150;
-              reveal = ["close"];
+              reveal = [ "close" ];
             };
             sort_by = "insert_at_end";
             diagnostics = "nvim_lsp";
@@ -532,49 +536,51 @@
 
         statuscol = {
           enable = true;
-          settings.segments = let
-            dispCond = {
-              __raw = ''
-                function(ln)
-                  return vim.bo.filetype ~= "neo-tree"
-                end
-              '';
-            };
-          in [
-            {
-              click = "v:lua.ScSa";
-              condition = [
-                dispCond
-              ];
-              text = [
-                "%s"
-              ];
-            }
-            {
-              click = "v:lua.ScLa";
-              condition = [dispCond];
-              text = [
-                {
-                  __raw = "require('statuscol.builtin').lnumfunc";
-                }
-              ];
-            }
-            {
-              click = "v:lua.ScFa";
-              condition = [
-                dispCond
-                {
-                  __raw = "require('statuscol.builtin').not_empty";
-                }
-              ];
-              text = [
-                {
-                  __raw = "require('statuscol.builtin').foldfunc";
-                }
-                " "
-              ];
-            }
-          ];
+          settings.segments =
+            let
+              dispCond = {
+                __raw = ''
+                  function(ln)
+                    return vim.bo.filetype ~= "neo-tree"
+                  end
+                '';
+              };
+            in
+            [
+              {
+                click = "v:lua.ScSa";
+                condition = [
+                  dispCond
+                ];
+                text = [
+                  "%s"
+                ];
+              }
+              {
+                click = "v:lua.ScLa";
+                condition = [ dispCond ];
+                text = [
+                  {
+                    __raw = "require('statuscol.builtin').lnumfunc";
+                  }
+                ];
+              }
+              {
+                click = "v:lua.ScFa";
+                condition = [
+                  dispCond
+                  {
+                    __raw = "require('statuscol.builtin').not_empty";
+                  }
+                ];
+                text = [
+                  {
+                    __raw = "require('statuscol.builtin').foldfunc";
+                  }
+                  " "
+                ];
+              }
+            ];
         };
 
         dropbar = {
@@ -600,8 +606,8 @@
 
             options = {
               theme = "catppuccin";
-              disabled_filetypes = ["neo-tree"];
-              ignore_focus = ["neo-tree"];
+              disabled_filetypes = [ "neo-tree" ];
+              ignore_focus = [ "neo-tree" ];
             };
           };
         };
@@ -689,7 +695,7 @@
         cmp = {
           enable = true;
           settings = {
-            sources = map (name: {inherit name;}) [
+            sources = map (name: { inherit name; }) [
               "nvim_lsp"
               "nvim_lsp_signature_help"
               "path"
