@@ -63,9 +63,10 @@
         "*.nix" = "alejandra .";
         "*.sh" = "shfmt -w .";
       };
-      packages =
-        nixpkgs.lib.genAttrs ["wayland-mpris-idle-inhibit" "nu_plugin_dbus"]
-        (i: {pkgs}: inputs.${i}.packages.${pkgs.system}.default);
+
+      packages = nixpkgs.lib.genAttrs ["wayland-mpris-idle-inhibit" "nu_plugin_dbus"] (
+        i: {pkgs}: inputs.${i}.packages.${pkgs.system}.default
+      );
       nixDir = ./.;
       nixDirAliases = {
         nixosConfigurations = ["systemConfigs"];

@@ -1,4 +1,8 @@
-{pkg, ...}: {
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    neovide
+  ];
+
   home-manager.users.bean = {
     wayland.windowManager.hyprland.settings.bind = [
       "SUPER,D,exec,neovide"

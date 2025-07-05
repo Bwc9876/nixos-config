@@ -7,6 +7,15 @@
     floorp
   ];
 
+  networking.stevenblack = {
+    enable = true;
+    block = [
+      "fakenews"
+      "gambling"
+      "porn"
+    ];
+  };
+
   home-manager.users.bean.programs.floorp = {
     enable = true;
     policies = {

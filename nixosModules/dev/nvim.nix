@@ -10,19 +10,6 @@
     fd
   ];
 
-  # TODO: Wish list
-  # - https://github.com/al1-ce/just.nvim
-  # - DAP Setup? If not just get rid of the plugin...
-  # - Proper Start screen / projects
-  # - On project open with no session saved, show a little screen or smth?
-  # - Neovide let me paste from system clipboard in insert mode
-  # - Fix hex stuff, working hex editor please
-  # - Image viewer would be cool
-  # - More customization of toggleterm, tabs would be really nice
-  # - Switch project combo if not already present
-  # - Neotree look nicer
-  # - Bufferline color "Neovim" in space, im thinking logo in green bold and text in normal green
-
   home-manager.users.bean = {
     imports = [inputs.nixvim.homeManagerModules.nixvim];
 
@@ -33,7 +20,9 @@
       viAlias = true;
       vimAlias = true;
 
-      dependencies.direnv.enable = true;
+      dependencies = {
+        direnv.enable = true;
+      };
 
       nixpkgs.pkgs = pkgs;
 
@@ -46,6 +35,7 @@
           no_underline = false;
           no_bold = false;
           no_italics = false;
+          term_colors = true;
           # transparent_background = true;
           integrations = {
             alpha = true;
@@ -98,6 +88,8 @@
           },
          },
         })
+        vim.g.neovide_cursor_vfx_mode = "pixiedust"
+
       '';
 
       autoGroups = {
@@ -168,21 +160,6 @@
       };
 
       keymaps = [
-        {
-          action = ''"+y'';
-          key = "<C-S-C>";
-          options.desc = "Copy to System Clipboard";
-        }
-        {
-          action = ''"+p'';
-          key = "<C-S-V>";
-          options.desc = "Paste from System Clipboard";
-        }
-        {
-          action = ''"+x'';
-          key = "<C-S-X>";
-          options.desc = "Cut to System Clipboard";
-        }
         {
           action = "<cmd>Lspsaga code_action code_action<cr>";
           key = "<C-.>a";
@@ -434,7 +411,7 @@
                   saved_terminal = term.get(termid)
                 end,
                 post_open = function(opts)
-                  if opts.is_blocking and saved_terminal then
+                  if saved_terminal then
                     saved_terminal:close()
                   else
                     vim.api.nvim_set_current_win(opts.winnr)
@@ -465,11 +442,20 @@
             })
           '';
           settings = {
+            size = 20;
             open_mapping = "[[<C-x>]]";
             direction = "horizontal";
             start_in_insert = true;
             insert_mappings = true;
             terminal_mappings = true;
+            # winbar = {
+            #   enabled = true;
+            #   # name_formatter.__raw = ''
+            #   #   function(term)
+            #   #     return term:_display_name() .. " (" .. tostring(term.id) .. ")"
+            #   #   end
+            #   # '';
+            # };
           };
         };
 
@@ -487,10 +473,6 @@
         illuminate.enable = true;
         cursorline.enable = true;
 
-        neoscroll = {
-          enable = true;
-          settings.easing_function = "cubic";
-        };
         scrollview.enable = true;
 
         navbuddy = {
@@ -514,6 +496,9 @@
 
         bufferline = {
           enable = true;
+          settings.highlights.__raw = ''
+            require("catppuccin.groups.integrations.bufferline").get()
+          '';
           settings.options = {
             indicator.style = "none";
             close_icon = "";
@@ -521,9 +506,10 @@
             offsets = [
               {
                 filetype = "neo-tree";
+                highlight = "String";
                 text = " Neovim";
                 text_align = "center";
-                separator = true;
+                # separator = true;
               }
             ];
             separator_style = "slant";
@@ -546,15 +532,27 @@
 
         statuscol = {
           enable = true;
-          settings.segments = [
+          settings.segments = let
+            dispCond = {
+              __raw = ''
+                function(ln)
+                  return vim.bo.filetype ~= "neo-tree"
+                end
+              '';
+            };
+          in [
             {
               click = "v:lua.ScSa";
+              condition = [
+                dispCond
+              ];
               text = [
                 "%s"
               ];
             }
             {
               click = "v:lua.ScLa";
+              condition = [dispCond];
               text = [
                 {
                   __raw = "require('statuscol.builtin').lnumfunc";
@@ -564,7 +562,7 @@
             {
               click = "v:lua.ScFa";
               condition = [
-                true
+                dispCond
                 {
                   __raw = "require('statuscol.builtin').not_empty";
                 }
@@ -579,18 +577,18 @@
           ];
         };
 
-        dropbar.enable = true;
+        dropbar = {
+          enable = true;
+          settings = {
+            bar.padding.right = 5;
+            bar.padding.left = 1;
+          };
+        };
 
         nvim-ufo = {
           enable = true;
         };
         gitsigns.enable = true;
-
-        dap = {
-          enable = true;
-        };
-
-        dap-virtual-text.enable = true;
 
         lualine = {
           enable = true;
@@ -603,6 +601,7 @@
             options = {
               theme = "catppuccin";
               disabled_filetypes = ["neo-tree"];
+              ignore_focus = ["neo-tree"];
             };
           };
         };
@@ -616,9 +615,31 @@
 
         neo-tree = {
           enable = true;
+          hideRootNode = false;
           addBlankLineAtTop = true;
-          window.width = 30;
+          defaultComponentConfigs = {
+            container.rightPadding = 2;
+            name.trailingSlash = true;
+            indent = {
+              indentSize = 2;
+              withExpanders = true;
+            };
+          };
+          window.width = 40;
+          autoCleanAfterSessionRestore = true;
           closeIfLastWindow = true;
+          extraOptions = {
+            filesystem.components.name.__raw = ''
+              function(config, node, state)
+                local components = require('neo-tree.sources.common.components')
+                local name = components.name(config, node, state)
+                if node:get_depth() == 1 then
+                    name.text = vim.fs.basename(vim.loop.cwd() or "") .. "/"
+                end
+                return name
+              end
+            '';
+          };
         };
 
         # image.enable = true;
@@ -640,6 +661,9 @@
           enable = true;
           settings.notification = {
             window = {
+              y_padding = 2;
+              x_padding = 2;
+              zindex = 50;
               align = "top";
               winblend = 0;
             };
@@ -649,7 +673,6 @@
         none-ls = {
           enable = true;
           sources.formatting = {
-            alejandra.enable = true;
             prettier = {
               enable = true;
               disableTsServerFormatter = true;
@@ -692,13 +715,14 @@
         lspkind.enable = true;
         # jupytext.enable = true;
 
-        hex = {
-          enable = true;
-          settings = {
-            assemble_cmd = "xxd -r";
-            dump_cmd = "xxd -g 1 -u";
-          };
-        };
+        # Broken
+        # hex = {
+        #   enable = true;
+        #   settings = {
+        #     assemble_cmd = "xxd -r";
+        #     dump_cmd = "xxd -g 1 -u";
+        #   };
+        # };
 
         lspsaga = {
           enable = true;
