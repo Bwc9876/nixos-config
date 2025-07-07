@@ -110,6 +110,7 @@
         foldlevel = 10;
         foldlevelstart = 10;
         foldenable = true;
+        mouse = "";
       };
 
       autoCmd = [
@@ -160,73 +161,138 @@
         };
       };
 
-      keymaps = [
-        {
-          action = "<cmd>Lspsaga code_action code_action<cr>";
-          key = "<C-.>a";
-          options.desc = "Code Actions";
-        }
-        {
-          action = "<cmd>Lspsaga rename<cr>";
-          key = "<C-.>r";
-          options.desc = "LSP Rename";
-        }
-        {
-          action = "<cmd>Lspsaga diagnostic_jump_next<cr>";
-          key = "<C-.>e";
-          options.desc = "Next Diagnostic";
-        }
-        {
-          action = "<cmd>Lspsaga diagnostic_jump_previous<cr>";
-          key = "<C-.>E";
-          options.desc = "Previous Diagnostic";
-        }
-        {
-          action = "<cmd>Lspsaga goto_definition<cr>";
-          key = "<C-.>d";
-          options.desc = "Jump to Definition";
-        }
-        {
-          action = "<cmd>Lspsaga peek_definition<cr>";
-          key = "<C-.>D";
-          options.desc = "Peek Definition";
-        }
-        {
-          action = "<cmd>Lspsaga finder ref<cr>";
-          key = "<C-.>fr";
-          options.desc = "Find References";
-        }
-        {
-          action = "<cmd>Lspsaga finder imp<cr>";
-          key = "<C-.>fi";
-          options.desc = "Find Implementations";
-        }
-        {
-          action = "<cmd>Lspsaga finder def<cr>";
-          key = "<C-.>fd";
-          options.desc = "Find Definitions";
-        }
-        {
-          action = "<cmd>Lspsaga finder<cr>";
-          key = "<C-.>ff";
-          options.desc = "Finder";
-        }
-        {
-          action = "<cmd>Lspsaga hover_doc<cr>";
-          key = "<C-.>h";
-          options.desc = "Hover Doc";
-        }
-        {
-          action = "<cmd>Telescope<cr>";
-          key = "<leader><leader>";
-          options.desc = "Telescope Launch";
-        }
-        {
-          action = "<cmd>Navbuddy<cr>";
-          key = "<leader>j";
-          options.desc = "Jump To...";
-        }
-      ];
+      keymaps =
+        let
+          prefixMap =
+            pre: maps:
+            builtins.map (k: {
+              action = "<cmd>${k.action}<cr>";
+              key = "${pre}${k.key}";
+              options = k.options;
+            }) maps;
+        in
+        lib.lists.flatten (
+          builtins.map (g: if builtins.hasAttr "group" g then prefixMap g.prefix g.keys else g) [
+            {
+              group = "Tab Navigation";
+              prefix = "<Tab>";
+              keys = [
+                {
+                  action = "BufferLineCycleNext";
+                  key = "e";
+                  options.desc = "Next Tab";
+                }
+                {
+                  action = "BufferLineCyclePrev";
+                  key = "q";
+                  options.desc = "Previous Tab";
+                }
+                {
+                  action = "BufferLinePick";
+                  key = "<Tab>";
+                  options.desc = "Pick Tab and Switch";
+                }
+              ];
+            }
+            {
+              group = "Tab Closing";
+              prefix = "<S-Tab>";
+              keys = [
+                {
+                  action = "BufferLineCloseLeft";
+                  key = "q";
+                  options.desc = "Close Tab Left";
+                }
+                {
+                  action = "BufferLineCloseRight";
+                  key = "e";
+                  options.desc = "Close Tab Right";
+                }
+                {
+                  action = "BufferLinePickClose";
+                  key = "<Tab>";
+                  options.desc = "Pick Tab and Close";
+                }
+                {
+                  action = "BufferLineCloseOthers";
+                  key = "w";
+                  options.desc = "Close Other Tabs";
+                }
+              ];
+            }
+            {
+              action = "<cmd>Bdelete<cr>";
+              key = "<C-q>";
+              options.desc = "Close Current Buffer";
+            }
+            {
+              group = "LSP Actions";
+              prefix = "<C-.>";
+              keys = [
+                {
+                  action = "Lspsaga code_action code_action";
+                  key = "a";
+                  options.desc = "Code Actions";
+                }
+                {
+                  action = "Lspsaga rename";
+                  key = "r";
+                  options.desc = "LSP Rename";
+                }
+                {
+                  action = "Lspsaga diagnostic_jump_next";
+                  key = "e";
+                  options.desc = "Next Diagnostic";
+                }
+                {
+                  action = "Lspsaga diagnostic_jump_previous";
+                  key = "E";
+                  options.desc = "Previous Diagnostic";
+                }
+                {
+                  action = "Lspsaga goto_definition";
+                  key = "d";
+                  options.desc = "Jump to Definition";
+                }
+                {
+                  action = "Lspsaga peek_definition";
+                  key = "D";
+                  options.desc = "Peek Definition";
+                }
+                {
+                  action = "Lspsaga finder ref";
+                  key = "fr";
+                  options.desc = "Find References";
+                }
+                {
+                  action = "Lspsaga finder imp";
+                  key = "fi";
+                  options.desc = "Find Implementations";
+                }
+                {
+                  action = "Lspsaga finder def";
+                  key = "fd";
+                  options.desc = "Find Definitions";
+                }
+                {
+                  action = "Lspsaga finder";
+                  key = "ff";
+                  options.desc = "Finder";
+                }
+                {
+                  action = "Lspsaga hover_doc";
+                  key = "h";
+                  options.desc = "Hover Doc";
+                }
+              ];
+            }
+            {
+              action = "<cmd>Telescope<cr>";
+              key = "<leader><leader>";
+              options.desc = "Telescope Launch";
+            }
+          ]
+        );
 
       extraPlugins = with pkgs.vimPlugins; [
         { plugin = pkgs.nvim-mdx; }
@@ -264,12 +330,12 @@
               options.desc = "Spell Suggest";
             };
             "<leader>s" = {
+              action = "lsp_document_symbols";
+              options.desc = "LSP Symbols";
+            };
+            "<leader>t" = {
               action = "treesitter";
               options.desc = "Treesitter Symbols";
-            };
-            "<leader>b" = {
-              action = "file_browser";
-              options.desc = "File Browser";
             };
             "<leader>f" = {
               action = "find_files";
@@ -291,7 +357,6 @@
               action = "oldfiles";
               options.desc = "Recent Files";
             };
-
             "<leader>l" = self."<C-S-F>";
             "<C-S-F>" = {
               action = "live_grep";
@@ -505,8 +570,8 @@
           '';
           settings.options = {
             indicator.style = "none";
-            close_icon = "";
-            buffer_close_icon = "";
+            show_buffer_close_icons = false;
+            show_close_icon = false;
             offsets = [
               {
                 filetype = "neo-tree";
@@ -648,7 +713,13 @@
           };
         };
 
-        # image.enable = true;
+        image = {
+          luaConfig = {
+            pre = "if not vim.g.neovide then";
+            post = "end";
+          };
+          enable = true;
+        };
         web-devicons.enable = true;
 
         guess-indent.enable = true;
