@@ -91,6 +91,7 @@
         })
         vim.g.neovide_cursor_vfx_mode = "pixiedust"
 
+        require("satellite").setup({})
       '';
 
       autoGroups = {
@@ -310,9 +311,9 @@
 
       extraPlugins = with pkgs.vimPlugins; [
         { plugin = pkgs.nvim-mdx; }
-        { plugin = pkgs.nvim-flatten; }
+        { plugin = satellite-nvim; }
+        { plugin = flatten-nvim; }
         { plugin = tiny-devicons-auto-colors-nvim; }
-        { plugin = nvim-biscuits; }
       ];
 
       plugins = {
@@ -547,8 +548,6 @@
 
         illuminate.enable = true;
         cursorline.enable = true;
-
-        scrollview.enable = true;
 
         navbuddy = {
           enable = true;
