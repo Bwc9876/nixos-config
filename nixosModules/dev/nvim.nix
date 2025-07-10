@@ -186,6 +186,11 @@
               options.desc = "Cut to system clipboard";
             }
             {
+              action = ''<cmd>Format<cr>'';
+              key = "<C-S-I>";
+              options.desc = "Format Buffer";
+            }
+            {
               group = "Tab Navigation";
               prefix = "<Tab>";
               keys = [
@@ -541,10 +546,10 @@
 
         treesitter = {
           enable = true;
-          languageRegister.mdx = "markdown";
-          luaConfig.post = ''
-            require('mdx').setup()
-          '';
+          # languageRegister.mdx = "markdown";
+          # luaConfig.post = ''
+          #   require('mdx').setup()
+          # '';
           settings = {
             highlight.enable = true;
           };
@@ -770,21 +775,21 @@
           };
         };
 
-        none-ls = {
-          enable = true;
-          sources.formatting = {
-            prettier = {
-              enable = true;
-              disableTsServerFormatter = true;
-            };
-            yamlfmt.enable = true;
-            typstyle.enable = true;
-            markdownlint.enable = true;
-          };
-          sources.diagnostics = {
-            markdownlint.enable = true;
-          };
-        };
+        # none-ls = {
+        #   enable = true;
+        #   sources.formatting = {
+        #     prettier = {
+        #       enable = true;
+        #       disableTsServerFormatter = true;
+        #     };
+        #     yamlfmt.enable = true;
+        #     typstyle.enable = true;
+        #     markdownlint.enable = true;
+        #   };
+        #   sources.diagnostics = {
+        #     markdownlint.enable = true;
+        #   };
+        # };
 
         cmp = {
           enable = true;
@@ -811,8 +816,6 @@
         rainbow-delimiters.enable = true;
         preview.enable = true;
 
-        lsp-format.enable = true;
-        lspkind.enable = true;
         # jupytext.enable = true;
 
         # Broken
@@ -823,6 +826,27 @@
         #     dump_cmd = "xxd -g 1 -u";
         #   };
         # };
+
+        conform-nvim = {
+          enable = true;
+          settings.default_format_opts = {
+            lsp_format = "prefer";
+          };
+          # Taken from https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#format-command
+          luaConfig.post = ''
+            vim.api.nvim_create_user_command("Format", function(args)
+              local range = nil
+              if args.count ~= -1 then
+                local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+                range = {
+                  start = { args.line1, 0 },
+                  ["end"] = { args.line2, end_line:len() },
+                }
+              end
+              require("conform").format({ async = true, lsp_format = "fallback", range = range })
+            end, { range = true })
+          '';
+        };
 
         lspsaga = {
           enable = true;
