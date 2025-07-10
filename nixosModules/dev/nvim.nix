@@ -558,18 +558,6 @@
         illuminate.enable = true;
         cursorline.enable = true;
 
-        navbuddy = {
-          enable = true;
-          lsp.autoAttach = true;
-          mappings = {
-            "<Left>" = "parent";
-            "<Right>" = "children";
-            "<Up>" = "previous_sibling";
-            "<Down>" = "next_sibling";
-            "<C-Left>" = "root";
-          };
-        };
-
         neocord = {
           enable = true;
           settings.logo = "https://raw.githubusercontent.com/IogaMaster/neovim/main/.github/assets/nixvim-dark.webp";
