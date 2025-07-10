@@ -22,19 +22,27 @@ in {
 
   fileSystems."/tmp/nix-build" = {
     device = "${cacheRoot}/nix-build";
-    options = ["bind" "X-fstrim.notrim" "x-gvfs-hide"];
+    options = [
+      "bind"
+      "X-fstrim.notrim"
+      "x-gvfs-hide"
+    ];
   };
 
   systemd.services.nix-daemon = {
     environment.TMPDIR = "/tmp/nix-build";
-    unitConfig.RequiresMountsFor = ["/tmp/nix-build" "/nix/store"];
+    unitConfig.RequiresMountsFor = [
+      "/tmp/nix-build"
+      "/nix/store"
+    ];
   };
 
   environment.persistence.${cacheRoot} = {
     enable = true;
     hideMounts = true;
     directories =
-      (preWith "/var" ([
+      (preWith "/var" (
+        [
           "log"
         ]
         ++ preWith "lib" (
@@ -48,7 +56,8 @@ in {
             "backlight"
             "rfkill"
           ]
-        )))
+        )
+      ))
       ++ [
         {
           directory = "/var/lib/colord";
@@ -65,8 +74,19 @@ in {
         ".pnpm"
         ".local/state/wireplumber"
       ]
-      ++ (preShare ["Steam" "Trash" "dolphin"])
-      ++ (preConf ["gh" "GitHub Desktop" "spotify" "vesktop" "kdeconnect" "keepassxc"]);
+      ++ (preShare [
+        "Steam"
+        "Trash"
+        "dolphin"
+      ])
+      ++ (preConf [
+        "gh"
+        "GitHub Desktop"
+        "spotify"
+        "vesktop"
+        "kdeconnect"
+        "keepassxc"
+      ]);
   };
 
   environment.persistence.${persistRoot} = {
@@ -107,7 +127,7 @@ in {
           "Cemu"
         ])
         ++ (preShare [
-          "direnv"
+          # "direnv"
           "ow-mod-man"
           "OuterWildsModManager"
           "PrismLauncher"
