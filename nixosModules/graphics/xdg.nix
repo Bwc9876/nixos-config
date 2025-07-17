@@ -72,7 +72,6 @@
         imageViewers =
           [
             "org.gnome.Loupe.desktop"
-            "gimp.desktop"
           ]
           ++ browsers;
         avPlayers =

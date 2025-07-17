@@ -157,7 +157,6 @@
     ## Media
     obs-studio
     loupe
-    gimp
     inkscape
     lorien
     cavalier
