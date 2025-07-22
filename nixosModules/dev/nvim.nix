@@ -869,6 +869,7 @@
 
           servers = {
             astro.enable = true;
+            hls.enable = true;
             sqls.enable = true;
             mdx_analyzer = {
               enable = true;
