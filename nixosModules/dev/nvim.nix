@@ -869,7 +869,13 @@
 
           servers = {
             astro.enable = true;
-            hls.enable = true;
+            hls = {
+              enable = true;
+              installGhc = false;
+
+              ghcPackage = pkgs.haskell.compiler.ghc912;
+              package = pkgs.haskell.packages.ghc912.haskell-language-server;
+            };
             sqls.enable = true;
             mdx_analyzer = {
               enable = true;

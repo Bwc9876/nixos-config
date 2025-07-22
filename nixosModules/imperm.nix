@@ -77,7 +77,6 @@ in {
       ++ (preShare [
         "Steam"
         "Trash"
-        "dolphin"
       ])
       ++ (preConf [
         "gh"
@@ -136,13 +135,9 @@ in {
           "nvim"
           "Cemu"
         ]);
-      files =
-        (preConf [
-          "nushell/history.txt"
-        ])
-        ++ (preShare [
-          "user-places.xbel"
-        ]);
+      files = preConf [
+        "nushell/history.txt"
+      ];
     };
   };
 }

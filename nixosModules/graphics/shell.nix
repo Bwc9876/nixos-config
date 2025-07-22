@@ -28,20 +28,6 @@
     ## Waybar
     qt6.qttools # For component
 
-    ## Dolphin
-    kdePackages.dolphin
-    kdePackages.ark
-    kdePackages.kio-extras
-    kdePackages.kservice # Dolphin stupid?
-    libsForQt5.kservice
-    kdePackages.kdegraphics-thumbnailers
-    kdePackages.kimageformats
-    kdePackages.taglib
-    nufraw-thumbnailer
-    kdePackages.phonon
-    kdePackages.ffmpegthumbs
-    ffmpegthumbnailer
-
     pavucontrol
 
     wf-recorder
@@ -114,17 +100,6 @@
         Service = service;
       };
     in {
-      dolphin = mkShellService {
-        desc = "Dolphin File Manager Daemon";
-
-        service = {
-          ExecStart = "${pkgs.kdePackages.dolphin}/bin/dolphin --daemon";
-          Restart = "on-failure";
-          RestartSec = "10";
-          BusName = "org.freedesktop.FileManager1";
-        };
-      };
-
       battery-notif = mkShellService {
         desc = "Battery Notification Service";
 
@@ -340,7 +315,7 @@
         "SUPER ALT,C,exec,uwsm app -- rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\""
         "SUPER,B,exec,uwsm app -- ${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"
         "SUPER,Tab,exec,uwsm app -- rofi -show window -show-icons"
-        "SUPER,E,exec,uwsm app -- ${pkgs.nushell}/bin/nu ${../../res/rofi/rofi-places.nu}"
+        "SUPER,E,exec,uwsm app -- yazi.desktop"
         "SUPER,N,exec,uwsm app -- ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
         "SUPER,A,exec,uwsm app -- pavucontrol --tab 5"
         ''SUPER,V,exec,cliphist list | sed -r 's/\[\[ binary data (.* .iB) (.*) (.*) \]\]/ 󰋩 \2 Image (\3, \1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy''

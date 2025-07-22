@@ -149,8 +149,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    chromium
-
     # Office
     libreoffice-qt6
 
