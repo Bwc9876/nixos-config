@@ -6,7 +6,7 @@
   persistRoot = "/nix/persist"; # Anything important we want backed up
   secureRoot = "${persistRoot}/secure"; # Files and directories we want only root to access
   cacheRoot = "/nix/perist-cache"; # Anything not as important that we can stand losing
-  preWith = pre: paths: builtins.map (p: "${pre}/${p}") paths;
+  preWith = pre: builtins.map (p: "${pre}/${p}");
   preShare = preWith ".local/share";
   preConf = preWith ".config";
 in {
