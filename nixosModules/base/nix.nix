@@ -13,7 +13,7 @@
   nix = {
     channel.enable = false;
     registry.p.flake = inputs.self;
-    package = lib.mkForce pkgs.lix;
+    package = pkgs.lix;
     settings = {
       # So we can do `import <nixpkgs>`
       nix-path = "nixpkgs=${inputs.nixpkgs}";
