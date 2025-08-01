@@ -115,10 +115,10 @@ def is_night [astronomy: record] {
 }
 
 def get_icon [condition: string, is_night: bool] {
-    let icon = $WEATHER_ICONS | get -i $condition | default $WEATHER_ICONS.Unknown;
+    let icon = $WEATHER_ICONS | get -o $condition | default $WEATHER_ICONS.Unknown;
 
     if $is_night {
-        $NIGHT_MAP | get -i $icon | default $icon
+        $NIGHT_MAP | get -o $icon | default $icon
     } else {
         $icon
     }
@@ -151,7 +151,7 @@ def main [] {
     let astronomy = $weather.astronomy.0
     let area = $raw.nearest_area.0
 
-    let condition = $WWO_CODE | get -i $current_condition.weatherCode | default "Unknown"
+    let condition = $WWO_CODE | get -o $current_condition.weatherCode | default "Unknown"
 
     let night = is_night $astronomy
 

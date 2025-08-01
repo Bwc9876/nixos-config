@@ -396,10 +396,9 @@ in {
             player-icons = {
               QMPlay2 = "󰐌";
               default = "󰎆";
-              firefox = "󰖟";
-              firefox-devedition = "󰖟";
+              firefox = "";
+              firefox-devedition = "";
               chromium = "󰖟";
-              floorp = "󰖟";
               kdeconnect = "";
               spotify = "󰓇";
             };

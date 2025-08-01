@@ -109,7 +109,7 @@
         in
           [
             "SUPER,M,submap,passthru"
-            "SUPER,Q,exec,uwsm app -- floorp.desktop"
+            "SUPER,Q,exec,uwsm app -- firefox-devedition.desktop"
             "SUPER,Z,exec,systemctl suspend"
             ",XF86AudioMedia,exec,${openTerminal}"
             "SUPER,T,exec,${openTerminal}"

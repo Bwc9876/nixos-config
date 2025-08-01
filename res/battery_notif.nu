@@ -73,11 +73,11 @@ def main [poll_interval: duration = 1min] {
         print "===========" "Device List" ($devices | select friendly_name upower_path Type) "-----------";
 
         for dev in $devices {
-            if (($shown_notifs | get -i $dev.upower_path | get -i 0) == null) {
+            if (($shown_notifs | get -o $dev.upower_path | get -o 0) == null) {
                 $shown_notifs = ($shown_notifs | insert $dev.upower_path false);
             }
 
-            let has_shown_notif = $shown_notifs | get -i $dev.upower_path | get -i 0;
+            let has_shown_notif = $shown_notifs | get -o $dev.upower_path | get -o 0;
 
             if ((should_display_notif $dev) and not $has_shown_notif) {
                 #print $"Device ($dev.friendly_name) is below 10% charge, showing notification";

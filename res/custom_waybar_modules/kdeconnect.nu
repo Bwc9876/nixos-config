@@ -29,7 +29,7 @@ def is_reachable [device: record] {
 def supports_battery [device: record] {
     let reachable = is_reachable $device;
     let supported = "kdeconnect_battery" in ($device.supportedPlugins? | default []);
-    let exists = dbus introspect --session --dest=$BUS_NAME (dev_path $device.id) | get -i children | default [] | any {|it| $it.name == "battery"}
+    let exists = dbus introspect --session --dest=$BUS_NAME (dev_path $device.id) | get -o children | default [] | any {|it| $it.name == "battery"}
 
     $reachable and $supported and $exists
 }
@@ -72,7 +72,7 @@ def main [] {
 
         let reachable = is_reachable $it;
 
-        let icons = $icon_ref | get -i ($it.type? | default "") | default $icon_ref.phone;
+        let icons = $icon_ref | get -o ($it.type? | default "") | default $icon_ref.phone;
 
         let battery_info = get_battery_info $it | default { isCharging: false };
 

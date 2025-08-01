@@ -1,15 +1,11 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{config, ...}: {
   xdg.mime = {
     removedAssociations = {
       "inode/directory" = ["QMPlay2.desktop" "QMPlay2_enqueue.desktop"];
     };
     defaultApplications = {
-      "application/pdf" = "floorp.desktop";
-      "image/*" = ["org.gnome.Loupe.desktop" "floorp.desktop" "chromium-browser.desktop"];
+      "application/pdf" = "firefox-devedition.desktop";
+      "image/*" = ["org.gnome.Loupe.desktop" "firefox-devedition.desktop" "chromium-browser.desktop"];
       "text/*" = "neovide.desktop";
       "inode/directory" = "yazi.desktop";
     };

@@ -30,7 +30,7 @@ let name = $env.SWAYNC_APP_NAME? | default "" | str downcase
 def main [sounds_path: string] {
     let dnd = swaync-client -D | from json;
     if (not $dnd) and ($name not-in $SILENCED_APP_NAMES) {
-        let sound = $APP_SOUNDS | get -i $name | default $APP_SOUNDS.DEFAULT;
+        let sound = $APP_SOUNDS | get -o $name | default $APP_SOUNDS.DEFAULT;
         aplay $"($sounds_path)/($sound).wav"
     }
 }
