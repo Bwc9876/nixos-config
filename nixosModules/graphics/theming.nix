@@ -1,6 +1,6 @@
 {
-  pkgs,
   lib,
+  pkgs,
   ...
 }: let
   iconTheme = {
@@ -8,8 +8,8 @@
     package = pkgs.tela-icon-theme;
   };
   cursorTheme = {
-    name = "Qogir";
-    package = pkgs.qogir-icon-theme;
+    name = "catppuccin-mocha-dark-cursors";
+    package = pkgs.catppuccin-cursors.mochaDark;
     size = 24;
   };
   hyprThemeName = "${cursorTheme.name}-hypr";
@@ -56,7 +56,8 @@ in {
 
     gtk = {
       enable = true;
-      inherit iconTheme;
+      # HM try not to set a value incorrectly challenge
+      iconTheme = lib.mkForce iconTheme;
       gtk2.extraConfig = "gtk-application-prefer-dark-theme=true";
       gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
       gtk4.extraConfig.gtk-application-prefer-dark-theme = true;

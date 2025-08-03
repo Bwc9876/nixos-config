@@ -26,6 +26,11 @@
     bingus.url = "github:Bwc9876/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
 
+    catppuccin-stylus = {
+      url = "https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json";
+      flake = false;
+    };
+
     spoon.url = "git+https://codeberg.org/spoonbaker/mono?dir=nixos-config";
     spoon.inputs = {
       nixpkgs.follows = "nixpkgs";
@@ -36,23 +41,25 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    flakelight,
-    nix-index-db,
-    hm,
-    nixos-hardware,
-    lanzaboote,
-    wayland-mpris-idle-inhibit,
-    rust-overlay,
-    catppuccin,
-    nixvim,
-    imperm,
-    nu_plugin_dbus,
-    bingus,
-    spoon,
-  }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      flakelight,
+      nix-index-db,
+      hm,
+      nixos-hardware,
+      lanzaboote,
+      wayland-mpris-idle-inhibit,
+      rust-overlay,
+      catppuccin,
+      catppuccin-stylus,
+      nixvim,
+      imperm,
+      nu_plugin_dbus,
+      bingus,
+      spoon,
+    }:
     flakelight ./. {
       imports = [
         spoon.flakelightModules.repl
@@ -64,12 +71,12 @@
         "*.sh" = "shfmt -w .";
       };
 
-      packages = nixpkgs.lib.genAttrs ["wayland-mpris-idle-inhibit" "nu_plugin_dbus"] (
-        i: {pkgs}: inputs.${i}.packages.${pkgs.system}.default
+      packages = nixpkgs.lib.genAttrs [ "wayland-mpris-idle-inhibit" "nu_plugin_dbus" ] (
+        i: { pkgs }: inputs.${i}.packages.${pkgs.system}.default
       );
       nixDir = ./.;
       nixDirAliases = {
-        nixosConfigurations = ["systemConfigs"];
+        nixosConfigurations = [ "systemConfigs" ];
       };
       legacyPackages = pkgs: pkgs;
       nixpkgs.config = {
