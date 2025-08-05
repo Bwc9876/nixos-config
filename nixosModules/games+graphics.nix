@@ -10,7 +10,7 @@
   programs.gamescope.enable = true;
 
   environment.systemPackages = with pkgs; [
-    # prismlauncher - Disabled until openjdk doesn't have a cycle
+    prismlauncher
     owmods-gui
     owmods-cli
     cemu

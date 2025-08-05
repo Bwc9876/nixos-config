@@ -49,6 +49,7 @@ in {
           [
             "bluetooth"
             "nixos"
+            "libvirt"
           ]
           ++ preWith "systemd" [
             "coredump"
