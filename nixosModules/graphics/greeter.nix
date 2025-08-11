@@ -15,7 +15,7 @@
         '';
         cmd = ''--cmd "systemd-inhibit --what=handle-power-key:handle-lid-switch ${deCmd}"'';
       in {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --time ${greeting} ${cmd}";
+        command = "${pkgs.tuigreet}/bin/tuigreet --remember --time ${greeting} ${cmd}";
       };
     };
   };
