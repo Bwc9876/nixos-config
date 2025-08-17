@@ -100,6 +100,7 @@ in {
 
             ## Ads / Youtube
             "ublock-origin"
+            "consent-o-matic"
             "sponsorblock"
 
             # Information

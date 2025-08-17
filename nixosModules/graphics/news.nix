@@ -46,8 +46,7 @@
 in {
   environment.systemPackages = with pkgs; [
     w3m
-    # TODO: Broken
-    # rdrview
+    rdrview
   ];
 
   home-manager.users.bean = {

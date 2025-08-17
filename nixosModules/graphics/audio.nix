@@ -10,6 +10,10 @@
 
   services.playerctld.enable = true;
 
+  hardware.rtl-sdr.enable = true;
+
+  users.users.bean.extraGroups = ["plugdev"];
+
   home-manager.users.bean.wayland.windowManager.hyprland.settings = {
     bindl = [
       ",XF86AudioPlay,exec,playerctl play-pause"
