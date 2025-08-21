@@ -1,5 +1,5 @@
 _default:
-    @just --list --unsorted --justfile {{justfile()}}
+    @{{ just_executable() }} --list --unsorted --justfile {{ justfile() }}
 
 [private]
 alias u := update
@@ -29,7 +29,7 @@ switch:
 alias c := check
 # c:  run all checks for the current system
 check:
-    nix build --show-trace .#uberCheck.$(nix eval --impure --raw --expr 'builtins.currentSystem')
+    nix flake check --show-trace {{ if env("SPOON_PATH", "") != "" {"--override-input spoon \"$SPOON_PATH\""} else { "" } }} --log-format internal-json -v |& nom --json
 
 [private]
 alias f := format
