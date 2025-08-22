@@ -15,7 +15,6 @@
   ];
 
   home-manager.users.bean.services.swaync = {
-    # TODO: Remove after checking
     enable = true;
     settings = {
       control-center-exclusive-zone = false;

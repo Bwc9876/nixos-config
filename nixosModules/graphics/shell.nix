@@ -110,6 +110,8 @@
         };
       };
 
+      kdeconnect.Service.Environment = lib.mkForce [];
+
       mpris-idle-inhibit = mkShellService {
         desc = "MPRIS Idle Inhibitor";
 
