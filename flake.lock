@@ -632,25 +632,20 @@
         "impermanence": [
           "imperm"
         ],
-        "nix-index-database": [
-          "nix-index-db"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "dir": "nixos-config",
-        "lastModified": 1755528728,
-        "narHash": "sha256-2xW4v7E3aA/JjmONbh0nBsLGr6tbf0sgPybL+AzHjl0=",
+        "lastModified": 1755837860,
+        "narHash": "sha256-UZjpi267uAFAkvA4BmlJgh33nP7Gf+7jfDyLyrbijeo=",
         "ref": "refs/heads/main",
-        "rev": "69e62a4acd44548a77f59abd5883ab24e51a7788",
-        "revCount": 214,
+        "rev": "1b8da46ed191d99dd5bdb439b09ae6c345b6e8c7",
+        "revCount": 223,
         "type": "git",
         "url": "https://codeberg.org/spoonbaker/mono"
       },
       "original": {
-        "dir": "nixos-config",
         "type": "git",
         "url": "https://codeberg.org/spoonbaker/mono"
       }

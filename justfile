@@ -28,8 +28,8 @@ switch:
 [private]
 alias c := check
 # c:  run all checks for the current system
-check:
-    nix flake check --show-trace {{ if env("SPOON_PATH", "") != "" {"--override-input spoon \"$SPOON_PATH\""} else { "" } }} --log-format internal-json -v |& nom --json
+check *ARGS:
+    nix flake check --show-trace {{ if env("SPOON_PATH", "") != "" {"--override-input spoon \"$SPOON_PATH\" --no-build"} else { "" } }} {{ ARGS }} --log-format internal-json -v |& nom --json
 
 [private]
 alias f := format

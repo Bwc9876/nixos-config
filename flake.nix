@@ -26,13 +26,12 @@
     bingus.url = "github:Bwc9876/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
 
-    spoon.url = "git+https://codeberg.org/spoonbaker/mono?dir=nixos-config";
+    spoon.url = "git+https://codeberg.org/spoonbaker/mono";
     spoon.inputs = {
       nixpkgs.follows = "nixpkgs";
       flakelight.follows = "flakelight";
       home-manager.follows = "hm";
       impermanence.follows = "imperm";
-      nix-index-database.follows = "nix-index-db";
     };
   };
 
