@@ -347,10 +347,6 @@
             undo.enable = true;
           };
           keymaps = lib.fix (self: {
-            "<leader>p" = {
-              action = "projects";
-              options.desc = "Projects";
-            };
             "<leader>u" = {
               action = "undo";
               options.desc = "Undo Tree";
@@ -465,10 +461,6 @@
                   onClick = "ToggleTerm";
                 })
                 (btn {
-                  val = "󰉋 Open Project";
-                  onClick = "Telescope projects";
-                })
-                (btn {
                   val = "󰅙 Quit";
                   onClick = "q";
                 })
@@ -567,7 +559,7 @@
         bufferline = {
           enable = true;
           settings.highlights.__raw = ''
-            require("catppuccin.groups.integrations.bufferline").get()
+            require("catppuccin.groups.integrations.bufferline").get_theme()
           '';
           settings.options = {
             indicator.style = "none";
@@ -678,24 +670,16 @@
 
         nix-develop = {
           enable = true;
-          package =
-            pkgs.vimPlugins.nix-develop-nvim.overrideAttrs (
-              prev: next: {
-                src =
-                  pkgs.fetchFromGitHub {
-                    owner = "Bwc9876";
-                    repo = "nix-develop.nvim";
-                    rev = "089cd52191ccbb3726594e21cd96567af6088dd5";
-                    sha256 = "sha256-EIEJk8/IAuG+UICUJ2F8QakgRpFrQ1ezDSJ79NAVuD8=
-";
-                  };
-              }
-            );
-        };
-
-        project-nvim = {
-          enable = true;
-          enableTelescope = true;
+          package = pkgs.vimPlugins.nix-develop-nvim.overrideAttrs (
+            prev: next: {
+              src = pkgs.fetchFromGitHub {
+                owner = "Bwc9876";
+                repo = "nix-develop.nvim";
+                rev = "089cd52191ccbb3726594e21cd96567af6088dd5";
+                sha256 = "sha256-EIEJk8/IAuG+UICUJ2F8QakgRpFrQ1ezDSJ79NAVuD8=";
+              };
+            }
+          );
         };
 
         neo-tree = {

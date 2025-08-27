@@ -3,7 +3,5 @@
   boot.tmp.cleanOnBoot = true;
 
   # Give me back my RAM!
-  services.logind.extraConfig = ''
-    RuntimeDirectorySize=100M
-  '';
+  services.logind.settings.Login.RuntimeDirectorySize = "100M";
 }

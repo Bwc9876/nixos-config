@@ -1,11 +1,13 @@
 {pkgs, ...}: let
   yt-feed = id: {
     url = "https://www.youtube.com/feeds/videos.xml?channel_id=" + id;
-    tags = ["!" "youtube"];
+    tags = [
+      "!"
+      "youtube"
+    ];
   };
   yt-subs = [
-    "UCmEzz-dPBVrsy4ZluSsYHDg" # Hyperplexed
-    "UCa8W2_uf81Ew6gYuw0VPSeA" # Juxtoposed
+    "UCa8W2_uf81Ew6gYuw0VPSeA" # Juxtaposed
     "UCMiyV_Ib77XLpzHPQH_q0qQ" # Veronica Explains
     "UC7_YxT-KID8kRbqZo7MyscQ" # Markiplier
     "UCUMwY9iS8oMyWDYIe6_RmoA" # No Boilerplate
@@ -13,21 +15,15 @@
     "UCYIwBA7mwDWnrckXs7gt76Q" # Snapcube
     "UCCHruaQlOKPHTl8iOPGDjFg" # Snapcube 2 (VODs)
     "UCL7DDQWP6x7wy0O6L5ZIgxg" # 2ndJerma
-    "UC_S45UpAYVuc0fYEcHN9BVQ" # BoyBoy
-    "UC-oTbS-PARG-kASUBRoCIUQ" # Camille
     "UC9z7EZAbkphEMg0SP7rw44A" # carykh
     "UCpmvp5czsIrQHsbqya4-6Jw" # Chad Chad
     "UC0e3QhIYukixgh5VVpKHH9Q" # Code Bullet
     "UCfPUcG3oCmXEYgdFuwlFh8w" # Dingo Doodles
     "UCsBjURrPoezykLs9EqgamOA" # Fireship
-    "UCpFOj1CQMr9a3zaqEfhkTJw" # Grayfruit
     "UCGwu0nbY2wSkW8N-cghnLpA" # Jaiden Animations
-    "UCoLUji8TYrgDy74_iiazvYA" # Jarvis Johnson
     "UClBNmmlREy6BD8PSTFBDyQg" # Kan Gao
     "UCm8EsftbfNzSiRHzc7I59KQ" # Kevin Faang
     "UCtHaxi4GTYDpJgMSGy7AeSw" # Michael Reeves
-    "UCKxl5H_YOjlE_9sbcp65_pA" # Rekha Shankar
-    "UC9CuvdOVfMPvKCiwdGKL3cQ" # Game Grumps
     "UCXq2nALoSbxLMehAvYTxt_A" # The Grumps
     "UCBa659QWEk1AI4Tg--mrJ2A" # Tom Scott
     "UCFLwN7vRu8M057qJF8TsBaA" # UpIsNotJump
@@ -35,11 +31,7 @@
     "UCPsSoOCRNIj-eo2UbXfcdAw" # xen 42
     "UCYBbrJH2H6tmQZ7VHyA_esA" # Saltydkdan
     "UCBZb-2BHvUtZ-WzrEj16lug" # Raicuparta
-    "UClyGlKOhDUooPJFy4v_mqPg" # DougDoug
-    "UC5sc1ysFs7RfjjEFMuQ3ZQw" # DougDougDoug
-    "UCqVEHtQoXHmUCfJ-9smpTSg" # Answer in Progress
     "UCPDXXXJj9nax0fr0Wfc048g" # Dropout
-    "UCQALLeQPoZdZC4JNUboVEUg" # Jabrils
     "UC8EYr_ArKMKaxfgRq-iCKzA" # WindowsG Electronics
     "UCJXa3_WNNmIpewOtCHf3B0g" # LaurieWired
   ];
@@ -84,18 +76,21 @@ in {
           {
             title = "Outer Wilds Mods";
             url = "https://outerwildsmods.com/feed.xml";
-            tags = ["dev" "outer-wilds"];
+            tags = [
+              "dev"
+              "outer-wilds"
+            ];
           }
-          {
-            title = "Philly Voice";
-            url = "https://www.phillyvoice.com/feed/section/news/";
-            tags = ["local"];
-          }
-          {
-            title = "ChesCo";
-            url = "https://www.mychesco.com/feed";
-            tags = ["local"];
-          }
+          # {
+          #   title = "Philly Voice";
+          #   url = "https://www.phillyvoice.com/feed/section/news/";
+          #   tags = ["local"];
+          # }
+          # {
+          #   title = "ChesCo";
+          #   url = "https://www.mychesco.com/feed";
+          #   tags = ["local"];
+          # }
           {
             title = "Mobius Digital";
             url = "https://www.mobiusdigitalgames.com/news/feed";
@@ -104,117 +99,201 @@ in {
           {
             title = "NixOS Blog";
             url = "https://nixos.org/blog/feed.xml";
-            tags = ["dev" "linux" "nixos"];
+            tags = [
+              "dev"
+              "linux"
+              "nixos"
+            ];
           }
           {
             title = "Linux Kernel Releases";
             url = "https://www.kernel.org/feeds/kdist.xml";
-            tags = ["dev" "linux"];
+            tags = [
+              "dev"
+              "linux"
+            ];
           }
           {
             title = "Linux Weekly News";
             url = "https://lwn.net/headlines/newrss";
-            tags = ["dev" "linux"];
+            tags = [
+              "dev"
+              "linux"
+            ];
           }
           {
             title = "Linux Kernel Planet";
             url = "https://planet.kernel.org/rss20.xml";
-            tags = ["dev" "linux"];
+            tags = [
+              "dev"
+              "linux"
+            ];
           }
           {
             title = "Free Desktop Planet";
             url = "https://planet.freedesktop.org/atom.xml";
-            tags = ["dev" "linux"];
+            tags = [
+              "dev"
+              "linux"
+            ];
           }
           {
             title = "KDE Blog";
             url = "https://blogs.kde.org/index.xml";
-            tags = ["dev" "linux"];
+            tags = [
+              "dev"
+              "linux"
+            ];
+          }
+          {
+            title = "Windows 11 Updates";
+            url = "https://support.microsoft.com/en-us/feed/rss/4ec863cc-2ecd-e187-6cb3-b50c6545db92";
+            tags = [
+              "dev"
+            ];
+          }
+          {
+            title = "Windows Server 2025 Updates";
+            url = "https://support.microsoft.com/en-us/feed/rss/c7b7e227-e17e-8633-fd90-9d28fb739cc5";
+            tags = [
+              "dev"
+            ];
           }
           {
             title = "Cloudflare Blog";
             url = "https://blog.cloudflare.com/rss";
-            tags = ["dev" "security"];
+            tags = [
+              "dev"
+              "security"
+            ];
           }
           {
             title = "Rust Blog";
             url = "https://blog.rust-lang.org/feed.xml";
-            tags = ["dev" "rust"];
+            tags = [
+              "dev"
+              "rust"
+            ];
           }
           {
             title = "Tauri Blog";
             url = "https://tauri.app/blog/rss.xml";
-            tags = ["dev" "rust"];
+            tags = [
+              "dev"
+              "rust"
+            ];
           }
           {
             title = "Node.js Blog";
             url = "https://nodejs.org/en/feed/blog.xml";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "V8 Blog";
             url = "https://v8.dev/blog.atom";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "Vite Blog";
             url = "https://vitejs.dev/blog.rss";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "React Blog";
             url = "https://react.dev/rss.xml";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "Astro JS";
             url = "https://astro.build/rss.xml";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "W3C Blog";
             url = "https://www.w3.org/blog/feed/";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "Mozilla Blog";
             url = "https://blog.mozilla.org/en/feed/";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "Mozilla Nightly Blog";
             url = "https://blog.nightly.mozilla.org/feed/";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "Mozilla Developer Network";
             url = "https://developer.mozilla.org/en-US/blog/rss.xml";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "Chrome Dev Blog";
             url = "https://developer.chrome.com/static/blog/feed.xml";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "Webkit Blog";
             url = "https://webkit.org/feed/";
-            tags = ["dev" "web"];
+            tags = [
+              "dev"
+              "web"
+            ];
           }
           {
             title = "GitHub Blog";
             url = "https://github.blog/feed/";
-            tags = ["dev" "github"];
+            tags = [
+              "dev"
+              "github"
+            ];
           }
           {
             title = "GitHub Status";
             url = "https://www.githubstatus.com/history.rss";
-            tags = ["dev" "github"];
+            tags = [
+              "dev"
+              "github"
+            ];
           }
           {
             title = "Veronica Explains";
             url = "https://vkc.sh/feed/";
-            tags = ["linux" "personal-blog"];
+            tags = [
+              "linux"
+              "personal-blog"
+            ];
           }
           {
             title = "Tom Scott Newsletter";
@@ -270,11 +349,6 @@ in {
             title = "Framework Laptop";
             url = "https://frame.work/blog.rss";
             tags = ["hardware"];
-          }
-          {
-            title = "Neo Win";
-            url = "https://www.neowin.net/news/rss/";
-            tags = ["tech"];
           }
           {
             title = "Ars Technica";
