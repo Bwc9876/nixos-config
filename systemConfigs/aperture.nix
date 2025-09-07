@@ -6,7 +6,7 @@
   system = "x86_64-linux";
 
   modules = [
-    (outputs.lib.applyRoles ["base" "latest-linux" "dev" "graphics" "games" "fun" "social" "imperm" "secureboot" "wireless" "hypervisor" "podman"])
+    (outputs.lib.applyRoles ["base" "latest-linux" "dev" "graphics" "games" "fun" "social" "imperm" "secureboot" "wireless" "hypervisor" "podman" "sync"])
     inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
 
     (

@@ -130,7 +130,7 @@
         enable = true;
         settings = {
           general = {
-            lock_cmd = "pidof hyprlock || hyprlock";
+            lock_cmd = "pidof hyprlock || hyprlock --grace 5";
             unlock_cmd = "pkill hyprlock --signal SIGUSR1";
             before_sleep_cmd = "loginctl lock-session";
             after_sleep_cmd = screenOnCmd;
@@ -303,7 +303,7 @@
       ];
 
       exec-once = [
-        "[workspace 3] uwsm app -- keepassxc /home/bean/Documents/Database.kdbx"
+        "[workspace 3] uwsm app -- keepassxc /home/bean/Documents/Keepass/DB/Database.kdbx"
       ];
 
       bind = let

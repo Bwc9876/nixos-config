@@ -86,6 +86,7 @@ in {
         "vesktop"
         "kdeconnect"
         "keepassxc"
+        "syncthing"
       ]);
   };
 

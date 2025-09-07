@@ -8,6 +8,8 @@
     Icon=htop
   '';
 
+  environment.wordlist.enable = true;
+
   home-manager.users.bean.xdg.configFile = {
     # "Nickvision Cavalier/cava_config".text = ''
     #   [general]

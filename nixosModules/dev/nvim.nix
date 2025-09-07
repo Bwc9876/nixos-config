@@ -212,6 +212,11 @@
                   key = "<Tab>";
                   options.desc = "Pick Tab and Switch";
                 }
+                {
+                  action = "Neotree toggle";
+                  key = "t";
+                  options.desc = "Toggle Neotree";
+                }
               ];
             }
             {
@@ -855,6 +860,7 @@
           inlayHints = true;
 
           servers = {
+            clangd.enable = true;
             astro.enable = true;
             hls = {
               enable = true;

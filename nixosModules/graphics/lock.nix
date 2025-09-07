@@ -11,7 +11,6 @@
       enable = true;
 
       settings = {
-        general.grace = 5;
         background = {
           monitor = "";
           path = "${../../res/pictures/background.png}";

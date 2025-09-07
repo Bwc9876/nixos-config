@@ -10,9 +10,9 @@
 
   services.playerctld.enable = true;
 
-  hardware.rtl-sdr.enable = true;
-
-  users.users.bean.extraGroups = ["plugdev"];
+  # Used for SDR control, I don't need it rn
+  # hardware.rtl-sdr.enable = true;
+  # users.users.bean.extraGroups = ["plugdev"];
 
   home-manager.users.bean.wayland.windowManager.hyprland.settings = {
     bindl = [
