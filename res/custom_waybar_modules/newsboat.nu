@@ -1,10 +1,12 @@
 #!/usr/bin/env nu
 
+const WAIT: duration = 30min;
+
 let NB_DB = $"($env.HOME)/.local/share/newsboat/cache.db";
 
 let nb_running = (pidof "newsboat" | complete).exit_code == 0;
 
-let need_cooldown =  ((date now) - (ls $NB_DB | first | get modified)) < 1min;
+let need_cooldown =  ((date now) - (ls $NB_DB | first | get modified)) < $WAIT;
 
 if (not $need_cooldown and not $nb_running) {
     let refreshing = {

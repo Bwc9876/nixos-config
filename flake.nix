@@ -23,6 +23,8 @@
     imperm.url = "github:nix-community/impermanence";
     nu_plugin_dbus.url = "github:Bwc9876/nu_plugin_dbus";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
+    gh-grader-preview.url = "github:Bwc9876/gh-grader-preview";
+    gh-grader-preview.inputs.nixpkgs.follows = "nixpkgs";
     bingus.url = "github:Bwc9876/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -51,6 +53,7 @@
     nu_plugin_dbus,
     bingus,
     spoon,
+    gh-grader-preview,
   }:
     flakelight ./. {
       imports = [

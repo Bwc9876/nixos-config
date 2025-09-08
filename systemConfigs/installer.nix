@@ -1,7 +1,7 @@
 {outputs, ...}: {
   system = "x86_64-linux";
   modules = [
-    (outputs.lib.applyRoles ["base" "latest-linux" "black-mesa-cache"])
+    (outputs.lib.applyRoles ["base" "latest-linux"])
     ({
       pkgs,
       lib,

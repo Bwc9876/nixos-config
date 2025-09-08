@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs',
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     # Build Tools
     pkg-config
@@ -18,6 +22,7 @@
 
     # Debug
     wev
+    inputs'.gh-grader-preview.packages.default
   ];
 
   users.users.bean.extraGroups = ["wireshark"];
