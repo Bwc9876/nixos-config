@@ -229,6 +229,16 @@ in {
               mkEngineForceFavicon ["@nf" "@nerdfonts"] "https://www.nerdfonts.com/cheat-sheet?q={searchTerms}"
               "https://www.nerdfonts.com/assets/img/favicon.ico";
 
+            ### Haskell
+            "Hoogle Base" = mkEngine [
+              "@h"
+              "@hoogle" 
+            ] "https://hoogle.haskell.org/?scope=package%3Abase&hoogle={searchTerms}" "png";
+            "Hoogle All" = mkEngine [
+              "@ha"
+              "@hoogall"
+            ] "https://hoogle.haskell.org/?hoogle={searchTerms}" "png";
+
             ### Nix
             "Nix Packages" = mkEngine [
               "@nixpkgs"

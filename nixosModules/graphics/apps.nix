@@ -163,8 +163,5 @@
 
     ## 3D
     # prusa-slicer
-
-    ## Music
-    spotify
   ];
 }
