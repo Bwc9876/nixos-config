@@ -63,9 +63,6 @@
             natural_scroll = true;
           };
         };
-        gestures = {
-          workspace_swipe = true;
-        };
         xwayland = {
           force_zero_scaling = true;
         };
@@ -86,10 +83,13 @@
           "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         ];
         windowrulev2 = [
-          "workspace 1 silent,class:(.*)vesktop(.*),title:(.*)[Vv]esktop(.*)"
           "idleinhibit fullscreen,class:(.*),title:(.*)"
         ];
         submap = "reset";
+        gesture = [
+          "3,horizontal,workspace"
+          "4,swipe,move"
+        ];
         bind = let
           openTerminal = "uwsm app -- org.wezfurlong.wezterm.desktop";
           forEachWorkspace = {
@@ -119,16 +119,11 @@
             "SUPER,R,togglefloating,"
             "SUPER,F,fullscreen,1"
             "SUPER SHIFT,F,fullscreen,0"
-            "SUPER,J,togglesplit,"
-            "SUPER,left,movefocus,l"
-            "SUPER,right,movefocus,r"
-            "SUPER,up,movefocus,u"
-            "SUPER,down,movefocus,d"
-            "SUPER,G,togglegroup"
-            "SUPER SHIFT,G,lockactivegroup, toggle"
-            "SUPER,TAB,changegroupactive"
-            "SUPER SHIFT,TAB,changegroupactive,b"
             ",XF86RFKill,exec,rfkill toggle wifi"
+            "SUPER,left,workspace,m-1"
+            "SUPER,right,workspace,m+1"
+            "SUPER SHIFT,left,movetoworkspace,r-1"
+            "SUPER SHIFT,right,movetoworkspace,r+1"
           ]
           ++ forEachWorkspace {
             mod = "SUPER";

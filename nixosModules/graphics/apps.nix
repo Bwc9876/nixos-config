@@ -9,6 +9,7 @@
   '';
 
   environment.wordlist.enable = true;
+  services.usbmuxd.enable = true;
 
   home-manager.users.bean.xdg.configFile = {
     # "Nickvision Cavalier/cava_config".text = ''

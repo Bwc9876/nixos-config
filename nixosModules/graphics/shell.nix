@@ -190,14 +190,12 @@
     programs = {
       rofi = {
         enable = true;
-        package = pkgs.rofi-wayland.override {
+        package = pkgs.rofi.override {
           plugins = with pkgs; [
-            rofi-emoji-wayland
+            rofi-emoji
             rofi-power-menu
             rofi-bluetooth
-            (rofi-calc.override {
-              rofi-unwrapped = rofi-wayland-unwrapped;
-            })
+            rofi-calc
             rofi-pulse-select
           ];
         };
@@ -303,7 +301,7 @@
       ];
 
       exec-once = [
-        "[workspace 3] uwsm app -- keepassxc /home/bean/Documents/Keepass/DB/Database.kdbx"
+        "uwsm app -- keepassxc /home/bean/Documents/Keepass/DB/Database.kdbx"
       ];
 
       bind = let
