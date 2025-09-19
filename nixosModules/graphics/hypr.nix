@@ -45,7 +45,6 @@
           enable_hyprcursor = false;
         };
         monitor = [
-          "eDP-1,2256x1504,0x0,1"
           ",highres,auto,1"
         ];
         general = {
