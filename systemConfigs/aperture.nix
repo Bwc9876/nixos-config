@@ -66,6 +66,8 @@
 
         networking.useDHCP = lib.mkDefault true;
 
+        services.fwupd.enable = true;
+
         powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
         hardware.enableRedistributableFirmware = lib.mkDefault true;
         hardware.cpu.intel.updateMicrocode =

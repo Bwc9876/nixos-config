@@ -161,6 +161,7 @@
     inkscape
     lorien
     cavalier
+    zoom-us
 
     ## 3D
     # prusa-slicer

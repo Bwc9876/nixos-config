@@ -86,7 +86,7 @@
         })
         vim.g.neovide_cursor_vfx_mode = "pixiedust"
 
-        require("satellite").setup({})
+        -- require("satellite").setup({})
       '';
 
       autoGroups = {
@@ -335,7 +335,7 @@
 
       extraPlugins = with pkgs.vimPlugins; [
         {plugin = pkgs.nvim-mdx;}
-        {plugin = satellite-nvim;}
+        # {plugin = satellite-nvim;}
         {plugin = flatten-nvim;}
         {plugin = tiny-devicons-auto-colors-nvim;}
       ];
