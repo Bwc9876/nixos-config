@@ -232,7 +232,7 @@ in {
             ### Haskell
             "Hoogle Base" = mkEngine [
               "@h"
-              "@hoogle" 
+              "@hoogle"
             ] "https://hoogle.haskell.org/?scope=package%3Abase&hoogle={searchTerms}" "png";
             "Hoogle All" = mkEngine [
               "@ha"

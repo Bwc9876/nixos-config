@@ -564,7 +564,7 @@
         bufferline = {
           enable = true;
           settings.highlights.__raw = ''
-            require("catppuccin.groups.integrations.bufferline").get_theme()
+            require("catppuccin.special.bufferline").get_theme()
           '';
           settings.options = {
             indicator.style = "none";
@@ -854,50 +854,45 @@
 
         # rustaceanvim.enable = true;
         vim-css-color.enable = true;
+      };
 
-        lsp = {
-          enable = true;
-          inlayHints = true;
+      lsp = {
+        inlayHints.enable = true;
 
-          servers = {
-            clangd.enable = true;
-            astro.enable = true;
-            hls = {
-              enable = true;
-              installGhc = false;
-
-              ghcPackage = pkgs.haskell.compiler.ghc912;
-              package = pkgs.haskell.packages.ghc912.haskell-language-server;
-            };
-            sqls.enable = true;
-            mdx_analyzer = {
-              enable = true;
-              package = pkgs.mdx-language-server;
-            };
-            # denols.enable = true;
-            ts_ls.enable = true;
-            html.enable = true;
-            marksman.enable = true;
-            cssls.enable = true;
-            # tailwindcss.enable = true; Disabled until it doesn't build nodejs from source, bad tailwind
-            jsonls.enable = true;
-            yamlls.enable = true;
-            ruff.enable = true;
-            csharp_ls.enable = true;
-            svelte.enable = true;
-            nil_ls.enable = true;
-            bashls.enable = true;
-            nushell.enable = true;
-            taplo.enable = true;
-            typos_lsp.enable = true;
-            rust_analyzer.enable = true;
-            rust_analyzer.installCargo = false;
-            rust_analyzer.installRustc = false;
-            lemminx.enable = true;
-            eslint.enable = true;
-            tinymist.enable = true;
-            just.enable = true;
+        servers = {
+          clangd.enable = true;
+          astro.enable = true;
+          hls = {
+            enable = true;
+            # ghcPackage = pkgs.haskell.compiler.ghc912;
+            package = pkgs.haskell.packages.ghc912.haskell-language-server;
           };
+          sqls.enable = true;
+          mdx_analyzer = {
+            enable = true;
+            package = pkgs.mdx-language-server;
+          };
+          # denols.enable = true;
+          ts_ls.enable = true;
+          html.enable = true;
+          marksman.enable = true;
+          cssls.enable = true;
+          tailwindcss.enable = true; # Disabled until it doesn't build nodejs from source, bad tailwind
+          jsonls.enable = true;
+          yamlls.enable = true;
+          ruff.enable = true;
+          csharp_ls.enable = true;
+          svelte.enable = true;
+          nil_ls.enable = true;
+          bashls.enable = true;
+          nushell.enable = true;
+          taplo.enable = true;
+          typos_lsp.enable = true;
+          rust_analyzer.enable = true;
+          lemminx.enable = true;
+          eslint.enable = true;
+          tinymist.enable = true;
+          just.enable = true;
         };
       };
     };

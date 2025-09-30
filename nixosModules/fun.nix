@@ -28,7 +28,7 @@
       light_dark = "dark";
       lightness = 0.65;
       mode = "rgb";
-      preset = "rainbow";
+      preset = "interprogress";
       pride_month_disable = false;
       pride_month_shown = [];
     };
