@@ -310,6 +310,7 @@
       in [
         "SUPER,S,exec,uwsm app -- rofi -show drun -icon-theme \"candy-icons\" -show-icons"
         "SUPER SHIFT,E,exec,uwsm app -- rofi -modi emoji -show emoji"
+        "SUPER SHIFT,D,exec,swaync-client -d"
         "SUPER,Delete,exec,uwsm app -- ${powerMenu}"
         ",XF86PowerOff,exec,uwsm app -- ${powerMenu}"
         "SUPER ALT,C,exec,uwsm app -- rofi -show calc -modi calc -no-show-match -no-sort -calc-command \"echo -n '{result}' | wl-copy\""

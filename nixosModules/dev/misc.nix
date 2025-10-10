@@ -14,14 +14,32 @@
     # Math
     libqalculate
 
+    # Misc Misc
+    binutils
+    usbutils
+    qrencode
+    nmap
+    file
+    procfd
+    ldapvi
+    dust
+    zip
+    p7zip
+    wol
+
     # C/C++
     gcc
+    gdb
+
+    # Windows
+    wine-wayland
 
     # Android
     android-tools
 
     # Debug
     wev
+    poop
     inputs'.gh-grader-preview.packages.default
   ];
 

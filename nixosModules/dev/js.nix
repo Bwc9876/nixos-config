@@ -8,9 +8,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    nodejs
+    nodejs_latest
     nodePackages.pnpm
     yarn
-    # deno
+    deno
   ];
 }

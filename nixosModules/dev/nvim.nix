@@ -335,7 +335,7 @@
 
       extraPlugins = with pkgs.vimPlugins; [
         {plugin = pkgs.nvim-mdx;}
-        # {plugin = satellite-nvim;}
+        {plugin = satellite-nvim;}
         {plugin = flatten-nvim;}
         {plugin = tiny-devicons-auto-colors-nvim;}
       ];
@@ -823,6 +823,8 @@
             end, { range = true })
           '';
         };
+
+        lspconfig.enable = true;
 
         lspsaga = {
           enable = true;

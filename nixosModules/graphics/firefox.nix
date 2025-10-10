@@ -9,6 +9,53 @@ in {
     package
   ];
 
+  services.searx = {
+    enable = true;
+    redisCreateLocally = true;
+    settings = {
+      ui = {
+        query_in_title = true;
+        infinite_scroll = true;
+        theme_args.simple_style = "black";
+      };
+
+      search = {
+        autocomplete = "duckduckgo";
+        favicon_resolver = "duckduckgo";
+      };
+
+      server = {
+        base_address = "http://localhost:6009";
+        bind_address = "127.0.0.1";
+        port = "6009";
+        method = "GET";
+        secret_key = "idontreallythinkineedtokeepthisasecrettbh";
+      };
+
+      plugins = lib.mapAttrs' (k: v: lib.nameValuePair "searx.plugins.${k}.SXNGPlugin" v) {
+        calculator.active = true;
+        hash_plugin.active = true;
+        self_info.active = true;
+        tracker_url_remover.active = true;
+        unit_converter.active = true;
+        ahmia_filter.active = false;
+        oa_doi_rewrite.active = true;
+      };
+    };
+
+    faviconsSettings.favicons = {
+      cfg_schema = 1;
+      cache = {
+        db_url = "/var/cache/searx/faviconcache.db";
+        HOLD_TIME = 5184000;
+        LIMIT_TOTAL_BYTES = 1073741824;
+        BLOB_MAX_BYTES = 40960;
+        MAINTENANCE_MODE = "auto";
+        MAINTENANCE_PERIOD = 600;
+      };
+    };
+  };
+
   home-manager.users.bean = {
     programs.firefox = {
       inherit package;
@@ -86,6 +133,16 @@ in {
           # Privacy
           "dom.private-attribution.submission.enabled" = lock false;
           "privacy.globalprivacycontrol.enabled" = lock true;
+
+          # ML
+          "browser.ml.enable" = lock false;
+          "browser.ml.linkPreview.enabled" = lock false;
+          "browser.ml.pageAssist.enabled" = lock false;
+          "browser.ml.chat.enabled" = lock false;
+          "browser.ml.chat.menu" = lock false;
+          "browser.ml.chat.page" = lock false;
+          "browser.ml.chat.shortcuts" = lock false;
+          "browser.ml.chat.sidebar" = lock false;
         };
 
         Extensions.Install =
@@ -106,6 +163,7 @@ in {
             # Information
             "flagfox"
             "awesome-rss"
+            "identfavicon-quantum"
 
             # Devtools
             "react-devtools"
@@ -144,8 +202,8 @@ in {
         };
         search = {
           force = true;
-          default = "ddg";
-          privateDefault = "ddg";
+          default = "SearXNG";
+          privateDefault = "SearXNG";
           engines = let
             mkEngineForceFavicon = aliases: queryUrl: iconUrl: {
               definedAliases = aliases;
@@ -160,6 +218,9 @@ in {
               in "${noPath}/favicon.${iconExt}"
             ));
           in {
+            # Meta
+            "SearXNG" = mkEngine ["@sx" "@@"] "http://localhost:6009/search?q={searchTerms}" "ico";
+
             # Dev
             "GitHub Repos" =
               mkEngineForceFavicon ["@gh" "@github"]
@@ -296,6 +357,7 @@ in {
             "amazondotcom-us".metaData.alias = "@amz";
             "google".metaData.alias = "@g";
             "wikipedia".metaData.alias = "@w";
+            "ddg".metaData.alias = "@ddg";
           };
         };
       };

@@ -1,7 +1,7 @@
 {outputs, ...}: {
   system = "x86_64-linux";
   modules = [
-    (outputs.lib.applyRoles ["base" "latest-linux"])
+    (outputs.lib.applyRoles ["base" "latest-linux" "dev" "fun"])
     ({
       pkgs,
       lib,
