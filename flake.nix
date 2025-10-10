@@ -14,8 +14,8 @@
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
     wayland-mpris-idle-inhibit.url = "github:Bwc9876/wayland-mpris-idle-inhibit";
     wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    fenix.url = "github:nix-community/fenix/monthly";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim";
@@ -46,7 +46,7 @@
     nixos-hardware,
     lanzaboote,
     wayland-mpris-idle-inhibit,
-    rust-overlay,
+    fenix,
     catppuccin,
     nixvim,
     imperm,

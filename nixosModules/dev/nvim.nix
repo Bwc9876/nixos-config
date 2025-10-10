@@ -890,7 +890,11 @@
           nushell.enable = true;
           taplo.enable = true;
           typos_lsp.enable = true;
-          rust_analyzer.enable = true;
+          rust_analyzer = {
+            enable = true;
+            package = pkgs.rust-analyzer-nightly;
+            packageFallback = true;
+          };
           lemminx.enable = true;
           eslint.enable = true;
           tinymist.enable = true;

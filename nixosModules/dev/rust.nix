@@ -4,14 +4,18 @@
   ...
 }: {
   nixpkgs.overlays = [
-    inputs.rust-overlay.overlays.default
+    inputs.fenix.overlays.default
   ];
 
   environment.systemPackages = with pkgs; [
-    (rust-bin.selectLatestNightlyWith (toolchain:
-      toolchain.default.override {
-        targets = ["wasm32-unknown-unknown"];
-      }))
+    (pkgs.fenix.complete.withComponents [
+      "cargo"
+      "clippy"
+      "rust-src"
+      "rustc"
+      "rustfmt"
+    ])
+    rust-analyzer-nightly
     cargo-tauri
     mprocs
     evcxr
