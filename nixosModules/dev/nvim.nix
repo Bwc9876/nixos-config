@@ -689,20 +689,20 @@
 
         neo-tree = {
           enable = true;
-          hideRootNode = false;
-          addBlankLineAtTop = true;
-          defaultComponentConfigs = {
-            container.rightPadding = 2;
-            name.trailingSlash = true;
-            indent = {
-              indentSize = 2;
-              withExpanders = true;
+          settings = {
+            hide_root_node = false;
+            add_blank_line_at_top = true;
+            default_component_configs = {
+              container.right_padding = 2;
+              name.trailing_slash = true;
+              indent = {
+                indent_size = 2;
+                with_expanders = true;
+              };
             };
-          };
-          window.width = 40;
-          autoCleanAfterSessionRestore = true;
-          closeIfLastWindow = true;
-          extraOptions = {
+            window.width = 40;
+            auto_clean_after_session_restore = true;
+            closeIfLastWindow = true;
             filesystem.components.name.__raw = ''
               function(config, node, state)
                 local components = require('neo-tree.sources.common.components')
