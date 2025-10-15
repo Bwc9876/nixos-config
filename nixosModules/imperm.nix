@@ -20,23 +20,6 @@ in {
     root.hashedPasswordFile = "${secureRoot}/hashed-passwd";
   };
 
-  fileSystems."/tmp/nix-build" = {
-    device = "${cacheRoot}/nix-build";
-    options = [
-      "bind"
-      "X-fstrim.notrim"
-      "x-gvfs-hide"
-    ];
-  };
-
-  systemd.services.nix-daemon = {
-    environment.TMPDIR = "/tmp/nix-build";
-    unitConfig.RequiresMountsFor = [
-      "/tmp/nix-build"
-      "/nix/store"
-    ];
-  };
-
   environment.persistence.${cacheRoot} = {
     enable = true;
     hideMounts = true;
@@ -50,6 +33,7 @@ in {
             "bluetooth"
             "nixos"
             "libvirt"
+            "iwd"
           ]
           ++ preWith "systemd" [
             "coredump"

@@ -39,7 +39,6 @@
     swappy
     libnotify
     swaynotificationcenter
-    networkmanagerapplet
     wl-clipboard
 
     keepassxc
@@ -167,7 +166,6 @@
         tray = "never";
       };
       playerctld.enable = true;
-      network-manager-applet.enable = true;
       wlsunset = {
         enable = true;
         sunrise = "6:00";

@@ -702,7 +702,7 @@
             };
             window.width = 40;
             auto_clean_after_session_restore = true;
-            closeIfLastWindow = true;
+            close_if_last_window = true;
             filesystem.components.name.__raw = ''
               function(config, node, state)
                 local components = require('neo-tree.sources.common.components')

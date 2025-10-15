@@ -8,7 +8,7 @@
 
   modules = [
     inputs.spoon.nixosModules.black-mesa
-    (outputs.lib.applyRoles ["base" "latest-linux" "wireless" "ssh" "graphics" "games" "fun" "dev" "normalboot" "mc-server"])
+    (outputs.lib.applyRoles ["base" "latest-linux" "networking" "ssh" "graphics" "games" "fun" "dev" "normalboot" "mc-server"])
     {
       imports = [inputs.bingus.nixosModules.default];
       nixpkgs.overlays = [inputs.bingus.overlays.default];
