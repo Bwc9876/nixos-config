@@ -16,6 +16,7 @@
       "ssh"
       "graphics"
       "games"
+      "sync"
       "fun"
       "dev"
       "normalboot"
