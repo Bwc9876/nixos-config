@@ -27,6 +27,8 @@
     gh-grader-preview.inputs.nixpkgs.follows = "nixpkgs";
     bingus.url = "github:Bwc9876/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
+    hexecute.url = "github:ThatOtherAndrew/Hexecute";
+    hexecute.inputs.nixpkgs.follows = "nixpkgs";
 
     spoon.url = "git+https://codeberg.org/spoonbaker/mono";
     spoon.inputs = {
@@ -54,6 +56,7 @@
     bingus,
     spoon,
     gh-grader-preview,
+    hexecute,
   }:
     flakelight ./. {
       imports = [

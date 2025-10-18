@@ -27,7 +27,6 @@
     "UCXq2nALoSbxLMehAvYTxt_A" # The Grumps
     "UCBa659QWEk1AI4Tg--mrJ2A" # Tom Scott
     "UCFLwN7vRu8M057qJF8TsBaA" # UpIsNotJump
-    "UCzfyYtgvkx5mLy8nlLlayYg" # SpindleHorse
     "UCPsSoOCRNIj-eo2UbXfcdAw" # xen 42
     "UCYBbrJH2H6tmQZ7VHyA_esA" # Saltydkdan
     "UCBZb-2BHvUtZ-WzrEj16lug" # Raicuparta
@@ -143,20 +142,6 @@ in {
             tags = [
               "dev"
               "linux"
-            ];
-          }
-          {
-            title = "Windows 11 Updates";
-            url = "https://support.microsoft.com/en-us/feed/rss/4ec863cc-2ecd-e187-6cb3-b50c6545db92";
-            tags = [
-              "dev"
-            ];
-          }
-          {
-            title = "Windows Server 2025 Updates";
-            url = "https://support.microsoft.com/en-us/feed/rss/c7b7e227-e17e-8633-fd90-9d28fb739cc5";
-            tags = [
-              "dev"
             ];
           }
           {
@@ -358,11 +343,6 @@ in {
           {
             title = "Lobste";
             url = "https://lobste.rs/rss";
-            tags = ["tech"];
-          }
-          {
-            title = "Y Combinator";
-            url = "https://news.ycombinator.com/rss";
             tags = ["tech"];
           }
         ]

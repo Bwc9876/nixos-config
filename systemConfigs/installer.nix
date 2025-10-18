@@ -1,52 +1,67 @@
-{outputs, ...}: {
+{ outputs, ... }:
+{
   system = "x86_64-linux";
   modules = [
-    (outputs.lib.applyRoles ["base" "latest-linux" "dev" "fun"])
-    ({
-      pkgs,
-      lib,
-      inputs,
-      edition,
-      config,
-      modulesPath,
-      ...
-    }: {
-      system.stateVersion = "25.05";
-      networking.hostName = "nixos-installer-bwc9876";
+    (outputs.lib.applyRoles [
+      "base"
+      "latest-linux"
+      "dev"
+      "fun"
+    ])
+    (
+      {
+        pkgs,
+        lib,
+        inputs,
+        edition,
+        config,
+        modulesPath,
+        ...
+      }:
+      {
+        system.stateVersion = "25.05";
+        networking.hostName = "nixos-installer-bwc9876";
 
-      imports = [
-        "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-      ];
-
-      services.kmscon = {
-        enable = true;
-        autologinUser = "bean";
-        fonts = [
-          {
-            name = "FiraMono Nerd Font Mono";
-            package = pkgs.nerd-fonts.fira-mono;
-          }
+        imports = [
+          "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
         ];
-      };
 
-      boot = rec {
-        initrd.systemd.enable = false;
-        supportedFilesystems = {
-          btrfs = true;
-          reiserfs = lib.mkForce false;
-          vfat = true;
-          f2fs = true;
-          xfs = true;
-          ntfs = true;
-          cifs = true;
-          zfs = lib.mkForce false;
+        services.kmscon = {
+          enable = true;
+          autologinUser = "bean";
+          fonts = [
+            {
+              name = "FiraMono Nerd Font Mono";
+              package = pkgs.nerd-fonts.fira-mono;
+            }
+          ];
         };
-        initrd.supportedFilesystems = supportedFilesystems;
-      };
 
-      environment.systemPackages = with pkgs; [
-        gptfdisk
-      ];
-    })
+        boot =
+          let
+            supportedFilesystems = {
+              btrfs = true;
+              reiserfs = lib.mkForce false;
+              vfat = true;
+              f2fs = true;
+              xfs = true;
+              ntfs = true;
+              cifs = true;
+              zfs = lib.mkForce false;
+            };
+          in
+          {
+            initrd.systemd.enable = false;
+            inherit supportedFilesystems;
+            initrd = {
+              inherit supportedFilesystems;
+            };
+          };
+
+        environment.systemPackages = with pkgs; [
+          gptfdisk
+        ];
+      }
+    )
   ];
 }

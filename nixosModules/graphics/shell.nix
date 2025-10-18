@@ -25,6 +25,9 @@
     hyprlock
     hyprland-qtutils
 
+    # The best program ever made
+    inputs'.hexecute.packages.hexecute
+
     ## Waybar
     qt6.qttools # For component
 
@@ -306,6 +309,7 @@
         powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p --symbols-font \"FiraMono Nerd Font Mono\"";
         screenshot = "${pkgs.nushell}/bin/nu ${../../res/screenshot.nu}";
       in [
+        "SUPER,SPACE,exec,${inputs'.hexecute.packages.default}/bin/hexecute"
         "SUPER,S,exec,uwsm app -- rofi -show drun -icon-theme \"candy-icons\" -show-icons"
         "SUPER SHIFT,E,exec,uwsm app -- rofi -modi emoji -show emoji"
         "SUPER SHIFT,D,exec,swaync-client -d"

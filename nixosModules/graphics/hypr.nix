@@ -119,8 +119,8 @@
             "SUPER,F,fullscreen,1"
             "SUPER SHIFT,F,fullscreen,0"
             ",XF86RFKill,exec,rfkill toggle wifi"
-            "SUPER,left,workspace,m-1"
-            "SUPER,right,workspace,m+1"
+            "SUPER,left,workspace,r-1"
+            "SUPER,right,workspace,r+1"
             "SUPER SHIFT,left,movetoworkspace,r-1"
             "SUPER SHIFT,right,movetoworkspace,r+1"
           ]
