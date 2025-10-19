@@ -6,6 +6,7 @@
       "base"
       "latest-linux"
       "dev"
+      "networking"
       "fun"
     ])
     (
@@ -21,6 +22,7 @@
       {
         system.stateVersion = "25.05";
         networking.hostName = "nixos-installer-bwc9876";
+        networking.networkmanager.enable = lib.mkForce false;
 
         imports = [
           "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"

@@ -120,6 +120,7 @@ in {
           "zoxide"
           "nvim"
           "Cemu"
+          "mpd"
         ]);
       files = preConf [
         "nushell/history.txt"
