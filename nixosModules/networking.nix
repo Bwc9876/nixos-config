@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   hardware.bluetooth = {
     enable = true;
     settings = {
@@ -10,7 +9,7 @@
   };
 
   networking.wireless.iwd.enable = true;
-  environment.systemPackages = with pkgs; [ iw ];
+  environment.systemPackages = with pkgs; [iw];
 
   networking.useNetworkd = true;
   networking.useDHCP = true;

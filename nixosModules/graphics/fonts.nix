@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   fonts = {
     packages = with pkgs; [
       fira-code
@@ -11,25 +10,23 @@
     ];
     fontconfig = {
       enable = true;
-      defaultFonts =
-        let
-          mainFonts = [
-            "FiraGO"
-            "Symbols Nerd Font"
-          ];
-        in
-        {
-          serif = mainFonts;
-          sansSerif = mainFonts;
-          monospace = [
-            "Fira Code"
-            "Symbols Nerd Font"
-          ];
-          emoji = [
-            "Noto Color Emoji"
-            "Symbols Nerd Font"
-          ];
-        };
+      defaultFonts = let
+        mainFonts = [
+          "FiraGO"
+          "Symbols Nerd Font"
+        ];
+      in {
+        serif = mainFonts;
+        sansSerif = mainFonts;
+        monospace = [
+          "Fira Code"
+          "Symbols Nerd Font"
+        ];
+        emoji = [
+          "Noto Color Emoji"
+          "Symbols Nerd Font"
+        ];
+      };
     };
   };
 }

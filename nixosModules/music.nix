@@ -1,5 +1,8 @@
-{ config, inputs', ... }:
-let
+{
+  config,
+  inputs',
+  ...
+}: let
   cat =
     (builtins.fromJSON (builtins.readFile "${inputs'.catppuccin.packages.palette}/palette.json"))
     .${config.catppuccin.flavor}.colors;
@@ -299,7 +302,7 @@ let
                         (size: "50%", borders: "TOP", pane: Pane(Cava)),
                     ],
                 )),
-    		    (size: "40%", borders: "LEFT", pane: Pane(AlbumArt)), 
+    		    (size: "40%", borders: "LEFT", pane: Pane(AlbumArt)),
     		    ],
               ),
             ),
@@ -314,8 +317,7 @@ let
         ],
     )
   '';
-in
-{
+in {
   home-manager.users.bean = {
     programs.cava = {
       enable = true;
@@ -332,16 +334,16 @@ in
       mpd = {
         enable = true;
         extraConfig = ''
-                  audio_output {
-                    type   "fifo"
-                    name   "mpd_fifo"
-                    path   "/tmp/mpd.fifo"
-                    format "44100:16:2"
-                  }
-                  audio_output {
-          	        type			"pipewire"
-          	        name			"Pipewire"
-                  }
+          audio_output {
+            type   "fifo"
+            name   "mpd_fifo"
+            path   "/tmp/mpd.fifo"
+            format "44100:16:2"
+          }
+          audio_output {
+           type			"pipewire"
+           name			"Pipewire"
+          }
         '';
       };
       mpdris2.enable = true;

@@ -3,9 +3,8 @@
   lib,
   config,
   ...
-}:
-let
-  init-starship = pkgs.runCommand "starship-init" { } ''
+}: let
+  init-starship = pkgs.runCommand "starship-init" {} ''
     ${pkgs.starship}/bin/starship init nu > $out
   '';
   shellAliases = {
@@ -73,8 +72,7 @@ let
 
     source ${init-starship}
   '';
-in
-{
+in {
   home-manager.users.bean.programs.nushell = {
     enable = true;
     inherit configFile shellAliases;

@@ -1,5 +1,4 @@
-{ outputs, ... }:
-{
+{outputs, ...}: {
   system = "x86_64-linux";
   modules = [
     (outputs.lib.applyRoles [
@@ -18,8 +17,7 @@
         config,
         modulesPath,
         ...
-      }:
-      {
+      }: {
         system.stateVersion = "25.05";
         networking.hostName = "nixos-installer-bwc9876";
         networking.networkmanager.enable = lib.mkForce false;
@@ -39,26 +37,24 @@
           ];
         };
 
-        boot =
-          let
-            supportedFilesystems = {
-              btrfs = true;
-              reiserfs = lib.mkForce false;
-              vfat = true;
-              f2fs = true;
-              xfs = true;
-              ntfs = true;
-              cifs = true;
-              zfs = lib.mkForce false;
-            };
-          in
-          {
-            initrd.systemd.enable = false;
-            inherit supportedFilesystems;
-            initrd = {
-              inherit supportedFilesystems;
-            };
+        boot = let
+          supportedFilesystems = {
+            btrfs = true;
+            reiserfs = lib.mkForce false;
+            vfat = true;
+            f2fs = true;
+            xfs = true;
+            ntfs = true;
+            cifs = true;
+            zfs = lib.mkForce false;
           };
+        in {
+          initrd.systemd.enable = false;
+          inherit supportedFilesystems;
+          initrd = {
+            inherit supportedFilesystems;
+          };
+        };
 
         environment.systemPackages = with pkgs; [
           gptfdisk
