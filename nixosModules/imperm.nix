@@ -65,9 +65,6 @@ in {
       ])
       ++ (preConf [
         "gh"
-        "GitHub Desktop"
-        "spotify"
-        "vesktop"
         "kdeconnect"
         "keepassxc"
         "syncthing"
