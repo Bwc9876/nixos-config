@@ -212,7 +212,16 @@ in {
           border-color: @sapphire;
         }
 
+        #mpris {
+          opacity: 0;
+        }
+
+        #mpris.paused {
+          opacity: 1;
+        }
+
         #mpris.playing {
+          opacity: 1;
           border-color: @sapphire;
         }
 
