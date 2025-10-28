@@ -159,6 +159,7 @@
         password: None,
         theme: Some("catppuccin"),
         cache_dir: None,
+        lyrics_dir: "${config.home-manager.users.bean.services.mpd.musicDirectory}",
         on_song_change: None,
         volume_step: 5,
         max_fps: 30,
@@ -302,7 +303,13 @@
                         (size: "50%", borders: "TOP", pane: Pane(Cava)),
                     ],
                 )),
-    		    (size: "40%", borders: "LEFT", pane: Pane(AlbumArt)),
+    		    (size: "40%", borders: "LEFT", pane: Split(
+                    direction: Vertical,
+                    panes: [
+                        (size: "70%", pane: Pane(AlbumArt)),
+                        (size: "30%", borders: "TOP", pane: Pane(Lyrics)),
+                    ],
+                )),
     		    ],
               ),
             ),

@@ -56,10 +56,10 @@
     gh-grader-preview,
   }:
     flakelight ./. {
-      imports = [
-        spoon.flakelightModules.repl
-        spoon.flakelightModules.ubercheck
-      ];
+      # imports = [
+      #   spoon.flakelightModules.repl
+      #   spoon.flakelightModules.ubercheck
+      # ];
       inherit inputs;
       formatters = pkgs: {
         "*.nix" = "alejandra .";

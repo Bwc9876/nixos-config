@@ -53,7 +53,7 @@
     ripgrep.enable = true;
     bat = {
       enable = true;
-      extraPackages = with pkgs.bat-extras; [batman batgrep batwatch];
+      extraPackages = with pkgs.bat-extras; [batman];
     };
   };
 
@@ -62,6 +62,5 @@
     ripgrep.enable = true;
     command-not-found.enable = false;
     bat.enable = true;
-    nix-index.enable = true;
   };
 }

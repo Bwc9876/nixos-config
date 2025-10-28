@@ -24,7 +24,6 @@
   };
 
   home-manager.users.bean = {
-    imports = [inputs.nix-index-db.homeModules.nix-index];
     home = {
       username = "bean";
       homeDirectory = "/home/bean";

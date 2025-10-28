@@ -306,6 +306,11 @@ in {
             tags = ["personal-blog"];
           }
           {
+            title = "Ben Romer";
+            url = "https://www.cyborgcentral.net/feed";
+            tags = ["personal-blog"];
+          }
+          {
             title = "HiDeoo";
             url = "https://hideoo.dev/notes/rss.xml";
             tags = ["personal-blog"];

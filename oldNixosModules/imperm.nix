@@ -64,7 +64,6 @@ in {
         "Trash"
       ])
       ++ (preConf [
-        "gh"
         "kdeconnect"
         "keepassxc"
         "syncthing"
