@@ -11,6 +11,6 @@
     # Use latest kernel with sysrqs and lockdown enabled
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     kernelParams = lib.mkDefault ["lockdown=confidentiality"];
-    kernel.sysctl."kernel.sysrq" = 1;
+    kernel.sysctl."kernel.sysrq" = lib.mkDefault 1;
   };
 }

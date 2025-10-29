@@ -3,8 +3,7 @@
   config,
   inputs',
   ...
-}:
-{
+}: {
   options.cow.music = {
     enable = lib.mkEnableOption "music playback with MPD and rmpc + customizations";
   };
@@ -165,7 +164,11 @@
         (
             address: "127.0.0.1:6600",
             password: None,
-            theme: ${if config.cow.cat.enable then ''Some("catppuccin")'' else "None"},
+            theme: ${
+          if config.cow.cat.enable
+          then ''Some("catppuccin")''
+          else "None"
+        },
             cache_dir: None,
             lyrics_dir: "${config.services.mpd.musicDirectory}",
             on_song_change: None,
@@ -332,40 +335,49 @@
             ],
         )
       '';
-    in
-    {
-      home-manager.users.bean = {
-        programs.cava = {
+    in {
+      cow.imperm.keepCache = [".local/share/mpd"];
+
+      programs.cava = {
+        enable = true;
+      };
+
+      xdg.configFile = lib.mkIf config.cow.cat.enable {
+        "rmpc/themes/catppuccin.ron".text = themeFile;
+      };
+
+      programs.rmpc = {
+        enable = true;
+        config = configFile;
+      };
+
+      xdg.dataFile = lib.mkIf config.cow.gdi.enable {
+        "applications/rmpc.desktop".text = ''
+          [Desktop Entry]
+          Type=Application
+          Name=Music Player
+          Exec=wezterm start --class="rmpc" rmpc
+          Icon=playmymusic
+        '';
+      };
+
+      services = {
+        mpd = {
           enable = true;
+          extraConfig = ''
+            audio_output {
+              type   "fifo"
+              name   "mpd_fifo"
+              path   "/tmp/mpd.fifo"
+              format "44100:16:2"
+            }
+            audio_output {
+             type			"pipewire"
+             name			"Pipewire"
+            }
+          '';
         };
-
-        xdg.configFile = lib.mkIf config.cow.cat.enable {
-          "rmpc/themes/catppuccin.ron".text = themeFile;
-        };
-
-        programs.rmpc = {
-          enable = true;
-          config = configFile;
-        };
-
-        services = {
-          mpd = {
-            enable = true;
-            extraConfig = ''
-              audio_output {
-                type   "fifo"
-                name   "mpd_fifo"
-                path   "/tmp/mpd.fifo"
-                format "44100:16:2"
-              }
-              audio_output {
-               type			"pipewire"
-               name			"Pipewire"
-              }
-            '';
-          };
-          mpdris2.enable = true;
-        };
+        mpdris2.enable = true;
       };
     }
   );

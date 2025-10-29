@@ -3,15 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.cow.yazi.enable = lib.mkEnableOption "Yazi + Customizations";
 
   config = lib.mkIf config.cow.yazi.enable {
     home.packages = with pkgs; [
+      yazi
       mediainfo
       exiftool
     ];
+
+    wayland.windowManager.hyprland.settings.bind =
+      lib.optional config.cow.gdi.enable [
+      ];
 
     programs.yazi = {
       enable = true;
@@ -34,7 +38,7 @@
       keymap.mgr.prepend_keymap = [
         {
           run = "plugin mount";
-          on = [ "M" ];
+          on = ["M"];
           desc = "Disk Mounting";
         }
         {
@@ -48,7 +52,8 @@
       ];
 
       plugins = {
-        inherit (pkgs.yaziPlugins)
+        inherit
+          (pkgs.yaziPlugins)
           ouch
           mount
           chmod

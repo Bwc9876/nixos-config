@@ -2,8 +2,7 @@
   config,
   lib,
   ...
-}:
-{
+}: {
   options.cow.starship.enable = lib.mkEnableOption "Starship + Customizations";
 
   config = lib.mkIf config.cow.starship.enable {

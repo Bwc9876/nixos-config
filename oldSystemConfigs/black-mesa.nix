@@ -2,10 +2,9 @@
   outputs,
   inputs,
   ...
-}:
-{
+}: {
   system = "x86_64-linux";
-  specialArgs.inputs = inputs // inputs.spoon.inputs // { inherit (inputs) self; };
+  specialArgs.inputs = inputs // inputs.spoon.inputs // {inherit (inputs) self;};
 
   modules = [
     inputs.spoon.nixosModules.black-mesa
@@ -38,8 +37,8 @@
       };
     }
     {
-      imports = [ inputs.bingus.nixosModules.default ];
-      nixpkgs.overlays = [ inputs.bingus.overlays.default ];
+      imports = [inputs.bingus.nixosModules.default];
+      nixpkgs.overlays = [inputs.bingus.overlays.default];
 
       services.bingus-bot = {
         enable = true;
@@ -56,9 +55,8 @@
         config,
         pkgs,
         ...
-      }:
-      {
-        imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+      }: {
+        imports = [(modulesPath + "/installer/scan/not-detected.nix")];
         networking.hostName = "black-mesa";
         system.stateVersion = "25.05";
 
@@ -70,8 +68,8 @@
           "usb_storage"
           "sd_mod"
         ];
-        boot.kernelModules = [ "kvm-amd" ];
-        boot.extraModulePackages = [ ];
+        boot.kernelModules = ["kvm-amd"];
+        boot.extraModulePackages = [];
 
         services.pulseaudio.enable = false;
 
@@ -122,7 +120,7 @@
           fsType = "btrfs";
         };
 
-        swapDevices = [ ];
+        swapDevices = [];
 
         hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
@@ -133,7 +131,7 @@
         hardware.amdgpu = {
           initrd.enable = true;
         };
-        services.xserver.videoDrivers = [ "modesetting" ];
+        services.xserver.videoDrivers = ["modesetting"];
 
         # services.nix-serve = {
         #   enable = true;

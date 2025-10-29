@@ -4,9 +4,8 @@
   inputs,
   pkgs,
   ...
-}:
-{
-  imports = [ inputs.nix-index-db.homeModules.nix-index ];
+}: {
+  imports = [inputs.nix-index-db.homeModules.nix-index];
 
   options.cow.comma.enable = lib.mkEnableOption "Command With DB";
 

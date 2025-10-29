@@ -4,13 +4,14 @@
   config,
   lib,
   ...
-}:
-{
-  imports = [ inputs.nixvim.homeModules.nixvim ];
+}: {
+  imports = [inputs.nixvim.homeModules.nixvim];
 
   options.cow.neovim.enable = lib.mkEnableOption "Neovim + Nixvim + Customizations";
 
   config = lib.mkIf config.cow.neovim.enable {
+    cow.imperm.keep = [".local/share/nvim"];
+
     home.packages = with pkgs; [
       ripgrep
       fd
@@ -21,7 +22,7 @@
       settings = {
         fork = true;
         font = {
-          normal = [ { family = "monospace"; } ];
+          normal = [{family = "monospace";}];
           size = 18.0;
         };
         title-hidden = false;
@@ -74,17 +75,17 @@
                 background = true;
               };
               virtual_text = {
-                errors = [ "italic" ];
-                hints = [ "italic" ];
-                information = [ "italic" ];
-                warnings = [ "italic" ];
-                ok = [ "italic" ];
+                errors = ["italic"];
+                hints = ["italic"];
+                information = ["italic"];
+                warnings = ["italic"];
+                ok = ["italic"];
               };
               underlines = {
-                errors = [ "underline" ];
-                hints = [ "underline" ];
-                information = [ "underline" ];
-                warnings = [ "underline" ];
+                errors = ["underline"];
+                hints = ["underline"];
+                information = ["underline"];
+                warnings = ["underline"];
               };
             };
           };
@@ -106,8 +107,8 @@
       '';
 
       autoGroups = {
-        restore_cursor = { };
-        open_neotree = { };
+        restore_cursor = {};
+        open_neotree = {};
       };
 
       filetype.extension.mdx = "mdx";
@@ -130,7 +131,7 @@
       autoCmd = [
         {
           group = "restore_cursor";
-          event = [ "BufReadPost" ];
+          event = ["BufReadPost"];
           pattern = "*";
           callback.__raw = ''
             function()
@@ -147,7 +148,7 @@
         }
         {
           group = "open_neotree";
-          event = [ "BufRead" ];
+          event = ["BufRead"];
           pattern = "*";
           once = true;
           callback.__raw = ''
@@ -175,18 +176,20 @@
         };
       };
 
-      keymaps =
-        let
-          prefixMap =
-            pre: maps:
-            builtins.map (k: {
-              action = "<cmd>${k.action}<cr>";
-              key = "${pre}${k.key}";
-              options = k.options;
-            }) maps;
-        in
+      keymaps = let
+        prefixMap = pre: maps:
+          builtins.map (k: {
+            action = "<cmd>${k.action}<cr>";
+            key = "${pre}${k.key}";
+            options = k.options;
+          })
+          maps;
+      in
         lib.lists.flatten (
-          builtins.map (g: if builtins.hasAttr "group" g then prefixMap g.prefix g.keys else g) [
+          builtins.map (g:
+            if builtins.hasAttr "group" g
+            then prefixMap g.prefix g.keys
+            else g) [
             {
               action = ''"+p'';
               key = "<C-S-V>";
@@ -332,12 +335,12 @@
             }
             {
               action.__raw = "[[<C-\\><C-n><C-w>]]";
-              mode = [ "t" ];
+              mode = ["t"];
               key = "<C-w>";
             }
             {
               action.__raw = "[[<C-\\><C-n>]]";
-              mode = [ "t" ];
+              mode = ["t"];
               key = "<esc>";
             }
             {
@@ -348,10 +351,10 @@
         );
 
       extraPlugins = with pkgs.vimPlugins; [
-        { plugin = pkgs.nvim-mdx; }
-        { plugin = satellite-nvim; }
-        { plugin = flatten-nvim; }
-        { plugin = tiny-devicons-auto-colors-nvim; }
+        {plugin = pkgs.nvim-mdx;}
+        {plugin = satellite-nvim;}
+        {plugin = flatten-nvim;}
+        {plugin = tiny-devicons-auto-colors-nvim;}
       ];
 
       plugins = {
@@ -419,52 +422,48 @@
           opts = {
             position = "center";
           };
-          layout =
-            let
-              o = {
-                position = "center";
-              };
-              txt = s: {
-                type = "text";
-                val = s;
-                opts = {
+          layout = let
+            o = {
+              position = "center";
+            };
+            txt = s: {
+              type = "text";
+              val = s;
+              opts =
+                {
                   hl = "Keyword";
                 }
                 // o;
-              };
-              grp = g: {
-                type = "group";
-                val = g;
-                opts.spacing = 1;
-              };
-              btn =
-                {
-                  val,
-                  onClick,
-                  ...
-                }:
-                {
-                  type = "button";
-                  inherit val;
-                  opts = o;
-                  on_press.__raw = "function() vim.cmd[[${onClick}]] end";
-                };
-              cmd =
-                {
-                  command,
-                  width,
-                  height,
-                }:
-                {
-                  type = "terminal";
-                  inherit command width height;
-                  opts = o;
-                };
-              pad = {
-                type = "padding";
-                val = 2;
-              };
-            in
+            };
+            grp = g: {
+              type = "group";
+              val = g;
+              opts.spacing = 1;
+            };
+            btn = {
+              val,
+              onClick,
+              ...
+            }: {
+              type = "button";
+              inherit val;
+              opts = o;
+              on_press.__raw = "function() vim.cmd[[${onClick}]] end";
+            };
+            cmd = {
+              command,
+              width,
+              height,
+            }: {
+              type = "terminal";
+              inherit command width height;
+              opts = o;
+            };
+            pad = {
+              type = "padding";
+              val = 2;
+            };
+          in
             [
               pad
               pad
@@ -493,7 +492,7 @@
                 (txt " NixVim Rev ${builtins.substring 0 5 inputs.nixvim.rev}")
               ])
             ])
-            ++ [ pad ];
+            ++ [pad];
         };
 
         trouble = {
@@ -602,7 +601,7 @@
             hover = {
               enabled = true;
               delay = 150;
-              reveal = [ "close" ];
+              reveal = ["close"];
             };
             sort_by = "insert_at_end";
             diagnostics = "nvim_lsp";
@@ -617,51 +616,49 @@
 
         statuscol = {
           enable = true;
-          settings.segments =
-            let
-              dispCond = {
-                __raw = ''
-                  function(ln)
-                    return vim.bo.filetype ~= "neo-tree"
-                  end
-                '';
-              };
-            in
-            [
-              {
-                click = "v:lua.ScSa";
-                condition = [
-                  dispCond
-                ];
-                text = [
-                  "%s"
-                ];
-              }
-              {
-                click = "v:lua.ScLa";
-                condition = [ dispCond ];
-                text = [
-                  {
-                    __raw = "require('statuscol.builtin').lnumfunc";
-                  }
-                ];
-              }
-              {
-                click = "v:lua.ScFa";
-                condition = [
-                  dispCond
-                  {
-                    __raw = "require('statuscol.builtin').not_empty";
-                  }
-                ];
-                text = [
-                  {
-                    __raw = "require('statuscol.builtin').foldfunc";
-                  }
-                  " "
-                ];
-              }
-            ];
+          settings.segments = let
+            dispCond = {
+              __raw = ''
+                function(ln)
+                  return vim.bo.filetype ~= "neo-tree"
+                end
+              '';
+            };
+          in [
+            {
+              click = "v:lua.ScSa";
+              condition = [
+                dispCond
+              ];
+              text = [
+                "%s"
+              ];
+            }
+            {
+              click = "v:lua.ScLa";
+              condition = [dispCond];
+              text = [
+                {
+                  __raw = "require('statuscol.builtin').lnumfunc";
+                }
+              ];
+            }
+            {
+              click = "v:lua.ScFa";
+              condition = [
+                dispCond
+                {
+                  __raw = "require('statuscol.builtin').not_empty";
+                }
+              ];
+              text = [
+                {
+                  __raw = "require('statuscol.builtin').foldfunc";
+                }
+                " "
+              ];
+            }
+          ];
         };
 
         dropbar = {
@@ -687,8 +684,8 @@
 
             options = {
               theme = "catppuccin";
-              disabled_filetypes = [ "neo-tree" ];
-              ignore_focus = [ "neo-tree" ];
+              disabled_filetypes = ["neo-tree"];
+              ignore_focus = ["neo-tree"];
             };
           };
         };
@@ -790,7 +787,7 @@
         cmp = {
           enable = true;
           settings = {
-            sources = map (name: { inherit name; }) [
+            sources = map (name: {inherit name;}) [
               "nvim_lsp"
               "nvim_lsp_signature_help"
               "path"

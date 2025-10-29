@@ -1,10 +1,17 @@
-{ config, lib, ... }:
 {
-  options.cow.pfp = {
+  config,
+  lib,
+  ...
+}: {
+  options.cow.pictures = {
     enable = lib.mkEnableOption "Enable setting profile picture";
-    file = lib.mkOption {
-      type = lib.types.string;
+    pfp = lib.mkOption {
+      type = lib.types.path;
       description = "Path to Profile Picture File (PNG, 1:1 Aspect)";
+    };
+    bg = lib.mkOption {
+      type = lib.types.path;
+      description = "Path to the background image to use";
     };
   };
 

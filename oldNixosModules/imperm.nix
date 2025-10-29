@@ -86,7 +86,6 @@ in {
           "Pictures"
           "Documents"
           ".mozilla"
-          ".floorp"
           {
             directory = ".gnupg";
             mode = "0700";
