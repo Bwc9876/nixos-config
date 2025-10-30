@@ -1,10 +1,9 @@
-{
+{...}: {
   config,
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.cow.gaming.enable = lib.mkEnableOption "Gaming stuff";
 
   config = lib.mkIf config.cow.gaming.enable {

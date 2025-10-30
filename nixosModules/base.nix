@@ -1,11 +1,10 @@
-{
+{...}: {
   pkgs,
   inputs,
   config,
   lib,
   ...
-}:
-{
+}: {
   time.timeZone = lib.mkDefault "America/New_York";
 
   environment.etc."machine-id".text = lib.mkDefault (
@@ -15,10 +14,10 @@
   environment.variables."HOSTNAME" = lib.mkDefault config.networking.hostName;
   environment.systemPackages = with pkgs; [
     uutils-coreutils-noprefix
-
     nh
     nix-output-monitor
     git
+    just
   ];
   environment.etc."flake-src".source = inputs.self;
 
@@ -29,13 +28,10 @@
   systemd.services.nix-daemon.serviceConfig.OOMScoreAdjust = lib.mkDefault 250;
 
   # Keep flake inputs when GC-ing
-  system.extraDependencies =
-    with builtins;
-    let
-      flakeDeps =
-        flake:
-        [ flake.outPath ] ++ (foldl' (a: b: a ++ b) [ ] (map flakeDeps (attrValues flake.inputs or { })));
-    in
+  system.extraDependencies = with builtins; let
+    flakeDeps = flake:
+      [flake.outPath] ++ (foldl' (a: b: a ++ b) [] (map flakeDeps (attrValues flake.inputs or {})));
+  in
     flakeDeps inputs.self;
 
   boot = {
@@ -45,7 +41,7 @@
 
     # Use latest kernel with sysrqs and lockdown enabled
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    kernelParams = lib.mkDefault [ "lockdown=confidentiality" ];
+    kernelParams = lib.mkDefault ["lockdown=confidentiality"];
     kernel.sysctl."kernel.sysrq" = lib.mkDefault 1;
   };
 

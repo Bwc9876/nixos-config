@@ -1,5 +1,8 @@
-{ config, lib, ... }:
-{
+{...}: {
+  config,
+  lib,
+  ...
+}: {
   options.cow.network = {
     wireless = lib.mkEnableOption "wireless networking with IWD";
     bluetooth = lib.mkEnableOption "bluetooth networking";
@@ -16,13 +19,11 @@
     };
 
     cow.imperm.keepCache =
-      (lib.optional config.cow.network.bluetooth [
-        "/var/lib/bluetooh"
-      ])
-      ++ (lib.optional config.cow.network.wireless [ "/var/lib/iwd" ]);
+      (lib.optional config.cow.network.bluetooth "/var/lib/bluetooh")
+      ++ (lib.optional config.cow.network.wireless "/var/lib/iwd");
 
     networking = lib.mkIf config.cow.network.wireless {
-      iwd.enable = true;
+      wireless.iwd.enable = true;
       useNetworkd = true;
       useDHCP = true;
     };

@@ -1,4 +1,4 @@
-{
+{...}: {
   config,
   lib,
   pkgs,
@@ -12,10 +12,6 @@
       mediainfo
       exiftool
     ];
-
-    wayland.windowManager.hyprland.settings.bind =
-      lib.optional config.cow.gdi.enable [
-      ];
 
     programs.yazi = {
       enable = true;

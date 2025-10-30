@@ -1,14 +1,14 @@
-{
+{inputs, ...}: {
   config,
-  inputs,
   lib,
   pkgs,
   ...
 }: {
   options.cow.dev = let
-    mkLangOpt = d: (lib.mkEnableOption d // {default = true;});
+    mkLangOpt = d: ((lib.mkEnableOption d) // {default = true;});
   in {
     enable = lib.mkEnableOption "Dev stuff (all on by default)";
+    c = mkLangOpt "C/C++ dev stuf";
     rust = mkLangOpt "Rust dev stuff";
     haskell = mkLangOpt "Haskell dev stuff";
     js = mkLangOpt "JavaScript dev stuff";
@@ -21,7 +21,7 @@
     conf = config.cow.dev;
   in
     lib.mkIf conf.enable {
-      nixpkgs.overlays = lib.optional conf.rust [inputs.fenix.overlays.default];
+      nixpkgs.overlays = lib.optional conf.rust inputs.fenix.overlays.default;
 
       xdg.configFile = {
         "astro/config.json" = lib.mkIf conf.js {
@@ -42,15 +42,18 @@
       };
 
       cow.imperm.keepCache =
-        (lib.optional conf.rust [".cargo"])
-        ++ (lib.optional conf.js [
+        [
+          ".config/gh"
+        ]
+        ++ (lib.optional conf.rust ".cargo")
+        ++ (lib.optionals conf.js [
           ".npm"
           ".pnpm"
         ]);
 
       programs.git = {
         enable = true;
-        config = {
+        settings = {
           init.defaultBranch = "main";
           advice.addIgnoredFiles = false;
         };
@@ -58,7 +61,13 @@
 
       home.packages = with pkgs;
         [gh]
-        ++ (lib.optional conf.rust [
+        ++ (lib.optionals (conf.rust or conf.c) [
+          pkg-config
+          gnumake
+          gcc
+          gdb
+        ])
+        ++ (lib.optionals conf.rust [
           (pkgs.fenix.complete.withComponents [
             "cargo"
             "clippy"
@@ -71,16 +80,16 @@
           mprocs
           evcxr
         ])
-        ++ (lib.optional conf.js [
+        ++ (lib.optionals conf.js [
           nodejs_latest
           nodePackages.pnpm
           yarn
           deno
         ])
-        ++ (lib.optional conf.haskell [
+        ++ (lib.optionals conf.haskell [
           haskell.compiler.ghc912
         ])
-        ++ (lib.optional conf.python [
+        ++ (lib.optionals conf.python [
           python3
           poetry
           pipenv
@@ -88,7 +97,7 @@
           ruff
           black
         ])
-        ++ (lib.optional conf.dotnet [
+        ++ (lib.optionals conf.dotnet [
           dotnet-sdk
           dotnet-runtime
           mono

@@ -1,5 +1,8 @@
-{ config, lib, ... }:
-{
+{...}: {
+  config,
+  lib,
+  ...
+}: {
   options.cow.print.enable = lib.mkEnableOption "stateless printing + WCU printers";
 
   config = lib.mkIf config.cow.print.enable {

@@ -70,9 +70,6 @@
         i: {pkgs}: inputs.${i}.packages.${pkgs.system}.default
       );
       nixDir = ./.;
-      nixDirAliases = {
-        nixosConfigurations = ["systemConfigs"];
-      };
       legacyPackages = pkgs: pkgs;
       nixpkgs.config = {
         allowUnfree = true;

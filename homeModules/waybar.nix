@@ -1,4 +1,4 @@
-{
+{...}: {
   config,
   lib,
   pkgs,
@@ -376,7 +376,7 @@
                 "clock#1"
                 "clock#2"
               ]
-              ++ lib.optional config.cow.news.enable ["custom/news"]
+              ++ lib.optional config.cow.news.enable "custom/news"
               ++ [
                 "custom/weather"
                 "mpris"
@@ -388,8 +388,8 @@
                 "bluetooth"
                 "pulseaudio"
               ]
-              ++ lib.optional config.cow.kde-connect.enable ["custom/kdeconnect"]
-              ++ lib.optional config.cow.gdi.doIdle ["idle_inhibitor"]
+              ++ lib.optional config.cow.kde-connect.enable "custom/kdeconnect"
+              ++ lib.optional config.cow.gdi.doIdle "idle_inhibitor"
               ++ [
                 "custom/notification"
                 "privacy"

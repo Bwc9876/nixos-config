@@ -1,4 +1,4 @@
-{
+{...}: {
   config,
   lib,
   pkgs,
@@ -6,7 +6,7 @@
 }: {
   options.cow.keepassxc = {
     enable = lib.mkEnableOption "KeePassXC + autolaunch";
-    dbPath = {
+    dbPath = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       description = "KeePassXC DB to open on DE launch if cow.gdi is on";
       default = null;
@@ -15,7 +15,7 @@
 
   config = lib.mkIf config.cow.keepassxc.enable {
     wayland.windowManager.hyprland.settings.exec-once =
-      lib.optional (config.cow.gdi.enable && config.cow.keepassxc.dbPath != null)
+      lib.optionals (config.cow.gdi.enable && config.cow.keepassxc.dbPath != null)
       (
         let
           cmd = "keepassxc ${config.cow.keepassxc.dbPath}";

@@ -1,11 +1,11 @@
-{
+{...}: {
   lib,
   config,
   ...
 }: {
   options.cow.htop.enable = lib.mkEnableOption "htop + customizations";
 
-  config = lib.mkIf {
+  config = lib.mkIf config.cow.htop.enable {
     # TODO: Actually use Nix for this
     xdg.configFile."htop/htoprc".text = ''
       htop_version=3.3.0

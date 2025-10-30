@@ -1,4 +1,4 @@
-{
+{...}: {
   config,
   lib,
   ...
@@ -15,7 +15,7 @@
     };
   };
 
-  config = lib.mkIf config.cow.pfp.enable {
-    home.file.".face".source = config.cow.pfp.file;
+  config = lib.mkIf config.cow.pictures.enable {
+    home.file.".face".source = config.cow.pictures.pfp;
   };
 }

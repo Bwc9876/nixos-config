@@ -1,7 +1,7 @@
-{
+{inputs, ...}: {
+  pkgs,
   lib,
   config,
-  inputs',
   ...
 }: {
   options.cow.music = {
@@ -11,8 +11,11 @@
   config = lib.mkIf config.cow.music.enable (
     let
       cat =
-        (builtins.fromJSON (builtins.readFile "${inputs'.catppuccin.packages.palette}/palette.json"))
-        .${config.catppuccin.flavor}.colors;
+        (builtins.fromJSON (
+          builtins.readFile "${inputs.catppuccin.packages.${pkgs.system}.palette}/palette.json"
+        )).${
+          config.catppuccin.flavor
+        }.colors;
       accent = cat.${config.catppuccin.accent};
       themeFile = ''
         #![enable(implicit_some)]
@@ -336,8 +339,6 @@
         )
       '';
     in {
-      cow.imperm.keepCache = [".local/share/mpd"];
-
       programs.cava = {
         enable = true;
       };

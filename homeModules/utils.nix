@@ -1,12 +1,11 @@
-{
+{...}: {
   config,
   lib,
   pkgs,
-  inputs',
   ...
 }: {
   options.cow.utils.enable =
-    lib.mkEnableOption "Handy utilities to have"
+    (lib.mkEnableOption "Handy utilities to have")
     // {
       default = true;
     };
@@ -22,7 +21,7 @@
         procfd
         dust
         zip
-        inputs'.gh-grader-preview.packages.default
+        inputs.gh-grader-preview.packages.${pkgs.system}.default
         wol
         libqalculate
         p7zip
@@ -31,7 +30,7 @@
         hyfetch
         fastfetch
       ]
-      ++ lib.optional config.cow.gdi.enable [wev];
+      ++ lib.optional config.cow.gdi.enable wev;
 
     programs.hyfetch = {
       enable = true;

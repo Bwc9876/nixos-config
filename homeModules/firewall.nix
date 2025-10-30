@@ -1,6 +1,6 @@
-{lib}: {
+{...}: {lib, ...}: {
   options.cow.firewall = {
-    tcp = { type = lib.types.listOf lib.types.int; };
-    udp = { type = lib.types.listOf lib.types.int; };
+    tcp = lib.mkOption {type = lib.types.listOf lib.types.int;};
+    udp = lib.mkOption {type = lib.types.listOf lib.types.int;};
   };
 }

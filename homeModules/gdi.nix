@@ -1,8 +1,7 @@
-{
+{inputs, ...}: {
   config,
   lib,
   pkgs,
-  inputs',
   ...
 }: {
   options.cow.gdi = {
@@ -58,8 +57,30 @@
         cursorTheme.package
         iconTheme.package
 
+        wezterm
+
+        # Shell Components
+        hyprlock
+        hyprland-qtutils
+
+        ## Waybar
+        qt6.qttools # For component
+
+        pavucontrol
+
+        wf-recorder
+        slurp
+        grim
+        xdg-utils
+        grimblast
+        tesseract
+        swappy
+        libnotify
         swaynotificationcenter
-        swayosd
+        wl-clipboard
+
+        hunspell
+        hunspellDicts.en_US-large
       ];
 
       wayland.windowManager.hyprland = {
@@ -118,6 +139,8 @@
             "GRIMBLAST_EDITOR,swappy -f "
             "QT_QPA_PLATFORM,wayland;xcb"
             "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+            "HYPRCURSOR_THEME,${hyprThemeName}"
+            "HYPRCURSOR_SIZE,${builtins.toJSON cursorTheme.size}"
           ];
           windowrulev2 = [
             "idleinhibit fullscreen,class:(.*),title:(.*)"
@@ -129,7 +152,7 @@
           ];
           bind = let
             powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p --symbols-font \"FiraMono Nerd Font Mono\"";
-            screenshot = "${pkgs.nushell}/bin/nu ${../../res/screenshot.nu}";
+            screenshot = "${pkgs.nushell}/bin/nu ${../res/screenshot.nu}";
 
             openTerminal = launchDesktopApp "org.wezfurlong.wezterm.desktop";
             forEachWorkspace = {
@@ -150,7 +173,7 @@
             [
               "SUPER,M,submap,passthru"
             ]
-            ++ lib.optional config.cow.firefox.enable [
+            ++ lib.optionals config.cow.firefox.enable [
               "SUPER,Q,exec,${launchDesktopApp "firefox-devedition.desktop"}"
             ]
             ++ [
@@ -178,7 +201,7 @@
               "SUPER,B,exec,${runCmd "${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"}"
               "SUPER,Tab,exec,${runCmd "rofi -show window -show-icons"}"
             ]
-            ++ lib.optional config.cow.yazi.enable ["SUPER,E,exec,${launchDesktopApp "yazi.desktop"}"]
+            ++ lib.optionals config.cow.yazi.enable ["SUPER,E,exec,${launchDesktopApp "yazi.desktop"}"]
             ++ [
               "SUPER,N,exec,${runCmd "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"}"
               "SUPER,A,exec,${runCmd "${pkgs.pavucontrol}/bin/pavucontrol --tab 5"}"
@@ -368,7 +391,9 @@
           desc = "MPRIS Idle Inhibitor";
 
           service = {
-            ExecStart = ''${inputs'.wayland-mpris-idle-inhibit.packages.default}/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"'';
+            ExecStart = ''${
+                inputs.wayland-mpris-idle-inhibit.packages.${pkgs.system}.default
+              }/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"'';
             Restart = "on-failure";
             RestartSec = "10";
           };
@@ -376,9 +401,9 @@
       };
 
       fonts = {
-        antialiasing = true;
         fontconfig = {
           enable = true;
+          antialiasing = true;
           defaultFonts = let
             mainFonts = [
               "FiraGO"
@@ -411,6 +436,16 @@
         gtk.enable = true;
         x11.enable = true;
       };
+
+      gtk = {
+        enable = true;
+        iconTheme = lib.mkForce iconTheme;
+        gtk2.extraConfig = "gtk-application-prefer-dark-theme=true";
+        gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+        gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+      };
+
+      dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
       services = {
         hyprpolkitagent.enable = true;

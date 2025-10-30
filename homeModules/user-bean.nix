@@ -1,39 +1,47 @@
-{
+{...}: {
   lib,
   config,
   ...
-}:
-let
-  pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKsVzdJra+x5aEuwTjL1FBOiMh9bftvs8QwsM1xyEbdd";
-in
-{
-
-  options.cow.bean.enable = lib.mkEnableOption "Bean user presets";
+}: {
+  options.cow.bean = {
+    enable = lib.mkEnableOption "Bean user presets";
+    pubkey = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      description = "Public key to accept for bean";
+      default = null;
+    };
+  };
 
   config = lib.mkIf config.cow.bean.enable {
     # My Personal config using most of my HM modules
 
     home = {
-      file.".ssh/authorized_keys".text = ''
-        ${pubkey} bean
+      file.".ssh/authorized_keys".text = lib.mkIf (config.cow.bean.pubkey != null) ''
+        ${config.cow.bean.pubkey} bean
       '';
       username = lib.mkDefault "bean";
       homeDirectory = lib.mkDefault "/home/bean";
     };
 
-    programs.git.config.user = {
-      email = "bwc9876@gmail.com";
-      name = "Ben C";
-      signingKey = pubkey;
+    programs.git = {
+      signing = lib.mkIf (config.cow.bean.pubkey != null) {
+        format = "ssh";
+        signByDefault = true;
+      };
+      settings = {
+        user = {
+          email = "bwc9876@gmail.com";
+          name = "Ben C";
+          signingKey = lib.mkIf (config.cow.bean.pubkey != null) config.cow.bean.pubkey;
+        };
+      };
     };
 
     cow = {
       libraries.enable = true;
-      imperm = {
-        enable = true;
-        keepLibraries = true;
-      };
+      imperm.keepLibraries = true;
       pictures = {
+        enable = true;
         pfp = ../res/pictures/cow.png;
         bg = ../res/pictures/background.png;
       };
@@ -41,7 +49,7 @@ in
         enable = true;
         commandNotFound = true;
       };
-      nvim.enable = true;
+      neovim.enable = true;
       htop.enable = true;
       starship.enable = true;
       yazi.enable = true;
@@ -49,9 +57,12 @@ in
       comma.enable = true;
       cat.enable = true;
 
-      firefox = config.cow.gdi.enable;
-      waybar = config.cow.gdi.enable;
-      keepassxc.dbPath = lib.mkDefault "${config.xdg.userDirs.documents}/KeePass/DB";
+      firefox.enable = config.cow.gdi.enable;
+      waybar.enable = config.cow.gdi.enable;
+      keepassxc = {
+        enable = config.cow.gdi.enable;
+        dbPath = lib.mkDefault "${config.xdg.userDirs.documents}/KeePass/DB";
+      };
     };
   };
 }

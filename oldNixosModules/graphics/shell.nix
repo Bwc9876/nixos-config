@@ -300,7 +300,7 @@
 
     bind = let
       powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p --symbols-font \"FiraMono Nerd Font Mono\"";
-      screenshot = "${pkgs.nushell}/bin/nu ${../../res/screenshot.nu}";
+      screenshot = "${pkgs.nushell}/bin/nu ${../res/screenshot.nu}";
     in [
       "SUPER,S,exec,uwsm app -- rofi -show drun -icon-theme \"candy-icons\" -show-icons"
       "SUPER SHIFT,E,exec,uwsm app -- rofi -modi emoji -show emoji"

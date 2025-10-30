@@ -1,4 +1,4 @@
-{
+{...}: {
   lib,
   pkgs,
   config,
@@ -10,10 +10,6 @@ in {
 
   config = lib.mkIf config.cow.firefox.enable {
     cow.imperm.keep = [".mozilla"];
-
-    home.packages = [
-      package
-    ];
 
     programs.firefox = {
       inherit package;

@@ -1,4 +1,4 @@
-{
+{...}: {
   config,
   lib,
   ...
@@ -13,10 +13,7 @@ in {
     keepLibraries = lib.mkEnableOption "persisting library (Documents, Pictures, etc.) directories";
     keepCache = listOfDirs "List of directories to persist if impermanence is enabled. These directories are *not* meant to be backed up";
     keep = listOfDirs "List of directories to persist if impermanence is enabled. These directories should be backed up";
-    keepFiles = {
-      type = lib.types.listOf lib.types.str;
-      description = "List of files to keep. These files should be backed up";
-    };
+    keepFiles = listOfDirs "List of files to keep. These files should be backed up";
   };
 
   config = lib.mkIf config.cow.imperm.keepLibraries {
@@ -27,8 +24,10 @@ in {
       "Pictures"
       "Documents"
       ".ssh"
+    ];
+    cow.imperm.keepCache = [
       ".cache"
-      ".local/state/wireplumber"
+      ".local/share/wireplumber"
     ];
   };
 }

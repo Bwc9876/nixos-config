@@ -1,4 +1,4 @@
-{
+{...}: {
   pkgs,
   config,
   lib,
@@ -43,7 +43,7 @@ in {
   options.cow.news.enable = lib.mkEnableOption "news feeds with newsboat";
 
   config = lib.mkIf config.cow.news.enable {
-    cow.imperm.keep = [".config/newsboat"];
+    cow.imperm.keep = [".local/share/newsboat"];
 
     home.packages = with pkgs; [
       w3m
@@ -59,7 +59,7 @@ in {
 
     programs.newsboat = {
       enable = true;
-      browser = ''"${../../res/news-open.nu} %u"'';
+      browser = ''"${../res/news-open.nu} %u"'';
 
       # notify-program ${../res/news-notify.nu}
 

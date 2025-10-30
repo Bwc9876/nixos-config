@@ -1,4 +1,4 @@
-{
+{...}: {
   config,
   pkgs,
   lib,
@@ -51,7 +51,7 @@
                 } else { $spans })
 
                 match $spans.0 {
-                  ${lib.optional conf.completers.fish ''
+                  ${lib.optionalString conf.completers.fish ''
               nu => ${fishComplete}
               git => ${fishComplete}
             ''}
@@ -73,7 +73,7 @@
               show_banner: false,
               completions: {
                 external: {
-                  enable: ${doCompletions}
+                  enable: ${builtins.toJSON doCompletions}
                   completer: ${
               if doCompletions
               then completions
@@ -82,7 +82,7 @@
                 },
               },
               hooks: {
-              ${lib.optional conf.commandNotFound ''
+              ${lib.optionalString conf.commandNotFound ''
               command_not_found: ${cnf}
             ''}
               }
@@ -93,10 +93,10 @@
           '';
         in {
           enable = true;
-          configFile = ''
+          configFile.text = ''
             $env.config = ${nu_config}
 
-            ${lib.optional config.cow.starship.enable ''
+            ${lib.optionalString config.cow.starship.enable ''
               source ${init-starship}
             ''}
           '';
