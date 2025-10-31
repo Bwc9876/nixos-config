@@ -28,8 +28,14 @@
   in
     lib.mkIf config.cow.disks.enable {
       boot.initrd.luks.devices = lib.mkIf conf.luks {
-        "cryptroot".device = primaryPart;
-        "cryptswap".device = swapPart;
+        "cryptroot" = {
+          device = primaryPart;
+          fallbackToPassword = true;
+        };
+        "cryptswap" = {
+          device = swapPart;
+          fallbackToPassword = true;
+        };
       };
       swapDevices = [
         {

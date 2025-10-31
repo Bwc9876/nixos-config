@@ -50,7 +50,7 @@
         imperm.enable = true;
         disks = {
           enable = true;
-          swap = true;
+          swap = false;
           luks = true;
         };
       };
