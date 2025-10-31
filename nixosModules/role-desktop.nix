@@ -1,0 +1,39 @@
+{...}: {
+  config,
+  lib,
+  ...
+}: {
+  options.cow.role-desktop = {
+    enable = lib.mkEnableOption "configuring a desktop computer with GUI";
+  };
+
+  config = lib.mkIf config.cow.role-desktop.enable {
+    security.sudo.wheelNeedsPassword = false;
+
+    home-manager.users.bean.cow = {
+      music.enable = true;
+      news.enable = true;
+      qmplay2.enable = true;
+      sync.enable = true;
+      kde-connect.enable = true;
+      dev.enable = true;
+    };
+
+    cow = {
+      bean.enable = true;
+      firewall.openForUsers = true;
+      hm.enable = true;
+      network = {
+        bluetooth = lib.mkDefault true;
+        wireless = lib.mkDefault true;
+      };
+      cat.enable = true;
+      gdi = {
+        enable = true;
+        doIdle = lib.mkDefault false;
+        showGreet = true;
+      };
+      audio.enable = true;
+    };
+  };
+}

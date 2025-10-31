@@ -30,6 +30,7 @@
       cat.enable = true;
       gdi = {
         enable = true;
+        doIdle = true;
         showGreet = true;
       };
       audio.enable = true;

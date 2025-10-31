@@ -26,6 +26,15 @@
         libqalculate
         p7zip
         poop
+        file
+        screen
+        util-linux
+        inetutils
+        just
+        man-pages
+        htop
+        dig
+        doggo
 
         hyfetch
         fastfetch

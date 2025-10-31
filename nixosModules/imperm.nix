@@ -21,10 +21,12 @@
     keep = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Paths to keep that should be backed up";
+      default = [];
     };
     keepCache = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Paths to keep that shouldn't be backed up";
+      default = [];
     };
   };
 

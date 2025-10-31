@@ -8,7 +8,7 @@
     pubkey = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       description = "Public key to accept for bean";
-      default = null;
+      default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKsVzdJra+x5aEuwTjL1FBOiMh9bftvs8QwsM1xyEbdd";
     };
   };
 
@@ -35,6 +35,10 @@
           signingKey = lib.mkIf (config.cow.bean.pubkey != null) config.cow.bean.pubkey;
         };
       };
+    };
+
+    home.sessionVariables = {
+      "EDITOR" = "nvim";
     };
 
     cow = {

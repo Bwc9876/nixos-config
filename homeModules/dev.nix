@@ -5,13 +5,13 @@
   ...
 }: {
   options.cow.dev = let
-    mkLangOpt = d: ((lib.mkEnableOption d) // {default = true;});
+    mkLangOpt = d: ((lib.mkEnableOption d) // {default = config.cow.dev.enable;});
   in {
     enable = lib.mkEnableOption "Dev stuff (all on by default)";
-    c = mkLangOpt "C/C++ dev stuf";
+    c = mkLangOpt "C/C++ dev stuff";
     rust = mkLangOpt "Rust dev stuff";
     haskell = mkLangOpt "Haskell dev stuff";
-    js = mkLangOpt "JavaScript dev stuff";
+    web = mkLangOpt "Web dev stuff";
     nix = mkLangOpt "Nix dev stuff";
     python = mkLangOpt "Python dev stuff";
     dotnet = mkLangOpt ".NET dev stuff";
@@ -24,7 +24,7 @@
       nixpkgs.overlays = lib.optional conf.rust inputs.fenix.overlays.default;
 
       xdg.configFile = {
-        "astro/config.json" = lib.mkIf conf.js {
+        "astro/config.json" = lib.mkIf conf.web {
           text = builtins.toJSON {
             telemetry = {
               enabled = false;
@@ -46,7 +46,7 @@
           ".config/gh"
         ]
         ++ (lib.optional conf.rust ".cargo")
-        ++ (lib.optionals conf.js [
+        ++ (lib.optionals conf.web [
           ".npm"
           ".pnpm"
         ]);
@@ -80,7 +80,7 @@
           mprocs
           evcxr
         ])
-        ++ (lib.optionals conf.js [
+        ++ (lib.optionals conf.web [
           nodejs_latest
           nodePackages.pnpm
           yarn

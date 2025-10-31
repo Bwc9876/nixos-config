@@ -110,7 +110,9 @@
         open_neotree = {};
       };
 
-      filetype.extension.mdx = "mdx";
+      filetype.extension = {
+        mdx = "mdx";
+      };
 
       opts = {
         number = true;
@@ -349,12 +351,13 @@
           ]
         );
 
-      extraPlugins = with pkgs.vimPlugins; [
-        {plugin = pkgs.nvim-mdx;}
-        {plugin = satellite-nvim;}
-        {plugin = flatten-nvim;}
-        {plugin = tiny-devicons-auto-colors-nvim;}
-      ];
+      extraPlugins = with pkgs.vimPlugins;
+        (lib.optional config.cow.dev.web {plugin = pkgs.nvim-mdx;})
+        ++ [
+          {plugin = satellite-nvim;}
+          {plugin = flatten-nvim;}
+          {plugin = tiny-devicons-auto-colors-nvim;}
+        ];
 
       plugins = {
         telescope = {
@@ -559,7 +562,7 @@
 
         treesitter = {
           enable = true;
-          luaConfig.post = ''
+          luaConfig.post = lib.mkIf config.cow.dev.web ''
             require('mdx').setup()
           '';
           settings = {
@@ -877,43 +880,52 @@
       lsp = {
         inlayHints.enable = true;
 
-        servers = {
-          clangd.enable = true;
-          astro.enable = true;
-          hls = {
+        servers = let
+          inherit
+            (config.cow.dev)
+            dotnet
+            python
+            haskell
+            rust
+            web
+            c
+            ;
+        in {
+          clangd.enable = c;
+          astro.enable = web;
+          hls = lib.mkIf haskell {
             enable = true;
             # ghcPackage = pkgs.haskell.compiler.ghc912;
             package = pkgs.haskell.packages.ghc912.haskell-language-server;
           };
-          sqls.enable = true;
-          mdx_analyzer = {
+          sqls.enable = web;
+          mdx_analyzer = lib.mkIf web {
             enable = true;
             package = pkgs.mdx-language-server;
           };
           # denols.enable = true;
-          ts_ls.enable = true;
-          html.enable = true;
-          marksman.enable = true;
-          cssls.enable = true;
-          tailwindcss.enable = true; # Disabled until it doesn't build nodejs from source, bad tailwind
-          jsonls.enable = true;
-          yamlls.enable = true;
-          ruff.enable = true;
-          csharp_ls.enable = true;
-          svelte.enable = true;
+          ts_ls.enable = web;
+          html.enable = web;
+          marksman.enable = web;
+          cssls.enable = web;
+          tailwindcss.enable = web;
+          jsonls.enable = web;
+          yamlls.enable = web;
+          ruff.enable = python;
+          csharp_ls.enable = dotnet;
+          svelte.enable = web;
           nil_ls.enable = true;
           bashls.enable = true;
-          nushell.enable = true;
-          taplo.enable = true;
+          nushell.enable = config.cow.nushell.enable;
+          taplo.enable = rust;
           typos_lsp.enable = true;
-          rust_analyzer = {
+          rust_analyzer = lib.mkIf rust {
             enable = true;
             package = pkgs.rust-analyzer-nightly;
             packageFallback = true;
           };
-          lemminx.enable = true;
-          eslint.enable = true;
-          tinymist.enable = true;
+          lemminx.enable = web;
+          eslint.enable = web;
           just.enable = true;
         };
       };
