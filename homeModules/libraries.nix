@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  options.cow.libraries.enable = lib.mkEnableOption "Creating common library directories";
+  options.cow.libraries.enable = lib.mkEnableOption "Setting common library directories";
 
   config = lib.mkIf config.cow.libraries.enable {
     xdg = {
@@ -12,7 +12,6 @@
         inherit (config.home) homeDirectory;
       in {
         enable = true;
-        createDirectories = true;
         desktop = "${homeDirectory}/Desktop";
         documents = "${homeDirectory}/Documents";
         pictures = "${homeDirectory}/Pictures";
