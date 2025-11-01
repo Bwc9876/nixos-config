@@ -43,7 +43,7 @@
           device = swapPart;
         };
       };
-      swapDevices = [
+      swapDevices = lib.mkIf conf.swap [
         {
           device =
             if conf.luks
