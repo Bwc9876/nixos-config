@@ -777,10 +777,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1762037654,
-        "narHash": "sha256-OHtNySXZKyFKrLFAA0unXMgM6Bvz8m5aDAePoMF74uw=",
+        "lastModified": 1762038257,
+        "narHash": "sha256-D1Pbr/VaEWjmidcfmqa6/usolDCcJyW7TZcuCqc3sIs=",
         "ref": "refs/heads/main",
-        "rev": "77a67bed24990883f8bf747dab167aea4c3633a3",
+        "rev": "a6dcef445f25eb059a4a8d64abfdbbe4c3635718",
         "revCount": 283,
         "type": "git",
         "url": "https://codeberg.org/spoonbaker/mono"
