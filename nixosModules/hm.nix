@@ -10,5 +10,6 @@
   config.home-manager = lib.mkIf config.cow.hm.enable {
     sharedModules = builtins.attrValues outputs.homeModules;
     useUserPackages = true;
+    useGlobalPkgs = false;
   };
 }
