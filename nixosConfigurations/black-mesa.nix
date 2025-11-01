@@ -4,6 +4,7 @@
   ...
 }: {
   system = "x86_64-linux";
+  specialArgs.inputs = inputs // inputs.spoon.inputs // {inherit (inputs) self;};
 
   modules =
     (builtins.attrValues outputs.nixosModules)
