@@ -39,7 +39,7 @@
         "cryptroot" = {
           device = primaryPart;
         };
-        "cryptswap" = {
+        "cryptswap" = lib.mkIf conf.swap {
           device = swapPart;
         };
       };
