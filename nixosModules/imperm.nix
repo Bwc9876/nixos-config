@@ -64,7 +64,7 @@
           directories = config.cow.imperm.keep;
           users = builtins.mapAttrs (_: v: {
             directories = v.cow.imperm.keep or [ ];
-            files = v.cow.imperm.keep or [ ];
+            files = v.cow.imperm.keepFiles or [ ];
           }) users;
         };
       };
