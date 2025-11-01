@@ -14,6 +14,9 @@
   };
 
   config = lib.mkIf config.cow.keepassxc.enable {
+
+    cow.imperm.keep = [".config/keepassxc"];
+
     wayland.windowManager.hyprland.settings.exec-once =
       lib.optionals (config.cow.gdi.enable && config.cow.keepassxc.dbPath != null)
       (
