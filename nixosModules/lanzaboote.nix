@@ -14,11 +14,7 @@
 
     lanzaboote = {
       enable = true;
-      pkiBundle = lib.mkDefault (
-        if config.cow.imperm.enable
-        then "/nix/persist/secure/secureboot"
-        else "/etc/secureboot"
-      );
+      pkiBundle = lib.mkDefault "/var/lib/sbctl";
     };
   };
 }
