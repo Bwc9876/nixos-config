@@ -65,7 +65,7 @@
       waybar.enable = config.cow.gdi.enable;
       keepassxc = {
         enable = config.cow.gdi.enable;
-        dbPath = lib.mkDefault "${config.xdg.userDirs.documents}/Keepass/DB";
+        dbPath = lib.mkDefault "${config.xdg.userDirs.documents}/Keepass/DB/Database.kdbx";
       };
     };
   };
