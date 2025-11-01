@@ -573,10 +573,10 @@
         illuminate.enable = true;
         cursorline.enable = true;
 
-        neocord = {
-          enable = true;
-          settings.logo = "https://raw.githubusercontent.com/IogaMaster/neovim/main/.github/assets/nixvim-dark.webp";
-        };
+        # neocord = {
+        #   enable = true;
+        #   settings.logo = "https://raw.githubusercontent.com/IogaMaster/neovim/main/.github/assets/nixvim-dark.webp";
+        # };
 
         bufdelete.enable = true;
 
