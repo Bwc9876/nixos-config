@@ -99,5 +99,10 @@
           };
         };
       }
+      {
+        virtualization.podman.enable = true;
+
+        cow.imperm.keep = ["/var/lib/containers"];
+      }
     ];
 }
