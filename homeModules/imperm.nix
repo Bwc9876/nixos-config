@@ -7,6 +7,7 @@
     lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = desc;
+      default = [];
     };
 in {
   options.cow.imperm = {
