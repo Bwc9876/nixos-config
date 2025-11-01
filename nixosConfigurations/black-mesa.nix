@@ -10,6 +10,7 @@
     ++ [
       inputs.nixos-hardware.nixosModules.common-gpu-amd
       inputs.nixos-hardware.nixosModules.common-cpu-amd
+      inputs.spoon.nixosModules.black-mesa
       {
         home-manager.users.bean.home.stateVersion = "25.05";
         system.stateVersion = "25.05";
