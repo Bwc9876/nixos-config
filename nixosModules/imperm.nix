@@ -1,10 +1,12 @@
-{...}: {
+{ ... }:
+{
   config,
   lib,
   inputs,
   ...
-}: {
-  imports = [inputs.imperm.nixosModules.default];
+}:
+{
+  imports = [ inputs.imperm.nixosModules.default ];
 
   options.cow.imperm = {
     enable = lib.mkEnableOption "Impermanence, turns off mutable users and expects you to define their password hashes";
@@ -21,23 +23,21 @@
     keep = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Paths to keep that should be backed up";
-      default = [];
+      default = [ ];
     };
     keepCache = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Paths to keep that shouldn't be backed up";
-      default = [];
+      default = [ ];
     };
   };
 
-  config = let
-    users =
-      if config.cow.hm.enable
-      then config.home-manager.users
-      else {};
-    persistRoot = config.cow.imperm.persistRoot; # Anything important we want backed up
-    cacheRoot = config.cow.imperm.cacheRoot; # Anything not as important that we can stand losing
-  in
+  config =
+    let
+      users = if config.cow.hm.enable then config.home-manager.users else { };
+      persistRoot = config.cow.imperm.persistRoot; # Anything important we want backed up
+      cacheRoot = config.cow.imperm.cacheRoot; # Anything not as important that we can stand losing
+    in
     lib.mkIf config.cow.imperm.enable {
       users.mutableUsers = false;
 
@@ -45,32 +45,27 @@
         "${cacheRoot}" = {
           enable = true;
           hideMounts = true;
-          directories =
-            [
-              "/var/log"
-              "/var/lib/nixos"
-              "/var/lib/systemd/coredump"
-              "/var/lib/systemd/timers"
-              "/var/lib/systemd/rfkill"
-              "/var/lib/systemd/backlight"
-            ]
-            ++ config.cow.imperm.keep;
-          users =
-            builtins.mapAttrs (_: v: {
-              directories = v.cow.imperm.keepCache or [];
-            })
-            users;
+          directories = [
+            "/var/log"
+            "/var/lib/nixos"
+            "/var/lib/systemd/coredump"
+            "/var/lib/systemd/timers"
+            "/var/lib/systemd/rfkill"
+            "/var/lib/systemd/backlight"
+          ]
+          ++ config.cow.imperm.keepCache;
+          users = builtins.mapAttrs (_: v: {
+            directories = v.cow.imperm.keepCache or [ ];
+          }) users;
         };
         "${persistRoot}" = {
           enable = true;
           hideMounts = true;
-          directories = config.cow.imperm.keepCache;
-          users =
-            builtins.mapAttrs (_: v: {
-              directories = v.cow.imperm.keep or [];
-              files = v.cow.imperm.keep or [];
-            })
-            users;
+          directories = config.cow.imperm.keep;
+          users = builtins.mapAttrs (_: v: {
+            directories = v.cow.imperm.keep or [ ];
+            files = v.cow.imperm.keep or [ ];
+          }) users;
         };
       };
     };
