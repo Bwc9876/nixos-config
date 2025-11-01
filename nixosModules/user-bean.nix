@@ -1,14 +1,11 @@
-{ ... }:
-{
+{...}: {
   config,
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKsVzdJra+x5aEuwTjL1FBOiMh9bftvs8QwsM1xyEbdd";
-in
-{
+in {
   options.cow.bean = {
     enable = lib.mkEnableOption "Bean user";
     sudoer = lib.mkEnableOption "Bean being a sudoer";
@@ -20,7 +17,7 @@ in
       description = "Ben C";
       extraGroups = lib.optional config.cow.bean.sudoer "wheel";
       shell = pkgs.nushell;
-      openssh.authorizedKeys.keys = [ pubkey ];
+      openssh.authorizedKeys.keys = [pubkey];
     };
 
     home-manager.users.bean = {

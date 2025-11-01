@@ -37,25 +37,24 @@
     };
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      flakelight,
-      nix-index-db,
-      hm,
-      nixos-hardware,
-      lanzaboote,
-      wayland-mpris-idle-inhibit,
-      fenix,
-      catppuccin,
-      nixvim,
-      imperm,
-      nu_plugin_dbus,
-      bingus,
-      spoon,
-      gh-grader-preview,
-    }:
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    flakelight,
+    nix-index-db,
+    hm,
+    nixos-hardware,
+    lanzaboote,
+    wayland-mpris-idle-inhibit,
+    fenix,
+    catppuccin,
+    nixvim,
+    imperm,
+    nu_plugin_dbus,
+    bingus,
+    spoon,
+    gh-grader-preview,
+  }:
     flakelight ./. {
       # imports = [
       #   spoon.flakelightModules.repl
@@ -67,9 +66,6 @@
         "*.sh" = "shfmt -w .";
       };
 
-      packages = nixpkgs.lib.genAttrs [ "wayland-mpris-idle-inhibit" "nu_plugin_dbus" ] (
-        i: { pkgs }: inputs.${i}.packages.${pkgs.system}.default
-      );
       nixDir = ./.;
       legacyPackages = pkgs: pkgs;
       nixpkgs.config = {

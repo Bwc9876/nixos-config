@@ -381,7 +381,9 @@
           desc = "Battery Notification Service";
 
           service = {
-            ExecStart = "${pkgs.nushell}/bin/nu ${../res/battery_notif.nu}";
+            ExecStart = "${pkgs.nushell}/bin/nu --plugins ${
+              inputs.nu_plugin_dbus.packages.${pkgs.system}.default
+            } ${../res/battery_notif.nu}";
             Restart = "on-failure";
             RestartSec = "10";
           };
@@ -679,7 +681,7 @@
           location = "center";
         };
         nushell.extraConfig = ''
-          plugin add ${pkgs.nu_plugin_dbus}/bin/nu_plugin_dbus
+          plugin add ${inputs.nu_plugin_dbus.packages.${pkgs.system}.default}/bin/nu_plugin_dbus
         '';
 
         wezterm = {

@@ -1,10 +1,8 @@
-{ ... }:
-{
+{...}: {
   config,
   lib,
   ...
-}:
-{
+}: {
   options.cow.disks = {
     enable = lib.mkEnableOption "allowing cow to create a UEFI-compatible layout";
     swap = lib.mkEnableOption "look for and swapon a swap device";
@@ -16,16 +14,18 @@
     };
   };
 
-  config =
-    let
-      conf = config.cow.disks;
-      prefix = if conf.partition-prefix == null then "" else "${conf.partition-prefix}-";
-      primaryPart = "/dev/disk/by-partlabel/${prefix}NIXOS";
-      swapPart = "/dev/disk/by-partlabel/${prefix}SWAP";
-      bootPart = "/dev/disk/by-partlabel/${prefix}BOOT";
-      cryptroot = "/dev/mapper/cryptroot";
-      cryptswap = "/dev/mapper/cryptswap";
-    in
+  config = let
+    conf = config.cow.disks;
+    prefix =
+      if conf.partition-prefix == null
+      then ""
+      else "${conf.partition-prefix}-";
+    primaryPart = "/dev/disk/by-partlabel/${prefix}NIXOS";
+    swapPart = "/dev/disk/by-partlabel/${prefix}SWAP";
+    bootPart = "/dev/disk/by-partlabel/${prefix}BOOT";
+    cryptroot = "/dev/mapper/cryptroot";
+    cryptswap = "/dev/mapper/cryptswap";
+  in
     lib.mkIf config.cow.disks.enable {
       boot.initrd.kernelModules = [
         "nvme"
@@ -45,7 +45,10 @@
       };
       swapDevices = [
         {
-          device = if conf.luks then cryptswap else swapPart;
+          device =
+            if conf.luks
+            then cryptswap
+            else swapPart;
         }
       ];
       fileSystems."/boot" = {
@@ -61,7 +64,10 @@
         ];
       };
       fileSystems."/nix" = lib.mkIf config.cow.imperm.enable {
-        device = if conf.luks then cryptroot else primaryPart;
+        device =
+          if conf.luks
+          then cryptroot
+          else primaryPart;
         fsType = "ext4";
         options = [
           "lazytime"
@@ -71,20 +77,22 @@
         neededForBoot = true;
       };
       fileSystems."/" =
-        if config.cow.imperm.enable then
-          {
-            fsType = "tmpfs";
-            options = [
-              "size=512M"
-              "mode=755"
-            ];
-            neededForBoot = true;
-          }
-        else
-          {
-            device = if conf.luks then cryptroot else primaryPart;
-            fsType = "ext4";
-          };
+        if config.cow.imperm.enable
+        then {
+          fsType = "tmpfs";
+          options = [
+            "size=512M"
+            "mode=755"
+          ];
+          neededForBoot = true;
+        }
+        else {
+          device =
+            if conf.luks
+            then cryptroot
+            else primaryPart;
+          fsType = "ext4";
+        };
       fileSystems."/home" = lib.mkIf config.cow.imperm.enable {
         fsType = "tmpfs";
         options = [

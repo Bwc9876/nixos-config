@@ -10,15 +10,6 @@
   config = lib.mkIf config.cow.role-desktop.enable {
     security.sudo.wheelNeedsPassword = false;
 
-    home-manager.users.bean.cow = {
-      music.enable = true;
-      news.enable = true;
-      qmplay2.enable = true;
-      sync.enable = true;
-      kde-connect.enable = true;
-      dev.enable = true;
-    };
-
     cow = {
       bean.enable = true;
       firewall.openForUsers = true;
