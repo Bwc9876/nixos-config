@@ -100,7 +100,7 @@
         };
       }
       {
-        virtualization.podman.enable = true;
+        virtualisation.podman.enable = true;
 
         cow.imperm.keep = ["/var/lib/containers"];
       }
