@@ -31,7 +31,7 @@ switch:
 alias c := check
 # c:  run all checks for the current system
 check *ARGS:
-    nix flake check --show-trace {{ GARGS }} {{ ARGS }} --log-format internal-json -v |& nom --json
+    nom build --show-trace ".#uberCheck.$(nix eval --impure --raw --expr 'builtins.currentSystem')" --keep-going {{ GARGS }} {{ ARGS }}
 
 [private]
 alias d := deploy
