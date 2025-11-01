@@ -6,7 +6,7 @@
   options.cow.sync.enable = lib.mkEnableOption "syncing via SyncThing";
 
   config = lib.mkIf config.cow.sync.enable {
-    cow.imperm.keepCache = [".config/syncthing"];
+    cow.imperm.keepCache = [".local/state/syncthing"];
 
     cow.firewall = {
       tcp = [22000];
