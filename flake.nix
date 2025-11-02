@@ -10,8 +10,8 @@
     hm.url = "github:nix-community/home-manager";
     hm.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    lanzaboote.url = "github:nix-community/lanzaboote";
-    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    # lanzaboote.url = "github:nix-community/lanzaboote";
+    # lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
     wayland-mpris-idle-inhibit.url = "github:Bwc9876/wayland-mpris-idle-inhibit";
     wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
     fenix.url = "github:nix-community/fenix/monthly";
@@ -27,6 +27,18 @@
     gh-grader-preview.inputs.nixpkgs.follows = "nixpkgs";
     bingus.url = "github:Bwc9876/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     spoon.url = "git+https://codeberg.org/spoonbaker/mono";
     spoon.inputs = {
@@ -54,6 +66,7 @@
     bingus,
     spoon,
     gh-grader-preview,
+    rust-overlay,
   }:
     flakelight ./. {
       imports = [

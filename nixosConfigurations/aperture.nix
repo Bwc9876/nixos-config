@@ -18,14 +18,21 @@
         users.users = let
           secureRoot = "/nix/persist/secure";
         in {
-          bean.password = "qaswedfr";
-          # bean.hashedPasswordFile = "${secureRoot}/hashed-passwd";
+          bean.hashedPasswordFile = "${secureRoot}/hashed-passwd";
           root.hashedPasswordFile = "${secureRoot}/hashed-passwd";
+        };
+
+        home-manager.users.bean.cow = {
+          kde-connect = {
+            enable = true;
+            dev-name = "APERTURE";
+          };
         };
 
         cow = {
           bean.sudoer = true;
           lanzaboote.enable = true;
+          hypervisor.enable = true;
           role-laptop = {
             enable = true;
             fingerPrintSensor = true;

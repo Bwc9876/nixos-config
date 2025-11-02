@@ -9,12 +9,11 @@
   };
 
   config = lib.mkIf config.cow.role-laptop.enable {
-    home-manager.users.bean.cow = {
+    home-manager.users.bean.cow = lib.mkIf config.cow.bean.enable {
       music.enable = true;
       news.enable = true;
       qmplay2.enable = true;
       sync.enable = true;
-      kde-connect.enable = true;
       dev.enable = true;
     };
 
@@ -34,7 +33,7 @@
         showGreet = true;
       };
       audio.enable = true;
-      imperm.keep = lib.optional config.cow.role-laptop.fingerPrintSensor "/var/lib/fprintd";
+      imperm.keep = lib.optional config.cow.role-laptop.fingerPrintSensor "/var/lib/fprint";
     };
 
     services.fprintd = lib.mkIf config.cow.role-laptop.fingerPrintSensor {

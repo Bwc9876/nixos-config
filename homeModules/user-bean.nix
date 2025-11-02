@@ -1,4 +1,5 @@
 {...}: {
+  pkgs,
   lib,
   config,
   ...
@@ -36,6 +37,16 @@
         };
       };
     };
+
+    home.packages = with pkgs; [
+      libreoffice-qt6
+      obs-studio
+      loupe
+      inkscape
+      lorien
+      zoom-us
+      tuxpaint
+    ];
 
     home.sessionVariables = {
       "EDITOR" = "nvim";

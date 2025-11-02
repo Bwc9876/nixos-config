@@ -15,6 +15,7 @@
     nix = mkLangOpt "Nix dev stuff";
     python = mkLangOpt "Python dev stuff";
     dotnet = mkLangOpt ".NET dev stuff";
+    cutter = mkLangOpt "Cutter";
   };
 
   config = let
@@ -102,6 +103,7 @@
           dotnet-runtime
           mono
           dotnetPackages.Nuget
-        ]);
+        ])
+        ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra])));
     };
 }
