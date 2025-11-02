@@ -28,7 +28,7 @@ in {
     ];
     cow.imperm.keepCache = [
       ".cache"
-      ".local/share/wireplumber"
+      ".local/state/wireplumber"
     ];
   };
 }
