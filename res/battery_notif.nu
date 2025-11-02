@@ -70,7 +70,7 @@ def main [poll_interval: duration = 1min] {
 
         let devices = list_devices;
 
-        print "===========" "Device List" ($devices | select friendly_name upower_path Type) "-----------";
+        # print "===========" "Device List" ($devices | select friendly_name upower_path Type) "-----------";
 
         for dev in $devices {
             if (($shown_notifs | get -o $dev.upower_path | get -o 0) == null) {

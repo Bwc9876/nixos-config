@@ -1,127 +1,91 @@
-{
+{...}: {
   config,
+  lib,
   inputs,
   ...
-}: let
-  persistRoot = "/nix/persist"; # Anything important we want backed up
-  secureRoot = "${persistRoot}/secure"; # Files and directories we want only root to access
-  cacheRoot = "/nix/perist-cache"; # Anything not as important that we can stand losing
-  preWith = pre: builtins.map (p: "${pre}/${p}");
-  preShare = preWith ".local/share";
-  preConf = preWith ".config";
-in {
+}: {
   imports = [inputs.imperm.nixosModules.default];
 
-  environment.etc."machine-id".text = builtins.hashString "md5" config.networking.hostName;
-
-  users.mutableUsers = false;
-  users.users = {
-    bean.hashedPasswordFile = "${secureRoot}/hashed-passwd";
-    root.hashedPasswordFile = "${secureRoot}/hashed-passwd";
-  };
-
-  environment.persistence.${cacheRoot} = {
-    enable = true;
-    hideMounts = true;
-    directories =
-      (preWith "/var" (
-        [
-          "log"
-        ]
-        ++ preWith "lib" (
-          [
-            "bluetooth"
-            "nixos"
-            "libvirt"
-            "iwd"
-          ]
-          ++ preWith "systemd" [
-            "coredump"
-            "timers"
-            "backlight"
-            "rfkill"
-          ]
-        )
-      ))
-      ++ [
-        {
-          directory = "/var/lib/colord";
-          user = "colord";
-          group = "colord";
-          mode = "u=rwx,g=rx,o=";
-        }
-      ];
-    users.bean.directories =
-      [
-        ".cache"
-        ".cargo"
-        ".npm"
-        ".pnpm"
-        ".local/state/wireplumber"
-      ]
-      ++ (preShare [
-        "Steam"
-        "Trash"
-      ])
-      ++ (preConf [
-        "gh"
-        "kdeconnect"
-        "keepassxc"
-        "syncthing"
-      ]);
-  };
-
-  environment.persistence.${persistRoot} = {
-    enable = true;
-    hideMounts = true;
-    directories = [
-      "/var/lib/fprint"
-      "/etc/NetworkManager/system-connections"
-    ];
-    users.bean = {
-      directories =
-        [
-          "Downloads"
-          "Music"
-          "Videos"
-          "Pictures"
-          "Documents"
-          ".mozilla"
-          ".floorp"
-          {
-            directory = ".gnupg";
-            mode = "0700";
-          }
-          {
-            directory = ".ssh";
-            mode = "0700";
-          }
-          {
-            directory = ".nixops";
-            mode = "0700";
-          }
-          {
-            directory = ".local/share/keyrings";
-            mode = "0700";
-          }
-        ]
-        ++ (preConf [
-          "Cemu"
-        ])
-        ++ (preShare [
-          # "direnv"
-          "ow-mod-man"
-          "OuterWildsModManager"
-          "PrismLauncher"
-          "newsboat"
-          "zoxide"
-          "nvim"
-          "Cemu"
-          "mpd"
-        ]);
-      files = preConf [
-        "nushell/history.txt"
-      ];
+  options.cow.imperm = {
+    enable = lib.mkEnableOption "Impermanence, turns off mutable users and expects you to define their password hashes";
+    persistRoot = lib.mkOption {
+      type = lib.types.str;
+      default = "/nix/persist";
+      description = "Path to store persisted data";
+    };
+    cacheRoot = lib.mkOption {
+      type = lib.types.str;
+      default = "/nix/perist-cache";
+      description = "Path to store cache data";
+    };
+    keep = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      description = "Paths to keep that should be backed up";
+      default = [];
+    };
+    keepCache = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      description = "Paths to keep that shouldn't be backed up";
+      default = [];
     };
   };
+
+  config = let
+    users =
+      if config.cow.hm.enable
+      then config.home-manager.users
+      else {};
+    persistRoot = config.cow.imperm.persistRoot; # Anything important we want backed up
+    cacheRoot = config.cow.imperm.cacheRoot; # Anything not as important that we can stand losing
+  in
+    lib.mkIf config.cow.imperm.enable {
+      users.mutableUsers = false;
+
+      boot.lanzaboote.pkiBundle = lib.mkIf config.cow.lanzaboote.enable "${persistRoot}/secure/secureboot";
+
+      services.openssh.hostKeys = lib.mkIf config.cow.ssh-server.enable [
+        {
+          bits = 4096;
+          path = "${persistRoot}/secure/ssh_host_rsa_key";
+          type = "rsa";
+        }
+        {
+          path = "${persistRoot}/secure/ssh_host_ed25519_key";
+          type = "ed25519";
+        }
+      ];
+
+      environment.persistence = {
+        "${cacheRoot}" = {
+          enable = true;
+          hideMounts = true;
+          directories =
+            [
+              "/var/log"
+              "/var/lib/nixos"
+              "/var/lib/systemd/coredump"
+              "/var/lib/systemd/timers"
+              "/var/lib/systemd/rfkill"
+              "/var/lib/systemd/backlight"
+            ]
+            ++ config.cow.imperm.keepCache;
+          users =
+            builtins.mapAttrs (_: v: {
+              directories = v.cow.imperm.keepCache or [];
+            })
+            users;
+        };
+        "${persistRoot}" = {
+          enable = true;
+          hideMounts = true;
+          directories = config.cow.imperm.keep;
+          users =
+            builtins.mapAttrs (_: v: {
+              directories = v.cow.imperm.keep or [];
+              files = v.cow.imperm.keepFiles or [];
+            })
+            users;
+        };
+      };
+    };
 }
