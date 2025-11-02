@@ -301,7 +301,7 @@
             Background = true;
             BackgroundColor = ''@Variant(\0\0\0\x43\x1\x88\x88\0\0\0\0\0\0\0\0)'';
             Bold = false;
-            FontName = "Fira Code";
+            FontName = "monospace";
             FontSize = 24;
             LeftMargin = 15;
             Outline = 1;

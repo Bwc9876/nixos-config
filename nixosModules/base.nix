@@ -24,6 +24,7 @@
   programs.ssh.startAgent = true;
   documentation.man.generateCaches = false;
   services.upower.enable = true;
+  services.udisks2.enable = true;
 
   boot.tmp.cleanOnBoot = lib.mkDefault true;
   services.logind.settings.Login.RuntimeDirectorySize = lib.mkDefault "100M";

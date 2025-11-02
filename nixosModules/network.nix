@@ -19,7 +19,7 @@
     };
 
     cow.imperm.keepCache =
-      (lib.optional config.cow.network.bluetooth "/var/lib/bluetooh")
+      (lib.optional config.cow.network.bluetooth "/var/lib/bluetooth")
       ++ (lib.optional config.cow.network.wireless "/var/lib/iwd");
 
     networking = lib.mkIf config.cow.network.wireless {

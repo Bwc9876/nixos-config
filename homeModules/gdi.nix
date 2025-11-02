@@ -44,13 +44,6 @@
   in
     lib.mkIf config.cow.gdi.enable {
       home.packages = with pkgs; [
-        fira-code
-        fira-go
-        nerd-fonts.symbols-only
-        noto-fonts-color-emoji
-        unifont
-        liberation_ttf
-
         alsa-utils
 
         hyprCursorTheme
@@ -60,6 +53,7 @@
         wezterm
 
         # Shell Components
+        hyprpicker
         hyprlock
         hyprland-qtutils
 
@@ -82,6 +76,8 @@
         hunspell
         hunspellDicts.en_US-large
       ];
+
+      fonts.fontconfig.enable = false;
 
       wayland.windowManager.hyprland = {
         systemd.enable = false;
@@ -151,7 +147,7 @@
             "4,swipe,move"
           ];
           bind = let
-            powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p --symbols-font \"FiraMono Nerd Font Mono\"";
+            powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p";
             screenshot = "${pkgs.nushell}/bin/nu ${../res/screenshot.nu}";
 
             openTerminal = launchDesktopApp "org.wezfurlong.wezterm.desktop";
@@ -192,7 +188,7 @@
               "SUPER SHIFT,left,movetoworkspace,r-1"
               "SUPER SHIFT,right,movetoworkspace,r+1"
               "SUPER,L,exec,pidof hyprlock || hyprlock --immediate"
-              "SUPER,S,exec,${runCmd "rofi -show drun -icon-theme \"candy-icons\" -show-icons"}"
+              "SUPER,S,exec,${runCmd "rofi -show drun -show-icons"}"
               "SUPER SHIFT,E,exec,${runCmd "rofi -modi emoji -show emoji"}"
               "SUPER SHIFT,D,exec,swaync-client -d"
               "SUPER,Delete,exec,${runCmd powerMenu}"
@@ -341,7 +337,7 @@
             }
             {
               monitor = "";
-              text = ''cmd[update:30000] echo "  $(date +"%A, %B %-d | %I:%M %p") | $(${pkgs.nushell}/bin/nu ${../res/bat_display.nu})  "'';
+              text = ''cmd[update:30000] echo "  $(date +"%A, %B %-d | %I:%M %p")$(${pkgs.nushell}/bin/nu ${../res/bat_display.nu})  "'';
               color = "$text";
               font_size = 20;
               font_family = "sans-serif";
@@ -398,30 +394,6 @@
               }/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"'';
             Restart = "on-failure";
             RestartSec = "10";
-          };
-        };
-      };
-
-      fonts = {
-        fontconfig = {
-          enable = true;
-          antialiasing = true;
-          defaultFonts = let
-            mainFonts = [
-              "FiraGO"
-              "Symbols Nerd Font"
-            ];
-          in {
-            serif = mainFonts;
-            sansSerif = mainFonts;
-            monospace = [
-              "Fira Code"
-              "Symbols Nerd Font"
-            ];
-            emoji = [
-              "Noto Color Emoji"
-              "Symbols Nerd Font"
-            ];
           };
         };
       };

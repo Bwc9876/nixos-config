@@ -43,4 +43,4 @@ let icon = if $status == "Charging" or $status == "Full" {
     $icons | get "default" | get $idx
 }
 
-echo $"($icon) ($percent)󰏰"
+echo $" | ($icon) ($percent)󰏰"

@@ -23,8 +23,8 @@
             autologinUser = "root";
             fonts = [
               {
-                name = "FiraMono Nerd Font Mono";
-                package = pkgs.nerd-fonts.fira-mono;
+                name = "SauceCodePro Nerd Font Mono";
+                package = pkgs.nerd-fonts.sauce-code-pro;
               }
             ];
           };

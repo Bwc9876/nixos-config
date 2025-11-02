@@ -12,10 +12,10 @@
 
   config = lib.mkIf config.cow.gdi.enable {
     environment = {
-      systemPackages = with pkgs; [
-        hyprpicker
-        uwsm
-      ];
+      systemPackages = with pkgs;
+        lib.mkIf config.cow.gdi.showGreet [
+          uwsm
+        ];
       variables = {
         NIXOS_OZONE_WL = "1";
         _JAVA_AWT_WM_NONEREPARENTING = "1";
@@ -37,18 +37,15 @@
 
     services.greetd = lib.mkIf config.cow.gdi.showGreet {
       enable = true;
-      settings = {
-        default_session = let
-          greeting = ''--greeting "Authenticate into ${lib.toUpper config.networking.hostName}"'';
-          deCmd = pkgs.writeScript "start-session.sh" ''
-            #!/usr/bin/env sh
-            exec uwsm start ${pkgs.hyprland}/share/wayland-sessions/hyprland.desktop
-          '';
-          cmd = ''--cmd "systemd-inhibit --what=handle-power-key:handle-lid-switch ${deCmd}"'';
-        in {
-          command = "${pkgs.tuigreet}/bin/tuigreet --remember --time ${greeting} ${cmd}";
-        };
-      };
+      useTextGreeter = true;
+      settings.default_session.command = let
+        greeting = ''--greeting "Authenticate into ${lib.toUpper config.networking.hostName}"'';
+        deCmd = pkgs.writeScript "start-session.sh" ''
+          #!/usr/bin/env sh
+          exec uwsm start ${pkgs.hyprland}/share/wayland-sessions/hyprland.desktop
+        '';
+        cmd = ''--cmd "systemd-inhibit --what=handle-power-key:handle-lid-switch ${deCmd}"'';
+      in "${pkgs.tuigreet}/bin/tuigreet --time ${greeting} ${cmd}";
     };
   };
 }
