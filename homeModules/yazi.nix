@@ -4,7 +4,11 @@
   pkgs,
   ...
 }: {
-  options.cow.yazi.enable = lib.mkEnableOption "Yazi + Customizations";
+  options.cow.yazi.enable =
+    lib.mkEnableOption "Yazi + Customizations"
+    // {
+      default = true;
+    };
 
   config = lib.mkIf config.cow.yazi.enable {
     home.packages = with pkgs; [

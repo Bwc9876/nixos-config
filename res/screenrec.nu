@@ -23,14 +23,11 @@ if $stat.exit_code == 1 {
 
 wf-recorder -g ($stat.stdout) -F fps=30 -f $out_name
 
-let action = notify-send --app-name=simplescreenrecorder --icon=simplescreenrecorder -t 7500 --action=open=Open --action=folder="Show In Folder" --action=delete=Delete "Recording finished" $"File saved to ($out_name)"
+let action = notify-send --app-name=simplescreenrecorder --icon=simplescreenrecorder -t 7500 --action=open=Open --action=delete=Delete "Recording finished" $"File saved to ($out_name)"
 
 match $action {
     "open" => {
         xdg-open $out_name
-    }
-    "folder" => {
-        xdg-open $captures_folder
     }
     "delete" => {
         rm $out_name

@@ -6,7 +6,11 @@
 }: let
   package = pkgs.firefox-devedition;
 in {
-  options.cow.firefox.enable = lib.mkEnableOption "enable Firefox with customizations";
+  options.cow.firefox.enable =
+    lib.mkEnableOption "enable Firefox with customizations"
+    // {
+      default = config.cow.gdi.enable;
+    };
 
   config = lib.mkIf config.cow.firefox.enable {
     cow.imperm.keep = [".mozilla"];

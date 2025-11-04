@@ -4,7 +4,11 @@
   pkgs,
   ...
 }: {
-  options.cow.waybar.enable = lib.mkEnableOption "Waybar + customizations";
+  options.cow.waybar.enable =
+    lib.mkEnableOption "Waybar + customizations"
+    // {
+      default = config.cow.gdi.enable;
+    };
 
   config = let
     catppuccinCss = pkgs.fetchurl {
@@ -283,7 +287,6 @@
               format-connected-battery = "󰂱 {device_battery_percentage}󰏰";
               format-disabled = "󰂲";
               format-off = "󰂲";
-              on-click = "rofi-bluetooth";
               on-click-right = "rfkill toggle bluetooth";
               tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
               tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
@@ -317,7 +320,9 @@
               tooltip-format = "{:%F at %T in %Z (UTC%Ez)}";
             };
             "custom/kde-connect" = {
-              exec = "${pkgs.nushell}/bin/nu --plugins ${inputs.nu_plugin_dbus.packages.${pkgs.system}.default} ${../res/custom_waybar_modules/kdeconnect.nu}";
+              exec = "${pkgs.nushell}/bin/nu --plugins ${
+                inputs.nu_plugin_dbus.packages.${pkgs.system}.default
+              } ${../res/custom_waybar_modules/kdeconnect.nu}";
               format = "{}";
               interval = 30;
               on-click = "kdeconnect-settings";

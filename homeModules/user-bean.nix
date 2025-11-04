@@ -1,9 +1,11 @@
-{...}: {
+{ ... }:
+{
   pkgs,
   lib,
   config,
   ...
-}: {
+}:
+{
   options.cow.bean = {
     enable = lib.mkEnableOption "Bean user presets";
     pubkey = lib.mkOption {
@@ -52,6 +54,11 @@
       "EDITOR" = "nvim";
     };
 
+    xdg.mimeApps.defaultApplications = lib.mkIf config.cow.gdi.enable {
+      "image/svg+xml" = "org.inkscape.Inkscape.desktop";
+      "image/*" = "org.gnome.Loupe.desktop";
+    };
+
     cow = {
       libraries.enable = true;
       imperm.keepLibraries = true;
@@ -67,15 +74,12 @@
       neovim.enable = true;
       htop.enable = true;
       starship.enable = true;
-      yazi.enable = true;
       dev.enable = true;
       comma.enable = true;
       cat.enable = true;
 
-      firefox.enable = config.cow.gdi.enable;
-      waybar.enable = config.cow.gdi.enable;
       keepassxc = {
-        enable = config.cow.gdi.enable;
+        enable = true;
         dbPath = lib.mkDefault "${config.xdg.userDirs.documents}/Keepass/DB/Database.kdbx";
       };
     };
