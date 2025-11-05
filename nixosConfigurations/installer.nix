@@ -66,6 +66,8 @@
 
           networking.networkmanager.enable = lib.mkForce false;
 
+          isoImage.squashfsCompression = "xz -Xdict-size 100%";
+
           users.users.root = {
             shell = pkgs.nushell;
           };
