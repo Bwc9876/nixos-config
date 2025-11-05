@@ -15,7 +15,7 @@ in {
     users.users.bean = {
       isNormalUser = true;
       description = "Ben C";
-      extraGroups = lib.optional config.cow.bean.sudoer "wheel";
+      extraGroups = lib.optionals config.cow.bean.sudoer ["wheel"];
       shell = pkgs.nushell;
       openssh.authorizedKeys.keys = [pubkey];
     };

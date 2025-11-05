@@ -1,50 +1,47 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   config,
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.cow.gdi = {
     enable = lib.mkEnableOption "Cow GDI, a 'DE' by ur favorite polish cow";
     doIdle = lib.mkEnableOption "Screen locking and suspend with Hypridle";
     useUWSM = lib.mkEnableOption "Use UWSM to launch apps";
   };
 
-  config =
-    let
-      runCmd = cmd: if config.cow.gdi.useUWSM then "uwsm app -- ${cmd}" else cmd;
-      launchDesktopApp =
-        deskFile:
-        if config.cow.gdi.useUWSM then
-          "uwsm app -- ${deskFile}"
-        else
-          "${pkgs.gtk3}/bin/gtk-launch ${deskFile}";
-      screenOffCmd = "hyprctl dispatch dpms off; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-add \"timeout\"";
-      screenOnCmd = "hyprctl dispatch dpms on; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-remove \"timeout\"";
-      iconTheme = {
-        name = "Tela-green";
-        package = pkgs.tela-icon-theme;
-      };
-      cursorTheme = {
-        name = "catppuccin-mocha-dark-cursors";
-        package = pkgs.catppuccin-cursors.mochaDark;
-        size = 24;
-      };
-      hyprThemeName = "${cursorTheme.name}-hypr";
-      hyprCursorTheme =
-        let
-          utils = "${pkgs.hyprcursor}/bin/hyprcursor-util";
-        in
-        pkgs.runCommand hyprThemeName { } ''
-          export PATH="$PATH:${pkgs.xcur2png}/bin"
-          ${utils} -x ${cursorTheme.package}/share/icons/${cursorTheme.name} --output .
-          mkdir -p $out/share/icons
-          ${utils} -c ./extracted_${cursorTheme.name} --output .
-          cp -r "./theme_Extracted Theme" $out/share/icons/${hyprThemeName}
-        '';
+  config = let
+    runCmd = cmd:
+      if config.cow.gdi.useUWSM
+      then "uwsm app -- ${cmd}"
+      else cmd;
+    launchDesktopApp = deskFile:
+      if config.cow.gdi.useUWSM
+      then "uwsm app -- ${deskFile}"
+      else "${pkgs.gtk3}/bin/gtk-launch ${deskFile}";
+    screenOffCmd = "hyprctl dispatch dpms off; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-add \"timeout\"";
+    screenOnCmd = "hyprctl dispatch dpms on; ${pkgs.swaynotificationcenter}/bin/swaync-client --inhibitor-remove \"timeout\"";
+    iconTheme = {
+      name = "Tela-green";
+      package = pkgs.tela-icon-theme;
+    };
+    cursorTheme = {
+      name = "catppuccin-mocha-dark-cursors";
+      package = pkgs.catppuccin-cursors.mochaDark;
+      size = 24;
+    };
+    hyprThemeName = "${cursorTheme.name}-hypr";
+    hyprCursorTheme = let
+      utils = "${pkgs.hyprcursor}/bin/hyprcursor-util";
     in
+      pkgs.runCommand hyprThemeName {} ''
+        export PATH="$PATH:${pkgs.xcur2png}/bin"
+        ${utils} -x ${cursorTheme.package}/share/icons/${cursorTheme.name} --output .
+        mkdir -p $out/share/icons
+        ${utils} -c ./extracted_${cursorTheme.name} --output .
+        cp -r "./theme_Extracted Theme" $out/share/icons/${hyprThemeName}
+      '';
+  in
     lib.mkIf config.cow.gdi.enable {
       home.packages = with pkgs; [
         alsa-utils
@@ -160,25 +157,26 @@
             "3,horizontal,workspace"
             "4,swipe,move"
           ];
-          bind =
-            let
-              powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p";
-              screenshot = "${pkgs.nushell}/bin/nu ${../res/screenshot.nu}";
+          bind = let
+            powerMenu = "rofi -modi 'p:${pkgs.rofi-power-menu}/bin/rofi-power-menu' -show p";
+            screenshot = "${pkgs.nushell}/bin/nu ${../res/screenshot.nu}";
 
-              openTerminal = launchDesktopApp "org.wezfurlong.wezterm.desktop";
-              forEachWorkspace =
-                {
-                  mod,
-                  dispatch,
-                }:
-                builtins.genList (
-                  i:
-                  let
-                    num = builtins.toString i;
-                  in
-                  "${mod},${num},${dispatch},${if num == "0" then "10" else num}"
-                ) 10;
-            in
+            openTerminal = launchDesktopApp "org.wezfurlong.wezterm.desktop";
+            forEachWorkspace = {
+              mod,
+              dispatch,
+            }:
+              builtins.genList (
+                i: let
+                  num = builtins.toString i;
+                in "${mod},${num},${dispatch},${
+                  if num == "0"
+                  then "10"
+                  else num
+                }"
+              )
+              10;
+          in
             [
               "SUPER,M,submap,passthru"
             ]
@@ -210,7 +208,7 @@
               "SUPER,B,exec,${runCmd "${pkgs.rofi-bluetooth}/bin/rofi-bluetooth"}"
               "SUPER,Tab,exec,${runCmd "rofi -show window -show-icons"}"
             ]
-            ++ lib.optionals config.cow.yazi.enable [ "SUPER,E,exec,${launchDesktopApp "yazi.desktop"}" ]
+            ++ lib.optionals config.cow.yazi.enable ["SUPER,E,exec,${launchDesktopApp "yazi.desktop"}"]
             ++ [
               "SUPER,N,exec,${runCmd "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"}"
               "SUPER,A,exec,${runCmd "${pkgs.pavucontrol}/bin/pavucontrol --tab 5"}"
@@ -366,54 +364,50 @@
 
       catppuccin.rofi.enable = false;
 
-      systemd.user.services =
-        let
-          target = config.wayland.systemd.target;
-          mkShellService =
-            {
-              desc,
-              service,
-            }:
-            {
-              Install = {
-                WantedBy = [ target ];
-              };
-
-              Unit = {
-                ConditionEnvironment = "WAYLAND_DISPLAY";
-                Description = desc;
-                After = [ target ];
-                PartOf = [ target ];
-              };
-
-              Service = service;
-            };
-        in
-        {
-          battery-notif = mkShellService {
-            desc = "Battery Notification Service";
-
-            service = {
-              ExecStart = "${pkgs.nushell}/bin/nu --plugins ${
-                inputs.nu_plugin_dbus.packages.${pkgs.system}.default
-              } ${../res/battery_notif.nu}";
-              Restart = "on-failure";
-              RestartSec = "10";
-            };
+      systemd.user.services = let
+        target = config.wayland.systemd.target;
+        mkShellService = {
+          desc,
+          service,
+        }: {
+          Install = {
+            WantedBy = [target];
           };
 
-          mpris-idle-inhibit = mkShellService {
-            desc = "MPRIS Idle Inhibitor";
+          Unit = {
+            ConditionEnvironment = "WAYLAND_DISPLAY";
+            Description = desc;
+            After = [target];
+            PartOf = [target];
+          };
 
-            service = {
-              ExecStart = ''${
-                inputs.wayland-mpris-idle-inhibit.packages.${pkgs.system}.default
-              }/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"'';
-              Restart = "on-failure";
-              RestartSec = "10";
-            };
+          Service = service;
+        };
+      in {
+        battery-notif = mkShellService {
+          desc = "Battery Notification Service";
+
+          service = {
+            ExecStart = "${pkgs.nushell}/bin/nu --plugins ${
+              inputs.nu_plugin_dbus.packages.${pkgs.system}.default
+            } ${../res/battery_notif.nu}";
+            Restart = "on-failure";
+            RestartSec = "10";
           };
         };
+
+        mpris-idle-inhibit = mkShellService {
+          desc = "MPRIS Idle Inhibitor";
+
+          service = {
+            ExecStart = ''${
+                inputs.wayland-mpris-idle-inhibit.packages.${pkgs.system}.default
+              }/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"'';
+            Restart = "on-failure";
+            RestartSec = "10";
+          };
+        };
+      };
 
       qt = {
         enable = true;
@@ -446,8 +440,8 @@
           settings = {
             ipc = "on";
             splash = false;
-            preload = [ "${config.cow.pictures.bg}" ];
-            wallpaper = [ ",${config.cow.pictures.bg}" ];
+            preload = ["${config.cow.pictures.bg}"];
+            wallpaper = [",${config.cow.pictures.bg}"];
           };
         };
 
@@ -515,25 +509,23 @@
               after_sleep_cmd = screenOnCmd;
             };
 
-            listener =
-              let
-                lockTimeout = 120;
-              in
-              [
-                {
-                  timeout = lockTimeout; # Lock the screen after 2 minutes of inactivity
-                  on-timeout = "loginctl lock-session";
-                }
-                {
-                  timeout = lockTimeout + 120; # Turn off the screen 2 minutes after locking
-                  on-timeout = screenOffCmd;
-                  on-resume = screenOnCmd;
-                }
-                {
-                  timeout = lockTimeout + 600; # Suspend 10 minutes after locking
-                  on-timeout = "systemctl suspend";
-                }
-              ];
+            listener = let
+              lockTimeout = 120;
+            in [
+              {
+                timeout = lockTimeout; # Lock the screen after 2 minutes of inactivity
+                on-timeout = "loginctl lock-session";
+              }
+              {
+                timeout = lockTimeout + 120; # Turn off the screen 2 minutes after locking
+                on-timeout = screenOffCmd;
+                on-resume = screenOnCmd;
+              }
+              {
+                timeout = lockTimeout + 600; # Suspend 10 minutes after locking
+                on-timeout = "systemctl suspend";
+              }
+            ];
           };
         };
 
@@ -580,98 +572,95 @@
               rofi-pulse-select
             ];
           };
-          theme =
-            let
-              inherit (config.lib.formats.rasi) mkLiteral;
-            in
-            {
-              "@import" =
-                "${config.catppuccin.sources.rofi}/themes/catppuccin-${config.catppuccin.rofi.flavor}.rasi";
-              "*" =
-                (builtins.mapAttrs (name: value: mkLiteral "@${value}") {
-                  "bg0" = "base";
-                  "bg1" = "mantle";
-                  "bg2" = "crust";
-                  "bg3" = config.catppuccin.accent;
-                  "fg0" = "subtext1";
-                  "fg1" = "text";
-                  "fg2" = "subtext0";
-                  "fg3" = "overlay0";
-                  "fg4" = "surface0";
-                })
-                // {
-                  font = mkLiteral ''"Roboto 14"'';
-                  background-color = mkLiteral ''transparent'';
-                  text-color = mkLiteral ''@fg0'';
-                  margin = mkLiteral ''0px'';
-                  padding = mkLiteral ''0px'';
-                  spacing = mkLiteral ''0px'';
-                };
-              "window" = {
-                location = mkLiteral ''north'';
-                y-offset = mkLiteral ''calc(50% - 176px)'';
-                width = mkLiteral ''600'';
-                border-radius = mkLiteral ''24px'';
-                background-color = mkLiteral ''@bg0'';
-              };
-              "mainbox" = {
-                padding = mkLiteral ''12px'';
-              };
-              "inputbar" = {
-                background-color = mkLiteral ''@bg1'';
-                border-color = mkLiteral ''@bg3'';
-                border = mkLiteral ''2px'';
-                border-radius = mkLiteral ''16px'';
-                padding = mkLiteral ''8px 16px'';
-                spacing = mkLiteral ''8px'';
-                children = mkLiteral ''[ prompt, entry ]'';
-              };
-              "prompt" = {
-                text-color = mkLiteral ''@fg2'';
-              };
-              "entry" = {
-                placeholder = mkLiteral ''"Search"'';
-                placeholder-color = mkLiteral ''@fg3'';
-              };
-              "message" = {
-                margin = mkLiteral ''12px 0 0'';
-                border-radius = mkLiteral ''16px'';
-                border-color = mkLiteral ''@bg2'';
-                background-color = mkLiteral ''@bg2'';
-              };
-              "textbox" = {
-                padding = mkLiteral ''8px 24px'';
-              };
-              "listview" = {
+          theme = let
+            inherit (config.lib.formats.rasi) mkLiteral;
+          in {
+            "@import" = "${config.catppuccin.sources.rofi}/themes/catppuccin-${config.catppuccin.rofi.flavor}.rasi";
+            "*" =
+              (builtins.mapAttrs (name: value: mkLiteral "@${value}") {
+                "bg0" = "base";
+                "bg1" = "mantle";
+                "bg2" = "crust";
+                "bg3" = config.catppuccin.accent;
+                "fg0" = "subtext1";
+                "fg1" = "text";
+                "fg2" = "subtext0";
+                "fg3" = "overlay0";
+                "fg4" = "surface0";
+              })
+              // {
+                font = mkLiteral ''"Roboto 14"'';
                 background-color = mkLiteral ''transparent'';
-                margin = mkLiteral ''12px 0 0'';
-                lines = mkLiteral ''8'';
-                columns = mkLiteral ''2'';
-                fixed-height = mkLiteral ''false'';
+                text-color = mkLiteral ''@fg0'';
+                margin = mkLiteral ''0px'';
+                padding = mkLiteral ''0px'';
+                spacing = mkLiteral ''0px'';
               };
-              "element" = {
-                padding = mkLiteral ''8px 16px'';
-                spacing = mkLiteral ''8px'';
-                border-radius = mkLiteral ''16px'';
-              };
-              "element normal active" = {
-                text-color = mkLiteral ''@bg3'';
-              };
-              "element alternate active" = {
-                text-color = mkLiteral ''@bg3'';
-              };
-              "element selected normal, element selected active" = {
-                text-color = mkLiteral ''@fg4'';
-                background-color = mkLiteral ''@bg3'';
-              };
-              "element-icon" = {
-                size = mkLiteral ''1em'';
-                vertical-align = mkLiteral ''0.5'';
-              };
-              "element-text" = {
-                text-color = mkLiteral ''inherit'';
-              };
+            "window" = {
+              location = mkLiteral ''north'';
+              y-offset = mkLiteral ''calc(50% - 176px)'';
+              width = mkLiteral ''600'';
+              border-radius = mkLiteral ''24px'';
+              background-color = mkLiteral ''@bg0'';
             };
+            "mainbox" = {
+              padding = mkLiteral ''12px'';
+            };
+            "inputbar" = {
+              background-color = mkLiteral ''@bg1'';
+              border-color = mkLiteral ''@bg3'';
+              border = mkLiteral ''2px'';
+              border-radius = mkLiteral ''16px'';
+              padding = mkLiteral ''8px 16px'';
+              spacing = mkLiteral ''8px'';
+              children = mkLiteral ''[ prompt, entry ]'';
+            };
+            "prompt" = {
+              text-color = mkLiteral ''@fg2'';
+            };
+            "entry" = {
+              placeholder = mkLiteral ''"Search"'';
+              placeholder-color = mkLiteral ''@fg3'';
+            };
+            "message" = {
+              margin = mkLiteral ''12px 0 0'';
+              border-radius = mkLiteral ''16px'';
+              border-color = mkLiteral ''@bg2'';
+              background-color = mkLiteral ''@bg2'';
+            };
+            "textbox" = {
+              padding = mkLiteral ''8px 24px'';
+            };
+            "listview" = {
+              background-color = mkLiteral ''transparent'';
+              margin = mkLiteral ''12px 0 0'';
+              lines = mkLiteral ''8'';
+              columns = mkLiteral ''2'';
+              fixed-height = mkLiteral ''false'';
+            };
+            "element" = {
+              padding = mkLiteral ''8px 16px'';
+              spacing = mkLiteral ''8px'';
+              border-radius = mkLiteral ''16px'';
+            };
+            "element normal active" = {
+              text-color = mkLiteral ''@bg3'';
+            };
+            "element alternate active" = {
+              text-color = mkLiteral ''@bg3'';
+            };
+            "element selected normal, element selected active" = {
+              text-color = mkLiteral ''@fg4'';
+              background-color = mkLiteral ''@bg3'';
+            };
+            "element-icon" = {
+              size = mkLiteral ''1em'';
+              vertical-align = mkLiteral ''0.5'';
+            };
+            "element-text" = {
+              text-color = mkLiteral ''inherit'';
+            };
+          };
           location = "center";
         };
         nushell.extraConfig = ''

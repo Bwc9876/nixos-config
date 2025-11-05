@@ -1,11 +1,9 @@
-{ ... }:
-{
+{...}: {
   pkgs,
   lib,
   config,
   ...
-}:
-{
+}: {
   options.cow.bean = {
     enable = lib.mkEnableOption "Bean user presets";
     pubkey = lib.mkOption {

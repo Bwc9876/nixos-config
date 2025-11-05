@@ -18,7 +18,13 @@
         users.users = let
           secureRoot = "/nix/persist/secure";
         in {
-          bean.hashedPasswordFile = "${secureRoot}/hashed-passwd";
+          bean = {
+            hashedPasswordFile = "${secureRoot}/hashed-passwd";
+            extraGroups = [
+              "adbusers"
+              "kvm"
+            ];
+          };
           root.hashedPasswordFile = "${secureRoot}/hashed-passwd";
         };
 
@@ -28,6 +34,8 @@
             dev-name = "APERTURE";
           };
         };
+
+        programs.adb.enable = true;
 
         cow = {
           bean.sudoer = true;
