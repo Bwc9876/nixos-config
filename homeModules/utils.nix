@@ -52,9 +52,9 @@
         };
         distro = null;
         light_dark = "dark";
-        lightness = 0.65;
+        lightness = 0.5;
         mode = "rgb";
-        preset = "interprogress";
+        preset = "gay-men";
         pride_month_disable = false;
         pride_month_shown = [];
       };

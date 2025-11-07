@@ -23,6 +23,7 @@
       print.enable = true;
       hm.enable = true;
       network = {
+        enable = true;
         bluetooth = true;
         wireless = true;
       };

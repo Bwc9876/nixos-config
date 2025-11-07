@@ -15,6 +15,7 @@
       firewall.openForUsers = true;
       hm.enable = true;
       network = {
+        enable = true;
         bluetooth = lib.mkDefault true;
         wireless = lib.mkDefault true;
       };

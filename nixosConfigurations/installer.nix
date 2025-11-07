@@ -88,7 +88,10 @@
           };
 
           cow = {
-            network.wireless = true;
+            network = {
+              enable = true;
+              wireless = true;
+            };
             hm.enable = true;
             cat.enable = true;
           };

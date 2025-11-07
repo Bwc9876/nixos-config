@@ -66,7 +66,6 @@
               enabled = true;
               lsp = true;
             };
-            gitsigns = true;
             neotree = true;
             native_lsp = {
               enabled = true;
@@ -120,6 +119,8 @@
         smartindent = true;
         cursorline = true;
         showtabline = 2;
+        tabstop = 2;
+        shiftwidth = 2;
         breakindent = true;
         fillchars.__raw = ''[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]'';
         foldcolumn = "1";
@@ -226,11 +227,6 @@
                   options.desc = "Previous Tab";
                 }
                 {
-                  action = "BufferLinePick";
-                  key = "<Tab>";
-                  options.desc = "Pick Tab and Switch";
-                }
-                {
                   action = "Neotree toggle";
                   key = "t";
                   options.desc = "Toggle Neotree";
@@ -239,7 +235,7 @@
             }
             {
               group = "Tab Closing";
-              prefix = "<S-Tab>";
+              prefix = "<Tab><Tab>";
               keys = [
                 {
                   action = "BufferLineCloseLeft";
@@ -421,10 +417,10 @@
 
         alpha = {
           enable = true;
-          opts = {
+          settings.opts = {
             position = "center";
           };
-          layout = let
+          settings.layout = let
             o = {
               position = "center";
             };
@@ -674,7 +670,13 @@
         nvim-ufo = {
           enable = true;
         };
-        gitsigns.enable = true;
+
+        # gitgutter = {
+        # 	enable = true;
+        # 	settings = {
+        #
+        # 	};
+        # };
 
         lualine = {
           enable = true;
@@ -744,7 +746,7 @@
         };
         web-devicons.enable = true;
 
-        guess-indent.enable = true;
+        indent-o-matic.enable = true;
         intellitab.enable = true;
 
         which-key = {
