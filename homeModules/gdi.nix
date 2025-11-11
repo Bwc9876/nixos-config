@@ -385,7 +385,7 @@
             }
             {
               monitor = "";
-              text = ''cmd[update:30000] echo "  $(date +"%A, %B %-d | %I:%M %p")$(${pkgs.nushell}/bin/nu ${../res/bat_display.nu})  "'';
+              text = ''cmd[update:30000] echo "  $(${pkgs.uutils-coreutils-noprefix}/bin/date +"%A, %B %-d | %I:%M %p")$(${pkgs.nushell}/bin/nu ${../res/bat_display.nu})  "'';
               color = "$text";
               font_size = 20;
               font_family = "sans-serif";
@@ -440,7 +440,7 @@
           swaybg = lib.mkIf config.cow.pictures.enable (mkShellService {
             desc = "Sway Background Image";
             service = {
-              ExecStart = "${lib.getExe pkgs.swaybg} --image ${config.cow.pictures.bg}";
+              ExecStart = "${lib.getExe pkgs.swaybg} -m fill --image ${config.cow.pictures.bg}";
               Restart = "on-failure";
               RestartSec = "10";
             };
@@ -539,23 +539,31 @@
 
         swayidle =
           let
-            lockCmd = args: "pidof hyprlock || ${lib.getExe pkgs.hyprlock} ${args}";
+            lockCmd = args: "pidof hyprlock || ${lib.getExe pkgs.hyprlock} ${args} &";
           in
           lib.mkIf config.cow.gdi.doIdle {
-            enable = false;
+            enable = true;
             timeouts = [
               {
-                timeout = 10;
+                timeout = 120;
                 command = lockCmd "--grace 5";
               }
               {
-                timeout = 30;
+                timeout = 240;
                 command = "${pkgs.systemd}/bin/systemctl suspend";
               }
             ];
             events = [
               {
                 event = "before-sleep";
+                command = lockCmd "--immediate";
+              }
+              {
+                event = "unlock";
+                command = "pkill hyprlock --signal SIGUSR1";
+              }
+              {
+                event = "lock";
                 command = lockCmd "--immediate";
               }
             ];
