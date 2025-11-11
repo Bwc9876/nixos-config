@@ -28,7 +28,6 @@ in {
       cow.games.enable = config.cow.gaming.enable;
       cow.gdi = {
         inherit (config.cow.gdi) enable doIdle;
-        useUWSM = true;
       };
     };
   };

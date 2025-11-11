@@ -521,8 +521,8 @@
                 warning = 70;
               };
             };
-            modules-center = ["wlr/taskbar"];
-            modules-left = ["hyprland/workspaces"];
+            # modules-center = ["wlr/taskbar"];
+            # modules-left = ["hyprland/workspaces"];
             modules-right = [
               "temperature"
               "cpu"

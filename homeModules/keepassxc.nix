@@ -1,9 +1,11 @@
-{...}: {
+{ ... }:
+{
   config,
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   options.cow.keepassxc = {
     enable = lib.mkEnableOption "KeePassXC + autolaunch";
     dbPath = lib.mkOption {
@@ -14,21 +16,18 @@
   };
 
   config = lib.mkIf config.cow.keepassxc.enable {
-    cow.imperm.keepCache = [".config/keepassxc"];
+    cow.imperm.keepCache = [ ".config/keepassxc" ];
 
-    wayland.windowManager.hyprland.settings.exec-once =
+    programs.niri.settings.spawn-at-startup =
       lib.optionals (config.cow.gdi.enable && config.cow.keepassxc.dbPath != null)
-      (
-        let
-          cmd = "keepassxc ${config.cow.keepassxc.dbPath}";
-        in [
-          (
-            if config.cow.gdi.useUWSM
-            then "uwsm app -- ${cmd}"
-            else cmd
-          )
-        ]
-      );
-    home.packages = with pkgs; [keepassxc];
+        [
+          {
+            argv = [
+              "keepassxc"
+              config.cow.keepassxc.dbPath
+            ];
+          }
+        ];
+    home.packages = with pkgs; [ keepassxc ];
   };
 }

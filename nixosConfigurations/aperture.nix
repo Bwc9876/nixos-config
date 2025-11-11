@@ -35,6 +35,8 @@
           };
         };
 
+        home-manager.users.bean.programs.niri.settings.outputs."eDP-1".scale = 1;
+
         programs.adb.enable = true;
 
         cow = {
