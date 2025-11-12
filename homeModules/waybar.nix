@@ -316,9 +316,9 @@
               tooltip-format = "{:%F at %T in %Z (UTC%Ez)}";
             };
             "custom/kde-connect" = {
-              exec = "${pkgs.nushell}/bin/nu --plugins ${
-                inputs.nu_plugin_dbus.packages.${pkgs.system}.default
-              } ${../res/custom_waybar_modules/kdeconnect.nu}";
+              exec = ''${pkgs.nushell}/bin/nu --plugins "[${
+                  lib.getExe inputs.nu_plugin_dbus.packages.${pkgs.system}.default
+                }]" ${../res/custom_waybar_modules/kdeconnect.nu}'';
               format = "{}";
               interval = 30;
               on-click = "kdeconnect-settings";
@@ -389,7 +389,7 @@
                 "bluetooth"
                 "pulseaudio"
               ]
-              ++ lib.optional config.cow.kde-connect.enable "custom/kdeconnect"
+              ++ lib.optional config.cow.kde-connect.enable "custom/kde-connect"
               ++ lib.optional config.cow.gdi.doIdle "idle_inhibitor"
               ++ [
                 "custom/notification"

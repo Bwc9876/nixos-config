@@ -1,11 +1,9 @@
-{ ... }:
-{
+{...}: {
   config,
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.cow.gdi = {
     enable = lib.mkEnableOption "Hyprland with graphical apps, etc.";
     doIdle = lib.mkEnableOption "Idling the system";
@@ -21,11 +19,9 @@
     services.greetd = lib.mkIf config.cow.gdi.showGreet {
       enable = true;
       useTextGreeter = true;
-      settings.default_session.command =
-        let
-          greeting = ''--greeting "Authenticate into ${lib.toUpper config.networking.hostName}"'';
-        in
-        "${pkgs.tuigreet}/bin/tuigreet --time ${greeting} --cmd niri-session";
+      settings.default_session.command = let
+        greeting = ''--greeting "Authenticate into ${lib.toUpper config.networking.hostName}"'';
+      in "${pkgs.tuigreet}/bin/tuigreet --time ${greeting} --cmd niri-session";
     };
   };
 }

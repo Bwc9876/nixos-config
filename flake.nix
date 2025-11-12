@@ -39,26 +39,25 @@
     };
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      flakelight,
-      nix-index-db,
-      hm,
-      nixos-hardware,
-      lanzaboote,
-      wayland-mpris-idle-inhibit,
-      fenix,
-      catppuccin,
-      nixvim,
-      imperm,
-      nu_plugin_dbus,
-      bingus,
-      spoon,
-      gh-grader-preview,
-      niri,
-    }:
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    flakelight,
+    nix-index-db,
+    hm,
+    nixos-hardware,
+    lanzaboote,
+    wayland-mpris-idle-inhibit,
+    fenix,
+    catppuccin,
+    nixvim,
+    imperm,
+    nu_plugin_dbus,
+    bingus,
+    spoon,
+    gh-grader-preview,
+    niri,
+  }:
     flakelight ./. {
       imports = [
         spoon.flakelightModules.repl
