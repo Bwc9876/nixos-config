@@ -1,17 +1,23 @@
-{...}: {
+{ ... }:
+{
   config,
   lib,
   pkgs,
   ...
-}: {
-  options.cow.utils.enable =
-    (lib.mkEnableOption "Handy utilities to have")
-    // {
+}:
+{
+  options.cow.utils = {
+    enable = (lib.mkEnableOption "Handy utilities to have") // {
       default = true;
     };
+    batAliases = (lib.mkEnableOption "Aliases for bat commands in the shell") // {
+      default = true;
+    };
+  };
 
   config = lib.mkIf config.cow.utils.enable {
-    home.packages = with pkgs;
+    home.packages =
+      with pkgs;
       [
         binutils
         usbutils
@@ -41,12 +47,29 @@
       ]
       ++ lib.optional config.cow.gdi.enable wev;
 
+		home.shellAliases = lib.mkIf config.cow.utils.batAliases {
+			cat = "bat";
+			man = "batman";
+			bg = "batgrep";
+			bdiff = "batdiff";
+		};
+
+    programs.bat = {
+      enable = true;
+      extraPackages = with pkgs.bat-extras; [
+        batdiff
+        batman
+        batgrep
+        batwatch
+      ];
+    };
+
     programs.hyfetch = {
       enable = true;
       settings = {
         backend = "fastfetch";
         color_align = {
-          custom_colors = [];
+          custom_colors = [ ];
           fore_back = null;
           mode = "horizontal";
         };
@@ -56,7 +79,7 @@
         mode = "rgb";
         preset = "gay-men";
         pride_month_disable = false;
-        pride_month_shown = [];
+        pride_month_shown = [ ];
       };
     };
   };
