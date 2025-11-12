@@ -996,11 +996,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762901396,
-        "narHash": "sha256-Vq6TAdLR5Owo1N/6HGI01BUplqdGD6IzL44WFMZG4Pw=",
+        "lastModified": 1762980808,
+        "narHash": "sha256-Vrf1TdmmqwxmL/UVHNYS7VudSs2+lCXg5SlHvRv//dQ=",
         "ref": "refs/heads/main",
-        "rev": "ed08c933f9d2e121ae737378526b03722ecddc37",
-        "revCount": 299,
+        "rev": "32493d5136780137096059b44b04d7ed3e7d2b51",
+        "revCount": 301,
         "type": "git",
         "url": "https://codeberg.org/spoonbaker/mono"
       },
