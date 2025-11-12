@@ -17,10 +17,6 @@
     };
   in
     lib.mkIf config.cow.waybar.enable {
-      wayland.windowManager.hyprland.settings.bind = [
-        "SUPER,W,exec,systemctl restart --user waybar"
-        "SUPER SHIFT,W,exec,systemctl stop --user waybar"
-      ];
       programs.waybar = {
         enable = true;
         systemd.enable = true;

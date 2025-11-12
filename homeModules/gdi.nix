@@ -136,7 +136,6 @@
               move-column-to-workspace = n: { move-column-to-workspace = [ n ]; };
               terminal = pkgs.wezterm;
               spawnTerm = spawnPkg terminal;
-              spawnNu = spawnPkg pkgs.nushell;
               spawnPlayerctl = spawnPkg pkgs.playerctl;
               spawnRofi = spawn "rofi";
               spawnSh = spawn "sh" "-c";
@@ -210,6 +209,11 @@
                 allow-inhibiting = false;
               };
 
+              "Mod+W".action = spawn "systemctl" "--user" "restart" "waybar.service";
+              "Mod+Shift+W".action = spawn "systemctl" "--user" "stop" "waybar.service";
+
+              "Mod+Shift+R".action =
+                spawnSh "pkill wf-recorder --signal SIGINT ||${pkgs.nushell}/bin/nu ${../res/screenrec.nu}";
               "Mod+Shift+S".action = {
                 screenshot = [ ];
               };

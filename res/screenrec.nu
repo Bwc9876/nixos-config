@@ -10,11 +10,7 @@ if not ($captures_folder | path exists) {
 
 let out_name = date now | format date $"($captures_folder)/($date_format).mp4"
 
-let workspaces = hyprctl monitors -j | from json | get activeWorkspace.id
-let windows = hyprctl clients -j | from json | where workspace.id in $workspaces
-let geom = $windows | each { |w| $"($w.at.0),($w.at.1) ($w.size.0)x($w.size.1)" } | str join "\n"
-
-let stat = do { echo $geom | slurp -d } | complete
+let stat = do { slurp -d } | complete
 
 if $stat.exit_code == 1 {
     echo "No selection made"
