@@ -269,11 +269,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762810396,
-        "narHash": "sha256-dxFVgQPG+R72dkhXTtqUm7KpxElw3u6E+YlQ2WaDgt8=",
+        "lastModified": 1762980239,
+        "narHash": "sha256-8oNVE8TrD19ulHinjaqONf9QWCKK+w4url56cdStMpM=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "0bdadb1b265fb4143a75bd1ec7d8c915898a9923",
+        "rev": "52a2caecc898d0b46b2b905f058ccc5081f842da",
         "type": "github"
       },
       "original": {
@@ -570,11 +570,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1762938849,
-        "narHash": "sha256-ltM04Wy+vMm/EAwhGTl2BYjCgF+Kq4lltpDH9NEh264=",
+        "lastModified": 1763030490,
+        "narHash": "sha256-U1xBvM3vbh7GZyc2ahziMVhi4qQyQ8pRwb9l8jD4ShI=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "ea9b76cfa921d42a7502260b2d1296798089dfe6",
+        "rev": "7920a7b0553e0bebce825b0d9deb575e26f6f6ac",
         "type": "github"
       },
       "original": {
@@ -646,11 +646,11 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1762881062,
-        "narHash": "sha256-j0Gxopn4jGYQae/90V2v4u4+Ec+gFLq3UbSaGfczpOM=",
+        "lastModified": 1763014447,
+        "narHash": "sha256-nmu7S8J9IJKLQyIkSU8QWYHygrfw76NHGTkcr+bXMX0=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "5b77107161c504376b962107913bf74b575703e7",
+        "rev": "a52df533c4694b5ed0a04140af60fd26146df911",
         "type": "github"
       },
       "original": {
@@ -768,11 +768,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1762904125,
-        "narHash": "sha256-+T9oUulnXOQmy37GGOivHSvEyViA4gQ41mFZEPEDuOA=",
+        "lastModified": 1763078809,
+        "narHash": "sha256-R6wESh58QLCeoK1VQUO4sLcz60RNZde8klTqGgUXQkw=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "84902b354fd0f122c40880b90dc8ac89d4d0daea",
+        "rev": "b51f31cef899e8f152384cda6097a5fde0e39ef3",
         "type": "github"
       },
       "original": {
@@ -789,11 +789,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762970441,
-        "narHash": "sha256-GM9lALQTLo6p60TSBTRGfRuZYswDodD6XSTDBNSnoUg=",
+        "lastModified": 1763055984,
+        "narHash": "sha256-v21FnSOsWqa9dXDMMs0mpxxmC8qUMvcZtytE3l3V4hc=",
         "owner": "Bwc9876",
         "repo": "nu_plugin_dbus",
-        "rev": "90687b4b3d34acc588ffa473ccece3b48a83c43b",
+        "rev": "290130f64630fc117f4a6c5531f5e180ab3cb566",
         "type": "github"
       },
       "original": {
@@ -996,11 +996,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762980808,
-        "narHash": "sha256-Vrf1TdmmqwxmL/UVHNYS7VudSs2+lCXg5SlHvRv//dQ=",
+        "lastModified": 1762981613,
+        "narHash": "sha256-R14MEA7nN4bbA3ztnHGO0DwqW1VV10q2XfgW796J3Qg=",
         "ref": "refs/heads/main",
-        "rev": "32493d5136780137096059b44b04d7ed3e7d2b51",
-        "revCount": 301,
+        "rev": "9fbd37867f44b3782e45baaa4a2c9b979a119798",
+        "revCount": 302,
         "type": "git",
         "url": "https://codeberg.org/spoonbaker/mono"
       },
