@@ -443,8 +443,8 @@
 
           service = {
             ExecStart = ''${
-                inputs.wayland-mpris-idle-inhibit.packages.${pkgs.system}.default
-              }/bin/wayland-mpris-idle-inhibit --ignore "kdeconnect" --ignore "playerctld"'';
+                lib.getExe inputs.wayland-mpris-idle-inhibit.packages.${pkgs.system}.default
+              } --ignore "kdeconnect" --ignore "playerctld"'';
             Restart = "on-failure";
             RestartSec = "10";
           };
