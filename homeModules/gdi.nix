@@ -32,6 +32,8 @@
       home.packages = with pkgs; [
         alsa-utils
 
+        dconf
+
         cursorTheme.package
         iconTheme.package
 

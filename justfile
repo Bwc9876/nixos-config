@@ -13,19 +13,19 @@ update:
 alias b := build
 # b:  build the configuration
 build:
-    nh os build . {{ GARGS }}
+    nh os build -k . {{ GARGS }}
 
 [private]
 alias bt := boot
 # bt: make the configuration the boot default without activating it
 boot:
-    nh os boot . {{ GARGS }}
+    nh os boot -k . {{ GARGS }}
 
 [private]
 alias s := switch
 # s:  activate configuration & add to boot menu
 switch: 
-    nh os switch --ask . {{ GARGS }}
+    nh os switch -k --ask . {{ GARGS }}
 
 [private]
 alias c := check
