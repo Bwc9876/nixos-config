@@ -23,11 +23,10 @@
       ];
       # TODO: Maybe just use 22 like a normal person
       ports = [8069];
-      settings.GSSAPIAuthentication = false;
       settings.PasswordAuthentication = false;
       settings.UseDns = false;
       # settings.LogLevel = "DEBUG1";
-      settings.PermitRootLogin = "no";
+      settings.PermitRootLogin = "prohibit-password";
       settings.KbdInteractiveAuthentication = false;
     };
   };
