@@ -51,7 +51,6 @@
         slurp
         grim
         xdg-utils
-        grimblast
         swappy
         libnotify
         swaynotificationcenter
