@@ -339,6 +339,10 @@
         )
       '';
     in {
+			home.packages = with pkgs; [
+				pbpctrl
+			];
+
       programs.cava = {
         enable = true;
       };
