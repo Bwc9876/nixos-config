@@ -13,7 +13,12 @@
 
   config = lib.mkIf config.cow.kde-connect.enable {
     cow.imperm.keepCache = [".config/kdeconnect"];
-    cow.firewall.tcp = lib.range 1714 1764;
+    cow.firewall = let
+      r = lib.range 1714 1764;
+    in {
+      tcp = r;
+      udp = r;
+    };
     xdg.configFile."kdeconnect/config".text = ''
       [General]
       name=${config.cow.kde-connect.dev-name}
