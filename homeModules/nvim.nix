@@ -678,21 +678,22 @@
         # 	};
         # };
 
-        lualine = {
-          enable = true;
-          settings = {
-            extensions = [
-              "trouble"
-              "toggleterm"
-            ];
-
-            options = {
-              theme = "catppuccin";
-              disabled_filetypes = ["neo-tree"];
-              ignore_focus = ["neo-tree"];
-            };
-          };
-        };
+				# TODO: Broken in nixpkgs rn, hash mismatch, #464773
+        # lualine = {
+        #   enable = true;
+        #   settings = {
+        #     extensions = [
+        #       "trouble"
+        #       "toggleterm"
+        #     ];
+        #
+        #     options = {
+        #       theme = "catppuccin";
+        #       disabled_filetypes = ["neo-tree"];
+        #       ignore_focus = ["neo-tree"];
+        #     };
+        #   };
+        # };
 
         nix-develop = {
           enable = true;
