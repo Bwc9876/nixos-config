@@ -37,6 +37,7 @@
         cursorTheme.package
         iconTheme.package
 
+        xdg-terminal-exec # For gtk-launch, etc to be able to open `Terminal` desktop entries
         wezterm
 
         # Shell Components
@@ -60,7 +61,7 @@
         hunspellDicts.en_US-large
       ];
 
-      xdg.mimeApps = lib.mkDefault {
+      xdg.mimeApps = {
         enable = true;
         defaultApplications = {
           "application/pdf" = lib.mkIf config.cow.firefox.enable "firefox-devedition.desktop";
@@ -68,6 +69,7 @@
           "text/*" = lib.mkIf config.cow.neovim.enable "neovide.desktop";
           "inode/directory" = lib.mkIf config.cow.yazi.enable "yazi.desktop";
           "inode/mount-point" = lib.mkIf config.cow.yazi.enable "yazi.desktop";
+          "x-scheme-handler/file" = lib.mkIf config.cow.yazi.enable "yazi.desktop";
         };
       };
 
@@ -78,9 +80,12 @@
         settings = {
           prefer-no-csd = true;
 
-          environment = {
-            NIXOS_OZONE_WL = "1";
-          };
+          environment =
+            {
+              NIXOS_OZONE_WL = "1";
+              TERMINAL = lib.getExe pkgs.wezterm;
+            }
+            // (builtins.mapAttrs (_: v: builtins.toString v) config.home.sessionVariables); # TODO: Hack?
 
           screenshot-path = "~/Pictures/Screenshots/%Y%m%d_%H%M%S.png";
 
@@ -545,20 +550,11 @@
                 command = "${pkgs.systemd}/bin/systemctl suspend";
               }
             ];
-            events = [
-              {
-                event = "before-sleep";
-                command = lockCmd "--immediate";
-              }
-              {
-                event = "unlock";
-                command = "pkill hyprlock --signal SIGUSR1";
-              }
-              {
-                event = "lock";
-                command = lockCmd "--immediate";
-              }
-            ];
+            events = {
+              "before-sleep" = lockCmd "--immediate";
+              "unlock" = "pkill hyprlock --signal SIGUSR1";
+              "lock" = lockCmd "--immediate";
+            };
           };
 
         cliphist = {

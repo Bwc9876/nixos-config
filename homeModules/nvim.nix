@@ -16,6 +16,8 @@
       fd
     ];
 
+    home.sessionVariables.EDITOR = "nvim";
+
     programs.neovide = lib.mkIf config.cow.gdi.enable {
       enable = true;
       settings = {
@@ -678,7 +680,7 @@
         # 	};
         # };
 
-				# TODO: Broken in nixpkgs rn, hash mismatch, #464773
+        # TODO: Broken in nixpkgs rn, hash mismatch, #464773
         # lualine = {
         #   enable = true;
         #   settings = {
