@@ -20,7 +20,7 @@ in {
       openssh.authorizedKeys.keys = [pubkey];
     };
 
-    home-manager.users.bean = {
+    home-manager.users.bean = lib.mkIf config.cow.hm.enable {
       cow.bean = {
         inherit (config.cow.bean) enable;
         inherit pubkey;
