@@ -67,6 +67,7 @@
               "/var/lib/systemd/timers"
               "/var/lib/systemd/rfkill"
               "/var/lib/systemd/backlight"
+							"/var/tmp"
             ]
             ++ config.cow.imperm.keepCache;
           users =
