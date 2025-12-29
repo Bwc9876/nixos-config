@@ -15,7 +15,7 @@
       enableDefaultPackages = true;
       packages = with pkgs; [
         fira-code
-        fira-go
+        # fira-go
         noto-fonts
         noto-fonts-lgc-plus
         noto-fonts-cjk-sans

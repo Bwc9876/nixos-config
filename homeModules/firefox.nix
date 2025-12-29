@@ -175,6 +175,7 @@ in {
                 );
               in "${noPath}/favicon.${iconExt}"
             ));
+						mkModrinth = aliases: type: mkEngine aliases "https://modrinth.com/discover/${type}?q={searchTerms}" "ico";
           in {
             # Dev
             "GitHub Repos" =
@@ -291,6 +292,11 @@ in {
               "https://open.spotifycdn.com/cdn/images/favicon16.1c487bff.png";
             "Netflix" = mkEngine ["@nfx"] "https://www.netflix.com/search?q={searchTerms}" "ico";
             "IMDb" = mkEngine ["@imdb"] "https://www.imdb.com/find?q={searchTerms}" "ico";
+
+						# Minecraft
+						"Modrinth" = mkModrinth ["@mr"] "mods";
+						"Modrinth Resource Packs" = mkModrinth ["@mrr"] "resourcepacks";
+						"Modrinth Data Packs" = mkModrinth ["@mrd"] "datapacks";
 
             # Misc
             "Firefox Add-ons" = mkEngine [
