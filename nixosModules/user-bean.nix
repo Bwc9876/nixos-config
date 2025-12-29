@@ -9,6 +9,11 @@ in {
   options.cow.bean = {
     enable = lib.mkEnableOption "Bean user";
     sudoer = lib.mkEnableOption "Bean being a sudoer";
+		pubkey = lib.mkOption {
+			type = lib.types.str;
+			description = "Public Key to Add for Bean";
+			default = pubkey;
+		};
   };
 
   config = lib.mkIf config.cow.bean.enable {
@@ -17,13 +22,13 @@ in {
       description = "Ben C";
       extraGroups = lib.optionals config.cow.bean.sudoer ["wheel"];
       shell = pkgs.nushell;
-      openssh.authorizedKeys.keys = [pubkey];
+      openssh.authorizedKeys.keys = [config.cow.bean.pubkey];
     };
 
     home-manager.users.bean = lib.mkIf config.cow.hm.enable {
       cow.bean = {
         inherit (config.cow.bean) enable;
-        inherit pubkey;
+        inherit (config.cow.bean) pubkey;
       };
       cow.games.enable = config.cow.gaming.enable;
       cow.gdi = {
