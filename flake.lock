@@ -838,10 +838,10 @@
         "prismlauncher-meta": "prismlauncher-meta"
       },
       "locked": {
-        "lastModified": 1766989174,
-        "narHash": "sha256-MR+fNu4ilITa7+8KD/eajX/K4IAU0/0d41j3pry20DQ=",
+        "lastModified": 1766993094,
+        "narHash": "sha256-p2yy3xrFtUsQzNVogRsd0ofIMakCg8dZoBD4dZ1TQF4=",
         "ref": "refs/heads/main",
-        "rev": "5085c42dfe674c980d103e9102534ab50fe1cad7",
+        "rev": "49016464801aa44c044a97d2fe96d0ecb7497337",
         "revCount": 348,
         "type": "git",
         "url": "https://codeberg.org/spoonbaker/mono"
