@@ -33,6 +33,7 @@
             enable = true;
             dev-name = "APERTURE";
           };
+          dev.mc = true;
         };
 
         home-manager.users.bean.programs.niri.settings.outputs."eDP-1".scale = 1;

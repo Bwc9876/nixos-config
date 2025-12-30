@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{inputs, outputs, ...}: {
   config,
   lib,
   pkgs,
@@ -16,6 +16,7 @@
     python = mkLangOpt "Python dev stuff";
     dotnet = mkLangOpt ".NET dev stuff";
     cutter = mkLangOpt "Cutter";
+		mc = lib.mkEnableOption "Minecraft modpack stuff";
   };
 
   config = let
@@ -68,6 +69,11 @@
           gcc
           gdb
         ])
+				++ (lib.optionals conf.mc [
+					outputs.packages.${pkgs.system}.packwiz
+					inputs.spoon.packages.${pkgs.system}.mc-srv-git-hook.passthru.mrpack-install'
+					jre
+				])
         ++ (lib.optionals conf.rust [
           (pkgs.fenix.complete.withComponents [
             "cargo"
