@@ -9,11 +9,11 @@ in {
   options.cow.bean = {
     enable = lib.mkEnableOption "Bean user";
     sudoer = lib.mkEnableOption "Bean being a sudoer";
-		pubkey = lib.mkOption {
-			type = lib.types.str;
-			description = "Public Key to Add for Bean";
-			default = pubkey;
-		};
+    pubkey = lib.mkOption {
+      type = lib.types.str;
+      description = "Public Key to Add for Bean";
+      default = pubkey;
+    };
   };
 
   config = lib.mkIf config.cow.bean.enable {

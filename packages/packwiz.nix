@@ -1,6 +1,10 @@
-{ packwiz, fetchFromGitHub, ... }:
+{
+  packwiz,
+  fetchFromGitHub,
+  ...
+}:
 packwiz.overrideAttrs (prev: next: {
-	version = "0-unstable-2025-11-24";
+  version = "0-unstable-2025-11-24";
 
   src = fetchFromGitHub {
     owner = "packwiz";

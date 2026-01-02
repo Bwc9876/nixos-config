@@ -29,7 +29,6 @@
         dust
         zip
         inputs.gh-grader-preview.packages.${pkgs.system}.default
-        wol
         libqalculate
         p7zip
         poop
