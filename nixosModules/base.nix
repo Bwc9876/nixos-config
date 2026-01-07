@@ -25,7 +25,7 @@
       lib.mkMerge [
         {
           time.timeZone = lib.mkDefault "America/New_York";
-          programs.ssh.startAgent = true;
+          programs.ssh.startAgent = lib.mkDefault true;
         }
         (lib.mkIf conf.env {
           environment.etc = {
