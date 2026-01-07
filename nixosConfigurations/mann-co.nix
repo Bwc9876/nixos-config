@@ -1,5 +1,4 @@
 {
-  lib,
   inputs,
   outputs,
   ...
@@ -7,7 +6,7 @@
   system = "aarch64-linux";
 
   modules =
-    (builtins.attrValues (lib.filterAttrs (n: _: n != "base") outputs.nixosModules))
+    (builtins.attrValues outputs.nixosModules)
     ++ [
       "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
       {disabledModules = ["${inputs.nixpkgs}/nixos/modules/profiles/base.nix"];}
@@ -26,6 +25,10 @@
           security.sudo.wheelNeedsPassword = false;
 
           cow = {
+            base = {
+              enable = true;
+              linux-latest = false;
+            };
             bean = {
               enable = true;
               sudoer = true;

@@ -88,6 +88,7 @@
           };
 
           cow = {
+            base.enable = true;
             network = {
               enable = true;
               wireless = true;

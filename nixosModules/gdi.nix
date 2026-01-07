@@ -5,9 +5,9 @@
   ...
 }: {
   options.cow.gdi = {
-    enable = lib.mkEnableOption "Hyprland with graphical apps, etc.";
+    enable = lib.mkEnableOption "Niri with graphical apps, etc.";
     doIdle = lib.mkEnableOption "Idling the system";
-    showGreet = lib.mkEnableOption "Show a greeter interface that runs a Wayland window manager";
+    showGreet = lib.mkEnableOption "Show a greeter interface that runs Niri";
   };
 
   config = lib.mkIf config.cow.gdi.enable {
@@ -15,6 +15,10 @@
       "/share/applications"
       "/share/xdg-desktop-portal"
     ];
+
+    # Services needed for shell
+    services.upower.enable = lib.mkDefault true;
+    services.udisks2.enable = lib.mkDefault true;
 
     services.greetd = lib.mkIf config.cow.gdi.showGreet {
       enable = true;

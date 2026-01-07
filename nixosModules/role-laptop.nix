@@ -18,6 +18,7 @@
     };
 
     cow = {
+      base.enable = true;
       bean.enable = true;
       firewall.openForUsers = true;
       print.enable = true;

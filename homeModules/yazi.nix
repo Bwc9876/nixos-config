@@ -60,9 +60,19 @@
           bypass
           mediainfo
           wl-clipboard
-          yatline
           yatline-catppuccin
           ;
+        yatline = pkgs.yaziPlugins.yatline.overrideAttrs (
+          _: _: {
+            version = "25.5.31-unstable-2026-01-05";
+            src = pkgs.fetchFromGitHub {
+              owner = "carlosedp";
+              repo = "yatline.yazi";
+              rev = "e9589884cbdd7cc2283523fdb94f1c4c717a6de7";
+              sha256 = "sha256-TiMY4XEfrHUKDDw1GRoYQU4mjrIEPEy7NwDoYuUyMic=";
+            };
+          }
+        );
       };
 
       initLua = ''

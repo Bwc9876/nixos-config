@@ -8,9 +8,10 @@
   };
 
   config = lib.mkIf config.cow.role-desktop.enable {
-    security.sudo.wheelNeedsPassword = false;
+    security.sudo.wheelNeedsPassword = lib.mkDefault false;
 
     cow = {
+      base.enable = true;
       bean.enable = true;
       firewall.openForUsers = true;
       hm.enable = true;

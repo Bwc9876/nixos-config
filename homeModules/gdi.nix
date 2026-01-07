@@ -6,7 +6,6 @@
 }: {
   imports = [inputs.niri.homeModules.niri];
 
-  # TODO: Replace Hyprland with Niri, switch out gdi.nix for this
   options.cow.gdi = {
     enable = lib.mkEnableOption "Niri + Customizations";
     doIdle = lib.mkEnableOption "Turn off screen, sleep, etc. from inactivity";

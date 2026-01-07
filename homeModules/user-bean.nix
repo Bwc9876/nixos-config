@@ -38,7 +38,7 @@
       };
     };
 
-    home.packages = with pkgs; [
+    home.packages = lib.mkIf config.cow.gdi.enable (with pkgs; [
       libreoffice-qt6
       obs-studio
       loupe
@@ -46,7 +46,7 @@
       lorien
       zoom-us
       tuxpaint
-    ];
+    ]);
 
     home.sessionVariables = {
       "EDITOR" = "nvim";
