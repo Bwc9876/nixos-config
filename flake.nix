@@ -21,6 +21,8 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     imperm.url = "github:nix-community/impermanence";
+		imperm.inputs.nixpkgs.follows = "nixpkgs";
+		imperm.inputs.home-manager.follows = "hm";
     nu_plugin_dbus.url = "github:Bwc9876/nu_plugin_dbus";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
     gh-grader-preview.url = "github:Bwc9876/gh-grader-preview";
