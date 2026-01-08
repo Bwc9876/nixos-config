@@ -913,7 +913,6 @@
           html.enable = web;
           marksman.enable = web;
           cssls.enable = web;
-          tailwindcss.enable = web;
           jsonls.enable = web;
           yamlls.enable = web;
           ruff.enable = python;

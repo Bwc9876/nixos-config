@@ -1,0 +1,220 @@
+@import "catppuccin.css";
+
+* {
+	font-family: sans-serif;
+}
+
+window#waybar {
+	background: rgba(49, 50, 68, 0.65);
+	color: @text;
+}
+
+.modules-left>*>*,
+.modules-right>*>* {
+	font-size: 1.5rem;
+	background: @crust;
+	border: 2px solid @base;
+	border-radius: 5rem;
+	padding: 5px 15px;
+	margin: 5px 2px;
+}
+
+#bluetooth.disabled {
+	border-color: @red;
+}
+
+#waybar .modules-left>*:first-child>* {
+	margin-left: 25px;
+}
+
+#waybar .modules-right>*:last-child>* {
+	margin-right: 25px;
+}
+
+#waybar .modules-left,
+#waybar .modules-right {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+#waybar .modules-center {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#battery.warning {
+	border-color: @yellow;
+}
+
+#battery.critical {
+	border-color: @red;
+}
+
+*>#battery.charging {
+	border-color: @green;
+}
+
+#taskbar,
+#workspaces {
+	padding: 10px;
+	border-radius: 5rem;
+	border: none;
+	background: none;
+}
+
+#taskbar button,
+#workspaces button {
+	color: @text;
+	border-radius: 5rem;
+	padding: 5px 15px;
+	margin: 0 5px;
+	background: @crust;
+	border: 2px solid @base;
+}
+
+#taskbar button:hover,
+#workspaces button:hover {
+	background: @mantle;
+}
+
+#workspaces button {
+	font-size: 1.5rem;
+}
+
+#cpu,
+#memory,
+#temperature {
+	font-size: 1.5rem;
+	padding: 10px 25px;
+}
+
+#cpu.warning,
+#memory.warning {
+	border-color: @yellow;
+}
+
+#cpu.critical,
+#memory.critical,
+#temperature.critical {
+	border-color: @red;
+}
+
+#workspaces button.active {
+	border: 2px solid @sapphire;
+}
+
+#taskbar button.active {
+	border: 2px solid @sapphire;
+}
+
+#idle_inhibitor.activated {
+	border-color: @mauve;
+}
+
+#custom-notification.notification {
+	border-color: @sapphire;
+}
+
+#custom-notification.dnd-none,
+#custom-notification.dnd-notification,
+#custom-notification.dnd-inhibited-none,
+#custom-notification.dnd-inhibited-notification {
+	border-color: @red;
+}
+
+#custom-notification.inhibited-none,
+#custom-notification.inhibited-notification {
+	border-color: @mauve;
+}
+
+#network.disconnected {
+	border-color: @red;
+}
+
+#privacy {
+	background: none;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+#privacy-item {
+	font-size: 1.5rem;
+	border-radius: 5rem;
+	padding: 5px 15px;
+	margin: 5px 2px;
+	border: 2px solid @red;
+	background-color: @crust;
+}
+
+#custom-weather.VeryCloudy,
+#custom-weather.Cloudy,
+#custom-weather.Fog {
+	border-color: @overlay0;
+}
+
+#custom-weather.HeavyRain,
+#custom-weather.ThunderyHeavyRain,
+#custom-weather.ThunderyRain,
+#custom-weather.ThunderyShowers,
+#custom-weather.HeavyShowers,
+#custom-weather.LightRain,
+#custom-weather.LightShowers {
+	border-color: @blue;
+}
+
+#custom-weather.HeavySnow,
+#custom-weather.LightSnow,
+#custom-weather.Sleet,
+#custom-weather.Snow,
+#custom-weather.LightSnowShowers,
+#custom-weather.LightSleetShowers {
+	border-color: @text;
+}
+
+#custom-weather.Clear,
+#custom-weather.Sunny {
+	border-color: @yellow;
+}
+
+#custom-weather.PartlyCloudy {
+	border-color: @flamingo;
+}
+
+#custom-weather.PartlyCloudy.night {
+	border-color: @lavender;
+}
+
+#custom-weather.Clear.night,
+#custom-weather.Sunny.night {
+	border-color: @mauve;
+}
+
+#custom-news.utd {
+	font-size: 1.5rem;
+}
+
+#custom-news.unread {
+	border-color: @sapphire;
+}
+
+#mpris {
+	opacity: 0;
+}
+
+#mpris.paused {
+	opacity: 1;
+}
+
+#mpris.playing {
+	opacity: 1;
+	border-color: @sapphire;
+}
+
+#mpris.playing.spotify {
+	border-color: #33B980;
+}
+
+#mpris.paused.kdeconnect {
+	opacity: 0;
+}
