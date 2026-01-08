@@ -44,6 +44,11 @@
           ];
 
           cow = {
+            audio.tweaks = {
+              enable = true;
+              threadirqs = true;
+              soundCard = "00:1f.3";
+            };
             base.sysrqs = true;
             bean.sudoer = true;
             lanzaboote.enable = true;
