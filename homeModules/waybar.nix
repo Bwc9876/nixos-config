@@ -543,12 +543,13 @@
               on-click = "activate";
             };
             power-profiles-daemon = {
-              format = "{icon} {profile}";
+              format = "{icon}";
+              tooltip-format = "Power Profile: {profile}";
               format-icons = {
-                default = "󰁹";
-                performance = "󰂄";
-                balanced = "󱠴";
-                power-saver = "󱟠";
+                default = "󰓅";
+                performance = "󰓅";
+                balanced = "󰾅";
+                power-saver = "󰾆";
               };
             };
           }
