@@ -6,6 +6,11 @@
   options.cow.role-laptop = {
     enable = lib.mkEnableOption "configuring a laptop with a GUI and bean setup for mobile use";
     fingerPrintSensor = lib.mkEnableOption "fprintd and persist prints";
+    powersave =
+      (lib.mkEnableOption "power saving and battery health options with TLP")
+      // {
+        default = true;
+      };
   };
 
   config = lib.mkIf config.cow.role-laptop.enable {
@@ -36,6 +41,18 @@
       };
       audio.enable = true;
       imperm.keep = lib.optional config.cow.role-laptop.fingerPrintSensor "/var/lib/fprint";
+    };
+
+    # Set to null as TLP will manage the frequency governor for us
+    powerManagement.cpuFreqGovernor = lib.mkIf config.cow.role-laptop.powersave (
+      if config.cow.audio.tweaks.enable
+      then (lib.mkForce null)
+      else null
+    );
+
+    services.tlp = lib.mkIf config.cow.role-laptop.powersave {
+      enable = true;
+      pd.enable = true;
     };
 
     services.fprintd = lib.mkIf config.cow.role-laptop.fingerPrintSensor {

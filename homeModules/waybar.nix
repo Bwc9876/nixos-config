@@ -522,6 +522,7 @@
             modules-right = [
               "temperature"
               "cpu"
+              "power-profiles-daemon"
               "memory"
             ];
             position = "bottom";
@@ -540,6 +541,15 @@
               format = "{icon}";
               icon-size = 35;
               on-click = "activate";
+            };
+            power-profiles-daemon = {
+              format = "{icon} {profile}";
+              format-icons = {
+                default = "󰁹";
+                performance = "󰂄";
+                balanced = "󱠴";
+                power-saver = "󱟠";
+              };
             };
           }
         ];
