@@ -8,3 +8,4 @@ devices.
 - `aperture` - Framework 13 Laptop
 - `black-mesa` - Desktop Computer w/ AMD GPU
 - `installer` - Installer/LiveCD ISO for my flake
+- `mann-co` - RPi mostly just used for one-off tests

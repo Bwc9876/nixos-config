@@ -160,7 +160,6 @@
                 ++ lib.optional config.cow.news.enable "custom/news"
                 ++ [
                   "custom/weather"
-                  "mpris"
                 ];
               modules-right =
                 [
@@ -176,42 +175,7 @@
                   "privacy"
                   "tray"
                 ];
-              mpris = {
-                album-len = 20;
-                artist-len = 25;
-                interval = 1;
-                dynamic-importance-order = [
-                  "title"
-                  "position"
-                  "length"
-                  "artist"
-                  "album"
-                ];
-                dynamic-len = 50;
-                dynamic-order = [
-                  "title"
-                  "artist"
-                  "album"
-                  "position"
-                  "length"
-                ];
-                format = "{player_icon} {dynamic}";
-                format-paused = "{status_icon} {dynamic}";
-                player-icons = {
-                  QMPlay2 = "󰐌";
-                  default = "󰎆";
-                  firefox = "";
-                  firefox-devedition = "";
-                  chromium = "󰖟";
-                  kdeconnect = "";
-                  spotify = "󰓇";
-                };
-                status-icons = {
-                  paused = "󰏤";
-                  stopped = "󰓛";
-                };
-                title-len = 35;
-              };
+
               network = {
                 format = "{ifname}";
                 format-disconnected = "󰪎";
@@ -278,6 +242,42 @@
               };
             }
             {
+              mpris = {
+                album-len = 20;
+                artist-len = 25;
+                interval = 1;
+                dynamic-importance-order = [
+                  "title"
+                  "position"
+                  "length"
+                  "artist"
+                  "album"
+                ];
+                dynamic-len = 80;
+                dynamic-order = [
+                  "title"
+                  "artist"
+                  "album"
+                  "position"
+                  "length"
+                ];
+                format = "{player_icon} {dynamic}";
+                format-paused = "{status_icon} {dynamic}";
+                player-icons = {
+                  QMPlay2 = "󰐌";
+                  default = "󰎆";
+                  firefox = "";
+                  firefox-devedition = "";
+                  chromium = "󰖟";
+                  kdeconnect = "";
+                  spotify = "󰓇";
+                };
+                status-icons = {
+                  paused = "󰏤";
+                  stopped = "󰓛";
+                };
+                title-len = 35;
+              };
               cpu = {
                 format = "󰍛 {usage}󰏰";
                 states = {
@@ -298,7 +298,7 @@
                 };
               };
               # modules-center = ["wlr/taskbar"];
-              # modules-left = ["hyprland/workspaces"];
+              modules-left = ["mpris"];
               modules-right = [
                 "temperature"
                 "cpu"

@@ -680,7 +680,6 @@
         # 	};
         # };
 
-        # TODO: Broken in nixpkgs rn, hash mismatch, #464773
         lualine = {
           enable = true;
           settings = {
