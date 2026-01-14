@@ -105,33 +105,33 @@ in {
 
         Extensions.Install =
           map (x: "https://addons.mozilla.org/firefox/downloads/latest/${x}/latest.xpi")
-          [
-            # Appearance
-            "firefox-color"
-            "material-icons-for-github"
+          (
+            [
+              # Appearance
+              "firefox-color"
+              "material-icons-for-github"
 
-            # Security / Privacy
-            "facebook-container"
+              # Security / Privacy
+              "facebook-container"
 
-            ## Ads / Youtube
-            "ublock-origin"
-            "consent-o-matic"
-            "sponsorblock"
+              ## Ads / Youtube
+              "ublock-origin"
+              "consent-o-matic"
+              "sponsorblock"
 
-            # Information
-            "flagfox"
-            "awesome-rss"
-            "identfavicon-quantum"
+              # Information
+              "flagfox"
+              "awesome-rss"
+              "identfavicon-quantum"
 
-            # Devtools
-            "react-devtools"
-            "open-graph-preview-and-debug"
-            "wave-accessibility-tool"
-            "styl-us"
-
-            # Misc
-            "keepassxc-browser" # integration with KeepassXC
-          ];
+              # Devtools
+              "react-devtools"
+              "open-graph-preview-and-debug"
+              "wave-accessibility-tool"
+              "styl-us"
+            ]
+            ++ (lib.optional config.cow.keepassxc.enable "keepassxc-browser")
+          );
 
         ExtensionSettings."*" = {
           default_area = "menupanel";
