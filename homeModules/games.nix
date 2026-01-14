@@ -8,7 +8,7 @@
 
   config = lib.mkIf config.cow.games.enable {
     home.packages = with pkgs; [
-      steam
+      # steam
       cemu
       owmods-cli
       owmods-gui

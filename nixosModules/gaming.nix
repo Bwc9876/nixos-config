@@ -12,12 +12,12 @@
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
-      extest.enable = true;
+      # extest.enable = true;
     };
 
     programs.gamescope = {
       enable = true;
-      capSysNice = true;
+      # capSysNice = true;
     };
 
     environment.systemPackages = with pkgs; [
