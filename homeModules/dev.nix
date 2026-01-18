@@ -102,7 +102,7 @@
         ])
         ++ (lib.optionals conf.python [
           python3
-          poetry
+          # poetry
           pipenv
           uv
           ruff

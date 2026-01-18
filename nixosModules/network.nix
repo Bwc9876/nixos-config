@@ -46,13 +46,15 @@
     services = lib.mkDefault {
       resolved = {
         enable = true;
-        llmnr = "false";
-        fallbackDns = [
-          "2606:4700:4700::1111"
-          "2606:4700:4700::1001"
-          "1.1.1.1"
-          "1.0.0.1"
-        ];
+        settings.Resolve = {
+          LLMNR = "false";
+          FallbackDNS = [
+            "2606:4700:4700::1111"
+            "2606:4700:4700::1001"
+            "1.1.1.1"
+            "1.0.0.1"
+          ];
+        };
       };
       timesyncd.servers = map (x: "time-${x}-g.nist.gov") [
         "a"

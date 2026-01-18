@@ -18,19 +18,9 @@
 
     home.sessionVariables.EDITOR = "nvim";
 
-    programs.neovide = lib.mkIf config.cow.gdi.enable {
-      enable = true;
-      settings = {
-        fork = true;
-        font = {
-          normal = [{family = "monospace";}];
-          size = 18.0;
-        };
-        title-hidden = false;
-      };
-    };
-
     programs.nixvim = {
+      # Meta
+
       enable = true;
       enableMan = false;
       defaultEditor = true;
@@ -38,9 +28,19 @@
       vimAlias = true;
 
       nixpkgs.pkgs = pkgs;
-      clipboard.providers.wl-copy.enable = config.cow.gdi.enable;
 
-      globals.mapleader = " ";
+      performance = {
+        byteCompileLua = {
+          enable = true;
+          nvimRuntime = true;
+          plugins = true;
+        };
+        combinePlugins = {
+          enable = true;
+        };
+      };
+
+      # Theming
 
       colorschemes.catppuccin = lib.mkIf config.cow.cat.enable {
         enable = true;
@@ -50,7 +50,6 @@
           no_bold = false;
           no_italics = false;
           term_colors = true;
-          # transparent_background = true;
           integrations = {
             alpha = true;
             dropbar.enabled = true;
@@ -92,6 +91,8 @@
         };
       };
 
+      # Misc. Global Options
+
       extraConfigLua = ''
         vim.diagnostic.config({
          signs = {
@@ -101,19 +102,7 @@
           },
          },
         })
-        vim.g.neovide_cursor_vfx_mode = "pixiedust"
-
-        -- require("satellite").setup({})
       '';
-
-      autoGroups = {
-        restore_cursor = {};
-        open_neotree = {};
-      };
-
-      filetype.extension = {
-        mdx = "mdx";
-      };
 
       opts = {
         number = true;
@@ -124,13 +113,23 @@
         tabstop = 2;
         shiftwidth = 2;
         breakindent = true;
-        fillchars.__raw = ''[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]'';
+        fillchars.__raw = "[[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]";
         foldcolumn = "1";
-        foldlevel = 10;
-        foldlevelstart = 10;
+        foldlevel = 100;
+        foldlevelstart = 100;
         foldenable = true;
         mouse = "";
       };
+
+      # Allow system clipboard copying if graphical env is enabled
+      clipboard.providers.wl-copy.enable = lib.mkDefault config.cow.gdi.enable;
+
+      # Associate .mdx extension to mdx buffer type
+      filetype.extension = {
+        mdx = "mdx";
+      };
+
+      # Auto Run Commands
 
       autoCmd = [
         {
@@ -150,49 +149,34 @@
             end
           '';
         }
-        {
-          group = "open_neotree";
-          event = ["BufRead"];
-          pattern = "*";
-          once = true;
-          callback.__raw = ''
-            function()
-              if
-               vim.bo.filetype ~= "alpha"
-               and (not vim.g.neotree_opened)
-              then
-               vim.cmd "Neotree show"
-               vim.g.neotree_opened = true
-              end
-            end
-          '';
-        }
       ];
 
-      performance = {
-        byteCompileLua = {
-          enable = true;
-          nvimRuntime = true;
-          plugins = true;
-        };
-        combinePlugins = {
-          enable = true;
-        };
+      autoGroups = {
+        # Try to restore cursor to the last position it was at last time this file was opened
+        restore_cursor = {};
       };
 
+      # Keybinds
+
+      # globals.mapleader = " ";
+
       keymaps = let
-        prefixMap = pre: maps:
+        prefixMap = group:
           builtins.map (k: {
-            action = "<cmd>${k.action}<cr>";
-            key = "${pre}${k.key}";
+            action = "<cmd>${
+              if group ? "cmdPrefix"
+              then group.cmdPrefix + " "
+              else ""
+            }${k.action}<cr>";
+            key = "${group.prefix}${k.key}";
             options = k.options;
           })
-          maps;
+          group.keys;
       in
         lib.lists.flatten (
           builtins.map (g:
-            if builtins.hasAttr "group" g
-            then prefixMap g.prefix g.keys
+            if g ? "group"
+            then prefixMap g
             else g) [
             {
               action = ''"+p'';
@@ -210,7 +194,7 @@
               options.desc = "Cut to system clipboard";
             }
             {
-              action = ''<cmd>Format<cr>'';
+              action = "<cmd>Format<cr>";
               key = "<C-S-I>";
               options.desc = "Format Buffer";
             }
@@ -229,7 +213,7 @@
                   options.desc = "Previous Tab";
                 }
                 {
-                  action = "Neotree toggle";
+                  action = "Neotree toggle reveal";
                   key = "t";
                   options.desc = "Toggle Neotree";
                 }
@@ -269,68 +253,126 @@
             {
               group = "LSP Actions";
               prefix = "<C-.>";
+              cmdPrefix = "Lspsaga";
               keys = [
                 {
-                  action = "Lspsaga code_action code_action";
+                  action = "code_action code_action";
                   key = "a";
                   options.desc = "Code Actions";
                 }
                 {
-                  action = "Lspsaga rename";
+                  action = "rename";
                   key = "r";
                   options.desc = "LSP Rename";
                 }
                 {
-                  action = "Lspsaga diagnostic_jump_next";
+                  action = "diagnostic_jump_next";
                   key = "e";
                   options.desc = "Next Diagnostic";
                 }
                 {
-                  action = "Lspsaga diagnostic_jump_previous";
+                  action = "diagnostic_jump_previous";
                   key = "E";
                   options.desc = "Previous Diagnostic";
                 }
                 {
-                  action = "Lspsaga goto_definition";
+                  action = "goto_definition";
                   key = "d";
                   options.desc = "Jump to Definition";
                 }
                 {
-                  action = "Lspsaga peek_definition";
+                  action = "peek_definition";
                   key = "D";
                   options.desc = "Peek Definition";
                 }
                 {
-                  action = "Lspsaga finder ref";
+                  action = "finder ref";
                   key = "fr";
                   options.desc = "Find References";
                 }
                 {
-                  action = "Lspsaga finder imp";
+                  action = "finder imp";
                   key = "fi";
                   options.desc = "Find Implementations";
                 }
                 {
-                  action = "Lspsaga finder def";
+                  action = "finder def";
                   key = "fd";
                   options.desc = "Find Definitions";
                 }
                 {
-                  action = "Lspsaga finder";
+                  action = "finder";
                   key = "ff";
                   options.desc = "Finder";
                 }
                 {
-                  action = "Lspsaga hover_doc";
+                  action = "hover_doc";
                   key = "h";
                   options.desc = "Hover Doc";
                 }
               ];
             }
             {
-              action = "<cmd>Telescope<cr>";
-              key = "<leader><leader>";
-              options.desc = "Telescope Launch";
+              group = "Telescope";
+              prefix = " ";
+              cmdPrefix = "Telescope";
+              keys = [
+                {
+                  key = "u";
+                  action = "undo";
+                  options.desc = "Undo Tree";
+                }
+                {
+                  key = "c";
+                  action = "commands";
+                  options.desc = "Browse Commands";
+                }
+                {
+                  key = "w";
+                  action = "spell_suggest";
+                  options.desc = "Spell Suggest";
+                }
+                {
+                  key = "s";
+                  action = "lsp_document_symbols";
+                  options.desc = "LSP Symbols";
+                }
+                {
+                  key = "t";
+                  action = "treesitter";
+                  options.desc = "Treesitter Symbols";
+                }
+                {
+                  key = "f";
+                  action = "find_files";
+                  options.desc = "Files";
+                }
+                {
+                  key = "gs";
+                  action = "git_status";
+                  options.desc = "Git Status";
+                }
+                {
+                  key = "gb";
+                  action = "git_branches";
+                  options.desc = "Git Branches";
+                }
+                {
+                  key = "gc";
+                  action = "git_commits";
+                  options.desc = "Git Commits";
+                }
+                {
+                  key = "r";
+                  action = "oldfiles";
+                  options.desc = "Recent Files";
+                }
+                {
+                  key = "f";
+                  action = "live_grep";
+                  options.desc = "Live Grep";
+                }
+              ];
             }
             {
               action.__raw = "[[<C-\\><C-n><C-w>]]";
@@ -352,12 +394,15 @@
       extraPlugins = with pkgs.vimPlugins;
         (lib.optional config.cow.dev.web {plugin = pkgs.nvim-mdx;})
         ++ [
-          {plugin = satellite-nvim;}
-          {plugin = flatten-nvim;}
-          {plugin = tiny-devicons-auto-colors-nvim;}
+          {plugin = flatten-nvim;} # Opens neovim invocations in terminal windows in the current Neovim session
+          {plugin = satellite-nvim;} # Scrollbar
+          {plugin = tiny-devicons-auto-colors-nvim;} # Color language icons
         ];
 
       plugins = {
+        # Navigation
+
+        # Interactive Fuzzy Search w/ various providers
         telescope = {
           enable = true;
           settings.defaults = {
@@ -368,137 +413,228 @@
             ui-select.enable = true;
             undo.enable = true;
           };
-          keymaps = lib.fix (self: {
-            "<leader>u" = {
-              action = "undo";
-              options.desc = "Undo Tree";
-            };
-            "<leader>c" = {
-              action = "commands";
-              options.desc = "Browse Commands";
-            };
-            "<leader>w" = {
-              action = "spell_suggest";
-              options.desc = "Spell Suggest";
-            };
-            "<leader>s" = {
-              action = "lsp_document_symbols";
-              options.desc = "LSP Symbols";
-            };
-            "<leader>t" = {
-              action = "treesitter";
-              options.desc = "Treesitter Symbols";
-            };
-            "<leader>f" = {
-              action = "find_files";
-              options.desc = "Files";
-            };
-            "<leader>gs" = {
-              action = "git_status";
-              options.desc = "Git Status";
-            };
-            "<leader>gb" = {
-              action = "git_branches";
-              options.desc = "Git Branches";
-            };
-            "<leader>gc" = {
-              action = "git_commits";
-              options.desc = "Git Commits";
-            };
-            "<leader>r" = {
-              action = "oldfiles";
-              options.desc = "Recent Files";
-            };
-            "<leader>l" = self."<C-S-F>";
-            "<C-S-F>" = {
-              action = "live_grep";
-              options.desc = "Live Grep";
-            };
-          });
         };
 
-        alpha = {
+        # Highlight current row
+        illuminate.enable = true;
+        # Underline matching token in buffer
+        cursorline.enable = true;
+
+        # Nicer bdelete
+        bufdelete.enable = true;
+
+        # Tab bar
+        bufferline = {
           enable = true;
-          settings.opts = {
-            position = "center";
+          settings.highlights.__raw = lib.mkIf config.cow.cat.enable ''
+            require("catppuccin.special.bufferline").get_theme()
+          '';
+          settings.options = {
+            indicator.style = "none";
+            show_buffer_close_icons = false;
+            show_close_icon = false;
+            offsets = [
+              {
+                filetype = "neo-tree";
+                highlight = "String";
+                text = "Files";
+                text_align = "center";
+                # separator = true;
+              }
+            ];
+            separator_style = "slant";
+            hover = {
+              enabled = true;
+              delay = 150;
+              reveal = ["close"];
+            };
+            sort_by = "insert_at_end";
+            diagnostics = "nvim_lsp";
+            diagnostics_indicator.__raw = ''
+              function(count, level, diagnostics_dict, context)
+               local icon = level:match("error") and " " or " "
+               return " " .. icon .. count
+              end
+            '';
           };
-          settings.layout = let
-            o = {
-              position = "center";
-            };
-            txt = s: {
-              type = "text";
-              val = s;
-              opts =
-                {
-                  hl = "Keyword";
-                }
-                // o;
-            };
-            grp = g: {
-              type = "group";
-              val = g;
-              opts.spacing = 1;
-            };
-            btn = {
-              val,
-              onClick,
-              ...
-            }: {
-              type = "button";
-              inherit val;
-              opts = o;
-              on_press.__raw = "function() vim.cmd[[${onClick}]] end";
-            };
-            cmd = {
-              command,
-              width,
-              height,
-            }: {
-              type = "terminal";
-              inherit command width height;
-              opts = o;
-            };
-            pad = {
-              type = "padding";
-              val = 2;
-            };
-          in
-            [
-              pad
-              pad
-            ]
-            ++ (lib.intersperse pad [
-              (cmd {
-                command = ''
-                  ${pkgs.toilet}/bin/toilet " NIXVIM " -f mono12 -F border | ${pkgs.lolcat}/bin/lolcat -f
-                '';
-                # Hardcoding to prevent IFD
-                width = 83; # (builtins.stringLength (lib.trim (builtins.elemAt (lib.splitString "\n" bannerText) 1))) - 3;
-                height = 12; # (builtins.length (lib.splitString "\n" bannerText)) - 1;
-              })
-              (grp [
-                (btn {
-                  val = " Terminal";
-                  onClick = "ToggleTerm";
-                })
-                (btn {
-                  val = "󰅙 Quit";
-                  onClick = "q";
-                })
-              ])
-              (grp [
-                (txt " Neovim Version ${pkgs.neovim.version}")
-                (txt " NixVim Rev ${builtins.substring 0 5 inputs.nixvim.rev}")
-              ])
-            ])
-            ++ [pad];
         };
 
-        trouble = {
+        # Tree file manager
+        neo-tree = {
           enable = true;
+          settings = {
+            hide_root_node = false;
+            follow_current_file.enabled = true;
+            add_blank_line_at_top = true;
+            default_component_configs = {
+              container.right_padding = 2;
+              name.trailing_slash = true;
+              indent = {
+                indent_size = 2;
+                with_expanders = true;
+              };
+            };
+            window.width = 40;
+            auto_clean_after_session_restore = true;
+            close_if_last_window = true;
+            filesystem.components.name.__raw = ''
+              function(config, node, state)
+                local components = require('neo-tree.sources.common.components')
+                local name = components.name(config, node, state)
+                if node:get_depth() == 1 then
+                    name.text = vim.fs.basename(vim.loop.cwd() or "") .. "/"
+                end
+                return name
+              end
+            '';
+          };
         };
 
+        # In-buffer UI/tweaks
+
+        # Toggle relativenumber off when inserting
+        numbertoggle.enable = true;
+
+        # Folding implementation
+        nvim-ufo.enable = true;
+
+        # Nicer indenting
+        indent-o-matic.enable = true;
+        intellitab.enable = true;
+
+        # Image Previews
+        image.enable = true;
+
+        # Completions
+        cmp = {
+          enable = true;
+          settings = {
+            sources = map (name: {inherit name;}) [
+              "nvim_lsp"
+              "nvim_lsp_signature_help"
+              "path"
+              "buffer"
+            ];
+            mapping = {
+              "<Esc>" = "cmp.mapping.abort()";
+              "<Tab>" = "cmp.mapping.confirm({ select = true })";
+              "<Up>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+              "<Down>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+            };
+          };
+        };
+
+        # LSP Completion providers
+        cmp-nvim-lsp.enable = true;
+        cmp-nvim-lsp-document-symbol.enable = true;
+
+        # Common Spellings
+        cmp-spell.enable = true;
+
+        # Color-coded matching symbols
+        rainbow-delimiters.enable = true;
+
+        # dropbar = {
+        #   enable = true;
+        #   settings = {
+        #     bar.padding.right = 5;
+        #     bar.padding.left = 1;
+        #   };
+        # };
+
+        # Line number column + LSP + folding + etc.
+        statuscol = {
+          enable = true;
+          settings.segments = let
+            dispCond = {
+              __raw = ''
+                function(ln)
+                  return vim.bo.filetype ~= "neo-tree"
+                end
+              '';
+            };
+          in [
+            {
+              click = "v:lua.ScSa";
+              condition = [
+                dispCond
+              ];
+              text = [
+                "%s"
+              ];
+            }
+            {
+              click = "v:lua.ScLa";
+              condition = [dispCond];
+              text = [
+                {
+                  __raw = "require('statuscol.builtin').lnumfunc";
+                }
+              ];
+            }
+            {
+              click = "v:lua.ScFa";
+              condition = [
+                dispCond
+                {
+                  __raw = "require('statuscol.builtin').not_empty";
+                }
+              ];
+              text = [
+                {
+                  __raw = "require('statuscol.builtin').foldfunc";
+                }
+                " "
+              ];
+            }
+          ];
+        };
+
+        # Informational bottom line
+        lualine = {
+          enable = true;
+          settings = {
+            extensions = [
+              "trouble"
+              "toggleterm"
+            ];
+
+            options = {
+              theme = lib.mkIf config.cow.cat.enable "catppuccin";
+              disabled_filetypes = ["neo-tree"];
+              ignore_focus = ["neo-tree"];
+            };
+          };
+        };
+
+        # New Windows
+
+        # Nice notifications and progress indicator
+        fidget = {
+          enable = true;
+          settings.notification = {
+            override_vim_notify = true;
+            window = {
+              y_padding = 2;
+              x_padding = 2;
+              zindex = 50;
+              align = "top";
+              winblend = 0;
+            };
+          };
+        };
+
+        # Interactive keybind helper
+        which-key = {
+          enable = true;
+          settings = {
+            show_help = true;
+            preset = "modern";
+            win.wo.winblend = 8;
+          };
+        };
+
+        # Toggle a Terminal Window
         toggleterm = {
           enable = true;
           luaConfig.post = ''
@@ -558,6 +694,9 @@
           };
         };
 
+        # Language Integration and LSPs
+
+        # Provider for syntax highlighting, symbols, etc. when not using an LSP
         treesitter = {
           enable = true;
           luaConfig.post = lib.mkIf config.cow.dev.web ''
@@ -568,264 +707,7 @@
           };
         };
 
-        illuminate.enable = true;
-        cursorline.enable = true;
-
-        # neocord = {
-        #   enable = true;
-        #   settings.logo = "https://raw.githubusercontent.com/IogaMaster/neovim/main/.github/assets/nixvim-dark.webp";
-        # };
-
-        bufdelete.enable = true;
-
-        bufferline = {
-          enable = true;
-          settings.highlights.__raw = ''
-            require("catppuccin.special.bufferline").get_theme()
-          '';
-          settings.options = {
-            indicator.style = "none";
-            show_buffer_close_icons = false;
-            show_close_icon = false;
-            offsets = [
-              {
-                filetype = "neo-tree";
-                highlight = "String";
-                text = " Neovim";
-                text_align = "center";
-                # separator = true;
-              }
-            ];
-            separator_style = "slant";
-            close_command.__raw = ''require('bufdelete').bufdelete'';
-            hover = {
-              enabled = true;
-              delay = 150;
-              reveal = ["close"];
-            };
-            sort_by = "insert_at_end";
-            diagnostics = "nvim_lsp";
-            diagnostics_indicator.__raw = ''
-              function(count, level, diagnostics_dict, context)
-               local icon = level:match("error") and " " or " "
-               return " " .. icon .. count
-              end
-            '';
-          };
-        };
-
-        statuscol = {
-          enable = true;
-          settings.segments = let
-            dispCond = {
-              __raw = ''
-                function(ln)
-                  return vim.bo.filetype ~= "neo-tree"
-                end
-              '';
-            };
-          in [
-            {
-              click = "v:lua.ScSa";
-              condition = [
-                dispCond
-              ];
-              text = [
-                "%s"
-              ];
-            }
-            {
-              click = "v:lua.ScLa";
-              condition = [dispCond];
-              text = [
-                {
-                  __raw = "require('statuscol.builtin').lnumfunc";
-                }
-              ];
-            }
-            {
-              click = "v:lua.ScFa";
-              condition = [
-                dispCond
-                {
-                  __raw = "require('statuscol.builtin').not_empty";
-                }
-              ];
-              text = [
-                {
-                  __raw = "require('statuscol.builtin').foldfunc";
-                }
-                " "
-              ];
-            }
-          ];
-        };
-
-        dropbar = {
-          enable = true;
-          settings = {
-            bar.padding.right = 5;
-            bar.padding.left = 1;
-          };
-        };
-
-        nvim-ufo = {
-          enable = true;
-        };
-
-        # gitgutter = {
-        # 	enable = true;
-        # 	settings = {
-        #
-        # 	};
-        # };
-
-        lualine = {
-          enable = true;
-          settings = {
-            extensions = [
-              "trouble"
-              "toggleterm"
-            ];
-
-            options = {
-              theme = "catppuccin";
-              disabled_filetypes = ["neo-tree"];
-              ignore_focus = ["neo-tree"];
-            };
-          };
-        };
-
-        nix-develop = {
-          enable = true;
-          package = pkgs.vimPlugins.nix-develop-nvim.overrideAttrs (
-            prev: next: {
-              src = pkgs.fetchFromGitHub {
-                owner = "Bwc9876";
-                repo = "nix-develop.nvim";
-                rev = "089cd52191ccbb3726594e21cd96567af6088dd5";
-                sha256 = "sha256-EIEJk8/IAuG+UICUJ2F8QakgRpFrQ1ezDSJ79NAVuD8=";
-              };
-            }
-          );
-        };
-
-        neo-tree = {
-          enable = true;
-          settings = {
-            hide_root_node = false;
-            add_blank_line_at_top = true;
-            default_component_configs = {
-              container.right_padding = 2;
-              name.trailing_slash = true;
-              indent = {
-                indent_size = 2;
-                with_expanders = true;
-              };
-            };
-            window.width = 40;
-            auto_clean_after_session_restore = true;
-            close_if_last_window = true;
-            filesystem.components.name.__raw = ''
-              function(config, node, state)
-                local components = require('neo-tree.sources.common.components')
-                local name = components.name(config, node, state)
-                if node:get_depth() == 1 then
-                    name.text = vim.fs.basename(vim.loop.cwd() or "") .. "/"
-                end
-                return name
-              end
-            '';
-          };
-        };
-
-        image = {
-          luaConfig = {
-            pre = "if not vim.g.neovide then";
-            post = "end";
-          };
-          enable = true;
-        };
-        web-devicons.enable = true;
-
-        indent-o-matic.enable = true;
-        intellitab.enable = true;
-
-        which-key = {
-          enable = true;
-          settings = {
-            show_help = true;
-            preset = "modern";
-            win.wo.winblend = 8;
-          };
-        };
-
-        fidget = {
-          enable = true;
-          settings.notification = {
-            override_vim_notify = true;
-            window = {
-              y_padding = 2;
-              x_padding = 2;
-              zindex = 50;
-              align = "top";
-              winblend = 0;
-            };
-          };
-        };
-
-        # none-ls = {
-        #   enable = true;
-        #   sources.formatting = {
-        #     prettier = {
-        #       enable = true;
-        #       disableTsServerFormatter = true;
-        #     };
-        #     yamlfmt.enable = true;
-        #     typstyle.enable = true;
-        #     markdownlint.enable = true;
-        #   };
-        #   sources.diagnostics = {
-        #     markdownlint.enable = true;
-        #   };
-        # };
-
-        cmp = {
-          enable = true;
-          settings = {
-            sources = map (name: {inherit name;}) [
-              "nvim_lsp"
-              "nvim_lsp_signature_help"
-              "path"
-              "buffer"
-            ];
-            mapping = {
-              "<Esc>" = "cmp.mapping.abort()";
-              "<Tab>" = "cmp.mapping.confirm({ select = true })";
-              "<Up>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-              "<Down>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-            };
-          };
-        };
-
-        cmp-nvim-lsp.enable = true;
-        cmp-nvim-lsp-document-symbol.enable = true;
-        cmp-spell.enable = true;
-
-        rainbow-delimiters.enable = true;
-        preview.enable = true;
-
-        # jupytext.enable = true;
-
-        # Broken
-        # hex = {
-        #   enable = true;
-        #   settings = {
-        #     assemble_cmd = "xxd -r";
-        #     dump_cmd = "xxd -g 1 -u";
-        #   };
-        # };
-
+        # Formatting code using multiple providers
         conform-nvim = {
           enable = true;
           settings.default_format_opts = {
@@ -847,8 +729,10 @@
           '';
         };
 
+        # Common buffer type associations to activate LSPs
         lspconfig.enable = true;
 
+        # UI for many LSP features
         lspsaga = {
           enable = true;
           settings = {
@@ -873,15 +757,21 @@
           };
         };
 
-        crates.enable = true;
+        # Get latest version of deps in a Cargo.toml as inline hints
+        crates.enable = lib.mkDefault config.cow.dev.rust;
 
-        numbertoggle.enable = true;
+        # Misc. UI
 
-        # rustaceanvim.enable = true;
-        vim-css-color.enable = true;
+        # UI and provider for diagnostics
+        trouble = {
+          enable = true;
+        };
+
+        # Icons used in many places for languages
+        web-devicons.enable = true;
       };
 
-      lsp = {
+      lsp = lib.mkDefault {
         inlayHints.enable = true;
 
         servers = let
@@ -902,12 +792,10 @@
             # ghcPackage = pkgs.haskell.compiler.ghc912;
             package = pkgs.haskell.packages.ghc912.haskell-language-server;
           };
-          sqls.enable = web;
           mdx_analyzer = lib.mkIf web {
             enable = true;
             package = pkgs.mdx-language-server;
           };
-          # denols.enable = true;
           ts_ls.enable = web;
           html.enable = web;
           marksman.enable = web;
@@ -916,7 +804,6 @@
           yamlls.enable = web;
           ruff.enable = python;
           csharp_ls.enable = dotnet;
-          svelte.enable = web;
           nil_ls.enable = true;
           bashls.enable = true;
           nushell.enable = config.cow.nushell.enable;
@@ -929,7 +816,7 @@
           };
           lemminx.enable = web;
           eslint.enable = web;
-          just.enable = true;
+          just.enable = config.cow.utils.enable;
         };
       };
     };
