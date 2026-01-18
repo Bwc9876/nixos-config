@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flakelight.url = "github:nix-community/flakelight";
     flakelight.inputs.nixpkgs.follows = "nixpkgs";
+    flakelight-treefmt.url = "github:m15a/flakelight-treefmt";
+    flakelight-treefmt.inputs.flakelight.follows = "flakelight";
     nix-index-db.url = "github:nix-community/nix-index-database";
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
     hm.url = "github:nix-community/home-manager";
@@ -47,6 +49,7 @@
     self,
     nixpkgs,
     flakelight,
+    flakelight-treefmt,
     nix-index-db,
     hm,
     nixos-hardware,
@@ -64,14 +67,19 @@
     musnix,
   }:
     flakelight ./. {
+      inherit inputs;
       imports = [
+        flakelight-treefmt.flakelightModules.default
         spoon.flakelightModules.repl
         spoon.flakelightModules.ubercheck
       ];
-      inherit inputs;
-      formatters = pkgs: {
-        "*.nix" = "alejandra .";
-        "*.sh" = "shfmt -w .";
+
+      treefmtConfig = {pkgs, ...}: {
+        programs = {
+          alejandra.enable = true;
+          just.enable = true;
+          shfmt.enable = true;
+        };
       };
 
       nixDir = ./.;

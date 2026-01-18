@@ -51,11 +51,8 @@
           no_italics = false;
           term_colors = true;
           integrations = {
-            alpha = true;
-            dropbar.enabled = true;
             fidget = true;
             markdown = true;
-            dap = true;
             ufo = true;
             rainbow_delimiters = true;
             lsp_trouble = true;
@@ -368,7 +365,7 @@
                   options.desc = "Recent Files";
                 }
                 {
-                  key = "f";
+                  key = "l";
                   action = "live_grep";
                   options.desc = "Live Grep";
                 }
@@ -533,14 +530,6 @@
 
         # Color-coded matching symbols
         rainbow-delimiters.enable = true;
-
-        # dropbar = {
-        #   enable = true;
-        #   settings = {
-        #     bar.padding.right = 5;
-        #     bar.padding.left = 1;
-        #   };
-        # };
 
         # Line number column + LSP + folding + etc.
         statuscol = {
@@ -710,8 +699,16 @@
         # Formatting code using multiple providers
         conform-nvim = {
           enable = true;
-          settings.default_format_opts = {
-            lsp_format = "prefer";
+          settings = {
+            formatters.treefmt = {
+              require_cwd = false;
+            };
+            formatters_by_ft = {
+              "*" = ["treefmt"];
+            };
+            default_format_opts = {
+              lsp_format = "fallback";
+            };
           };
           # Taken from https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#format-command
           luaConfig.post = ''
@@ -724,7 +721,7 @@
                   ["end"] = { args.line2, end_line:len() },
                 }
               end
-              require("conform").format({ async = true, lsp_format = "fallback", range = range })
+              require("conform").format({ range = range, timeout_ms = 5000 })
             end, { range = true })
           '';
         };
