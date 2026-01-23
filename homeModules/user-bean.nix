@@ -24,6 +24,21 @@
       homeDirectory = lib.mkDefault "/home/bean";
     };
 
+    programs.jujutsu.settings = {
+      user = {
+        name = "Ben C";
+        email = "bwc9876@gmail.com";
+      };
+      git = {
+        sign-on-push = true;
+      };
+      signing = {
+        behavior = "drop";
+        backend = "ssh";
+        key = lib.mkIf (config.cow.bean.pubkey != null) config.cow.bean.pubkey;
+      };
+    };
+
     programs.git = {
       signing = lib.mkIf (config.cow.bean.pubkey != null) {
         format = "ssh";
@@ -38,16 +53,18 @@
       };
     };
 
-    home.packages = lib.mkIf config.cow.gdi.enable (with pkgs; [
-      libreoffice-qt6
-      obs-studio
-      loupe
-      gimp
-      inkscape
-      lorien
-      zoom-us
-      tuxpaint
-    ]);
+    home.packages = lib.mkIf config.cow.gdi.enable (
+      with pkgs; [
+        libreoffice-qt6
+        obs-studio
+        loupe
+        gimp
+        inkscape
+        lorien
+        zoom-us
+        tuxpaint
+      ]
+    );
 
     home.sessionVariables = {
       "EDITOR" = "nvim";
@@ -74,6 +91,7 @@
       htop.enable = true;
       starship.enable = true;
       dev.enable = true;
+      jj.enable = true;
       comma.enable = true;
       cat.enable = true;
 
