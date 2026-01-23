@@ -50,12 +50,14 @@ in {
       rdrview
     ];
 
-    xdg.dataFile."applications/newsboat.desktop".text = ''
-      [Desktop Entry]
-      Type=Application
-      Name=newsboat
-      Icon=newsboat
-    '';
+    xdg.dataFile = lib.mkIf config.cow.gdi.enable {
+      "applications/newsboat.desktop".text = ''
+        [Desktop Entry]
+        Type=Application
+        Name=newsboat
+        Icon=newsboat
+      '';
+    };
 
     programs.newsboat = {
       enable = true;
@@ -89,16 +91,6 @@ in {
               "outer-wilds"
             ];
           }
-          # {
-          #   title = "Philly Voice";
-          #   url = "https://www.phillyvoice.com/feed/section/news/";
-          #   tags = ["local"];
-          # }
-          # {
-          #   title = "ChesCo";
-          #   url = "https://www.mychesco.com/feed";
-          #   tags = ["local"];
-          # }
           {
             title = "Mobius Digital";
             url = "https://www.mobiusdigitalgames.com/news/feed";
@@ -114,32 +106,8 @@ in {
             ];
           }
           {
-            title = "Linux Kernel Releases";
-            url = "https://www.kernel.org/feeds/kdist.xml";
-            tags = [
-              "dev"
-              "linux"
-            ];
-          }
-          {
             title = "Linux Weekly News";
             url = "https://lwn.net/headlines/newrss";
-            tags = [
-              "dev"
-              "linux"
-            ];
-          }
-          {
-            title = "Linux Kernel Planet";
-            url = "https://planet.kernel.org/rss20.xml";
-            tags = [
-              "dev"
-              "linux"
-            ];
-          }
-          {
-            title = "Free Desktop Planet";
-            url = "https://planet.freedesktop.org/atom.xml";
             tags = [
               "dev"
               "linux"
@@ -154,19 +122,19 @@ in {
             ];
           }
           {
-            title = "Cloudflare Blog";
-            url = "https://blog.cloudflare.com/rss";
-            tags = [
-              "dev"
-              "security"
-            ];
-          }
-          {
             title = "Rust Blog";
             url = "https://blog.rust-lang.org/feed.xml";
             tags = [
               "dev"
               "rust"
+            ];
+          }
+          {
+            title = "NuShell Blog";
+            url = "https://www.nushell.sh/rss.xml";
+            tags = [
+              "dev"
+              "linux"
             ];
           }
           {
@@ -234,22 +202,6 @@ in {
             ];
           }
           {
-            title = "Mozilla Nightly Blog";
-            url = "https://blog.nightly.mozilla.org/feed/";
-            tags = [
-              "dev"
-              "web"
-            ];
-          }
-          {
-            title = "Mozilla Developer Network";
-            url = "https://developer.mozilla.org/en-US/blog/rss.xml";
-            tags = [
-              "dev"
-              "web"
-            ];
-          }
-          {
             title = "Chrome Dev Blog";
             url = "https://developer.chrome.com/static/blog/feed.xml";
             tags = [
@@ -263,22 +215,6 @@ in {
             tags = [
               "dev"
               "web"
-            ];
-          }
-          {
-            title = "GitHub Blog";
-            url = "https://github.blog/feed/";
-            tags = [
-              "dev"
-              "github"
-            ];
-          }
-          {
-            title = "GitHub Status";
-            url = "https://www.githubstatus.com/history.rss";
-            tags = [
-              "dev"
-              "github"
             ];
           }
           {
@@ -335,24 +271,9 @@ in {
             tags = ["personal-blog"];
           }
           {
-            title = "Scripting News";
-            url = "http://scripting.com/rss.xml";
-            tags = ["personal-blog"];
-          }
-          {
             title = "XKCD";
             url = "https://xkcd.com/rss.xml";
             tags = ["personal-blog"];
-          }
-          {
-            title = "Framework Laptop";
-            url = "https://frame.work/blog.rss";
-            tags = ["hardware"];
-          }
-          {
-            title = "Ars Technica";
-            url = "https://arstechnica.com/feed/";
-            tags = ["tech"];
           }
           {
             title = "Lobste";

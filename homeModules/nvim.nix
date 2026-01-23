@@ -11,11 +11,6 @@
   config = lib.mkIf config.cow.neovim.enable {
     cow.imperm.keep = [".local/share/nvim"];
 
-    home.packages = with pkgs; [
-      ripgrep
-      fd
-    ];
-
     home.sessionVariables.EDITOR = "nvim";
 
     programs.nixvim = {
@@ -388,6 +383,14 @@
           ]
         );
 
+      # Plugins
+
+      dependencies = {
+        fd.enable = true;
+        ripgrep.enable = true;
+        tree-sitter.enable = true;
+      };
+
       extraPlugins = with pkgs.vimPlugins;
         (lib.optional config.cow.dev.web {plugin = pkgs.nvim-mdx;})
         ++ [
@@ -692,7 +695,11 @@
             require('mdx').setup()
           '';
           settings = {
-            highlight.enable = true;
+            highlight = {
+              enable = true;
+              additional_vim_regex_highlighting = false;
+            };
+            indent.enable = true;
           };
         };
 
@@ -757,6 +764,9 @@
         # Get latest version of deps in a Cargo.toml as inline hints
         crates.enable = lib.mkDefault config.cow.dev.rust;
 
+        # Better TS LSP, etc.
+        typescript-tools.enable = lib.mkDefault config.cow.dev.web;
+
         # Misc. UI
 
         # UI and provider for diagnostics
@@ -793,7 +803,7 @@
             enable = true;
             package = pkgs.mdx-language-server;
           };
-          ts_ls.enable = web;
+          # ts_ls.enable = web;
           html.enable = web;
           marksman.enable = web;
           cssls.enable = web;

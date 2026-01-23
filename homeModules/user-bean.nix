@@ -42,6 +42,7 @@
       libreoffice-qt6
       obs-studio
       loupe
+      gimp
       inkscape
       lorien
       zoom-us
