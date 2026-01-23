@@ -30,9 +30,9 @@
           truncate_to_repo = true;
           truncation_length = 10;
         };
-        format = "[░▒▓](crust)[ $os$hostname[](bg:crust #999999)$shell$username[](bg:crust #999999)$directory([](bg:crust #999999)$git_branch$git_commit$git_state)([](bg:crust #999999)$nodejs$python$rust$nix_shell)](bg:crust)[ ](crust)";
+        format = "[░▒▓](crust)[ $os$hostname[](bg:crust #999999)$shell$username[](bg:crust #999999)$directory([](bg:crust #999999))([](bg:crust #999999)$nodejs$python$rust$nix_shell)](bg:crust)[ ](crust)";
         git_branch = {
-          format = "[ $symbol ($branch )]($style)";
+          format = "[ $symbol ($branch)]($style)";
           style = "bg:crust green";
           symbol = "󰘬";
         };
