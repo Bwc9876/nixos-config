@@ -37,7 +37,17 @@
             dev.mc = true;
           };
 
-          home-manager.users.bean.programs.niri.settings.outputs."eDP-1".scale = 1;
+          services.keyd = {
+            enable = true;
+            keyboards.default.settings.main = {
+              "capslock" = "7";
+              "media" = "delete";
+            };
+          };
+
+          home-manager.users.bean.programs.niri.settings = {
+            outputs."eDP-1".scale = 1;
+          };
 
           environment.systemPackages = with pkgs; [
             android-tools

@@ -20,6 +20,7 @@
   config = lib.mkIf config.cow.utils.enable {
     home.packages = with pkgs;
       [
+        ripgrep
         binutils
         usbutils
         qrencode
@@ -28,6 +29,7 @@
         procfd
         dust
         zip
+        unzip
         inputs.gh-grader-preview.packages.${pkgs.system}.default
         libqalculate
         p7zip
