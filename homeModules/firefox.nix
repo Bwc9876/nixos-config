@@ -123,6 +123,7 @@ in {
               "flagfox"
               "awesome-rss"
               "identfavicon-quantum"
+              "margin"
 
               # Devtools
               "react-devtools"
