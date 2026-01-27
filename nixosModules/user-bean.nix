@@ -5,6 +5,7 @@
   ...
 }: let
   pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKsVzdJra+x5aEuwTjL1FBOiMh9bftvs8QwsM1xyEbdd";
+  did = "did:plc:x7tlupbnqot7nu6udnffnv4h";
 in {
   options.cow.bean = {
     enable = lib.mkEnableOption "Bean user";
@@ -13,6 +14,11 @@ in {
       type = lib.types.nullOr lib.types.str;
       description = "Public Key to Add for Bean";
       default = pubkey;
+    };
+    atproto.did = lib.mkOption {
+      type = lib.types.str;
+      description = "DID for the bean user";
+      default = did;
     };
   };
 

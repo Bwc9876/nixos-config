@@ -35,6 +35,8 @@
     niri.inputs.nixpkgs.follows = "nixpkgs";
     musnix.url = "github:musnix/musnix";
     musnix.inputs.nixpkgs.follows = "nixpkgs";
+    tangled.url = "git+https://tangled.org/tangled.org/core";
+    tangled.inputs.nixpkgs.follows = "nixpkgs";
 
     spoon.url = "git+https://codeberg.org/spoonbaker/mono";
     spoon.inputs = {
@@ -65,6 +67,7 @@
     gh-grader-preview,
     niri,
     musnix,
+    tangled,
   }:
     flakelight ./. {
       inherit inputs;

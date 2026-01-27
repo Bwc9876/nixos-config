@@ -92,8 +92,53 @@
           ];
         };
       }
+      (
+        {
+          config,
+          pkgs,
+          ...
+        }: {
+          # Self hosted stuff
+
+          cow = {
+            tangled = {
+              hostname = "knot.bwc9876.dev";
+              knot.enable = true;
+            };
+            imperm.keep = ["/var/lib/acme"];
+          };
+
+          services.nginx = {
+            enable = true;
+            virtualHosts."knot.bwc9876.dev" = {
+              forceSSL = true;
+              acmeRoot = null; # Doing DNS challenges
+              useACMEHost = "bwc9876.dev";
+            };
+          };
+
+          security.acme = {
+            acceptTerms = true;
+            defaults = {
+              email = "ben@bwc9876.dev";
+            };
+            certs."bwc9876.dev" = {
+              domain = "*.bwc9876.dev";
+              extraDomainNames = [
+                "knot.bwc9876.dev"
+              ];
+              reloadServices = [
+                "nginx"
+              ];
+              group = config.services.nginx.group;
+              dnsProvider = "porkbun";
+              environmentFile = "/nix/persist/secure/porkbun.env";
+            };
+          };
+        }
+      )
       {
-        # for WOL
+        # WOL
         systemd.network.links."79-eth-wol" = {
           matchConfig = {
             Type = "ether";
