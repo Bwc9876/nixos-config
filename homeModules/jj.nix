@@ -14,6 +14,7 @@
     programs.jujutsu = {
       enable = true;
       settings = {
+        ui.default-command = "log";
         ui.pager = "less -FR";
       };
     };

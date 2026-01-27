@@ -56,8 +56,6 @@
 
     services.openssh = lib.mkIf conf.knot.enable {
       enable = true;
-      settings.AllowUsers = [gitUser];
-      settings.AllowGroups = [gitUser];
     };
   };
 }

@@ -124,9 +124,6 @@
             };
             certs."bwc9876.dev" = {
               domain = "*.bwc9876.dev";
-              extraDomainNames = [
-                "knot.bwc9876.dev"
-              ];
               reloadServices = [
                 "nginx"
               ];
@@ -153,10 +150,12 @@
           };
         };
       }
-      {
+      ({lib, ...}: {
         virtualisation.podman.enable = true;
-
+				spoon.mc-srv.cobblemon.enable = lib.mkForce false;
+        spoon.yggdrasil.enable = lib.mkForce false;
+        spoon.yggdrasil.config.Listen = lib.mkForce [];
         cow.imperm.keep = ["/var/lib/containers"];
-      }
+      })
     ];
 }
