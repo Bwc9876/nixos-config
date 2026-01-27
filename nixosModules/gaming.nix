@@ -21,7 +21,7 @@
     };
 
     environment.systemPackages = with pkgs; [
-			gamescope-wsi
+      gamescope-wsi
       prismlauncher
       owmods-gui
       owmods-cli

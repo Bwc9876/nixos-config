@@ -101,6 +101,19 @@
           # Self hosted stuff
 
           cow = {
+            cocoon = let
+              secure = x: "/nix/persist/secure/cocoon-keys/${x}";
+            in {
+              enable = true;
+              did = config.cow.bean.atproto.did;
+              port = 8080;
+              jwkPath = secure "jwk.key";
+              rotationPath = secure "rotation.key";
+              adminPassPath = secure "admin.pass";
+              sessionSecretPath = secure "session.key";
+              email = "ben@bwc9876.dev";
+              hostname = "pds.bwc9876.dev";
+            };
             tangled = {
               hostname = "knot.bwc9876.dev";
               knot.enable = true;
@@ -113,6 +126,11 @@
             virtualHosts."knot.bwc9876.dev" = {
               forceSSL = true;
               acmeRoot = null; # Doing DNS challenges
+              useACMEHost = "bwc9876.dev";
+            };
+            virtualHosts."pds.bwc7986.dev" = {
+              forceSSL = true;
+              acmeRoot = null; # DNS
               useACMEHost = "bwc9876.dev";
             };
           };
@@ -150,12 +168,14 @@
           };
         };
       }
-      ({lib, ...}: {
-        virtualisation.podman.enable = true;
-				spoon.mc-srv.cobblemon.enable = lib.mkForce false;
-        spoon.yggdrasil.enable = lib.mkForce false;
-        spoon.yggdrasil.config.Listen = lib.mkForce [];
-        cow.imperm.keep = ["/var/lib/containers"];
-      })
+      (
+        {lib, ...}: {
+          virtualisation.podman.enable = true;
+          spoon.mc-srv.cobblemon.enable = lib.mkForce false;
+          spoon.yggdrasil.enable = lib.mkForce false;
+          spoon.yggdrasil.config.Listen = lib.mkForce [];
+          cow.imperm.keep = ["/var/lib/containers"];
+        }
+      )
     ];
 }
