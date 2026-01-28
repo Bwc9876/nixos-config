@@ -12,10 +12,11 @@
     services.openssh = {
       enable = true;
       openFirewall = true;
-      banner = ''
-        -=≡ ${lib.toUpper config.networking.hostName} ≡=-
-
-      '';
+      banner = let
+        name = lib.toUpper config.networking.hostName;
+        bleh = builtins.readFile ../res/bleh.txt;
+      in
+        lib.replaceString "$NAME$" name bleh;
       listenAddresses = [
         {
           addr = "0.0.0.0";

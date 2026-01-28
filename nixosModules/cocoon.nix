@@ -5,7 +5,7 @@
   ...
 }: {
   options.cow.cocoon = {
-    enable = lib.mkEnableOption "Cocoon PDS with postgresql";
+    enable = lib.mkEnableOption "Cocoon PDS";
     did = lib.mkOption {
       type = lib.types.str;
       description = "DID of server owner";
@@ -44,6 +44,16 @@
     email = lib.mkOption {
       type = lib.types.str;
       description = "Contact email for this PDS' administrator";
+    };
+    relays = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      description = "Relay servers to use for event syncing";
+      default = ["https://bsky.network"];
+    };
+    fallbackProxy = lib.mkOption {
+      type = lib.types.str;
+      description = "Proxy for xrpc requests that we can't service";
+      default = "did:web:api.bsky.app#bsky_appview";
     };
     hostname = lib.mkOption {
       type = lib.types.str;
@@ -136,7 +146,7 @@
           PrivateTmp = true;
           ReadWritePaths = conf.dataDir;
           LoadCredential = [
-            "jwt:${conf.jwkPath}"
+            "jwk:${conf.jwkPath}"
             "rotation:${conf.rotationPath}"
             "adminPass:${conf.adminPassPath}"
             "session:${conf.sessionSecretPath}"
@@ -147,25 +157,10 @@
             ADDR = ":${builtins.toString conf.port}";
             CONTACT_EMAIL = conf.email;
 
-            # TODO: Don't hardcode
-            RELAYS = lib.join "," [
-              "https://bsky.network"
-              "https://relay.cerulea.blue"
-              "https://relay.fire.hose.cam"
-              "https://relay2.fire.hose.cam"
-              "https://relay3.fr.hose.cam"
-              "https://relay.hayescmd.net"
-              "https://relay.xero.systems"
-              "https://relay.upcloud.world"
-              "https://relay.feeds.blue"
-              "https://atproto.africa"
-              "https://relay.whey.party"
-            ];
+            RELAYS = lib.join "," conf.relays; 
+            FALLBACK_PROXY = conf.fallbackProxy;
 
-            # TODO: Don't?
-            FALLBACK_PROXY = "did:web:api.bsky.app#bsky_appview";
-
-            JWK_PATH = "%d/jwt";
+            JWK_PATH = "%d/jwk";
             ROTATION_KEY_PATH = "%d/rotation";
 
             DB_TYPE = "sqlite";
