@@ -14,9 +14,11 @@
       openFirewall = true;
       banner = let
         name = lib.toUpper config.networking.hostName;
-        bleh = builtins.readFile ../res/bleh.txt;
-      in
-        lib.replaceString "$NAME$" name bleh;
+      in ''
+        -= ${name} -=
+
+
+      '';
       listenAddresses = [
         {
           addr = "0.0.0.0";

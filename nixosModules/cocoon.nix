@@ -157,7 +157,7 @@
             ADDR = ":${builtins.toString conf.port}";
             CONTACT_EMAIL = conf.email;
 
-            RELAYS = lib.join "," conf.relays; 
+            RELAYS = lib.join "," conf.relays;
             FALLBACK_PROXY = conf.fallbackProxy;
 
             JWK_PATH = "%d/jwk";

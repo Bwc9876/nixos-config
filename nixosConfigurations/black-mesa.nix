@@ -129,7 +129,10 @@
             };
             tangled = {
               hostname = "knot.bwc9876.dev";
-              knot.enable = true;
+              knot = {
+                enable = true;
+                gitUser = "gurt";
+              };
             };
             imperm.keep = ["/var/lib/acme"];
           };
