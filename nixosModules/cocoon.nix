@@ -60,10 +60,40 @@
       ];
 
       services.nginx.virtualHosts.${conf.hostname} = {
-        locations = {
+        serverAliases = [".${conf.hostname}"];
+
+        # All stolen from Isabel
+        # https://github.com/isabelroses/dotfiles/blob/262ae19c1e92be5d759f40020e894113ba5d5d44/modules/nixos/services/pds/default.nix
+        locations = let
+          mkAgeAssured = state: {
+            return = "200 '${builtins.toJSON state}'";
+            extraConfig = ''
+              default_type application/json;
+            '';
+          };
+        in {
+          "/xrpc/app.bsky.unspecced.getAgeAssuranceState" = mkAgeAssured {
+            lastInitiatedAt = "2025-07-14T15:11:05.487Z";
+            status = "assured";
+          };
+          "/xrpc/app.bsky.ageassurance.getConfig" = mkAgeAssured {
+            regions = [];
+          };
+          "/xrpc/app.bsky.ageassurance.getState" = mkAgeAssured {
+            state = {
+              lastInitiatedAt = "2025-07-14T15:11:05.487Z";
+              status = "assured";
+              access = "full";
+            };
+            metadata = {
+              accountCreatedAt = "2022-11-17T00:35:16.391Z";
+            };
+          };
+
+          # pass everything else to the pds
           "/" = {
-            proxyPass = "http://localhost:${builtins.toString conf.port}";
-            recommendedProxySettings = true;
+            proxyPass = "http://localhost:${toString conf.port}";
+            proxyWebsockets = true;
           };
         };
       };
@@ -90,9 +120,9 @@
         '';
 
         script = ''
-          COCOON_ADMIN_PASSWORD=$(cat $CREDENTIALS_DIRECTORY/adminPass) \
-          COCOON_SESSION_SECRET=$(cat $CREDENTIALS_DIRECTORY/session) \
-          ${lib.getExe pkgs.cocoon}
+          COCOON_ADMIN_PASSWORD=$(cat "$CREDENTIALS_DIRECTORY/adminPass") \
+          COCOON_SESSION_SECRET=$(cat "$CREDENTIALS_DIRECTORY/session") \
+          ${lib.getExe pkgs.cocoon} run
         '';
 
         serviceConfig = {
@@ -118,7 +148,22 @@
             CONTACT_EMAIL = conf.email;
 
             # TODO: Don't hardcode
-            RELAYS = "https://bsky.network";
+            RELAYS = lib.join "," [
+              "https://bsky.network"
+              "https://relay.cerulea.blue"
+              "https://relay.fire.hose.cam"
+              "https://relay2.fire.hose.cam"
+              "https://relay3.fr.hose.cam"
+              "https://relay.hayescmd.net"
+              "https://relay.xero.systems"
+              "https://relay.upcloud.world"
+              "https://relay.feeds.blue"
+              "https://atproto.africa"
+              "https://relay.whey.party"
+            ];
+
+            # TODO: Don't?
+            FALLBACK_PROXY = "did:web:api.bsky.app#bsky_appview";
 
             JWK_PATH = "%d/jwt";
             ROTATION_KEY_PATH = "%d/rotation";

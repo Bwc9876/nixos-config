@@ -121,15 +121,28 @@
             imperm.keep = ["/var/lib/acme"];
           };
 
+          networking.firewall.allowedTCPPorts = [
+            80
+            443
+          ];
+
           services.nginx = {
             enable = true;
+
+            recommendedTlsSettings = true;
+            recommendedBrotliSettings = true;
+            recommendedOptimisation = true;
+            recommendedGzipSettings = true;
+            recommendedProxySettings = true;
+            experimentalZstdSettings = true;
+
             virtualHosts."knot.bwc9876.dev" = {
-              forceSSL = true;
+              addSSL = true;
               acmeRoot = null; # Doing DNS challenges
               useACMEHost = "bwc9876.dev";
             };
-            virtualHosts."pds.bwc7986.dev" = {
-              forceSSL = true;
+            virtualHosts."pds.bwc9876.dev" = {
+              addSSL = true;
               acmeRoot = null; # DNS
               useACMEHost = "bwc9876.dev";
             };
