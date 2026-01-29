@@ -109,8 +109,8 @@
           black
         ])
         ++ (lib.optionals conf.dotnet [
-          dotnet-sdk
-          dotnet-runtime
+          dotnet-sdk_10
+          dotnet-runtime_10
           mono
           dotnetPackages.Nuget
         ])
