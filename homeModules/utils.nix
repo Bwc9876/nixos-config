@@ -43,6 +43,7 @@
         htop
         dig
         doggo
+        tldr
 
         hyfetch
         fastfetch
