@@ -199,9 +199,7 @@ in {
               "@ciu"
               "@baseline"
             ] "https://caniuse.com/?search={searchTerms}" "https://caniuse.com/img/favicon-128.png";
-            "NPM" =
-              mkEngineForceFavicon ["@npm"] "https://www.npmjs.com/search?q={searchTerms}"
-              "https://static-production.npmjs.com/3dc95981de4241b35cd55fe126ab6b2c.png";
+            "NPM" = mkEngine ["@npm"] "https://www.npmx.dev/search?q={searchTerms}" "ico";
             "Iconify" = mkEngine [
               "@iconify"
               "@icons"
