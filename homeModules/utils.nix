@@ -43,7 +43,7 @@
         htop
         dig
         doggo
-        tldr
+        tealdeer
 
         hyfetch
         fastfetch
