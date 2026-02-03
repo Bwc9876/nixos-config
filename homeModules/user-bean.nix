@@ -1,9 +1,11 @@
-{...}: {
+{ ... }:
+{
   pkgs,
   lib,
   config,
   ...
-}: {
+}:
+{
   options.cow.bean = {
     enable = lib.mkEnableOption "Bean user presets";
     pubkey = lib.mkOption {
@@ -54,13 +56,8 @@
     };
 
     home.packages = lib.mkIf config.cow.gdi.enable (
-      with pkgs; [
-        libreoffice-qt6
-        obs-studio
-        loupe
-        gimp
-        inkscape
-        lorien
+      with pkgs;
+      [
         zoom-us
         tuxpaint
       ]
