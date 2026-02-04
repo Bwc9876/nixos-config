@@ -25,9 +25,6 @@
     lib.mkIf config.cow.gdi.enable {
       nixpkgs.overlays = [inputs.niri.overlays.niri];
 
-      # Me when I'm stupid and enable my preferred keyring unconditionally in a flake for a WM
-      services.gnome-keyring.enable = lib.mkForce false;
-
       home.packages = with pkgs; [
         alsa-utils
 
@@ -41,6 +38,7 @@
 
         # Shell Components
         hyprlock
+        nautilus
 
         ## Waybar
         qt6.qttools # For component
@@ -66,9 +64,6 @@
           "application/pdf" = lib.mkIf config.cow.firefox.enable "firefox-devedition.desktop";
           "image/*" = lib.mkIf config.cow.firefox.enable "firefox-devedition.desktop";
           "text/*" = lib.mkIf config.cow.neovim.enable "neovide.desktop";
-          "inode/directory" = lib.mkIf config.cow.yazi.enable "yazi.desktop";
-          "inode/mount-point" = lib.mkIf config.cow.yazi.enable "yazi.desktop";
-          "x-scheme-handler/file" = lib.mkIf config.cow.yazi.enable "yazi.desktop";
         };
       };
 
@@ -235,9 +230,6 @@
               spawnSh "cliphist list | sed -r 's/\[\[ binary data (.* .iB) (.*) (.*) \]\]/ 󰋩 \2 Image (\3, \1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy";
             "Mod+Alt+V".action =
               spawnSh "echo -e \"Yes\\nNo\" | [[ $(rofi -dmenu -mesg \"Clear Clipboard History?\" -p Clear) == \"Yes\" ]] && cliphist wipe";
-
-            # Yazi
-            "Mod+E".action = lib.mkIf config.cow.yazi.enable (launchDesktop "yazi");
 
             # Firefox
             "Mod+Q".action = lib.mkIf config.cow.firefox.enable (launchDesktop "firefox-devedition");
