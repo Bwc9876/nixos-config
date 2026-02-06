@@ -18,7 +18,7 @@
         videos = "${homeDirectory}/Videos";
         music = "${homeDirectory}/Music";
         extraConfig = {
-          "XDG_SCREENSHOTS_DIR" = "${homeDirectory}/Pictures/Screenshots";
+          "SCREENSHOTS" = "${homeDirectory}/Pictures/Screenshots";
         };
       };
     };
