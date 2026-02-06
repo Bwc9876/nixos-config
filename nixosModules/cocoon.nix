@@ -1,9 +1,11 @@
-{inputs, ...}: {
+{ inputs, ... }:
+{
   config,
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   options.cow.cocoon = {
     enable = lib.mkEnableOption "Cocoon PDS";
     did = lib.mkOption {
@@ -48,7 +50,7 @@
     relays = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Relay servers to use for event syncing";
-      default = ["https://bsky.network"];
+      default = [ "https://bsky.network" ];
     };
     fallbackProxy = lib.mkOption {
       type = lib.types.str;
@@ -61,51 +63,61 @@
     };
   };
 
-  config = let
-    conf = config.cow.cocoon;
-  in
+  config =
+    let
+      conf = config.cow.cocoon;
+    in
     lib.mkIf conf.enable {
       cow.imperm.keep = [
         conf.dataDir
       ];
 
       services.nginx.virtualHosts.${conf.hostname} = {
-        serverAliases = [".${conf.hostname}"];
+        serverAliases = [ ".${conf.hostname}" ];
 
         # All stolen from Isabel
         # https://github.com/isabelroses/dotfiles/blob/262ae19c1e92be5d759f40020e894113ba5d5d44/modules/nixos/services/pds/default.nix
-        locations = let
-          mkAgeAssured = state: {
-            return = "200 '${builtins.toJSON state}'";
-            extraConfig = ''
-              default_type application/json;
-            '';
-          };
-        in {
-          "/xrpc/app.bsky.unspecced.getAgeAssuranceState" = mkAgeAssured {
-            lastInitiatedAt = "2025-07-14T15:11:05.487Z";
-            status = "assured";
-          };
-          "/xrpc/app.bsky.ageassurance.getConfig" = mkAgeAssured {
-            regions = [];
-          };
-          "/xrpc/app.bsky.ageassurance.getState" = mkAgeAssured {
-            state = {
-              lastInitiatedAt = "2025-07-14T15:11:05.487Z";
+        locations =
+          let
+            mkAgeAssured = state: {
+              return = "200 '${builtins.toJSON state}'";
+              extraConfig = ''
+                default_type application/json;
+                add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
+                add_header access-control-allow-origin "*" always;
+                add_header X-Frame-Options SAMEORIGIN always;
+                add_header X-Content-Type-Options nosniff;
+              '';
+            };
+          in
+          {
+            "/xrpc/app.bsky.unspecced.getAgeAssuranceState" = mkAgeAssured {
+              lastInitiatedAt = "2026-01-19T05:59:50.391Z";
               status = "assured";
-              access = "full";
             };
-            metadata = {
-              accountCreatedAt = "2022-11-17T00:35:16.391Z";
+            "/xrpc/app.bsky.ageassurance.getConfig" = mkAgeAssured {
+              regions = [ ];
             };
-          };
+            "/xrpc/app.bsky.ageassurance.getState" = mkAgeAssured {
+              state = {
+                lastInitiatedAt = "2026-01-19T05:59:50.391Z";
+                status = "assured";
+                access = "full";
+              };
+              metadata = {
+                accountCreatedAt = "2026-01-19T05:59:50.391Z";
+              };
+            };
 
-          # pass everything else to the pds
-          "/" = {
-            proxyPass = "http://localhost:${toString conf.port}";
-            proxyWebsockets = true;
+            # pass everything else to the pds
+            "/" = {
+              proxyPass = "http://localhost:${toString conf.port}";
+              proxyWebsockets = true;
+              extraConfig = ''
+                add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
+              '';
+            };
           };
-        };
       };
 
       users.users.${conf.userName} = {
@@ -116,12 +128,12 @@
         group = conf.userName;
       };
 
-      users.groups.${conf.userName} = {};
+      users.groups.${conf.userName} = { };
 
       systemd.services.cocoon = {
         description = "Cocoon PDS";
-        after = ["network.target"];
-        wantedBy = ["multi-user.target"];
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
         enableStrictShellChecks = true;
 
         preStart = ''
