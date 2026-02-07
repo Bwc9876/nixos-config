@@ -1,21 +1,24 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   config,
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.cow.cocoon = {
     enable = lib.mkEnableOption "Cocoon PDS";
-    package = lib.mkPackageOption {
-      description = "Package to use, defaults to latest release on GH";
-      default = pkgs.cocoon.overrideAttrs (prev: next: {
+    package = lib.mkOption {
+      type = lib.types.package;
+      description = "Cocoon package to use, defaults to latest release on GH";
+      default = pkgs.cocoon.overrideAttrs (prev: next: let
+        version = "0.8.4";
+      in {
+        inherit version;
+        vendorHash = "sha256-bux3OfHT8f1FVpBAZUP23vo8M6h8nPTJbi/GTUzhdc4=";
         src = pkgs.fetchFromGitHub {
           owner = "haileyok";
           repo = "cocoon";
-          ref = "v0.8.4";
-          hash = "";
+          tag = "v${version}";
+          hash = "sha256-xXXHJcI3icsCeOeI+6L/waK3+UtjhBZosQPLoGN1TiY=";
         };
       });
     };
@@ -61,7 +64,7 @@
     relays = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Relay servers to use for event syncing";
-      default = [ "https://bsky.network" ];
+      default = ["https://bsky.network"];
     };
     fallbackProxy = lib.mkOption {
       type = lib.types.str;
@@ -74,61 +77,58 @@
     };
   };
 
-  config =
-    let
-      conf = config.cow.cocoon;
-    in
+  config = let
+    conf = config.cow.cocoon;
+  in
     lib.mkIf conf.enable {
       cow.imperm.keep = [
         conf.dataDir
       ];
 
       services.nginx.virtualHosts.${conf.hostname} = {
-        serverAliases = [ ".${conf.hostname}" ];
+        serverAliases = [".${conf.hostname}"];
 
         # All stolen from Isabel
         # https://github.com/isabelroses/dotfiles/blob/262ae19c1e92be5d759f40020e894113ba5d5d44/modules/nixos/services/pds/default.nix
-        locations =
-          let
-            mkAgeAssured = state: {
-              return = "200 '${builtins.toJSON state}'";
-              extraConfig = ''
-                default_type application/json;
-                add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
-                add_header access-control-allow-origin "*" always;
-                add_header X-Frame-Options SAMEORIGIN always;
-                add_header X-Content-Type-Options nosniff;
-              '';
-            };
-          in
-          {
-            "/xrpc/app.bsky.unspecced.getAgeAssuranceState" = mkAgeAssured {
+        locations = let
+          mkAgeAssured = state: {
+            return = "200 '${builtins.toJSON state}'";
+            extraConfig = ''
+              default_type application/json;
+              add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
+              add_header access-control-allow-origin "*" always;
+              add_header X-Frame-Options SAMEORIGIN always;
+              add_header X-Content-Type-Options nosniff;
+            '';
+          };
+        in {
+          "/xrpc/app.bsky.unspecced.getAgeAssuranceState" = mkAgeAssured {
+            lastInitiatedAt = "2026-01-19T05:59:50.391Z";
+            status = "assured";
+          };
+          "/xrpc/app.bsky.ageassurance.getConfig" = mkAgeAssured {
+            regions = [];
+          };
+          "/xrpc/app.bsky.ageassurance.getState" = mkAgeAssured {
+            state = {
               lastInitiatedAt = "2026-01-19T05:59:50.391Z";
               status = "assured";
+              access = "full";
             };
-            "/xrpc/app.bsky.ageassurance.getConfig" = mkAgeAssured {
-              regions = [ ];
-            };
-            "/xrpc/app.bsky.ageassurance.getState" = mkAgeAssured {
-              state = {
-                lastInitiatedAt = "2026-01-19T05:59:50.391Z";
-                status = "assured";
-                access = "full";
-              };
-              metadata = {
-                accountCreatedAt = "2026-01-19T05:59:50.391Z";
-              };
-            };
-
-            # pass everything else to the pds
-            "/" = {
-              proxyPass = "http://localhost:${toString conf.port}";
-              proxyWebsockets = true;
-              extraConfig = ''
-                add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
-              '';
+            metadata = {
+              accountCreatedAt = "2026-01-19T05:59:50.391Z";
             };
           };
+
+          # pass everything else to the pds
+          "/" = {
+            proxyPass = "http://localhost:${toString conf.port}";
+            proxyWebsockets = true;
+            extraConfig = ''
+              add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
+            '';
+          };
+        };
       };
 
       users.users.${conf.userName} = {
@@ -139,12 +139,12 @@
         group = conf.userName;
       };
 
-      users.groups.${conf.userName} = { };
+      users.groups.${conf.userName} = {};
 
       systemd.services.cocoon = {
         description = "Cocoon PDS";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         enableStrictShellChecks = true;
 
         preStart = ''
