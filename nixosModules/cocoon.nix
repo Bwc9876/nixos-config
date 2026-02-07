@@ -8,6 +8,17 @@
 {
   options.cow.cocoon = {
     enable = lib.mkEnableOption "Cocoon PDS";
+    package = lib.mkPackageOption {
+      description = "Package to use, defaults to latest release on GH";
+      default = pkgs.cocoon.overrideAttrs (prev: next: {
+        src = pkgs.fetchFromGitHub {
+          owner = "haileyok";
+          repo = "cocoon";
+          ref = "v0.8.4";
+          hash = "";
+        };
+      });
+    };
     did = lib.mkOption {
       type = lib.types.str;
       description = "DID of server owner";
@@ -144,7 +155,7 @@
         script = ''
           COCOON_ADMIN_PASSWORD=$(cat "$CREDENTIALS_DIRECTORY/adminPass") \
           COCOON_SESSION_SECRET=$(cat "$CREDENTIALS_DIRECTORY/session") \
-          ${lib.getExe pkgs.cocoon} run
+          ${lib.getExe conf.package} run
         '';
 
         serviceConfig = {
