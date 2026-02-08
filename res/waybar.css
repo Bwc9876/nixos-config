@@ -1,7 +1,7 @@
 @import "catppuccin.css";
 
 * {
-  font-family: sans-serif;
+  font-family: monospace;
 }
 
 window#waybar {
@@ -218,3 +218,22 @@ window#waybar {
 #mpris.paused.kdeconnect {
   opacity: 0;
 }
+
+
+/* Some fixes for icon spacing */
+
+#custom-notification {
+  padding: 0 1em 0 .9em;
+}
+
+#idle_inhibitor {
+  padding: 0 1em 0 .7em;
+}
+
+#power-profiles-daemon {
+  padding: 0 1em 0 .8em;
+}
+
+
+
+

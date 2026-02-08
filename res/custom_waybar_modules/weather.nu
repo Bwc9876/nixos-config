@@ -157,7 +157,7 @@ def main [] {
 
     let icon = get_icon $condition $night
 
-    let text = $"($icon) ($current_condition.temp_F) °F"
+    let text = $"($icon) ($current_condition.temp_F)°F"
     let tooltip = [
         $condition,
         $"Temperature: ($current_condition.temp_F) °F",

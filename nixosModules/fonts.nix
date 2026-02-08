@@ -15,35 +15,23 @@
       enableDefaultPackages = true;
       packages = with pkgs; [
         fira-code
-        # fira-go
+        maple-mono.NF-CN
         noto-fonts
-        noto-fonts-lgc-plus
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
-        nerd-fonts.symbols-only
-        noto-fonts-color-emoji
-        corefonts
-        unifont
-        liberation_ttf
       ];
       fontconfig = {
         enable = true;
         defaultFonts = {
           serif = [
             "Noto Serif"
-            "Symbols Nerd Font"
           ];
           sansSerif = [
             "FiraGO"
-            "Symbols Nerd Font"
           ];
           monospace = [
-            "Fira Code"
-            "Symbols Nerd Font"
+            "Maple Mono NF CN"
           ];
           emoji = [
             "Noto Color Emoji"
-            "Symbols Nerd Font"
           ];
         };
       };

@@ -24,8 +24,8 @@
           settings = [
             {
               battery = {
-                format = "{icon} {capacity}󰏰";
-                format-charging = "{icon} {capacity}󰏰";
+                format = "{icon}{capacity}%";
+                format-charging = "{icon}{capacity}%";
                 format-icons = {
                   charging = [
                     "󰢜"
@@ -60,7 +60,7 @@
               bluetooth = {
                 format = "󰂯";
                 format-connected = "󰂱";
-                format-connected-battery = "󰂱 {device_battery_percentage}󰏰";
+                format-connected-battery = "󰂱 {device_battery_percentage}%";
                 format-disabled = "󰂲";
                 format-off = "󰂲";
                 on-click-right = "rfkill toggle bluetooth";
@@ -191,7 +191,7 @@
                 tooltip-disconnected = "Disconnected";
                 tooltip-format = "{ifname} via {gwaddr}";
                 tooltip-format-ethernet = "󱎔 {ifname}";
-                tooltip-format-wifi = "Connected to {essid} ({signalStrength}󰏰 Strength) over {ifname} via {gwaddr}";
+                tooltip-format-wifi = "Connected to {essid} ({signalStrength}% Strength) over {ifname} via {gwaddr}";
               };
               position = "top";
               privacy = {
@@ -212,8 +212,8 @@
                 transition-duration = 200;
               };
               pulseaudio = {
-                format = "{icon} {volume:2}󰏰";
-                format-bluetooth = "{icon}  {volume}󰏰";
+                format = "{icon} {volume:2}%";
+                format-bluetooth = "{icon} {volume}%";
                 format-icons = {
                   car = "";
                   default = [
@@ -279,7 +279,7 @@
                 title-len = 35;
               };
               cpu = {
-                format = "󰍛 {usage}󰏰";
+                format = "󰍛 {usage}%";
                 states = {
                   critical = 95;
                   warning = 80;
@@ -291,7 +291,7 @@
               };
               layer = "top";
               memory = {
-                format = " {}󰏰 ({used:0.1f}/{total:0.1f} GiB)";
+                format = " {}% ({used:0.1f}/{total:0.1f} GiB)";
                 states = {
                   critical = 90;
                   warning = 70;
@@ -308,8 +308,8 @@
               position = "bottom";
               temperature = {
                 critical-threshold = 80;
-                format = "{icon} {temperatureC} °C";
-                format-critical = "{icon}! {temperatureC} °C";
+                format = "{icon} {temperatureC}°C";
+                format-critical = "{icon}! {temperatureC}°C";
                 format-icons = [
                   "󱃃"
                   "󰔏"

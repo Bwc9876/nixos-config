@@ -87,7 +87,7 @@ def main [] {
         });
 
         let percent = if $battery_info.charge? != null and $battery_info.charge != -1 {
-            $" ($battery_info.charge)󰏰"
+            $" ($battery_info.charge)%"
         } else { "" };
 
         {
