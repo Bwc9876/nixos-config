@@ -20,6 +20,7 @@
     python = mkLangOpt "Python dev stuff";
     dotnet = mkLangOpt ".NET dev stuff";
     cutter = mkLangOpt "Cutter";
+    typst = mkLangOpt "Typst";
     mc = lib.mkEnableOption "Minecraft modpack stuff";
   };
 
@@ -113,6 +114,10 @@
           dotnet-runtime_10
           mono
           dotnetPackages.Nuget
+        ])
+        ++ (lib.optionals conf.typst [
+          typst
+          typstyle 
         ])
         ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra])));
     };

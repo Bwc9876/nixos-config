@@ -512,6 +512,7 @@
             sources = map (name: {inherit name;}) [
               "nvim_lsp"
               "nvim_lsp_signature_help"
+              "spell"
               "path"
               "buffer"
             ];
@@ -523,13 +524,6 @@
             };
           };
         };
-
-        # LSP Completion providers
-        cmp-nvim-lsp.enable = true;
-        cmp-nvim-lsp-document-symbol.enable = true;
-
-        # Common Spellings
-        cmp-spell.enable = true;
 
         # Color-coded matching symbols
         rainbow-delimiters.enable = true;
@@ -790,9 +784,11 @@
             rust
             web
             c
+            typst
             ;
         in {
           clangd.enable = c;
+          tinymist.enable = typst;
           astro.enable = web;
           hls = lib.mkIf haskell {
             enable = true;
