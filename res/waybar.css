@@ -234,6 +234,9 @@ window#waybar {
   padding: 0 1em 0 .8em;
 }
 
+#pulseaudio.muted {
+  padding: 0 .8em 0 .55em;
+}
 
 
 
