@@ -16,6 +16,17 @@
       settings = {
         ui.default-command = "log";
         ui.pager = "less -FR";
+        aliases = {
+          "push" = ["git" "push"];
+          "pull" = ["git" "fetch"];
+          "bsm" = ["bookmark" "set" "main"];
+          "bm" = ["bookmark"];
+          "d" = ["describe" "-m"];
+          "s" = ["show -s"];
+          "ss" = ["show"];
+          "n" = ["new"];
+          "ed" = ["edit"];
+        };
       };
     };
 
