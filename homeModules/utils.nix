@@ -1,23 +1,24 @@
-{ ... }:
-{
+{...}: {
   config,
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.cow.utils = {
-    enable = (lib.mkEnableOption "Handy utilities to have") // {
-      default = true;
-    };
-    batAliases = (lib.mkEnableOption "Aliases for bat commands in the shell") // {
-      default = true;
-    };
+    enable =
+      (lib.mkEnableOption "Handy utilities to have")
+      // {
+        default = true;
+      };
+    batAliases =
+      (lib.mkEnableOption "Aliases for bat commands in the shell")
+      // {
+        default = true;
+      };
   };
 
   config = lib.mkIf config.cow.utils.enable {
-    home.packages =
-      with pkgs;
+    home.packages = with pkgs;
       [
         ripgrep
         binutils
@@ -83,7 +84,7 @@
       settings = {
         backend = "fastfetch";
         color_align = {
-          custom_colors = [ ];
+          custom_colors = [];
           fore_back = null;
           mode = "horizontal";
         };
@@ -93,7 +94,7 @@
         mode = "rgb";
         preset = "gay-men";
         pride_month_disable = false;
-        pride_month_shown = [ ];
+        pride_month_shown = [];
       };
     };
   };

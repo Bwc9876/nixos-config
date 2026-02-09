@@ -1,11 +1,9 @@
-{ ... }:
-{
+{...}: {
   pkgs,
   lib,
   config,
   ...
-}:
-{
+}: {
   options.cow.bean = {
     enable = lib.mkEnableOption "Bean user presets";
     username = lib.mkOption {
@@ -34,10 +32,9 @@
     };
   };
 
-  config =
-    let
-      conf = config.cow.bean;
-    in
+  config = let
+    conf = config.cow.bean;
+  in
     lib.mkIf conf.enable {
       # My Personal config using most of my HM modules
 
@@ -77,8 +74,7 @@
       };
 
       home.packages = lib.mkIf config.cow.gdi.enable (
-        with pkgs;
-        [
+        with pkgs; [
           zoom-us
           tuxpaint
         ]

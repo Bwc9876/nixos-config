@@ -14,7 +14,7 @@
     fonts = {
       enableDefaultPackages = true;
       packages = with pkgs; [
-        fira-code
+        charis-sil
         maple-mono.NF-CN
         noto-fonts
       ];
@@ -22,10 +22,10 @@
         enable = true;
         defaultFonts = {
           serif = [
-            "Noto Serif"
+            "Charis SIL"
           ];
           sansSerif = [
-            "FiraGO"
+            "Noto Sans"
           ];
           monospace = [
             "Maple Mono NF CN"

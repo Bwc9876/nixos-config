@@ -117,7 +117,7 @@
         ])
         ++ (lib.optionals conf.typst [
           typst
-          typstyle 
+          typstyle
         ])
         ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra])));
     };

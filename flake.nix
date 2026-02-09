@@ -20,6 +20,10 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     catppuccin.url = "github:catppuccin/nix";
     catppuccin.inputs.nixpkgs.follows = "nixpkgs";
+    # cat-stylus = {
+    #   url = "https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json";
+    #   flake = false;
+    # };
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     imperm.url = "github:nix-community/impermanence";
@@ -47,28 +51,30 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    flakelight,
-    flakelight-treefmt,
-    nix-index-db,
-    hm,
-    nixos-hardware,
-    lanzaboote,
-    wayland-mpris-idle-inhibit,
-    fenix,
-    catppuccin,
-    nixvim,
-    imperm,
-    nu_plugin_dbus,
-    bingus,
-    spoon,
-    gh-grader-preview,
-    niri,
-    musnix,
-    tangled,
-  }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      flakelight,
+      flakelight-treefmt,
+      nix-index-db,
+      hm,
+      nixos-hardware,
+      lanzaboote,
+      wayland-mpris-idle-inhibit,
+      fenix,
+      catppuccin,
+      # cat-stylus,
+      nixvim,
+      imperm,
+      nu_plugin_dbus,
+      bingus,
+      spoon,
+      gh-grader-preview,
+      niri,
+      musnix,
+      tangled,
+    }:
     flakelight ./. {
       inherit inputs;
       imports = [
@@ -77,13 +83,15 @@
         spoon.flakelightModules.ubercheck
       ];
 
-      treefmtConfig = {pkgs, ...}: {
-        programs = {
-          alejandra.enable = true;
-          just.enable = true;
-          shfmt.enable = true;
+      treefmtConfig =
+        { pkgs, ... }:
+        {
+          programs = {
+            alejandra.enable = true;
+            just.enable = true;
+            shfmt.enable = true;
+          };
         };
-      };
 
       nixDir = ./.;
       legacyPackages = pkgs: pkgs;
