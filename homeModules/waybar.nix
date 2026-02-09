@@ -25,7 +25,7 @@
             {
               battery = {
                 format = "{icon}{capacity}%";
-                format-charging = "{icon}{capacity}%";
+                format-charging = "{icon} {capacity}%";
                 format-icons = {
                   charging = [
                     "󰢜"
