@@ -14,7 +14,7 @@
     fonts = {
       enableDefaultPackages = true;
       packages = with pkgs; [
-        charis-sil
+        charis
         maple-mono.NF-CN
         noto-fonts
       ];

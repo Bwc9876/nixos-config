@@ -107,14 +107,11 @@
           clipboard.disable-primary = true;
 
           input = {
-            focus-follows-mouse.enable = true;
             keyboard.numlock = true;
-            # power-key-handling.enable = false;
             touchpad.natural-scroll = true;
           };
 
           layout = {
-            default-column-width.proportion = 1.;
             focus-ring.active.gradient = {
               in' = "oklab";
               angle = 135;
@@ -162,6 +159,9 @@
 
             "Mod+BracketLeft".action = consume-or-expel-window-left;
             "Mod+BracketRight".action = consume-or-expel-window-right;
+
+            "Mod+Comma".action = set-column-width "-100";
+            "Mod+Period".action = set-column-width "+100";
 
             "Mod+F".action = maximize-column;
             "Mod+Shift+F".action = fullscreen-window;
