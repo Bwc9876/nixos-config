@@ -11,12 +11,11 @@ window#waybar {
 
 .modules-left > * > *,
 .modules-right > * > * {
-  font-size: 1.5rem;
   background: @crust;
   border: 2px solid @base;
   border-radius: 5rem;
   padding: 5px 15px;
-  margin: 5px 2px;
+  margin: 2px 2px;
 }
 
 #bluetooth.disabled {
@@ -33,13 +32,13 @@ window#waybar {
 
 #waybar .modules-left,
 #waybar .modules-right {
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 #waybar .modules-center {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 #battery.warning {
@@ -77,14 +76,9 @@ window#waybar {
   background: @mantle;
 }
 
-#workspaces button {
-  font-size: 1.5rem;
-}
-
 #cpu,
 #memory,
 #temperature {
-  font-size: 1.5rem;
   padding: 10px 25px;
 }
 
@@ -139,7 +133,6 @@ window#waybar {
 }
 
 #privacy-item {
-  font-size: 1.5rem;
   border-radius: 5rem;
   padding: 5px 15px;
   margin: 5px 2px;
@@ -188,10 +181,6 @@ window#waybar {
 #custom-weather.Clear.night,
 #custom-weather.Sunny.night {
   border-color: @mauve;
-}
-
-#custom-news.utd {
-  font-size: 1.5rem;
 }
 
 #custom-news.unread {
