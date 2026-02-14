@@ -1,21 +1,24 @@
 @import "catppuccin.css";
 
 * {
+  font-size: 12pt;
   font-family: monospace;
 }
 
 window#waybar {
-  background: rgba(49, 50, 68, 0.65);
+  background: rgba(49, 50, 68, 0.01);
   color: @text;
 }
 
-.modules-left > * > *,
-.modules-right > * > * {
+.module {
   background: @crust;
   border: 2px solid @base;
-  border-radius: 5rem;
-  padding: 5px 15px;
-  margin: 2px 2px;
+  border-radius: 10px;
+  padding: 5px 8px;
+  margin-left: 1px;
+  margin-right: 0;
+  margin-top: 4px;
+  margin-bottom: 0;
 }
 
 #bluetooth.disabled {
@@ -23,23 +26,18 @@ window#waybar {
 }
 
 #waybar .modules-left > *:first-child > * {
-  margin-left: 25px;
+  margin-left: 10px;
 }
 
 #waybar .modules-right > *:last-child > * {
-  margin-right: 25px;
+  margin-right: 10px;
 }
 
-#waybar .modules-left,
-#waybar .modules-right {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-#waybar .modules-center {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
+/* #waybar .modules-left, */
+/* #waybar .modules-right { */
+/*   margin-top: 2px; */
+/*   margin-bottom: 2px; */
+/* } */
 
 #battery.warning {
   border-color: @yellow;
@@ -53,35 +51,6 @@ window#waybar {
   border-color: @green;
 }
 
-#taskbar,
-#workspaces {
-  padding: 10px;
-  border-radius: 5rem;
-  border: none;
-  background: none;
-}
-
-#taskbar button,
-#workspaces button {
-  color: @text;
-  border-radius: 5rem;
-  padding: 5px 15px;
-  margin: 0 5px;
-  background: @crust;
-  border: 2px solid @base;
-}
-
-#taskbar button:hover,
-#workspaces button:hover {
-  background: @mantle;
-}
-
-#cpu,
-#memory,
-#temperature {
-  padding: 10px 25px;
-}
-
 #cpu.warning,
 #memory.warning {
   border-color: @yellow;
@@ -91,14 +60,6 @@ window#waybar {
 #memory.critical,
 #temperature.critical {
   border-color: @red;
-}
-
-#workspaces button.active {
-  border: 2px solid @sapphire;
-}
-
-#taskbar button.active {
-  border: 2px solid @sapphire;
 }
 
 #idle_inhibitor.activated {
@@ -134,9 +95,9 @@ window#waybar {
 
 #privacy-item {
   border-radius: 5rem;
-  padding: 5px 15px;
-  margin: 5px 2px;
-  border: 2px solid @red;
+  padding: 5px 8px;
+  margin: 2px 2px;
+  border: solid 2px @red;
   background-color: @crust;
 }
 
@@ -212,19 +173,23 @@ window#waybar {
 /* Some fixes for icon spacing */
 
 #custom-notification {
-  padding: 0 1em 0 .9em;
+  padding-right: 1em; 
+  padding-left: .9em;
 }
 
 #idle_inhibitor {
-  padding: 0 1em 0 .7em;
+  padding-right: 1em;
+  padding-left: .7em;
 }
 
 #power-profiles-daemon {
-  padding: 0 1em 0 .8em;
+  padding-left: .8em;
+  padding-right: 1em;
 }
 
 #pulseaudio.muted {
-  padding: 0 .8em 0 .55em;
+  padding-right: .8em; 
+  padding-left: .55em;
 }
 
 

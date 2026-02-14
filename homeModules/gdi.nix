@@ -19,7 +19,7 @@
     cursorTheme = {
       name = "catppuccin-mocha-dark-cursors";
       package = pkgs.catppuccin-cursors.mochaDark;
-      size = 24;
+      size = 16;
     };
   in
     lib.mkIf config.cow.gdi.enable {
@@ -107,17 +107,29 @@
           clipboard.disable-primary = true;
 
           input = {
+            focus-follows-mouse = {
+              enable = true;
+              max-scroll-amount = "10%";
+            };
             keyboard.numlock = true;
             touchpad.natural-scroll = true;
           };
 
           layout = {
+            # gaps = 4;
+            struts = let val = -4; in {
+              top = val; 
+              bottom = val;
+              left = val;
+              right = val;
+            };
+            focus-ring.width = 2;
             focus-ring.active.gradient = {
-              in' = "oklab";
+              in' = "oklch longer hue";
               angle = 135;
               relative-to = "workspace-view";
-              from = "#74c7ec";
-              to = "#cba6f7";
+              from = "#0f08";
+              to = "#f007";
             };
           };
 
@@ -161,7 +173,9 @@
             "Mod+BracketRight".action = consume-or-expel-window-right;
 
             "Mod+Comma".action = set-column-width "-100";
+            "Mod+Shift+Comma".action = set-column-width "-20";
             "Mod+Period".action = set-column-width "+100";
+            "Mod+Shift+Period".action = set-column-width "+20";
 
             "Mod+F".action = maximize-column;
             "Mod+Shift+F".action = fullscreen-window;
@@ -476,21 +490,21 @@
           enable = true;
           settings = {
             control-center-exclusive-zone = false;
-            control-center-height = 1000;
+            # control-center-height = 1000;
             control-center-margin-bottom = 10;
             control-center-margin-left = 10;
             control-center-margin-right = 10;
             control-center-margin-top = 0;
-            control-center-width = 800;
+            # control-center-width = 800;
             fit-to-screen = false;
             hide-on-action = true;
             hide-on-clear = false;
             image-visibility = "when-available";
             keyboard-shortcuts = true;
-            notification-body-image-height = 100;
-            notification-body-image-width = 200;
-            notification-icon-size = 64;
-            notification-window-width = 500;
+            # notification-body-image-height = 100;
+            # notification-body-image-width = 200;
+            notification-icon-size = 32;
+            # notification-window-width = 500;
             positionX = "center";
             positionY = "top";
             script-fail-notify = true;
@@ -691,7 +705,7 @@
           extraConfig = ''
             return {
               font = wezterm.font("monospace"),
-              font_size = 18.0,
+              font_size = 12.0,
               color_scheme = "Catppuccin Mocha",
               enable_tab_bar = false,
               window_background_opacity = 0.92,

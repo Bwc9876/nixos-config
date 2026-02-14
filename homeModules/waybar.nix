@@ -232,9 +232,9 @@
                 scroll-step = 5;
               };
               tray = {
-                icon-size = 25;
+                # icon-size = 25;
                 show-passive-items = true;
-                spacing = 5;
+                spacing = 2;
               };
               user = {
                 format = " {user}";
@@ -300,9 +300,9 @@
               # modules-center = ["wlr/taskbar"];
               modules-left = ["mpris"];
               modules-right = [
+                "power-profiles-daemon"
                 "temperature"
                 "cpu"
-                "power-profiles-daemon"
                 "memory"
               ];
               position = "bottom";
