@@ -123,6 +123,7 @@
               left = val;
               right = val;
             };
+            default-column-width.proportion = 0.45;
             focus-ring.width = 2;
             focus-ring.active.gradient = {
               in' = "oklch longer hue";
