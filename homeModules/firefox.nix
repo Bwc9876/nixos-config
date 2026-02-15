@@ -6,11 +6,13 @@
 }: let
   package = pkgs.firefox-devedition;
 in {
-  options.cow.firefox.enable =
-    lib.mkEnableOption "enable Firefox with customizations"
-    // {
-      default = config.cow.gdi.enable;
-    };
+  options.cow.firefox = {
+    enable =
+      lib.mkEnableOption "Firefox with customizations"
+      // {
+        default = config.cow.gdi.enable;
+      };
+  };
 
   config = lib.mkIf config.cow.firefox.enable {
     cow.imperm.keep = [".mozilla"];
@@ -56,7 +58,7 @@ in {
           "browser.aboutConfig.showWarning" = lock false;
           "media.eme.enabled" = lock true; # Encrypted Media Extensions (DRM)
           "layout.css.prefers-color-scheme.content-override" = lock 0;
-          "browser.startup.page" = 3; # Restore previous session
+          "browser.startup.page" = 3;
           "toolkit.telemetry.server" = lock "";
 
           # New Tab

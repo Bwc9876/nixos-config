@@ -117,8 +117,10 @@
 
           layout = {
             # gaps = 4;
-            struts = let val = -4; in {
-              top = val; 
+            struts = let
+              val = -4;
+            in {
+              top = val;
               bottom = val;
               left = val;
               right = val;

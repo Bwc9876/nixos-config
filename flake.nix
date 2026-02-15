@@ -51,30 +51,29 @@
     };
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      flakelight,
-      flakelight-treefmt,
-      nix-index-db,
-      hm,
-      nixos-hardware,
-      lanzaboote,
-      wayland-mpris-idle-inhibit,
-      fenix,
-      catppuccin,
-      # cat-stylus,
-      nixvim,
-      imperm,
-      nu_plugin_dbus,
-      bingus,
-      spoon,
-      gh-grader-preview,
-      niri,
-      musnix,
-      tangled,
-    }:
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    flakelight,
+    flakelight-treefmt,
+    nix-index-db,
+    hm,
+    nixos-hardware,
+    lanzaboote,
+    wayland-mpris-idle-inhibit,
+    fenix,
+    catppuccin,
+    # cat-stylus,
+    nixvim,
+    imperm,
+    nu_plugin_dbus,
+    bingus,
+    spoon,
+    gh-grader-preview,
+    niri,
+    musnix,
+    tangled,
+  }:
     flakelight ./. {
       inherit inputs;
       imports = [
@@ -83,15 +82,13 @@
         spoon.flakelightModules.ubercheck
       ];
 
-      treefmtConfig =
-        { pkgs, ... }:
-        {
-          programs = {
-            alejandra.enable = true;
-            just.enable = true;
-            shfmt.enable = true;
-          };
+      treefmtConfig = {pkgs, ...}: {
+        programs = {
+          alejandra.enable = true;
+          just.enable = true;
+          shfmt.enable = true;
         };
+      };
 
       nixDir = ./.;
       legacyPackages = pkgs: pkgs;

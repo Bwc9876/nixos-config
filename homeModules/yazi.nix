@@ -22,6 +22,8 @@
       enableBashIntegration = true;
       enableNushellIntegration = true;
 
+      shellWrapperName = "yy";
+
       settings = {
         open.prepend_rules = [
           {
