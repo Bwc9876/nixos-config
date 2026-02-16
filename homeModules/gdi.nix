@@ -97,6 +97,17 @@
               };
               clip-to-geometry = true;
             }
+            {
+              matches = [{is-window-cast-target = true;}];
+
+              focus-ring = {
+                active.color = "#f38ba8";
+                inactive.color = "#7d0d2d";
+              };
+
+              border.inactive.color = "#7d0d2d";
+              shadow.color = "#7d0d2d70";
+            }
           ];
 
           hotkey-overlay = {
@@ -117,6 +128,7 @@
 
           layout = {
             # gaps = 4;
+            center-focused-column = "on-overflow";
             struts = let
               val = -4;
             in {
