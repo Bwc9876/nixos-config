@@ -10,7 +10,7 @@
       type = lib.types.package;
       description = "Cocoon package to use, defaults to latest release on GH";
       default = pkgs.cocoon.overrideAttrs (prev: next: let
-        version = "0.8.4";
+        version = "0.8.5";
       in {
         inherit version;
         vendorHash = "sha256-bux3OfHT8f1FVpBAZUP23vo8M6h8nPTJbi/GTUzhdc4=";
@@ -18,7 +18,7 @@
           owner = "haileyok";
           repo = "cocoon";
           tag = "v${version}";
-          hash = "sha256-xXXHJcI3icsCeOeI+6L/waK3+UtjhBZosQPLoGN1TiY=";
+          hash = "sha256-2+K4KiF0N+Y+J5dS4xQZuYlxr6OYzNloVXjxyGnEHh4=";
         };
       });
     };

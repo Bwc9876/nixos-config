@@ -9,7 +9,7 @@
   config = lib.mkIf config.cow.games.enable {
     home.packages = with pkgs; [
       # steam
-      cemu
+      # cemu
       owmods-cli
       owmods-gui
       prismlauncher
