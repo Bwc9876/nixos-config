@@ -128,7 +128,7 @@
 
           layout = {
             # gaps = 4;
-            center-focused-column = "on-overflow";
+            # center-focused-column = "on-overflow";
             struts = let
               val = -4;
             in {
