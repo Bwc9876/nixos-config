@@ -722,6 +722,8 @@
               font = wezterm.font("monospace"),
               font_size = 12.0,
               color_scheme = "Catppuccin Mocha",
+              enable_kitty_graphics = true,
+              enable_kitty_keyboard = true,
               enable_tab_bar = false,
               window_background_opacity = 0.92,
               default_cursor_style = "SteadyBar",
