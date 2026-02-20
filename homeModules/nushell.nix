@@ -65,6 +65,7 @@
             def --wrapped dev [...rest] { nix develop -c env SHELL=nu ...$rest }
             def --wrapped devsh [ ...rest ] { dev nu ...$rest }
             def --wrapped dvim [...rest] { dev vim ...$rest }
+            def --wrapped djust [...rest] { dev just ...$rest }
 
             ${lib.optionalString config.cow.starship.enable ''
               source ${init-starship}
