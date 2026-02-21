@@ -505,6 +505,28 @@
         # Image Previews
         image.enable = true;
 
+        # Color Picker
+        ccc = {
+          enable = true;
+          settings = {
+            inputs = [
+              "ccc.input.rgb"
+              "ccc.input.hsl"
+              "ccc.input.hwb"
+              "ccc.input.lab"
+              "ccc.input.lch"
+              "ccc.input.oklab"
+              "ccc.input.oklch"
+              "ccc.input.cmyk"
+              "ccc.input.hsluv"
+              "ccc.input.okhsl"
+              "ccc.input.hsv"
+              "ccc.input.okhsv"
+              "ccc.input.xyz"
+            ];
+          };
+        };
+
         # Completions
         cmp = {
           enable = true;
