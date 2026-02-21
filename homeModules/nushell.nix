@@ -62,10 +62,17 @@
             $env.config = ${nu_config}
 
             # Utility Cmds
+
+            ## Dev Shell
             def --wrapped dev [...rest] { nix develop -c env SHELL=nu ...$rest }
             def --wrapped devsh [ ...rest ] { dev nu ...$rest }
             def --wrapped dvim [...rest] { dev vim ...$rest }
             def --wrapped djust [...rest] { dev just ...$rest }
+
+            ## Wezterm
+            ${lib.optionalString config.cow.gdi.enable ''
+              def --wrapped nt [...rest] { wezterm start --cwd $env.PWD -- ...$rest }
+            ''}
 
             ${lib.optionalString config.cow.starship.enable ''
               source ${init-starship}
