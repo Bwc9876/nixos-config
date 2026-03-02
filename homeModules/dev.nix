@@ -76,7 +76,6 @@
         ])
         ++ (lib.optionals conf.mc [
           outputs.packages.${pkgs.system}.packwiz
-          inputs.spoon.packages.${pkgs.system}.mc-srv-git-hook.passthru.mrpack-install'
           jre
         ])
         ++ (lib.optionals conf.rust [
