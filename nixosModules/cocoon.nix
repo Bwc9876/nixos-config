@@ -75,6 +75,11 @@
       type = lib.types.str;
       description = "Public facing hostname for the server";
     };
+    favicon = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      description = "Path to favicon file to serve";
+      default = null;
+    };
   };
 
   config = let
@@ -118,6 +123,10 @@
             metadata = {
               accountCreatedAt = "2026-01-19T05:59:50.391Z";
             };
+          };
+          "/favicon.ico" = lib.mkIf (conf.favicon != null) {
+            root = builtins.dirOf conf.favicon;
+            tryFiles = "${builtins.baseNameOf conf.favicon} =404";
           };
 
           # pass everything else to the pds
