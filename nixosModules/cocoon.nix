@@ -108,9 +108,10 @@
               accountCreatedAt = "2026-01-19T05:59:50.391Z";
             };
           };
-          "/favicon.ico" = lib.mkIf (conf.favicon != null) {
-            root = builtins.dirOf conf.favicon;
-            tryFiles = "${builtins.baseNameOf conf.favicon} =404";
+          "=/favicon.ico" = lib.mkIf (conf.favicon != null) {
+            extraConfig = ''
+              alias ${conf.favicon};
+            '';
           };
 
           # pass everything else to the pds
