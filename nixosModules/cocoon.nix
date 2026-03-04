@@ -130,7 +130,7 @@
           conf.adminPassPath
           conf.sessionSecretPath
         ];
-        settings = lib.mapAttrsToList (k: v: "COCOON_${k}=${v}") {
+        settings = lib.mapAttrs' (k: v: lib.nameValuePair "COCOON_${k}" v) {
           JWK_PATH = conf.jwkPath;
           ROTATION_KEY_PATH = conf.rotationPath;
 
