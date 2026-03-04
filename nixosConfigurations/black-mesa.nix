@@ -106,6 +106,7 @@
             in {
               enable = true;
               did = config.cow.bean.atproto.did;
+              favicon = ../res/favicon.ico;
               port = 8080;
               jwkPath = secure "jwk.key";
               rotationPath = secure "rotation.key";

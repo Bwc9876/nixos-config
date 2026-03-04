@@ -6,22 +6,6 @@
 }: {
   options.cow.cocoon = {
     enable = lib.mkEnableOption "Cocoon PDS";
-    package = lib.mkOption {
-      type = lib.types.package;
-      description = "Cocoon package to use, defaults to latest release on GH";
-      default = pkgs.cocoon.overrideAttrs (prev: next: let
-        version = "0.8.5";
-      in {
-        inherit version;
-        vendorHash = "sha256-bux3OfHT8f1FVpBAZUP23vo8M6h8nPTJbi/GTUzhdc4=";
-        src = pkgs.fetchFromGitHub {
-          owner = "haileyok";
-          repo = "cocoon";
-          tag = "v${version}";
-          hash = "sha256-2+K4KiF0N+Y+J5dS4xQZuYlxr6OYzNloVXjxyGnEHh4=";
-        };
-      });
-    };
     did = lib.mkOption {
       type = lib.types.str;
       description = "DID of server owner";
@@ -140,64 +124,26 @@
         };
       };
 
-      users.users.${conf.userName} = {
-        isSystemUser = true;
-        useDefaultShell = true;
-        home = conf.dataDir;
-        createHome = true;
-        group = conf.userName;
-      };
+      services.cocoon = {
+        enable = true;
+        environmentFiles = [
+          conf.adminPassPath
+          conf.sessionSecretPath
+        ];
+        settings = lib.mapAttrsToList (k: v: "COCOON_${k}=${v}") {
+          JWK_PATH = conf.jwkPath;
+          ROTATION_KEY_PATH = conf.rotationPath;
 
-      users.groups.${conf.userName} = {};
+          DID = conf.did;
+          HOSTNAME = conf.hostname;
+          ADDR = ":${builtins.toString conf.port}";
+          CONTACT_EMAIL = conf.email;
 
-      systemd.services.cocoon = {
-        description = "Cocoon PDS";
-        after = ["network.target"];
-        wantedBy = ["multi-user.target"];
-        enableStrictShellChecks = true;
+          RELAYS = lib.join "," conf.relays;
+          FALLBACK_PROXY = conf.fallbackProxy;
 
-        preStart = ''
-          mkdir -p "${conf.dataDir}"
-          chown -R ${conf.userName}:${conf.userName} "${conf.dataDir}"
-        '';
-
-        script = ''
-          COCOON_ADMIN_PASSWORD=$(cat "$CREDENTIALS_DIRECTORY/adminPass") \
-          COCOON_SESSION_SECRET=$(cat "$CREDENTIALS_DIRECTORY/session") \
-          ${lib.getExe conf.package} run
-        '';
-
-        serviceConfig = {
-          User = conf.userName;
-          PermissionsStartOnly = true;
-          WorkingDirectory = conf.dataDir;
-          Restart = "always";
-          RestartSec = "5s";
-          ProtectSystem = true;
-          ProtectHome = true;
-          PrivateTmp = true;
-          ReadWritePaths = conf.dataDir;
-          LoadCredential = [
-            "jwk:${conf.jwkPath}"
-            "rotation:${conf.rotationPath}"
-            "adminPass:${conf.adminPassPath}"
-            "session:${conf.sessionSecretPath}"
-          ];
-          Environment = lib.mapAttrsToList (k: v: "COCOON_${k}=${v}") {
-            DID = conf.did;
-            HOSTNAME = conf.hostname;
-            ADDR = ":${builtins.toString conf.port}";
-            CONTACT_EMAIL = conf.email;
-
-            RELAYS = lib.join "," conf.relays;
-            FALLBACK_PROXY = conf.fallbackProxy;
-
-            JWK_PATH = "%d/jwk";
-            ROTATION_KEY_PATH = "%d/rotation";
-
-            DB_TYPE = "sqlite";
-            DB_NAME = "${conf.dataDir}/cocoon.db";
-          };
+          DB_TYPE = "sqlite";
+          DB_NAME = "${conf.dataDir}/cocoon.db";
         };
       };
     };
