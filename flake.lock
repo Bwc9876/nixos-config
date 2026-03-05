@@ -92,11 +92,11 @@
     },
     "crane_3": {
       "locked": {
-        "lastModified": 1767461147,
-        "narHash": "sha256-TH/xTeq/RI+DOzo+c+4F431eVuBpYVwQwBxzURe7kcI=",
+        "lastModified": 1772560058,
+        "narHash": "sha256-NuVKdMBJldwUXgghYpzIWJdfeB7ccsu1CC7B+NfSoZ8=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "7d59256814085fd9666a2ae3e774dc5ee216b630",
+        "rev": "db590d9286ed5ce22017541e36132eab4e8b3045",
         "type": "github"
       },
       "original": {
@@ -309,11 +309,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767617821,
-        "narHash": "sha256-hV5T4bJopoXrUR9neI8CaR04qX9XpsnydvgJaIPWkFs=",
+        "lastModified": 1772457021,
+        "narHash": "sha256-TCVI5o3/v/fsLYZhwI7Jp52GVdNq4P/qiAP/B3ww7do=",
         "owner": "nix-community",
         "repo": "flakelight",
-        "rev": "1d0d50612c3e13e62363aeed63715ec3a5d9e18f",
+        "rev": "c576dab67cdcdc28e81a85f5f1c9c5743742144e",
         "type": "github"
       },
       "original": {
@@ -1073,17 +1073,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1767633747,
-        "narHash": "sha256-lZHoduWuBCqiyxGxFSPXrNbkl9vsjJeLPJ0jCOTVrw4=",
-        "owner": "Bwc9876",
-        "repo": "wayland-mpris-idle-inhibit",
-        "rev": "2b8a6a6b07013df73bdc7736893776aa155cddac",
-        "type": "github"
+        "lastModified": 1772734035,
+        "narHash": "sha256-g18qb+uJyJpduZFIJFJb93flcHuYshULq4PPAg6BP3U=",
+        "ref": "refs/heads/main",
+        "rev": "c2eaf0d78a953e51c4847def716e70ef28d1312c",
+        "revCount": 16,
+        "type": "git",
+        "url": "https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit"
       },
       "original": {
-        "owner": "Bwc9876",
-        "repo": "wayland-mpris-idle-inhibit",
-        "type": "github"
+        "type": "git",
+        "url": "https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit"
       }
     },
     "xwayland-satellite-stable": {

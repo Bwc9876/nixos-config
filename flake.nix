@@ -14,7 +14,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
-    wayland-mpris-idle-inhibit.url = "github:Bwc9876/wayland-mpris-idle-inhibit";
+    wayland-mpris-idle-inhibit.url = "git+https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit";
     wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
     fenix.url = "github:nix-community/fenix/monthly";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
