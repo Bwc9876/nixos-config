@@ -27,11 +27,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1772728849,
-        "narHash": "sha256-7FH8VjuNG3EKYy8ZrnMss+aFq8CwZT53xSUHWoScSPk=",
+        "lastModified": 1772731386,
+        "narHash": "sha256-RcGD364UCKY+qA1F+009OWmYW4svcX1dCKTtf5b5mFI=",
         "ref": "refs/heads/main",
-        "rev": "cee737606b3c65b12698a29fd96ca64bbc7fd0a2",
-        "revCount": 42,
+        "rev": "ea58b20fa30c565173503fb9e7c802ffdb50aa6a",
+        "revCount": 43,
         "type": "git",
         "url": "https://tangled.org/bwc9876.dev/bingus-bot"
       },
