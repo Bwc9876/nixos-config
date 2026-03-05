@@ -29,11 +29,9 @@
     imperm.url = "github:nix-community/impermanence";
     imperm.inputs.nixpkgs.follows = "nixpkgs";
     imperm.inputs.home-manager.follows = "hm";
-    nu_plugin_dbus.url = "github:Bwc9876/nu_plugin_dbus";
+    nu_plugin_dbus.url = "git+https://tangled.org/bwc9876.dev/nu_plugin_dbus";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
-    gh-grader-preview.url = "github:Bwc9876/gh-grader-preview";
-    gh-grader-preview.inputs.nixpkgs.follows = "nixpkgs";
-    bingus.url = "github:Bwc9876/bingus-bot";
+    bingus.url = "git+https://tangled.org/bwc9876.dev/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
@@ -69,7 +67,6 @@
     nu_plugin_dbus,
     bingus,
     spoon,
-    gh-grader-preview,
     niri,
     musnix,
     tangled,

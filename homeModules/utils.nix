@@ -30,7 +30,7 @@
         dust
         zip
         unzip
-        inputs.gh-grader-preview.packages.${pkgs.system}.default
+        # inputs.gh-grader-preview.packages.${pkgs.system}.default
         libqalculate
         p7zip
         poop
