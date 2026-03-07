@@ -66,6 +66,14 @@
         };
       };
 
+      programs.npm = lib.mkIf conf.web {
+        enable = true;
+        package = pkgs.nodejs_latest;
+        settings = {
+          fund = false;
+        };
+      };
+
       home.packages = with pkgs;
         [gh]
         ++ (lib.optionals (conf.rust or conf.c) [
@@ -92,7 +100,6 @@
           evcxr
         ])
         ++ (lib.optionals conf.web [
-          nodejs_latest
           nodePackages.pnpm
           yarn
           deno
@@ -102,11 +109,9 @@
         ])
         ++ (lib.optionals conf.python [
           python3
-          # poetry
           pipenv
           uv
           ruff
-          black
         ])
         ++ (lib.optionals conf.dotnet [
           dotnet-sdk_10
