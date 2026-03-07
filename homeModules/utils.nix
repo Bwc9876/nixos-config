@@ -30,6 +30,7 @@
         dust
         zip
         unzip
+        imagemagick
         # inputs.gh-grader-preview.packages.${pkgs.system}.default
         libqalculate
         p7zip
