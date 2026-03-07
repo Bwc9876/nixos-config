@@ -25,11 +25,11 @@ window#waybar {
   border-color: @red;
 }
 
-#waybar .modules-left > *:first-child > * {
+#waybar .modules-left>*:first-child>* {
   margin-left: 10px;
 }
 
-#waybar .modules-right > *:last-child > * {
+#waybar .modules-right>*:last-child>* {
   margin-right: 10px;
 }
 
@@ -47,7 +47,7 @@ window#waybar {
   border-color: @red;
 }
 
-* > #battery.charging {
+*>#battery.charging {
   border-color: @green;
 }
 
@@ -94,11 +94,14 @@ window#waybar {
 }
 
 #privacy-item {
-  border-radius: 5rem;
+  background: @crust;
+  border: 2px solid @red;
+  border-radius: 10px;
   padding: 5px 8px;
-  margin: 2px 2px;
-  border: solid 2px @red;
-  background-color: @crust;
+  margin-left: 1px;
+  margin-right: 0;
+  margin-top: 4px;
+  margin-bottom: 0;
 }
 
 #custom-weather.VeryCloudy,
@@ -173,7 +176,7 @@ window#waybar {
 /* Some fixes for icon spacing */
 
 #custom-notification {
-  padding-right: 1em; 
+  padding-right: 1em;
   padding-left: .9em;
 }
 
@@ -188,9 +191,6 @@ window#waybar {
 }
 
 #pulseaudio.muted {
-  padding-right: .8em; 
+  padding-right: .8em;
   padding-left: .55em;
 }
-
-
-
