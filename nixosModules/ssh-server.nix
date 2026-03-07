@@ -15,7 +15,7 @@
       banner = let
         name = lib.toUpper config.networking.hostName;
       in ''
-        -= ${name} -=
+        -= ${name} =-
 
 
       '';
