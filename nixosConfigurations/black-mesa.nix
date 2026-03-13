@@ -80,7 +80,7 @@
         nixpkgs.overlays = [inputs.bingus.overlays.default];
 
         cow.imperm.keep = [
-          "/var/lib/private/bingus"
+          "/var/lib/bingus"
         ];
 
         services.bingus-bot = {
