@@ -68,7 +68,7 @@
 
       programs.npm = lib.mkIf conf.web {
         enable = true;
-        package = pkgs.nodejs_latest;
+        # package = pkgs.nodejs_latest; TODO: Building node from source :(
         settings = {
           fund = false;
         };

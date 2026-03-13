@@ -44,11 +44,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773366274,
-        "narHash": "sha256-SNV8qlxU8ro+nV/2mKgo/5taSFQgTdB/nTsCdPtuPcI=",
+        "lastModified": 1773425697,
+        "narHash": "sha256-YhUtAOW+3Jvn+/pzge4AcmYXTFQBkz8aNm7iUtTEjwo=",
         "ref": "refs/heads/main",
-        "rev": "954837709bea1e3d9d414c5c491de06368c3711f",
-        "revCount": 68,
+        "rev": "6cb3b33ee7b36d51a4a0b9efb6281da0780c8a13",
+        "revCount": 71,
         "type": "git",
         "url": "https://tangled.org/bwc9876.dev/bingus-bot"
       },
@@ -471,11 +471,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773367248,
-        "narHash": "sha256-FFMc1uAwy2GYasd0rdNDVxKyAgzuoJH2M+GglBQbqf0=",
+        "lastModified": 1773422513,
+        "narHash": "sha256-MPjR48roW7CUMU6lu0+qQGqj92Kuh3paIulMWFZy+NQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "be0c641a6a5564caa33982faa1fe2c60d92131c7",
+        "rev": "ef12a9a2b0f77c8fa3dda1e7e494fca668909056",
         "type": "github"
       },
       "original": {

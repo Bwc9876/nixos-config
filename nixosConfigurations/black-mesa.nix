@@ -77,7 +77,6 @@
       {
         # Bingus!
         imports = [inputs.bingus.nixosModules.default];
-        nixpkgs.overlays = [inputs.bingus.overlays.default];
 
         cow.imperm.keep = [
           "/var/lib/bingus"
