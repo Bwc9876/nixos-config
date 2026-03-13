@@ -86,7 +86,6 @@
           enable = true;
           tokenFile = "/nix/persist/secure/bingus-token";
           replyChannels = [
-            1295447496948191262
             1295245646542143489
             1479180106508271697
           ];

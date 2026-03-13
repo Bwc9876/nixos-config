@@ -44,11 +44,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773425697,
-        "narHash": "sha256-YhUtAOW+3Jvn+/pzge4AcmYXTFQBkz8aNm7iUtTEjwo=",
+        "lastModified": 1773464552,
+        "narHash": "sha256-p/u9djoe2LmodIu9wrVN5vKdUnnQvlVsADdISwjnoA8=",
         "ref": "refs/heads/main",
-        "rev": "6cb3b33ee7b36d51a4a0b9efb6281da0780c8a13",
-        "revCount": 71,
+        "rev": "38d5d388a81e8666060e4a6dfe865149e421000f",
+        "revCount": 79,
         "type": "git",
         "url": "https://tangled.org/bwc9876.dev/bingus-bot"
       },
@@ -669,11 +669,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1773390002,
-        "narHash": "sha256-0RVjh9h0sgPHngxEs/Wd2/xdGsgKgZWjxFu5JsX3ASw=",
+        "lastModified": 1773433102,
+        "narHash": "sha256-0q2Uz4oNTX0+dIpN3zV2HLMHI8NOoRDwScatBS1v8ng=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "adc63b19724247f947385381481effd225a6e2fc",
+        "rev": "20f866c7416799ebf5b88b07c9d32c6a440e825d",
         "type": "github"
       },
       "original": {
@@ -768,11 +768,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1773222311,
-        "narHash": "sha256-BHoB/XpbqoZkVYZCfXJXfkR+GXFqwb/4zbWnOr2cRcU=",
+        "lastModified": 1773375660,
+        "narHash": "sha256-SEzUWw2Rf5Ki3bcM26nSKgbeoqi2uYy8IHVBqOKjX3w=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0590cd39f728e129122770c029970378a79d076a",
+        "rev": "3e20095fe3c6cbb1ddcef89b26969a69a1570776",
         "type": "github"
       },
       "original": {
