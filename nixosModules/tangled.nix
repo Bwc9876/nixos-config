@@ -4,16 +4,30 @@
   lib,
   ...
 }: {
-  imports = [inputs.tangled.nixosModules.knot];
+  imports = [
+    inputs.tangled.nixosModules.knot
+    inputs.tangled.nixosModules.spindle
+  ];
 
   options.cow.tangled = {
-    hostname = lib.mkOption {
-      type = lib.types.str;
-      description = "virtual host for knot and spindle";
-      default = "knot.bwc9876.dev";
+    spindle = {
+      enable = lib.mkEnableOption "tangled spindle service";
+      port = lib.mkOption {
+        type = lib.types.port;
+        default = 6555;
+        description = "port to run spindle on";
+      };
+      hostname = lib.mkOption {
+        type = lib.types.str;
+        description = "virtual host for spindle";
+      };
     };
     knot = {
       enable = lib.mkEnableOption "tangled knot service";
+      hostname = lib.mkOption {
+        type = lib.types.str;
+        description = "virtual host for knot";
+      };
       gitUser = lib.mkOption {
         type = lib.types.str;
         description = "Name of git user for SSH operations";
@@ -40,7 +54,9 @@
   config = let
     conf = config.cow.tangled;
   in {
-    cow.imperm.keep = lib.optional conf.knot.enable conf.knot.stateDir;
+    cow.imperm.keep =
+      (lib.optional conf.knot.enable conf.knot.stateDir)
+      ++ (lib.optionals conf.spindle.enable ["/var/lib/spindle" "/var/lib/docker"]);
 
     services.tangled = {
       knot = lib.mkIf conf.knot.enable {
@@ -51,22 +67,51 @@
         server = {
           listenAddr = "0.0.0.0:${builtins.toString conf.knot.port}";
           internalListenAddr = "127.0.0.1:${builtins.toString conf.knot.internalPort}";
-          hostname = lib.mkDefault conf.hostname;
+          hostname = lib.mkDefault conf.knot.hostname;
           owner = lib.mkIf config.cow.bean.enable (lib.mkDefault config.cow.bean.atproto.did);
+        };
+      };
+      spindle = lib.mkIf conf.spindle.enable {
+        enable = true;
+        server = {
+          listenAddr = "0.0.0.0:${builtins.toString conf.spindle.port}";
+          owner = lib.mkIf config.cow.bean.enable (lib.mkDefault config.cow.bean.atproto.did);
+          hostname = lib.mkDefault conf.spindle.hostname;
         };
       };
     };
 
-    services.nginx.virtualHosts.${conf.hostname} = lib.mkIf conf.knot.enable {
-      locations = {
-        "/" = {
-          proxyPass = "http://localhost:${builtins.toString conf.knot.port}";
-          recommendedProxySettings = true;
+    services.nginx.virtualHosts = {
+      ${conf.knot.hostname} = lib.mkIf conf.knot.enable {
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:${builtins.toString conf.knot.port}";
+            recommendedProxySettings = true;
+          };
+          "/events" = {
+            proxyPass = "http://localhost:${builtins.toString conf.knot.port}";
+            proxyWebsockets = true;
+            recommendedProxySettings = true;
+          };
         };
-        "/events" = {
-          proxyPass = "http://localhost:${builtins.toString conf.knot.port}";
-          proxyWebsockets = true;
-          recommendedProxySettings = true;
+      };
+
+      ${conf.spindle.hostname} = lib.mkIf conf.spindle.enable {
+        locations = {
+          "/" = {
+            proxyPass = "http://localhost:${builtins.toString conf.spindle.port}";
+            recommendedProxySettings = true;
+          };
+          "/events" = {
+            proxyPass = "http://localhost:${builtins.toString conf.spindle.port}";
+            proxyWebsockets = true;
+            recommendedProxySettings = true;
+          };
+          "/logs" = {
+            proxyPass = "http://localhost:${builtins.toString conf.spindle.port}";
+            proxyWebsockets = true;
+            recommendedProxySettings = true;
+          };
         };
       };
     };

@@ -128,10 +128,14 @@
               hostname = "pds.bwc9876.dev";
             };
             tangled = {
-              hostname = "knot.bwc9876.dev";
               knot = {
                 enable = true;
+                hostname = "knot.bwc9876.dev";
                 gitUser = "gurt";
+              };
+              spindle = {
+                enable = true;
+                hostname = "spindle.bwc9876.dev";
               };
             };
             imperm.keep = ["/var/lib/acme"];
@@ -156,6 +160,11 @@
             virtualHosts."knot.bwc9876.dev" = {
               addSSL = true;
               acmeRoot = null; # Doing DNS challenges
+              useACMEHost = "bwc9876.dev";
+            };
+            virtualHosts."spindle.bwc9876.dev" = {
+              addSSL = true;
+              acmeRoot = null; # DNS
               useACMEHost = "bwc9876.dev";
             };
             virtualHosts."pds.bwc9876.dev" = {
