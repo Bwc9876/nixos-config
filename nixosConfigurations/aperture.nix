@@ -17,12 +17,15 @@
           networking.hostName = "aperture";
 
           nix.settings = {
-            substituters = [
+            substituters = lib.mkForce [
               "https://bincache.bwc9876.dev"
               "https://cache.nixos.org"
             ];
+            trusted-substituters = [
+              "https://bincache.bwc9876.dev"
+            ];
             trusted-public-keys = [
-              "bincache.bwc9876.dev:Hld97kaStrWo7zlLpiay2NDeDF3OpOYPzM0Kzfqj+Kw="
+              "bincache.bwc9876.dev-1:Hld97kaStrWo7zlLpiay2NDeDF3OpOYPzM0Kzfqj+Kw="
             ];
           };
 
