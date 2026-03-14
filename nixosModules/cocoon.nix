@@ -64,6 +64,11 @@
       description = "Path to favicon file to serve";
       default = null;
     };
+    emailSetupPath = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      description = "Path of file to use to configure email sending with SMTP";
+      default = null;
+    };
   };
 
   config = let
@@ -127,10 +132,12 @@
 
       services.cocoon = {
         enable = true;
-        environmentFiles = [
-          conf.adminPassPath
-          conf.sessionSecretPath
-        ];
+        environmentFiles =
+          [
+            conf.adminPassPath
+            conf.sessionSecretPath
+          ]
+          ++ lib.optional (conf.emailSetupPath != null) conf.emailSetupPath;
         settings = lib.mapAttrs' (k: v: lib.nameValuePair "COCOON_${k}" v) {
           JWK_PATH = conf.jwkPath;
           ROTATION_KEY_PATH = conf.rotationPath;

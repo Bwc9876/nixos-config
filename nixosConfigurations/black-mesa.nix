@@ -111,6 +111,7 @@
               rotationPath = secure "rotation.key";
               adminPassPath = secure "admin.pass";
               sessionSecretPath = secure "session.key";
+              emailSetupPath = secure "email.env";
               relays = [
                 "https://bsky.network"
                 "https://relay.cerulea.blue"
