@@ -19,7 +19,7 @@
     "UCRC6cNamj9tYAO6h_RXd5xA" # RTGame
     "UCYIwBA7mwDWnrckXs7gt76Q" # Snapcube
     "UCCHruaQlOKPHTl8iOPGDjFg" # Snapcube 2 (VODs)
-    "UCL7DDQWP6x7wy0O6L5ZIgxg" # 2ndJerma
+    "UCL7DDQWP6x7wy0O6L5ZIgxg" # 2andJerma
     "UC9z7EZAbkphEMg0SP7rw44A" # carykh
     "UCpmvp5czsIrQHsbqya4-6Jw" # Chad Chad
     "UC0e3QhIYukixgh5VVpKHH9Q" # Code Bullet

@@ -41,12 +41,6 @@
     tangled.inputs.nixpkgs.follows = "nixpkgs";
 
     spoon.url = "git+https://codeberg.org/spoonbaker/mono";
-    spoon.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flakelight.follows = "flakelight";
-      home-manager.follows = "hm";
-      impermanence.follows = "imperm";
-    };
   };
 
   outputs = inputs @ {

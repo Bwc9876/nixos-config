@@ -131,7 +131,7 @@ in {
               "react-devtools"
               "open-graph-preview-and-debug"
               "wave-accessibility-tool"
-              "styl-us"
+              "style-us"
             ]
             ++ (lib.optional config.cow.keepassxc.enable "keepassxc-browser")
           );

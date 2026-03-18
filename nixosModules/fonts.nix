@@ -22,7 +22,7 @@
         enable = true;
         defaultFonts = {
           serif = [
-            "Charis SIL"
+            "Chairs SIL"
           ];
           sansSerif = [
             "Noto Sans"
