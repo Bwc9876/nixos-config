@@ -14,7 +14,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
-    wayland-mpris-idle-inhibit.url = "git+https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit";
+    wayland-mpris-idle-inhibit.url = "github:Bwc9876/wayland-mpris-idle-inhibit"; # = "git+https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit";
     wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
     fenix.url = "github:nix-community/fenix/monthly";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -29,9 +29,9 @@
     imperm.url = "github:nix-community/impermanence";
     imperm.inputs.nixpkgs.follows = "nixpkgs";
     imperm.inputs.home-manager.follows = "hm";
-    nu_plugin_dbus.url = "git+https://tangled.org/bwc9876.dev/nu_plugin_dbus";
+    nu_plugin_dbus.url = "github:Bwc9876/nu_plugin_dbus"; # "git+https://tangled.org/bwc9876.dev/nu_plugin_dbus";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
-    bingus.url = "git+https://tangled.org/bwc9876.dev/bingus-bot";
+    bingus.url = "github:Bwc9876/bingus-bot"; # "git+https://tangled.org/bwc9876.dev/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,28 +43,29 @@
     spoon.url = "git+https://codeberg.org/spoonbaker/mono";
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    flakelight,
-    flakelight-treefmt,
-    nix-index-db,
-    hm,
-    nixos-hardware,
-    lanzaboote,
-    wayland-mpris-idle-inhibit,
-    fenix,
-    catppuccin,
-    # cat-stylus,
-    nixvim,
-    imperm,
-    nu_plugin_dbus,
-    bingus,
-    spoon,
-    niri,
-    musnix,
-    tangled,
-  }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      flakelight,
+      flakelight-treefmt,
+      nix-index-db,
+      hm,
+      nixos-hardware,
+      lanzaboote,
+      wayland-mpris-idle-inhibit,
+      fenix,
+      catppuccin,
+      # cat-stylus,
+      nixvim,
+      imperm,
+      nu_plugin_dbus,
+      bingus,
+      spoon,
+      niri,
+      musnix,
+      tangled,
+    }:
     flakelight ./. {
       inherit inputs;
       imports = [
@@ -73,13 +74,15 @@
         spoon.flakelightModules.ubercheck
       ];
 
-      treefmtConfig = {pkgs, ...}: {
-        programs = {
-          alejandra.enable = true;
-          just.enable = true;
-          shfmt.enable = true;
+      treefmtConfig =
+        { pkgs, ... }:
+        {
+          programs = {
+            alejandra.enable = true;
+            just.enable = true;
+            shfmt.enable = true;
+          };
         };
-      };
 
       nixDir = ./.;
       legacyPackages = pkgs: pkgs;

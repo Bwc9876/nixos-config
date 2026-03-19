@@ -608,7 +608,7 @@
             ];
 
             options = {
-              theme = lib.mkIf config.cow.cat.enable "catppuccin";
+              # theme = lib.mkIf config.cow.cat.enable "catppuccin";
               disabled_filetypes = ["neo-tree"];
               ignore_focus = ["neo-tree"];
             };
@@ -823,7 +823,7 @@
           };
           # ts_ls.enable = web;
           html.enable = web;
-          emmer_language_server.enable = web;
+          emmet_language_server.enable = web;
           marksman.enable = web;
           cssls.enable = web;
           jsonls.enable = web;
