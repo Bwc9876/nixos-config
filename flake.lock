@@ -44,11 +44,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774069322,
-        "narHash": "sha256-jf/AKk8APrn+cMLFLWsMrjwMHld61PHU12egK8G+CCY=",
+        "lastModified": 1774070037,
+        "narHash": "sha256-X9b2VM+9cV312uWcsRwg4lL+FbopTuXMCX2Yyb8jAAU=",
         "owner": "Bwc9876",
         "repo": "bingus-bot",
-        "rev": "a6e9503ad54614ee204f84363e7949ce076ff6d8",
+        "rev": "d55c36b3268f1ef2b63ab8989a37f82a326ec7c6",
         "type": "github"
       },
       "original": {
