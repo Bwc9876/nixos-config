@@ -46,15 +46,15 @@
       "locked": {
         "lastModified": 1774070037,
         "narHash": "sha256-X9b2VM+9cV312uWcsRwg4lL+FbopTuXMCX2Yyb8jAAU=",
-        "owner": "Bwc9876",
-        "repo": "bingus-bot",
+        "ref": "refs/heads/main",
         "rev": "d55c36b3268f1ef2b63ab8989a37f82a326ec7c6",
-        "type": "github"
+        "revCount": 86,
+        "type": "git",
+        "url": "https://tangled.org/bwc9876.dev/bingus-bot"
       },
       "original": {
-        "owner": "Bwc9876",
-        "repo": "bingus-bot",
-        "type": "github"
+        "type": "git",
+        "url": "https://tangled.org/bwc9876.dev/bingus-bot"
       }
     },
     "catppuccin": {
@@ -777,15 +777,15 @@
       "locked": {
         "lastModified": 1772729051,
         "narHash": "sha256-yWTxtuziOSDmwB6hHPDx7B7tgqL6tEbFr9R8fEoGvE4=",
-        "owner": "Bwc9876",
-        "repo": "nu_plugin_dbus",
+        "ref": "refs/heads/main",
         "rev": "73f3d693303f99dc2498d2ae0e098bd89e9e5317",
-        "type": "github"
+        "revCount": 71,
+        "type": "git",
+        "url": "https://tangled.org/bwc9876.dev/nu_plugin_dbus"
       },
       "original": {
-        "owner": "Bwc9876",
-        "repo": "nu_plugin_dbus",
-        "type": "github"
+        "type": "git",
+        "url": "https://tangled.org/bwc9876.dev/nu_plugin_dbus"
       }
     },
     "pre-commit": {
@@ -1051,15 +1051,15 @@
       "locked": {
         "lastModified": 1772734035,
         "narHash": "sha256-g18qb+uJyJpduZFIJFJb93flcHuYshULq4PPAg6BP3U=",
-        "owner": "Bwc9876",
-        "repo": "wayland-mpris-idle-inhibit",
+        "ref": "refs/heads/main",
         "rev": "c2eaf0d78a953e51c4847def716e70ef28d1312c",
-        "type": "github"
+        "revCount": 16,
+        "type": "git",
+        "url": "https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit"
       },
       "original": {
-        "owner": "Bwc9876",
-        "repo": "wayland-mpris-idle-inhibit",
-        "type": "github"
+        "type": "git",
+        "url": "https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit"
       }
     },
     "xwayland-satellite-stable": {
