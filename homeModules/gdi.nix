@@ -58,6 +58,8 @@
         hunspellDicts.en_US-large
       ];
 
+      xdg.userDirs.setSessionVariables = true;
+
       xdg.mimeApps = {
         enable = true;
         defaultApplications = {
@@ -496,6 +498,7 @@
         gtk2.extraConfig = "gtk-application-prefer-dark-theme=true";
         gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
         gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+        gtk4.theme = config.gtk.theme;
       };
 
       dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
