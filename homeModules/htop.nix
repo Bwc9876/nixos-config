@@ -86,7 +86,8 @@
         [Desktop Entry]
         Type=Application
         Name=Htop
-        Exec=wezterm start --class="htop" htop
+        Terminal=true
+        Exec=htop
         Icon=htop
       '';
     };

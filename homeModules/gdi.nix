@@ -34,7 +34,6 @@
         iconTheme.package
 
         xdg-terminal-exec # For gtk-launch, etc to be able to open `Terminal` desktop entries
-        wezterm
 
         # Shell Components
         hyprlock
@@ -79,7 +78,6 @@
           environment =
             {
               NIXOS_OZONE_WL = "1";
-              TERMINAL = lib.getExe pkgs.wezterm;
             }
             // (builtins.mapAttrs (_: v: builtins.toString v) config.home.sessionVariables); # TODO: Hack?
 
@@ -153,8 +151,6 @@
           binds = with config.lib.niri.actions; let
             spawnPkg = p: spawn "${lib.getExe p}";
             move-column-to-workspace = n: {move-column-to-workspace = [n];};
-            terminal = pkgs.wezterm;
-            spawnTerm = spawnPkg terminal;
             spawnPlayerctl = spawnPkg pkgs.playerctl;
             spawnRofi = spawn "rofi";
             spawnSh = spawn "sh" "-c";
@@ -248,7 +244,7 @@
             "Super+Alt+Ctrl+Shift+L".action = spawn "xdg-open" "https://linkedin.com";
 
             # Terminal
-            "Mod+T".action = spawnTerm;
+            "Mod+T".action = spawnSh "exec $TERMINAL";
 
             # Rofi
             "Mod+S".action = spawnRofi "-show" "drun" "-show-icons";
@@ -641,75 +637,75 @@
               })
               // {
                 font = mkLiteral ''"Roboto 14"'';
-                background-color = mkLiteral ''transparent'';
-                text-color = mkLiteral ''@fg0'';
-                margin = mkLiteral ''0px'';
-                padding = mkLiteral ''0px'';
-                spacing = mkLiteral ''0px'';
+                background-color = mkLiteral "transparent";
+                text-color = mkLiteral "@fg0";
+                margin = mkLiteral "0px";
+                padding = mkLiteral "0px";
+                spacing = mkLiteral "0px";
               };
             "window" = {
-              location = mkLiteral ''north'';
-              y-offset = mkLiteral ''calc(50% - 176px)'';
-              width = mkLiteral ''600'';
-              border-radius = mkLiteral ''24px'';
-              background-color = mkLiteral ''@bg0'';
+              location = mkLiteral "north";
+              y-offset = mkLiteral "calc(50% - 176px)";
+              width = mkLiteral "600";
+              border-radius = mkLiteral "24px";
+              background-color = mkLiteral "@bg0";
             };
             "mainbox" = {
-              padding = mkLiteral ''12px'';
+              padding = mkLiteral "12px";
             };
             "inputbar" = {
-              background-color = mkLiteral ''@bg1'';
-              border-color = mkLiteral ''@bg3'';
-              border = mkLiteral ''2px'';
-              border-radius = mkLiteral ''16px'';
-              padding = mkLiteral ''8px 16px'';
-              spacing = mkLiteral ''8px'';
-              children = mkLiteral ''[ prompt, entry ]'';
+              background-color = mkLiteral "@bg1";
+              border-color = mkLiteral "@bg3";
+              border = mkLiteral "2px";
+              border-radius = mkLiteral "16px";
+              padding = mkLiteral "8px 16px";
+              spacing = mkLiteral "8px";
+              children = mkLiteral "[ prompt, entry ]";
             };
             "prompt" = {
-              text-color = mkLiteral ''@fg2'';
+              text-color = mkLiteral "@fg2";
             };
             "entry" = {
               placeholder = mkLiteral ''"Search"'';
-              placeholder-color = mkLiteral ''@fg3'';
+              placeholder-color = mkLiteral "@fg3";
             };
             "message" = {
-              margin = mkLiteral ''12px 0 0'';
-              border-radius = mkLiteral ''16px'';
-              border-color = mkLiteral ''@bg2'';
-              background-color = mkLiteral ''@bg2'';
+              margin = mkLiteral "12px 0 0";
+              border-radius = mkLiteral "16px";
+              border-color = mkLiteral "@bg2";
+              background-color = mkLiteral "@bg2";
             };
             "textbox" = {
-              padding = mkLiteral ''8px 24px'';
+              padding = mkLiteral "8px 24px";
             };
             "listview" = {
-              background-color = mkLiteral ''transparent'';
-              margin = mkLiteral ''12px 0 0'';
-              lines = mkLiteral ''8'';
-              columns = mkLiteral ''2'';
-              fixed-height = mkLiteral ''false'';
+              background-color = mkLiteral "transparent";
+              margin = mkLiteral "12px 0 0";
+              lines = mkLiteral "8";
+              columns = mkLiteral "2";
+              fixed-height = mkLiteral "false";
             };
             "element" = {
-              padding = mkLiteral ''8px 16px'';
-              spacing = mkLiteral ''8px'';
-              border-radius = mkLiteral ''16px'';
+              padding = mkLiteral "8px 16px";
+              spacing = mkLiteral "8px";
+              border-radius = mkLiteral "16px";
             };
             "element normal active" = {
-              text-color = mkLiteral ''@bg3'';
+              text-color = mkLiteral "@bg3";
             };
             "element alternate active" = {
-              text-color = mkLiteral ''@bg3'';
+              text-color = mkLiteral "@bg3";
             };
             "element selected normal, element selected active" = {
-              text-color = mkLiteral ''@fg4'';
-              background-color = mkLiteral ''@bg3'';
+              text-color = mkLiteral "@fg4";
+              background-color = mkLiteral "@bg3";
             };
             "element-icon" = {
-              size = mkLiteral ''1em'';
-              vertical-align = mkLiteral ''0.5'';
+              size = mkLiteral "1em";
+              vertical-align = mkLiteral "0.5";
             };
             "element-text" = {
-              text-color = mkLiteral ''inherit'';
+              text-color = mkLiteral "inherit";
             };
           };
           location = "center";
@@ -717,26 +713,6 @@
         nushell.extraConfig = ''
           plugin add ${inputs.nu_plugin_dbus.packages.${pkgs.system}.default}/bin/nu_plugin_dbus
         '';
-
-        wezterm = {
-          enable = true;
-          extraConfig = ''
-            return {
-              font = wezterm.font("monospace"),
-              font_size = 12.0,
-              color_scheme = "Catppuccin Mocha",
-              enable_kitty_graphics = true,
-              enable_kitty_keyboard = true,
-              enable_tab_bar = false,
-              window_background_opacity = 0.92,
-              default_cursor_style = "SteadyBar",
-              cursor_thickness = 2,
-              keys = {
-                {key="o", mods="CTRL|SHIFT", action="OpenLinkAtMouseCursor"}
-              }
-            }
-          '';
-        };
       };
     };
 }

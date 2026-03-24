@@ -69,10 +69,12 @@
             def --wrapped dvim [...rest] { dev vim ...$rest }
             def --wrapped djust [...rest] { dev just ...$rest }
 
-            ## Wezterm
+            ## Terminal
             ${lib.optionalString config.cow.gdi.enable ''
-              def --wrapped nt [...rest] { wezterm start --cwd $env.PWD -- ...$rest }
+              def --wrapped nt [...rest] { exec $env.TERMINAL start --cwd $env.PWD -- ...$rest }
             ''}
+
+            # Starship Setup
 
             ${lib.optionalString config.cow.starship.enable ''
               source ${init-starship}

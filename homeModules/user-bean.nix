@@ -90,6 +90,7 @@
       };
 
       cow = {
+        kitty.enable = true;
         libraries.enable = true;
         imperm.keepLibraries = true;
         pictures = {

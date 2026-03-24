@@ -361,7 +361,8 @@
           [Desktop Entry]
           Type=Application
           Name=Music Player
-          Exec=wezterm start --class="rmpc" rmpc
+          Terminal=true
+          Exec=rmpc
           Icon=playmymusic
         '';
       };
