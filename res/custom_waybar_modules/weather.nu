@@ -137,7 +137,7 @@ def error-exit [msg: string] {
 def main [] {
 
     let raw = try {
-        http get https://wttr.in/?format=j1&lang=us
+        http get https://wttr.in/?format=j1
     } catch { |err|
         error-exit $err.msg;
     }
