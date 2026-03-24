@@ -15,6 +15,13 @@ alias b := build
 build:
     nh os build -k . {{ GARGS }}
 
+# bu: build and update
+
+alias bu := build-update
+
+build-update:
+    nh os build -k -u . {{ GARGS }}
+
 alias bt := boot
 
 # bt: make the configuration the boot default without activating it
