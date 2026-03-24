@@ -17,6 +17,7 @@
       enable = true;
       settings = {
         cursor_trail = 4;
+        touch_scroll_multiplier = 4.0;
         visual_bell_duration = "0.5 ease-in linear";
         visual_bell_color = "#777777";
         enable_audio_bell = false;
