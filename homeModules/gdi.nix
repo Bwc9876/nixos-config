@@ -246,6 +246,9 @@
             # Terminal
             "Mod+T".action = spawnSh "exec $TERMINAL";
 
+            # Yazi
+            "Mod+E".action = lib.mkIf config.cow.yazi.enable (launchDesktop "yazi");
+
             # Rofi
             "Mod+S".action = spawnRofi "-show" "drun" "-show-icons";
             "Mod+B".action = spawnPkg pkgs.rofi-bluetooth;

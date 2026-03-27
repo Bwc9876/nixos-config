@@ -17,6 +17,16 @@
       exiftool
     ];
 
+    xdg.dataFile = lib.mkIf config.cow.gdi.enable {
+      "applications/yazi.desktop".text = ''
+        [Desktop Entry]
+        Type=Application
+        Name=Yazi
+        Terminal=true
+        Exec=yazi
+      '';
+    };
+
     programs.yazi = {
       enable = true;
       enableBashIntegration = true;
