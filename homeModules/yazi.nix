@@ -22,8 +22,11 @@
         [Desktop Entry]
         Type=Application
         Name=Yazi
+        Comment=File Browser
         Terminal=true
-        Exec=yazi
+        Exec=yazi %F
+        Icon=nautilus
+        MimeType=inode/directory;inode/mount-point
       '';
     };
 

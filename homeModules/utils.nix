@@ -53,13 +53,6 @@
       ]
       ++ lib.optionals config.cow.gdi.enable [
         wev
-        libreoffice-qt6
-        obs-studio
-        loupe
-        gimp
-        inkscape
-        lorien
-        pympress
       ];
 
     home.shellAliases = lib.mkIf config.cow.utils.batAliases {

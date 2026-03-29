@@ -363,7 +363,7 @@
           Name=Music Player
           Terminal=true
           Exec=rmpc
-          Icon=playmymusic
+          Icon=musique
         '';
       };
 

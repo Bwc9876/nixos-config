@@ -7,16 +7,17 @@ def disp_text [url: string] {
     $in | nvim -R -n $"+file ($name)"
 }
 
-def fetch_clean_webpage [url: string] {
+def fetch_clean_webpage [url: string, w3m_path: string] {
     try {
-        rdrview -B "w3m -no-cookie -dump -cols 90" $url
+        rdrview -B $"($w3m_path) -no-cookie -dump -cols 90" $url
     } catch {
-        w3m -no-cookie -dump -cols 90 $url
+        run-external $w3m_path "-no-cookie" "-dump" "-cols" "90" $url
     }
 }
 
 def main [
     url: string;
+    w3m_path: string;
 ] {
     print $"Opening ($url)...";
     let type = try {
@@ -39,7 +40,7 @@ def main [
         # Try to use rdrview to get rid of unimportant parts of the webpage
         # Then render its HTML to a nice format with w3m
         # Finally display in neovim (I don't wanna change the w3m keybinds)
-        fetch_clean_webpage $url | disp_text $url;
+        fetch_clean_webpage $url $w3m_path | disp_text $url;
     } else if ($type | str starts-with "text/") {
         # Simply display text files in neovim, might just merge this
         # with the HTML handler since it would work prolly?

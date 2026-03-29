@@ -46,7 +46,6 @@ in {
     cow.imperm.keep = [".local/share/newsboat"];
 
     home.packages = with pkgs; [
-      w3m
       rdrview
     ];
 
@@ -61,7 +60,7 @@ in {
 
     programs.newsboat = {
       enable = true;
-      browser = ''"${../res/news-open.nu} %u"'';
+      browser = ''"${../res/news-open.nu} %u ${lib.getExe pkgs.w3m}"'';
 
       # notify-program ${../res/news-notify.nu}
 

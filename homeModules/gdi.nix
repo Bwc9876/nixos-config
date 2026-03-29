@@ -9,13 +9,12 @@
   options.cow.gdi = {
     enable = lib.mkEnableOption "Niri + Customizations";
     doIdle = lib.mkEnableOption "Turn off screen, sleep, etc. from inactivity";
+    extras = {
+      office = lib.mkEnableOption "Office applications";
+    };
   };
 
   config = let
-    iconTheme = {
-      name = "Tela-green";
-      package = pkgs.tela-icon-theme;
-    };
     cursorTheme = {
       name = "catppuccin-mocha-dark-cursors";
       package = pkgs.catppuccin-cursors.mochaDark;
@@ -27,45 +26,52 @@
 
       home.packages = with pkgs; [
         alsa-utils
-
         dconf
 
         cursorTheme.package
-        iconTheme.package
 
         xdg-terminal-exec # For gtk-launch, etc to be able to open `Terminal` desktop entries
 
         # Shell Components
         hyprlock
-        nautilus
 
-        ## Waybar
-        qt6.qttools # For component
+        ## Waybar Deps
+        qt6.qttools
 
+        ## Audio Control
         pavucontrol
 
+        ## Image Viewer
+        loupe
+
+        ## Screen Recording Deps
         wf-recorder
         slurp
-        grim
-        xdg-utils
-        swappy
+
+        ## Notifications
         libnotify
         swaynotificationcenter
-        wl-clipboard
 
-        hunspell
-        hunspellDicts.en_US-large
+        ## Misc.
+        wl-clipboard
+        xdg-utils
       ];
 
       xdg.userDirs.setSessionVariables = true;
-
       xdg.mimeApps = {
         enable = true;
         defaultApplications = {
-          "application/pdf" = lib.mkIf config.cow.firefox.enable "firefox-devedition.desktop";
-          "image/*" = lib.mkIf config.cow.firefox.enable "firefox-devedition.desktop";
-          "text/*" = lib.mkIf config.cow.neovim.enable "neovide.desktop";
+          "inode/directory" = lib.mkIf config.cow.yazi.enable "yazi.desktop";
+          "inode/mount-point" = lib.mkIf config.cow.yazi.enable "yazi.desktop";
         };
+        # As many as possible to override system stuff
+        defaultApplicationPackages =
+          [pkgs.loupe]
+          ++ (lib.optional config.cow.keepassxc.enable pkgs.keepassxc)
+          ++ (lib.optional config.cow.qmplay2.enable pkgs.qmplay2)
+          ++ (lib.optional config.cow.firefox.enable config.programs.firefox.package)
+          ++ (lib.optional config.cow.neovim.enable config.programs.nixvim.build.package)
+          ++ (lib.optional config.cow.kitty.enable config.programs.kitty.package);
       };
 
       fonts.fontconfig.enable = false;
@@ -493,7 +499,6 @@
 
       gtk = {
         enable = true;
-        iconTheme = lib.mkForce iconTheme;
         gtk2.extraConfig = "gtk-application-prefer-dark-theme=true";
         gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
         gtk4.extraConfig.gtk-application-prefer-dark-theme = true;

@@ -73,22 +73,6 @@
         };
       };
 
-      home.packages = lib.mkIf config.cow.gdi.enable (
-        with pkgs; [
-          zoom-us
-          tuxpaint
-        ]
-      );
-
-      home.sessionVariables = {
-        "EDITOR" = "nvim";
-      };
-
-      xdg.mimeApps.defaultApplications = lib.mkIf config.cow.gdi.enable {
-        "image/svg+xml" = "org.inkscape.Inkscape.desktop";
-        "image/*" = "org.gnome.Loupe.desktop";
-      };
-
       cow = {
         kitty.enable = true;
         libraries.enable = true;
