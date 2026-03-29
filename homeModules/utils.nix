@@ -18,6 +18,8 @@
   };
 
   config = lib.mkIf config.cow.utils.enable {
+    cow.ddhx.enable = true;
+
     home.packages = with pkgs;
       [
         ripgrep
