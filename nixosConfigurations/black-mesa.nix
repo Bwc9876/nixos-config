@@ -145,6 +145,12 @@
               acmeRoot = null; # DNS
               useACMEHost = "bwc9876.dev";
             };
+            virtualHosts."*.tranquil.bwc9876.dev" = {
+              locations."/".proxyPass = "http://127.0.0.1:${builtins.toString config.services.tranquil-pds.settings.server.port}";
+              addSSL = true;
+              acmeRoot = null; # DNS
+              useACMEHost = "tranquil.bwc9876.dev";
+            };
             virtualHosts."spindle.bwc9876.dev" = {
               addSSL = true;
               acmeRoot = null; # DNS
@@ -192,6 +198,13 @@
             acceptTerms = true;
             defaults = {
               email = "ben@bwc9876.dev";
+            };
+            certs."tranquil.bwc9876.dev" = {
+              domain = "*.tranquil.bwc9876.dev";
+              reloadServices = ["nginx"];
+              group = config.services.nginx.group;
+              dnsProvider = "porkbun";
+              environmentFile = "/nix/persist/secure/porkbun.env";
             };
             certs."bwc9876.dev" = {
               domain = "*.bwc9876.dev";
