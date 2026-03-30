@@ -39,6 +39,8 @@
     musnix.inputs.nixpkgs.follows = "nixpkgs";
     tangled.url = "git+https://tangled.org/tangled.org/core";
     tangled.inputs.nixpkgs.follows = "nixpkgs";
+    tranquil.url = "git+https://tangled.org/tranquil.farm/tranquil-pds";
+    tranquil.inputs.nixpkgs.follows = "nixpkgs";
 
     spoon.url = "git+https://codeberg.org/spoonbaker/mono";
   };
@@ -64,6 +66,7 @@
     niri,
     musnix,
     tangled,
+    tranquil,
   }:
     flakelight ./. {
       inherit inputs;

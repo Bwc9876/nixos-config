@@ -94,38 +94,16 @@
         {
           config,
           pkgs,
+          lib,
           ...
         }: {
           # Self hosted stuff
 
           cow = {
-            cocoon = let
-              secure = x: "/nix/persist/secure/cocoon-keys/${x}";
-            in {
+            tranquil = {
               enable = true;
-              did = config.cow.bean.atproto.did;
-              favicon = ../res/favicon.ico;
-              port = 8080;
-              jwkPath = secure "jwk.key";
-              rotationPath = secure "rotation.key";
-              adminPassPath = secure "admin.pass";
-              sessionSecretPath = secure "session.key";
-              emailSetupPath = secure "email.env";
-              relays = [
-                "https://bsky.network"
-                "https://relay.cerulea.blue"
-                "https://relay.fire.hose.cam"
-                "https://relay2.fire.hose.cam"
-                "https://relay3.fr.hose.cam"
-                "https://relay.hayescmd.net"
-                "https://relay.xero.systems"
-                "https://relay.upcloud.world"
-                "https://relay.feeds.blue"
-                "https://atproto.africa"
-                "https://relay.whey.party"
-              ];
-              email = "ben@bwc9876.dev";
-              hostname = "pds.bwc9876.dev";
+              domainName = "tranquil.bwc9876.dev";
+              envFile = "/nix/persist/secure/tranquil.env";
             };
             tangled = {
               knot = {
@@ -162,12 +140,12 @@
               acmeRoot = null; # Doing DNS challenges
               useACMEHost = "bwc9876.dev";
             };
-            virtualHosts."spindle.bwc9876.dev" = {
+            virtualHosts."tranquil.bwc9876.dev" = {
               addSSL = true;
               acmeRoot = null; # DNS
               useACMEHost = "bwc9876.dev";
             };
-            virtualHosts."pds.bwc9876.dev" = {
+            virtualHosts."spindle.bwc9876.dev" = {
               addSSL = true;
               acmeRoot = null; # DNS
               useACMEHost = "bwc9876.dev";
@@ -180,6 +158,25 @@
                 proxyPass = "http://localhost:6767";
                 recommendedProxySettings = true;
               };
+            };
+          };
+
+          services.tranquil-pds.settings.email = {
+            from_address = lib.strings.join "@" ["beanpds" (lib.strings.join "." ["gmail" "com"])];
+            from_name = "Bean PDS";
+          };
+
+          programs.msmtp = {
+            enable = true;
+            accounts.default = {
+              auth = true;
+              # ssshhhhh
+              host = "smtp.gmail.com";
+              user = lib.strings.join "@" ["beanpds" (lib.strings.join "." ["gmail" "com"])];
+              from = lib.strings.join "@" ["beanpds" (lib.strings.join "." ["gmail" "com"])];
+              passwordeval = "cat /nix/persist/secure/smtp-pass";
+              port = 587;
+              tls = true;
             };
           };
 
