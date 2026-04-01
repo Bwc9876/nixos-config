@@ -331,21 +331,24 @@ in {
             ] "https://hoogle.haskell.org/?hoogle={searchTerms}" "png";
 
             ### Nix
+            "Searchix Combined" = mkEngine [
+              "@n"
+              "@nixall"
+            ] "https://search.nix.ee/?query={searchTerms}" "ico";
             "Nix Packages" = mkEngine [
               "@nixpkgs"
-            ] "https://search.nixos.org/packages?channel=unstable&size=500&query={searchTerms}" "png";
+            ] "https://search.nix.ee/packages/nixpkgs/search?query={searchTerms}" "ico";
             "NixOS Options" = mkEngine [
               "@nixos"
-            ] "https://search.nixos.org/options?channel=unstable&size=500&query={searchTerms}" "png";
+            ] "https://search.nix.ee/packages/nixos/search?query={searchTerms}" "ico";
             "NixOS Wiki" = mkEngine ["@nixwiki"] "https://nixos.wiki/index.php?search={searchTerms}" "png";
-            "Home Manager Options" =
-              mkEngineForceFavicon ["@hm"]
-              "https://home-manager-options.extranix.com/?release=master&query={searchTerms}"
-              "https://home-manager-options.extranix.com/images/favicon.png";
+            "Home Manager Options" = mkEngine [
+              "@hm"
+            ] "https://search.nix.ee/packages/home-manager/search?query={searchTerms}" "ico";
             "Noogle" = mkEngine [
               "@noogle"
               "@nixlib"
-            ] "https://noogle.dev/q?limit=100&term={searchTerms}" "png";
+            ] "https://docs.nix.ee/q/?term={searchTerms}" "png";
             "SourceGraph Nix" =
               mkEngine ["@sgn" "@yoink"]
               "https://sourcegraph.com/search?q=lang:Nix+-repo:NixOS/*+-repo:nix-community/*+{searchTerms}"
