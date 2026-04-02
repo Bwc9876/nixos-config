@@ -100,7 +100,7 @@
           evcxr
         ])
         ++ (lib.optionals conf.web [
-          nodePackages.pnpm
+          pnpm
           yarn
           deno
         ])
