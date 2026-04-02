@@ -449,11 +449,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775080052,
-        "narHash": "sha256-jAB4ZZbx8ECu9GcE/PUUwT+wpooZ0Ssmn2imB8PVTdM=",
+        "lastModified": 1775104157,
+        "narHash": "sha256-rm/7k0D2J9SP30pyZ2C1HqarDncZDN6KAUI0gzgg4TA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6267895e9898399f0ce2fe79b645e9ee4858aaff",
+        "rev": "41e6e2ab37763c09db4e639033392cf40900440a",
         "type": "github"
       },
       "original": {
@@ -631,11 +631,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1775042939,
-        "narHash": "sha256-qcCBdnnKj8g/TiYmfDl3LmTdLYVPxr08yht9JaTXW00=",
+        "lastModified": 1775089852,
+        "narHash": "sha256-zcX3hf2cTOQ06kRP+FCYbuaWhy+FLruLFp+D79Enjo4=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "0e4df2c05361ed0f5e8738335369b304a0962b02",
+        "rev": "cfa91d98691d91cc604ab8f4e224819524c496ad",
         "type": "github"
       },
       "original": {
@@ -999,11 +999,11 @@
         "sqlite-lib-src": "sqlite-lib-src"
       },
       "locked": {
-        "lastModified": 1775059339,
-        "narHash": "sha256-wLMp8a9NxEHc7bVBCf47G8UWxz+5VHrHswuNR+kssTk=",
+        "lastModified": 1775131875,
+        "narHash": "sha256-kwERg9GE67UXM7WvoZ9Ho0piVlyCfv4cCgubcFkfKNs=",
         "ref": "refs/heads/master",
-        "rev": "b5bd24dd1f47d406470c29fce46d37e252afe058",
-        "revCount": 2143,
+        "rev": "8345797dcc137c0532f0ae7c59a0f1212e128aa0",
+        "revCount": 2160,
         "type": "git",
         "url": "https://tangled.org/tangled.org/core"
       },
