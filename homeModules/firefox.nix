@@ -17,6 +17,10 @@ in {
   config = lib.mkIf config.cow.firefox.enable {
     cow.imperm.keep = [".mozilla"];
 
+    home.packages = with pkgs; [
+      nautilus # Needed for file dialogs?? Why??
+    ];
+
     programs.firefox = {
       inherit package;
       enable = true;
