@@ -9,8 +9,8 @@
     flakelight-treefmt.inputs.flakelight.follows = "flakelight";
     nix-index-db.url = "github:nix-community/nix-index-database";
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
-    hm.url = "github:nix-community/home-manager";
-    hm.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,9 +26,9 @@
     # };
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    imperm.url = "github:nix-community/impermanence";
-    imperm.inputs.nixpkgs.follows = "nixpkgs";
-    imperm.inputs.home-manager.follows = "hm";
+    impermanence.url = "github:nix-community/impermanence";
+    impermanence.inputs.nixpkgs.follows = "nixpkgs";
+    impermanence.inputs.home-manager.follows = "home-manager";
     nu_plugin_dbus.url = "git+https://tangled.org/bwc9876.dev/nu_plugin_dbus";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
     bingus.url = "git+https://tangled.org/bwc9876.dev/bingus-bot";
@@ -49,7 +49,7 @@
     flakelight,
     flakelight-treefmt,
     nix-index-db,
-    hm,
+    home-manager,
     nixos-hardware,
     lanzaboote,
     wayland-mpris-idle-inhibit,
@@ -57,7 +57,7 @@
     catppuccin,
     # cat-stylus,
     nixvim,
-    imperm,
+    impermanence,
     nu_plugin_dbus,
     bingus,
     spoon,
@@ -99,10 +99,10 @@
         _module.args = {inherit inputs;};
         imports = let
           deps = [
-            inputs.hm.nixosModules.default
+            inputs.home-manager.nixosModules.default
             inputs.catppuccin.nixosModules.catppuccin
             inputs.lanzaboote.nixosModules.lanzaboote
-            inputs.imperm.nixosModules.default
+            inputs.impermanence.nixosModules.default
             inputs.tranquil.nixosModules.default
             inputs.tangled.nixosModules.knot
             inputs.tangled.nixosModules.spindle

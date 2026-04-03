@@ -9,8 +9,8 @@
     flakelight-treefmt.inputs.flakelight.follows = "flakelight";
     nix-index-db.url = "github:nix-community/nix-index-database";
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
-    hm.url = "github:nix-community/home-manager";
-    hm.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
@@ -99,7 +99,7 @@
         _module.args = {inherit inputs;};
         imports = let
           deps = [
-            inputs.hm.nixosModules.default
+            inputs.home-manager.nixosModules.default
             inputs.catppuccin.nixosModules.catppuccin
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.imperm.nixosModules.default

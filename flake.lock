@@ -442,18 +442,18 @@
         "type": "github"
       }
     },
-    "hm": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1775143651,
-        "narHash": "sha256-S0RqAyDPMTcv9vASMaE8eY1QexFysAOdnxUxFHIPOyE=",
+        "lastModified": 1775223910,
+        "narHash": "sha256-QRdehpSKTttlZe0oY2n5OCfZeCMrHkKNlWF1LJzO9tY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "d166a078541982a76f14d3e06e9665fa5c9ed85e",
+        "rev": "f68887a4c11e662b0eb0323d34b3fb9506226719",
         "type": "github"
       },
       "original": {
@@ -499,10 +499,10 @@
         "url": "https://github.com/IBM/plex/releases/download/@ibm/plex-mono@1.1.0/ibm-plex-mono.zip"
       }
     },
-    "imperm": {
+    "impermanence": {
       "inputs": {
         "home-manager": [
-          "hm"
+          "home-manager"
         ],
         "nixpkgs": [
           "nixpkgs"
@@ -814,8 +814,8 @@
         "fenix": "fenix_2",
         "flakelight": "flakelight_2",
         "flakelight-treefmt": "flakelight-treefmt_2",
-        "hm": "hm",
-        "imperm": "imperm",
+        "home-manager": "home-manager",
+        "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
         "niri": "niri",
         "nix-index-db": "nix-index-db",
