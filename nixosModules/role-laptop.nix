@@ -44,11 +44,7 @@
     };
 
     # Set to null as TLP will manage the frequency governor for us
-    powerManagement.cpuFreqGovernor = lib.mkIf config.cow.role-laptop.powersave (
-      if config.cow.audio.tweaks.enable
-      then (lib.mkForce null)
-      else null
-    );
+    powerManagement.cpuFreqGovernor = lib.mkIf config.cow.role-laptop.powersave null;
 
     services.tlp = lib.mkIf config.cow.role-laptop.powersave {
       enable = true;
