@@ -53,10 +53,6 @@
         };
 
         cow = {
-          audio.tweaks = {
-            enable = true;
-            threadirqs = true;
-          };
           bean.sudoer = true;
           lanzaboote.enable = true;
           ssh-server.enable = true;
