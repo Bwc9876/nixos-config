@@ -87,7 +87,6 @@
           commandNotFound = true;
         };
         neovim.enable = true;
-        htop.enable = true;
         starship.enable = true;
         dev.enable = true;
         jj.enable = true;

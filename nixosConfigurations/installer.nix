@@ -79,7 +79,6 @@
               commandNotFound = true;
             };
             neovim.enable = true;
-            htop.enable = true;
             starship.enable = true;
             yazi.enable = true;
             dev.enable = false;

@@ -18,7 +18,10 @@
   };
 
   config = lib.mkIf config.cow.utils.enable {
-    cow.ddhx.enable = true;
+    cow = {
+      btop.enable = true;
+      ddhx.enable = true;
+    };
 
     home.packages = with pkgs;
       [
@@ -43,7 +46,6 @@
         inetutils
         just
         man-pages
-        htop
         dig
         doggo
         tealdeer
