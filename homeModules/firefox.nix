@@ -344,11 +344,11 @@ in {
             ] "https://search.nix.ee/packages/nixpkgs/search?query={searchTerms}" "ico";
             "NixOS Options" = mkEngine [
               "@nixos"
-            ] "https://search.nix.ee/packages/nixos/search?query={searchTerms}" "ico";
+            ] "https://search.nix.ee/options/nixos/search?query={searchTerms}" "ico";
             "NixOS Wiki" = mkEngine ["@nixwiki"] "https://nixos.wiki/index.php?search={searchTerms}" "png";
             "Home Manager Options" = mkEngine [
               "@hm"
-            ] "https://search.nix.ee/packages/home-manager/search?query={searchTerms}" "ico";
+            ] "https://search.nix.ee/options/home-manager/search?query={searchTerms}" "ico";
             "Noogle" = mkEngine [
               "@noogle"
               "@nixlib"
