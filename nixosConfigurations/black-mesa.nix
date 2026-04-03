@@ -155,15 +155,6 @@
             acmeRoot = null; # DNS
             useACMEHost = "bwc9876.dev";
           };
-          virtualHosts."bincache.bwc9876.dev" = {
-            addSSL = true;
-            acmeRoot = null;
-            useACMEHost = "bwc9876.dev";
-            locations."/" = {
-              proxyPass = "http://localhost:6767";
-              recommendedProxySettings = true;
-            };
-          };
         };
 
         services.tranquil-pds.settings.email = {
@@ -201,14 +192,6 @@
             port = 587;
             tls = true;
           };
-        };
-
-        services.nix-serve = {
-          enable = true;
-          package = pkgs.nix-serve-ng;
-          port = 6767;
-          bindAddress = "127.0.0.1";
-          secretKeyFile = "/nix/persist/secure/nix-serve.key";
         };
 
         security.acme = {
