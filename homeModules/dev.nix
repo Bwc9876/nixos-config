@@ -1,11 +1,8 @@
 {
-  inputs,
-  outputs,
-  ...
-}: {
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   options.cow.dev = let
@@ -83,7 +80,6 @@
           gdb
         ])
         ++ (lib.optionals conf.mc [
-          outputs.packages.${pkgs.system}.packwiz
           jre
         ])
         ++ (lib.optionals conf.rust [

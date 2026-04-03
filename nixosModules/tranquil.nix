@@ -1,11 +1,8 @@
-{inputs, ...}: {
+{
   config,
   lib,
-  pkgs,
   ...
 }: {
-  imports = [inputs.tranquil.nixosModules.default];
-
   options.cow.tranquil = {
     enable = lib.mkEnableOption "tranquil PDS";
     port = lib.mkOption {

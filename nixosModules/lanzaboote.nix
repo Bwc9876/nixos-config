@@ -1,11 +1,8 @@
-{...}: {
-  inputs,
+{
   lib,
   config,
   ...
 }: {
-  imports = [inputs.lanzaboote.nixosModules.lanzaboote];
-
   options.cow.lanzaboote.enable = lib.mkEnableOption "Use lanzaboote for booting and secure boot";
 
   config.boot = lib.mkIf config.cow.lanzaboote.enable {

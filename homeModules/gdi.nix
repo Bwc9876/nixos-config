@@ -1,11 +1,10 @@
-{inputs, ...}: {
+{
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
-  imports = [inputs.niri.homeModules.niri];
-
   options.cow.gdi = {
     enable = lib.mkEnableOption "Niri + Customizations";
     doIdle = lib.mkEnableOption "Turn off screen, sleep, etc. from inactivity";

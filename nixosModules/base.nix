@@ -1,4 +1,4 @@
-{...}: {
+{
   pkgs,
   inputs,
   config,
@@ -30,7 +30,6 @@
         (lib.mkIf conf.env {
           environment.etc = {
             "machine-id".text = builtins.hashString "md5" config.networking.hostName;
-            "flake-src".source = inputs.self;
           };
           environment.variables.HOSTNAME = config.networking.hostName;
         })

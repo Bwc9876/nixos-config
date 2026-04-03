@@ -1,11 +1,9 @@
-{inputs, ...}: {
+{
   pkgs,
   config,
   lib,
   ...
 }: {
-  imports = [inputs.nixvim.homeModules.nixvim];
-
   options.cow.neovim.enable = lib.mkEnableOption "Neovim + Nixvim + Customizations";
 
   config = lib.mkIf config.cow.neovim.enable {

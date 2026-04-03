@@ -1,14 +1,13 @@
-{outputs, ...}: {
+{
   lib,
-  inputs,
   config,
+  inputs,
   ...
 }: {
-  imports = [inputs.hm.nixosModules.default];
   options.cow.hm.enable = lib.mkEnableOption "Home Manager";
 
   config.home-manager = lib.mkIf config.cow.hm.enable {
-    sharedModules = builtins.attrValues outputs.homeModules;
+    sharedModules = [inputs.self.homeModules.default];
     useUserPackages = true;
     useGlobalPkgs = false;
   };

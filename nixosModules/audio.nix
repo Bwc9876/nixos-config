@@ -1,10 +1,8 @@
-{inputs, ...}: {
+{
   config,
   lib,
   ...
 }: {
-  imports = [inputs.musnix.nixosModules.musnix];
-
   options.cow.audio = {
     enable = lib.mkEnableOption "audio config with Pipewire";
     tweaks = {

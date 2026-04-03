@@ -1,7 +1,8 @@
-{inputs, ...}: {
+{
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: {
   options.cow.music = {

@@ -1,14 +1,8 @@
-{inputs, ...}: {
+{
   config,
-  pkgs,
   lib,
   ...
 }: {
-  imports = [
-    inputs.tangled.nixosModules.knot
-    inputs.tangled.nixosModules.spindle
-  ];
-
   options.cow.tangled = {
     spindle = {
       enable = lib.mkEnableOption "tangled spindle service";

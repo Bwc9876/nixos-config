@@ -1,11 +1,10 @@
-{inputs, ...}: {
+{
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
-  imports = [inputs.nix-index-db.homeModules.nix-index];
-
   options.cow.comma.enable = lib.mkEnableOption "Comma With DB";
 
   config = lib.mkIf config.cow.comma.enable {

@@ -84,6 +84,38 @@
         };
       };
 
+      homeModule = {lib, ...}: {
+        _module.args = {inherit inputs;};
+        imports = let
+          deps = [
+            inputs.nixvim.homeModules.nixvim
+            inputs.nix-index-db.homeModules.nix-index
+            inputs.catppuccin.homeModules.catppuccin
+            inputs.niri.homeModules.niri
+          ];
+          myMods = lib.mapAttrsToList (k: v: ./homeModules/${k}) (builtins.readDir ./homeModules);
+        in
+          deps ++ myMods;
+      };
+
+      nixosModule = {lib, ...}: {
+        _module.args = {inherit inputs;};
+        imports = let
+          deps = [
+            inputs.hm.nixosModules.default
+            inputs.catppuccin.nixosModules.catppuccin
+            inputs.lanzaboote.nixosModules.lanzaboote
+            inputs.musnix.nixosModules.musnix
+            inputs.imperm.nixosModules.default
+            inputs.tranquil.nixosModules.default
+            inputs.tangled.nixosModules.knot
+            inputs.tangled.nixosModules.spindle
+          ];
+          myMods = lib.mapAttrsToList (k: v: ./nixosModules/${k}) (builtins.readDir ./nixosModules);
+        in
+          deps ++ myMods;
+      };
+
       nixDir = ./.;
       legacyPackages = pkgs: pkgs;
       nixpkgs.config = {

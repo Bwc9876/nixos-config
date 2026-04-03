@@ -1,11 +1,8 @@
-{...}: {
+{
   config,
   lib,
-  inputs,
   ...
 }: {
-  imports = [inputs.imperm.nixosModules.default];
-
   options.cow.imperm = {
     enable = lib.mkEnableOption "Impermanence, turns off mutable users and expects you to define their password hashes";
     persistRoot = lib.mkOption {
