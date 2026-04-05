@@ -24,7 +24,7 @@
     conf = config.cow.tranquil;
   in
     lib.mkIf conf.enable {
-      cow.imperm.keep = [config.services.tranquil-pds.dataDir];
+      cow.imperm.keep = [config.services.tranquil-pds.dataDir "/var/lib/postgresql"];
 
       services.tranquil-pds = {
         enable = true;

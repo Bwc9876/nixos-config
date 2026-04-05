@@ -49,6 +49,7 @@
 
         home-manager.users.bean.cow = {
           sync.enable = true;
+          dev.enable = false;
         };
 
         cow = {
