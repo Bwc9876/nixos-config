@@ -28,17 +28,13 @@
         ripgrep
         binutils
         usbutils
-        qrencode
-        nmap
         file
         procfd
         dust
         zip
         unzip
-        imagemagick
         libqalculate
         p7zip
-        poop
         file
         screen
         util-linux
@@ -46,7 +42,6 @@
         just
         man-pages
         dig
-        doggo
         tealdeer
 
         hyfetch

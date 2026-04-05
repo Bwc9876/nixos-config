@@ -13,6 +13,7 @@
       home-manager.users.bean = {
         home.stateVersion = "25.05";
         xdg.userDirs.setSessionVariables = true;
+        cow.dev.enable = false;
       };
       system.stateVersion = "25.05";
       networking.hostName = "attlerock";

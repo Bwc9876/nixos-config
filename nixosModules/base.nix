@@ -50,13 +50,6 @@
           # Make Nix builder lower OOM priority so it's killed before other stuff
           systemd.services.nix-daemon.serviceConfig.OOMScoreAdjust = lib.mkDefault 250;
 
-          # Keep flake inputs when GC-ing
-          system.extraDependencies = with builtins; let
-            flakeDeps = flake:
-              [flake.outPath] ++ (foldl' (a: b: a ++ b) [] (map flakeDeps (attrValues flake.inputs or {})));
-          in
-            flakeDeps inputs.self;
-
           nix = {
             channel.enable = false;
             registry.p.flake = inputs.self;

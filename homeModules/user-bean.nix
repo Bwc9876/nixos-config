@@ -73,7 +73,7 @@
       };
 
       cow = {
-        kitty.enable = true;
+        kitty.enable = lib.mkDefault config.cow.gdi.enable;
         libraries.enable = true;
         imperm.keepLibraries = true;
         pictures = {
@@ -87,7 +87,7 @@
         };
         neovim.enable = true;
         starship.enable = true;
-        dev.enable = true;
+        dev.enable = lib.mkDefault true;
         jj.enable = true;
         comma.enable = true;
         cat.enable = true;
