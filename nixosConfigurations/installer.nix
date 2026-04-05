@@ -17,18 +17,6 @@
           "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
         ];
 
-        services.getty.autologinUser = lib.mkForce "root";
-
-        services.kmscon = {
-          enable = true;
-          fonts = [
-            {
-              name = "SauceCodePro Nerd Font Mono";
-              package = pkgs.nerd-fonts.sauce-code-pro;
-            }
-          ];
-        };
-
         boot = let
           supportedFilesystems = {
             btrfs = true;
@@ -83,6 +71,10 @@
 
         cow = {
           base.enable = true;
+          tty = {
+            enable = true;
+            autoLogin = true;
+          };
           network = {
             enable = true;
             wireless = true;

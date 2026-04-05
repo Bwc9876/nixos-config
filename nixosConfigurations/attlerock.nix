@@ -10,7 +10,10 @@
     outputs.nixosModules.default
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t430
     {
-      home-manager.users.bean.home.stateVersion = "25.05";
+      home-manager.users.bean = {
+        home.stateVersion = "25.05";
+        xdg.userDirs.setSessionVariables = true;
+      };
       system.stateVersion = "25.05";
       networking.hostName = "attlerock";
 
@@ -23,6 +26,10 @@
 
       cow = {
         base.enable = true;
+        tty = {
+          enable = true;
+          autoLogin = true;
+        };
         hm.enable = true;
         network.enable = true;
         cat.enable = true;
