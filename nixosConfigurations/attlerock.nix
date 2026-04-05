@@ -22,9 +22,15 @@
       };
 
       cow = {
-        bean.sudoer = true;
+        base.enable = true;
+        hm.enable = true;
+        network.enable = true;
+        cat.enable = true;
+        bean = {
+          enable = true;
+          sudoer = true;
+        };
         lanzaboote.enable = true;
-        role-laptop.enable = true;
         imperm.enable = true;
         disks = {
           enable = true;
