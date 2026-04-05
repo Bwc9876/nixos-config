@@ -164,6 +164,11 @@
           from_name = "Bean PDS";
         };
 
+        services.postgresqlBackup = {
+          enable = true;
+          location = "/mnt/storage/postgesql-backups";
+        };
+
         programs.msmtp = {
           enable = true;
           accounts.default = {
