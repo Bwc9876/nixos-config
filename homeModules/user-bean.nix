@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -20,6 +21,7 @@
       description = "Public key to accept for bean";
       default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKsVzdJra+x5aEuwTjL1FBOiMh9bftvs8QwsM1xyEbdd";
     };
+    social = lib.mkEnableOption "Social apps";
     email = lib.mkOption {
       type = lib.types.str;
       # TODO: Tangled supports DIDs instead...
@@ -43,6 +45,9 @@
         '';
         username = lib.mkDefault conf.username;
         homeDirectory = lib.mkDefault "/home/${conf.username}";
+        packages = lib.mkIf conf.social [
+          pkgs.signal-desktop
+        ];
       };
 
       programs.jujutsu.settings = {
@@ -75,7 +80,10 @@
       cow = {
         kitty.enable = lib.mkDefault config.cow.gdi.enable;
         libraries.enable = true;
-        imperm.keepLibraries = true;
+        imperm = {
+          keepLibraries = true;
+          keep = lib.mkIf conf.social [".config/Signal"];
+        };
         pictures = {
           enable = true;
           pfp = ../res/pictures/cow.png;

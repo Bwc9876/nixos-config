@@ -29,6 +29,7 @@
         };
 
         home-manager.users.bean.cow = {
+          bean.social = true;
           kde-connect = {
             enable = true;
             dev-name = "APERTURE";
