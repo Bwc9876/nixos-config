@@ -343,11 +343,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775481670,
-        "narHash": "sha256-y/c2JCNmjeuxbSpfE4r2qN02dQX+tkfIZpwEfOlF64s=",
+        "lastModified": 1776088252,
+        "narHash": "sha256-VdOuruyWaPxxVYduxHUjHBcma196A7PNIqdMdqacE/4=",
         "owner": "nix-community",
         "repo": "flakelight",
-        "rev": "0868c446b28e412ff2a685e93856658a43c30b1f",
+        "rev": "56ebb2e6e0ac96742a36d71ff59ee24fff47ed19",
         "type": "github"
       },
       "original": {
@@ -733,11 +733,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1776028177,
-        "narHash": "sha256-RHohvwPl6AdO64pq+Pn60ypqFf0VWNYaXUDurqFQ1Xk=",
+        "lastModified": 1776079266,
+        "narHash": "sha256-JXxmLRI18Ne4VAUzZKeVqjtMOWT6uWHk12jJQ+7UWgA=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "3682e0dde624e8e37b93ad053e567703ac33fd36",
+        "rev": "306d2772d6647b7cde8388318042f5b95c2ce2b8",
         "type": "github"
       },
       "original": {
@@ -887,11 +887,11 @@
     },
     "spoon": {
       "locked": {
-        "lastModified": 1775792258,
-        "narHash": "sha256-gwcNlNIeuLUG06T4f/OPjryEqdv+Kd02tNRLECRzr7Y=",
+        "lastModified": 1776063324,
+        "narHash": "sha256-iQOGeIKLl62VUGXGG0IFrSMV0Luvmw7kGSO6aKRkee8=",
         "ref": "refs/heads/main",
-        "rev": "6ce38fbb902eb4ef9e29cf66972758fc8c01ea60",
-        "revCount": 452,
+        "rev": "d91954af1beff7fe9cfadd35b07e0c6d419937b5",
+        "revCount": 453,
         "type": "git",
         "url": "https://codeberg.org/spoonbaker/mono"
       },
@@ -962,11 +962,11 @@
         "sqlite-lib-src": "sqlite-lib-src"
       },
       "locked": {
-        "lastModified": 1775991486,
-        "narHash": "sha256-FIzyZqcHL27vOioLVf1cVKFkCtWWm3ny7gLPqcLERwM=",
+        "lastModified": 1776088713,
+        "narHash": "sha256-aYeDY7ruf9MHsI++hpoEHyWIk6jxbItpS5lPRJfwYRE=",
         "ref": "refs/heads/master",
-        "rev": "f64dbe713c610910a091bce70ce56c7f68556b6b",
-        "revCount": 2220,
+        "rev": "d404bb7633c163b35e61f6bebfc642444247ac9f",
+        "revCount": 2224,
         "type": "git",
         "url": "https://tangled.org/tangled.org/core"
       },
@@ -982,11 +982,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776035319,
-        "narHash": "sha256-F2/rG0fzaAA5cjfM1bG8JCZ2o7yYpkUy+XgCurvIUVM=",
+        "lastModified": 1776067817,
+        "narHash": "sha256-PYX5Ip/C7S6979nUvfzUmt7U3I1UmaIyG03A8Ev3aSw=",
         "ref": "refs/heads/main",
-        "rev": "cdbbaaccdf85093c50797281f3e08b6f4f90901b",
-        "revCount": 293,
+        "rev": "7a6736199350f3914cc1c9252d84f9b0abd6833b",
+        "revCount": 294,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },
