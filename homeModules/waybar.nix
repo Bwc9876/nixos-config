@@ -105,15 +105,15 @@
                 on-click = "kdeconnect-settings";
                 return-type = "json";
               };
-              "custom/news" = {
-                exec = "${pkgs.nushell}/bin/nu ${../res/custom_waybar_modules/newsboat.nu}";
-                exec-on-event = true;
-                format = "{}";
-                on-click-right = "pkill waybar -SIGRTMIN+6";
-                restart-interval = 1800;
-                return-type = "json";
-                signal = 6;
-              };
+              # "custom/news" = {
+              #   exec = "${pkgs.nushell}/bin/nu ${../res/custom_waybar_modules/newsboat.nu}";
+              #   exec-on-event = true;
+              #   format = "{}";
+              #   on-click-right = "pkill waybar -SIGRTMIN+6";
+              #   restart-interval = 1800;
+              #   return-type = "json";
+              #   signal = 6;
+              # };
               "custom/notification" = {
                 escape = true;
                 exec = "swaync-client -swb";
@@ -158,7 +158,7 @@
                   "clock#1"
                   "clock#2"
                 ]
-                ++ lib.optional config.cow.news.enable "custom/news"
+                # ++ lib.optional config.cow.news.enable "custom/news"
                 ++ [
                   "custom/weather"
                 ];

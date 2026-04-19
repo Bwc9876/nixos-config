@@ -16,7 +16,6 @@
   config = lib.mkIf config.cow.role-laptop.enable {
     home-manager.users.bean.cow = lib.mkIf config.cow.bean.enable {
       music.enable = true;
-      news.enable = true;
       qmplay2.enable = true;
       sync.enable = true;
       dev.enable = true;
