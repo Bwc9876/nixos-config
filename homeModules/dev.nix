@@ -15,7 +15,7 @@
     web = mkLangOpt "Web dev stuff";
     nix = mkLangOpt "Nix dev stuff";
     python = mkLangOpt "Python dev stuff";
-    dotnet = mkLangOpt ".NET dev stuff";
+    dotnet = lib.mkEnableOption ".NET dev stuff";
     cutter = mkLangOpt "Cutter";
     typst = mkLangOpt "Typst";
     mc = lib.mkEnableOption "Minecraft modpack stuff";
