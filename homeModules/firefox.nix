@@ -33,7 +33,7 @@ in {
         AppAutoUpdate = false;
         DNSOverHTTPS.Enabled = true;
         ShowHomeButton = true;
-        DisplayBookmarksToolbar = "always";
+        DisplayBookmarksToolbar = "never";
         DisableProfileImport = true;
         DisablePocket = true;
         DisableFirefoxAccounts = true;
