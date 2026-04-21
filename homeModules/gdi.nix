@@ -244,7 +244,7 @@
             "Print".action = {
               screenshot = [];
             };
-            "Mod+L".action = spawnSh "pidof hyprlock || hyprlock --immediate";
+            "Mod+L".action = spawnSh "pidof hyprlock || hyprlock --grace 0";
             "Mod+Z".action = spawn "systemctl" "suspend";
             "Super+Alt+Ctrl+Shift+L".action = spawn "xdg-open" "https://linkedin.com";
 
@@ -578,9 +578,9 @@
               }
             ];
             events = {
-              "before-sleep" = lockCmd "--immediate";
+              "before-sleep" = lockCmd "--grace 0";
               "unlock" = "pkill hyprlock --signal SIGUSR1";
-              "lock" = lockCmd "--immediate";
+              "lock" = lockCmd "--grace 0";
             };
           };
 
