@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -12,13 +13,12 @@
     services.openssh = {
       enable = true;
       openFirewall = true;
-      banner = let
+      settings.Banner = let
         name = lib.toUpper config.networking.hostName;
-      in ''
-        -= ${name} =-
-
-
-      '';
+        banner = pkgs.writeText "banner.txt" ''
+          -= ${name} =-
+        '';
+      in "${banner}";
       listenAddresses = [
         {
           addr = "0.0.0.0";
