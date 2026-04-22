@@ -10,6 +10,15 @@ window#waybar {
   color: @text;
 }
 
+tooltip {
+  background: @mantle;
+  border: 2px solid @surface0;
+}
+
+tooltip label {
+  color: @text;
+}
+
 .module {
   background: @crust;
   border: 2px solid @base;
