@@ -113,6 +113,10 @@ tooltip label {
   margin-bottom: 0;
 }
 
+#custom-weather.Error {
+  border-color: @red;
+}
+
 #custom-weather.VeryCloudy,
 #custom-weather.Cloudy,
 #custom-weather.Fog {

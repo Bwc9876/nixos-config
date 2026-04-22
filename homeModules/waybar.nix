@@ -139,7 +139,7 @@
               "custom/weather" = {
                 exec = "${pkgs.nushell}/bin/nu ${../res/custom_waybar_modules/weather.nu}";
                 format = "{}";
-                interval = 600;
+                interval = 900;
                 on-click = "xdg-open https://duckduckgo.com/?q=weather";
                 return-type = "json";
               };
