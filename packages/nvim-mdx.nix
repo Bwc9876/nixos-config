@@ -5,12 +5,12 @@
 }:
 vimUtils.buildVimPlugin {
   pname = "mdx-nvim";
-  version = "2025-01-04";
+  version = "2026-04-15";
   src = fetchFromGitHub {
     owner = "davidmh";
     repo = "mdx.nvim";
-    rev = "464a74be368dce212cff02f6305845dc7f209ab3";
-    sha256 = "sha256-jpMcrWx/Rg9sMfkQFXnIM8VB5qRuSB/70wuSh6Y5uFk=";
+    rev = "e165ee4acd2518f52078911d50a084bb433e9873";
+    sha256 = "sha256-WChsEzRBFv8Z1LlhMol8eUKgmg20zIxtSQtvI78mC2g=";
   };
   meta.homepage = "https://github.com/davidmh/mdx.nvim";
 }
