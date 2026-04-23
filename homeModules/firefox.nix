@@ -23,6 +23,8 @@ in {
 
     programs.firefox = {
       inherit package;
+      # I'm too lazy to move it to the new .config/mozilla
+      configPath = ".mozilla/firefox";
       enable = true;
 
       policies = {

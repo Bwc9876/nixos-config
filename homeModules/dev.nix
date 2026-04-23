@@ -98,7 +98,7 @@
         ++ (lib.optionals conf.web [
           pnpm
           yarn
-          deno
+          # deno
         ])
         ++ (lib.optionals conf.haskell [
           haskell.compiler.ghc912
@@ -118,7 +118,7 @@
         ++ (lib.optionals conf.typst [
           typst
           typstyle
-        ])
-        ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra])));
+        ]);
+        # ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra]))); TODO: Cutter broken
     };
 }

@@ -338,7 +338,7 @@
           YtDl = {
             CookiesFromBrowser = null;
             CookiesFromBrowserEnabled = false;
-            CustomPath = "${pkgs.yt-dlp}/bin/yt-dlp";
+            # CustomPath = "${pkgs.yt-dlp}/bin/yt-dlp"; TODO: Deno broken
             CustomPathEnabled = true;
             DefaultQuality = null;
             DefaultQualityEnabled = false;
