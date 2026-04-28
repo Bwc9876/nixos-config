@@ -119,6 +119,6 @@
           typst
           typstyle
         ]);
-        # ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra]))); TODO: Cutter broken
+      # ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra]))); TODO: Cutter broken
     };
 }

@@ -705,9 +705,6 @@
         # Provider for syntax highlighting, symbols, etc. when not using an LSP
         treesitter = {
           enable = true;
-          luaConfig.post = lib.mkIf config.cow.dev.web ''
-            require('mdx').setup()
-          '';
           settings = {
             highlight = {
               enable = true;

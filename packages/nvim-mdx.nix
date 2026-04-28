@@ -4,7 +4,7 @@
   ...
 }:
 vimUtils.buildVimPlugin {
-  pname = "mdx-nvim";
+  name = "mdx-nvim";
   version = "2026-04-15";
   src = fetchFromGitHub {
     owner = "davidmh";
