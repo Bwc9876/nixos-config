@@ -59,6 +59,7 @@
             "https://relay.feeds.blue"
             "https://atproto.africa"
             "https://relay.whey.party"
+            "https://relay.blueat.net"
           ];
         };
       };
