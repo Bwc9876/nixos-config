@@ -83,10 +83,10 @@
         boot.extraModulePackages = [];
         boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
-        programs.wireshark = {
-          enable = true;
-          dumpcap.enable = true;
-        };
+        # programs.wireshark = {
+        #   enable = true;
+        #   dumpcap.enable = true;
+        # };
 
         hardware.framework.enableKmod = false;
 
