@@ -153,47 +153,48 @@
           };
         };
 
-        services.tranquil-pds.settings.email = {
-          from_address = lib.strings.join "@" [
-            "beanpds"
-            (lib.strings.join "." [
-              "gmail"
-              "com"
-            ])
-          ];
-          from_name = "Bean PDS";
-        };
+        # No
+        # services.tranquil-pds.settings.email = {
+        #   from_address = lib.strings.join "@" [
+        #     "beanpds"
+        #     (lib.strings.join "." [
+        #       "gmail"
+        #       "com"
+        #     ])
+        #   ];
+        #   from_name = "Bean PDS";
+        # };
 
         services.postgresqlBackup = {
           enable = true;
           location = "/mnt/storage/postgesql-backups";
         };
 
-        programs.msmtp = {
-          enable = true;
-          accounts.default = {
-            auth = true;
-            # ssshhhhh
-            host = "smtp.gmail.com";
-            user = lib.strings.join "@" [
-              "beanpds"
-              (lib.strings.join "." [
-                "gmail"
-                "com"
-              ])
-            ];
-            from = lib.strings.join "@" [
-              "beanpds"
-              (lib.strings.join "." [
-                "gmail"
-                "com"
-              ])
-            ];
-            passwordeval = "cat /nix/persist/secure/smtp-pass";
-            port = 587;
-            tls = true;
-          };
-        };
+        # programs.msmtp = {
+        #   enable = true;
+        #   accounts.default = {
+        #     auth = true;
+        #     # ssshhhhh
+        #     host = "smtp.gmail.com";
+        #     user = lib.strings.join "@" [
+        #       "beanpds"
+        #       (lib.strings.join "." [
+        #         "gmail"
+        #         "com"
+        #       ])
+        #     ];
+        #     from = lib.strings.join "@" [
+        #       "beanpds"
+        #       (lib.strings.join "." [
+        #         "gmail"
+        #         "com"
+        #       ])
+        #     ];
+        #     passwordeval = "cat /nix/persist/secure/smtp-pass";
+        #     port = 587;
+        #     tls = true;
+        #   };
+        # };
 
         security.acme = {
           acceptTerms = true;
