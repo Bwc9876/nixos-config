@@ -240,8 +240,8 @@
       {lib, ...}: {
         virtualisation.podman.enable = true;
         # spoon.mc-srv.cobblemon.enable = lib.mkForce false;
-        spoon.yggdrasil.enable = lib.mkForce false;
-        spoon.yggdrasil.config.Listen = lib.mkForce [];
+        # spoon.yggdrasil.enable = lib.mkForce false;
+        # spoon.yggdrasil.config.Listen = lib.mkForce [];
         cow.imperm.keep = ["/var/lib/containers"];
       }
     )
