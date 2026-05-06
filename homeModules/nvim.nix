@@ -778,6 +778,9 @@
         # Better TS LSP, etc.
         typescript-tools.enable = lib.mkDefault config.cow.dev.web;
 
+        # Typst preview
+        typst-preview.enable = config.cow.dev.typst;
+
         # Misc. UI
 
         # UI and provider for diagnostics
