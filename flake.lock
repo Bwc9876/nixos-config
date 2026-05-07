@@ -124,11 +124,11 @@
     },
     "crane_4": {
       "locked": {
-        "lastModified": 1772560058,
-        "narHash": "sha256-NuVKdMBJldwUXgghYpzIWJdfeB7ccsu1CC7B+NfSoZ8=",
+        "lastModified": 1778106249,
+        "narHash": "sha256-cM/AuKy5tMhwOOQIbha8ZRRMHVfNf7cv2aljIw+qoCg=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "db590d9286ed5ce22017541e36132eab4e8b3045",
+        "rev": "6d015ea29630b7ad2402841386da2cb617a470a7",
         "type": "github"
       },
       "original": {
@@ -385,11 +385,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772457021,
-        "narHash": "sha256-TCVI5o3/v/fsLYZhwI7Jp52GVdNq4P/qiAP/B3ww7do=",
+        "lastModified": 1777904098,
+        "narHash": "sha256-NMyKWHiiTOzUzbdWlYz3zTNnJLhExiEyAUOv2igpg/I=",
         "owner": "nix-community",
         "repo": "flakelight",
-        "rev": "c576dab67cdcdc28e81a85f5f1c9c5743742144e",
+        "rev": "d28eb3820853695194dbad8f1846639839bd3959",
         "type": "github"
       },
       "original": {
@@ -1049,11 +1049,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772734035,
-        "narHash": "sha256-g18qb+uJyJpduZFIJFJb93flcHuYshULq4PPAg6BP3U=",
+        "lastModified": 1778167623,
+        "narHash": "sha256-WBCGObqBkyDSx5avMe27NcXYQoDjoLbcIt9jnFqbJso=",
         "ref": "refs/heads/main",
-        "rev": "c2eaf0d78a953e51c4847def716e70ef28d1312c",
-        "revCount": 16,
+        "rev": "da19a76dc3ee602232a5a18cf039224ef7ae2c23",
+        "revCount": 21,
         "type": "git",
         "url": "https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/wayland-mpris-idle-inhibit"
       },

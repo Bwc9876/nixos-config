@@ -89,6 +89,7 @@
             inputs.nix-index-db.homeModules.nix-index
             inputs.catppuccin.homeModules.catppuccin
             inputs.niri.homeModules.niri
+            inputs.wayland-mpris-idle-inhibit.homeModules.default
           ];
           myMods = lib.mapAttrsToList (k: v: ./homeModules/${k}) (builtins.readDir ./homeModules);
         in

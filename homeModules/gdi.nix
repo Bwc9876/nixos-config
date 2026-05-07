@@ -5,6 +5,7 @@
   inputs,
   ...
 }: {
+
   options.cow.gdi = {
     enable = lib.mkEnableOption "Niri + Customizations";
     doIdle = lib.mkEnableOption "Turn off screen, sleep, etc. from inactivity";
@@ -470,18 +471,11 @@
             RestartSec = "10";
           };
         });
+      };
 
-        mpris-idle-inhibit = mkShellService {
-          desc = "MPRIS Idle Inhibitor";
-
-          service = {
-            ExecStart = ''${
-                lib.getExe inputs.wayland-mpris-idle-inhibit.packages.${pkgs.system}.default
-              } --ignore "kdeconnect" --ignore "playerctld"'';
-            Restart = "on-failure";
-            RestartSec = "10";
-          };
-        };
+      services.wayland-mpris-idle-inhibit = lib.mkIf config.cow.gdi.doIdle {
+        enable = true;
+        ignorePlayers = ["kdeconnect" "playerctld"];
       };
 
       qt = {
