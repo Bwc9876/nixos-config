@@ -14,7 +14,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
-    wayland-mpris-idle-inhibit.url = "git+https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit";
+    wayland-mpris-idle-inhibit.url = "git+https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/wayland-mpris-idle-inhibit";
     wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
     fenix.url = "github:nix-community/fenix/monthly";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -29,15 +29,15 @@
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.nixpkgs.follows = "nixpkgs";
     impermanence.inputs.home-manager.follows = "home-manager";
-    nu_plugin_dbus.url = "git+https://tangled.org/bwc9876.dev/nu_plugin_dbus";
+    nu_plugin_dbus.url = "git+https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/nu_plugin_dbus";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
-    bingus.url = "git+https://tangled.org/bwc9876.dev/bingus-bot";
+    bingus.url = "git+https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/bingus-bot";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
-    tangled.url = "git+https://tangled.org/tangled.org/core";
+    tangled.url = "git+https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/core";
     tangled.inputs.nixpkgs.follows = "nixpkgs";
-    tranquil.url = "git+https://tangled.org/tranquil.farm/tranquil-pds";
+    tranquil.url = "git+https://tangled.org/did:web:tranquil.tranquil.farm/tranquil-pds";
     tranquil.inputs.nixpkgs.follows = "nixpkgs";
 
     spoon.url = "git+https://codeberg.org/spoonbaker/mono";

@@ -50,11 +50,11 @@
         "rev": "e9b97b9e99ccbc7d5900b3a263f13ca79a7dd806",
         "revCount": 89,
         "type": "git",
-        "url": "https://tangled.org/bwc9876.dev/bingus-bot"
+        "url": "https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/bingus-bot"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/bwc9876.dev/bingus-bot"
+        "url": "https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/bingus-bot"
       }
     },
     "catppuccin": {
@@ -761,11 +761,11 @@
         "rev": "11f4879ee1c8333ff9ff561d488871059ea3dd01",
         "revCount": 73,
         "type": "git",
-        "url": "https://tangled.org/bwc9876.dev/nu_plugin_dbus"
+        "url": "https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/nu_plugin_dbus"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/bwc9876.dev/nu_plugin_dbus"
+        "url": "https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/nu_plugin_dbus"
       }
     },
     "pre-commit": {
@@ -968,11 +968,11 @@
         "rev": "a323aa96d0fe2a3a14fa5bb5b6db618e609f4cda",
         "revCount": 2359,
         "type": "git",
-        "url": "https://tangled.org/tangled.org/core"
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/core"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/tangled.org/core"
+        "url": "https://tangled.org/did:plc:wshs7t2adsemcrrd4snkeqli/core"
       }
     },
     "tranquil": {
@@ -988,11 +988,11 @@
         "rev": "f176f55862bc4c41472f8697cc2ca069c24d5e37",
         "revCount": 339,
         "type": "git",
-        "url": "https://tangled.org/tranquil.farm/tranquil-pds"
+        "url": "https://tangled.org/did:web:tranquil.tranquil.farm/tranquil-pds"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/tranquil.farm/tranquil-pds"
+        "url": "https://tangled.org/did:web:tranquil.tranquil.farm/tranquil-pds"
       }
     },
     "treefmt-nix": {
@@ -1055,11 +1055,11 @@
         "rev": "c2eaf0d78a953e51c4847def716e70ef28d1312c",
         "revCount": 16,
         "type": "git",
-        "url": "https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit"
+        "url": "https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/wayland-mpris-idle-inhibit"
       },
       "original": {
         "type": "git",
-        "url": "https://tangled.org/bwc9876.dev/wayland-mpris-idle-inhibit"
+        "url": "https://tangled.org/did:plc:x7tlupbnqot7nu6udnffnv4h/wayland-mpris-idle-inhibit"
       }
     },
     "xwayland-satellite-stable": {
