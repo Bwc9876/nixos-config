@@ -19,6 +19,7 @@
     cutter = mkLangOpt "Cutter";
     typst = mkLangOpt "Typst";
     mc = lib.mkEnableOption "Minecraft modpack stuff";
+    godot = lib.mkEnableOption "Game dev with Godot";
   };
 
   config = let
@@ -78,6 +79,9 @@
           gnumake
           gcc
           gdb
+        ])
+        ++ (lib.optionals conf.godot [
+          godot
         ])
         ++ (lib.optionals conf.mc [
           jre

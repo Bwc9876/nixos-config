@@ -35,6 +35,7 @@
             dev-name = "APERTURE";
           };
           dev.mc = true;
+          dev.godot = true;
         };
 
         services.keyd = {
