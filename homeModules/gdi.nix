@@ -454,9 +454,9 @@
           desc = "Battery Notification Service";
 
           service = {
-            ExecStart = ''${pkgs.nushell}/bin/nu --plugins "[${
+            ExecStart = ''${pkgs.nushell}/bin/nu --plugins ${
                 lib.getExe inputs.nu_plugin_dbus.packages.${pkgs.system}.default
-              }]" ${../res/battery_notif.nu}'';
+              } -- ${../res/battery_notif.nu}'';
             Restart = "on-failure";
             RestartSec = "10";
           };
