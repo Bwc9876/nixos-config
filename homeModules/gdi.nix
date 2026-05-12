@@ -5,7 +5,6 @@
   inputs,
   ...
 }: {
-
   options.cow.gdi = {
     enable = lib.mkEnableOption "Niri + Customizations";
     doIdle = lib.mkEnableOption "Turn off screen, sleep, etc. from inactivity";
