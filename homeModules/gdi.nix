@@ -450,7 +450,7 @@
           Service = service;
         };
       in {
-        battery-notif = mkShellService {
+        battery-notif = lib.mkIf config.cow.gdi.doIdle (mkShellService {
           desc = "Battery Notification Service";
 
           service = {
@@ -460,7 +460,7 @@
             Restart = "on-failure";
             RestartSec = "10";
           };
-        };
+        });
 
         swaybg = lib.mkIf config.cow.pictures.enable (mkShellService {
           desc = "Sway Background Image";
