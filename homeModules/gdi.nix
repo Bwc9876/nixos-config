@@ -257,7 +257,6 @@
             # Rofi
             "Mod+S".action = spawnRofi "-show" "drun" "-show-icons";
             "Mod+Space".action = spawnPkg pkgs.nushell "${../res/open-bookmark.nu}" "~/Documents/Docs/Note";
-            "Mod+B".action = spawnPkg pkgs.rofi-bluetooth;
             "Mod+Shift+E".action = spawnRofi "-modi" "emoji" "-show" "emoji";
             "Mod+Alt+C".action =
               spawnRofi "-show" "calc" "-modi" "calc" "-no-show-match" "-no-sort" "-calc-command"
