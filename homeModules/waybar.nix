@@ -238,7 +238,7 @@
                 spacing = 2;
               };
               user = {
-                format = " {user}";
+                format = "";
                 icon = true;
               };
             }
