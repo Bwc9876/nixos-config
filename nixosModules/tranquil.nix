@@ -1,8 +1,11 @@
 {
   config,
   lib,
+  modulesPath,
   ...
 }: {
+  disabledModules = ["${modulesPath}/services/web-apps/tranquil-pds.nix"];
+
   options.cow.tranquil = {
     enable = lib.mkEnableOption "tranquil PDS";
     port = lib.mkOption {

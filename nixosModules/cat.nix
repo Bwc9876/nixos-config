@@ -7,6 +7,7 @@
 
   config = lib.mkIf config.cow.cat.enable {
     catppuccin = {
+      autoEnable = true;
       enable = true;
       flavor = "mocha";
       accent = "green";
