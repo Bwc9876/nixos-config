@@ -7,7 +7,7 @@
 
   config.boot = lib.mkIf config.cow.lanzaboote.enable {
     loader.systemd-boot.enable = lib.mkForce false;
-    bootspec.enable = true;
+    # bootspec.enable = true;
 
     lanzaboote = {
       enable = true;

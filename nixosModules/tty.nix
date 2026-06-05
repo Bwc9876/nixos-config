@@ -18,14 +18,12 @@
       )
     );
 
+    fonts.fontconfig.enable = true;
+    fonts.packages = [pkgs.maple-mono.NF-CN];
+
     services.kmscon = {
       enable = true;
-      fonts = [
-        {
-          name = "Maple Mono";
-          package = pkgs.maple-mono.NF-CN;
-        }
-      ];
+      config.font-name = "Maple Mono";
     };
   };
 }
