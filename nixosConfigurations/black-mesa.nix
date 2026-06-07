@@ -49,6 +49,7 @@
 
         home-manager.users.bean.cow = {
           bean.social = true;
+          music.enable = true;
           sync.enable = true;
           dev.enable = false;
         };
