@@ -18,7 +18,7 @@
       music.enable = true;
       qmplay2.enable = true;
       sync.enable = true;
-      dev.enable = true;
+      dev.enable = lib.mkDefault true;
     };
 
     cow = {
