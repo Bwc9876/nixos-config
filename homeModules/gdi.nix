@@ -500,6 +500,9 @@
       dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
       services = {
+
+        gnome-keyring.enable = lib.mkForce false;
+
         swaync = {
           enable = true;
           settings = {
