@@ -118,6 +118,7 @@ in {
               # Appearance
               "firefox-color"
               "material-icons-for-github"
+              "adaptive-tab-bar-colour"
 
               # Security / Privacy
               "facebook-container"
