@@ -18,6 +18,7 @@
           description = "WCU RamPrint";
           deviceUri = "https://wcuprintp01.wcupa.net:9164/printers/RamPrint";
           model = "drv:///sample.drv/generic.ppd";
+          ppdOptions.auth-info-required = "username,password";
         }
       ];
     };
