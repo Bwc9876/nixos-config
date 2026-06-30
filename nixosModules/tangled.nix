@@ -110,6 +110,9 @@
       };
     };
 
+    # For Spindle
+    boot.kernelModules = lib.optional conf.spindle.enable "vhost_vsock";
+
     services.openssh = lib.mkIf conf.knot.enable {
       enable = true;
     };
