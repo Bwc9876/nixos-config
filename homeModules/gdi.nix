@@ -69,7 +69,6 @@
           ++ (lib.optional config.cow.keepassxc.enable pkgs.keepassxc)
           ++ (lib.optional config.cow.qmplay2.enable pkgs.qmplay2)
           ++ (lib.optional config.cow.firefox.enable config.programs.firefox.package)
-          ++ (lib.optional config.cow.neovim.enable config.programs.nixvim.build.package)
           ++ (lib.optional config.cow.kitty.enable config.programs.kitty.package);
       };
 
@@ -262,7 +261,7 @@
               spawnRofi "-show" "calc" "-modi" "calc" "-no-show-match" "-no-sort" "-calc-command"
               "echo -n '{result}' | wl-copy";
             "Mod+V".action =
-              spawnSh "cliphist list | sed -r 's/\[\[ binary data (.* .iB) (.*) (.*) \]\]/ 󰋩 \2 Image (\3, \1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy";
+              spawnSh "cliphist list | sed -r 's/\\[\\[ binary data (.* .iB) (.*) (.*) \\]\\]/ 󰋩 \\2 Image (\\3, \\1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy";
             "Mod+Alt+V".action =
               spawnSh "echo -e \"Yes\\nNo\" | [[ $(rofi -dmenu -mesg \"Clear Clipboard History?\" -p Clear) == \"Yes\" ]] && cliphist wipe";
 
@@ -500,7 +499,6 @@
       dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
       services = {
-
         gnome-keyring.enable = lib.mkForce false;
 
         swaync = {

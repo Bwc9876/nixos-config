@@ -363,10 +363,6 @@ in {
               mkEngineForceFavicon ["@nixissues"]
               "https://github.com/NixOS/nixpkgs/issues?q=sort%3Aupdated-desc+is%3Aissue+is%3Aopen+{searchTerms}"
               "https://github.githubassets.com/favicons/favicon-dark.svg";
-            "NixVim Options" =
-              mkEngineForceFavicon ["@nixvim"]
-              "https://nix-community.github.io/nixvim/search/?option_scope=0&query={searchTerms}"
-              "https://nix-community.github.io/nixvim/search/favicon.ico";
 
             # Media
             "youtube" = mkEngine ["@yt"] "https://www.youtube.com/results?search_query={searchTerms}" "ico";

@@ -35,8 +35,8 @@
     #   flake = false;
     # };
 
-    nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nvf.url = "github:NotAShelf/nvf";
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
 
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.nixpkgs.follows = "nixpkgs";
@@ -73,7 +73,7 @@
     fenix,
     catppuccin,
     # cat-stylus,
-    nixvim,
+    nvf,
     impermanence,
     nu_plugin_dbus,
     bingus,
@@ -102,11 +102,11 @@
         _module.args = {inherit inputs;};
         imports = let
           deps = [
-            inputs.nixvim.homeModules.nixvim
             inputs.nix-index-db.homeModules.nix-index
             inputs.catppuccin.homeModules.catppuccin
             inputs.niri.homeModules.niri
             inputs.wayland-mpris-idle-inhibit.homeModules.default
+            inputs.nvf.homeManagerModules.default
           ];
           myMods = lib.mapAttrsToList (k: v: ./homeModules/${k}) (builtins.readDir ./homeModules);
         in
