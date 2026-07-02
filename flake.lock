@@ -498,11 +498,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782881387,
-        "narHash": "sha256-HvlS1KDGXDjd1bNzzPvH1mkDJATlDAfVYfTh//wJBEA=",
+        "lastModified": 1782964450,
+        "narHash": "sha256-2rwNd77TzZ4sDDvMam0IXFXN5IfC35mifoeKS0uAc/4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "d32537981c036473cf6990ae03176a5d84c43b29",
+        "rev": "ebc87daabc8d3f595e9a8b67107eaaa8115ad582",
         "type": "github"
       },
       "original": {
@@ -634,6 +634,18 @@
       "original": {
         "type": "tarball",
         "url": "https://github.com/lucide-icons/lucide/releases/download/0.536.0/lucide-icons-0.536.0.zip"
+      }
+    },
+    "mathjax-src": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-eqg25bKfiDzynRMR2RfeWNfo0EefHF/eRRFafl9RnNI=",
+        "type": "file",
+        "url": "https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-svg.js"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-svg.js"
       }
     },
     "mermaid-src": {
@@ -1077,6 +1089,7 @@
         "indigo": "indigo",
         "inter-fonts-src": "inter-fonts-src",
         "lucide-src": "lucide-src",
+        "mathjax-src": "mathjax-src",
         "mermaid-src": "mermaid-src",
         "microvm": "microvm",
         "nixpkgs": [
@@ -1085,11 +1098,11 @@
         "sqlite-lib-src": "sqlite-lib-src"
       },
       "locked": {
-        "lastModified": 1782891304,
-        "narHash": "sha256-tuPrcDHJx1dFR8o2mTfvCPecA1FDSgG4/66RYX/7NUU=",
+        "lastModified": 1782989816,
+        "narHash": "sha256-UksgfoEAds3jvxyEsmdJuLNLpnKLz7HJx7YEH2nZ3dw=",
         "ref": "refs/heads/master",
-        "rev": "551034f63fdd2ebfbe6a98787bc25d076bb50415",
-        "revCount": 2821,
+        "rev": "7af43579848ea1f5b13e7b115f46c44efbc7ca5a",
+        "revCount": 2831,
         "type": "git",
         "url": "https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
       },
