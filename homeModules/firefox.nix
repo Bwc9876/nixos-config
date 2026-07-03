@@ -81,7 +81,16 @@ in {
           "browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint" = lock "";
           "browser.newtabpage.pinned" = lock [];
           "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = lock "";
+
+          # URL Bar
           "browser.urlbar.suggest.weather" = lock false;
+          "browser.urlbar.suggest.sports" = lock false;
+          "browser.urlbar.suggest.trending" = lock false;
+          "browser.urlbar.suggest.wikipedia" = lock false;
+          "browser.urlbar.suggest.yelp" = lock false;
+          "browser.urlbar.suggest.yelpRealtime" = lock false;
+
+          "browser.urlbar.quicksuggest.enabled" = lock false;
           "browser.urlbar.quicksuggest.scenario" = lock "offline";
           "browser.urlbar.suggest.quicksuggest.nonsponsored" = lock false;
           "browser.urlbar.suggest.quicksuggest.sponsored" = lock false;
@@ -171,73 +180,6 @@ in {
               "ublock-annoyances"
               "IDN-0"
             ];
-            # TODO: Stylus
-            #   "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}".force = true;
-            #   "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}".settings = let
-            #     # Catppuccin-stylus import.json
-            #     importJson = lib.importJSON inputs.cat-stylus.outPath;
-            #
-            #     # Gen the path to update a given user style config value
-            #     updateVar = var: val: {
-            #       path = [
-            #         "usercssData"
-            #         "vars"
-            #         var
-            #         "value"
-            #       ];
-            #       update = old: val;
-            #     };
-            #
-            #     # Create function for setting user style options according to catppuccin config
-            #     cat = config.catppuccin;
-            #     configureStyle = lib.updateManyAttrsByPath [
-            #       (updateVar "lightFlavor" cat.flavor)
-            #       (updateVar "darkFlavor" cat.flavor)
-            #       (updateVar "accentColor" cat.accent)
-            #     ];
-            #
-            #     # No
-            #     md5ToUuidThisIsVeryBad = md5: let
-            #       first = builtins.substring 0 8 md5;
-            #       second = builtins.substring 8 4 md5;
-            #       third = builtins.substring 12 4 md5;
-            #       fourth = builtins.substring 16 4 md5;
-            #       fifth = builtins.substring 20 12 md5;
-            #     in "${first}-${second}-${third}-${fourth}-${fifth}";
-            #
-            #     # Create a Stylus DB entry for a given style using the digest as an identifier
-            #     mkStylePair = style: let
-            #       id = md5ToUuidThisIsVeryBad style.originalDigest;
-            #     in {
-            #       name = "style-${id}";
-            #       value =
-            #         (configureStyle style)
-            #         // {
-            #           inherit id;
-            #           _id = id;
-            #           # Stylus code says Date.now() for rev, we'll just set it to 0?
-            #           _rev = 0;
-            #         };
-            #     };
-            #
-            #     # The first elem of the import.json is settings for Stylus, we'll set those ourselves
-            #     generatedStyles = builtins.listToAttrs (builtins.map mkStylePair (builtins.tail importJson));
-            #
-            #     # Setting we need to set manually
-            #     extensionDb =
-            #       generatedStyles
-            #       // {
-            #         lastUpdateTime = 0;
-            #         dbInChromeStorage = true;
-            #         settings = {
-            #             patchCsp = true;
-            #             updateInterval = 0;
-            #             updateOnlyEnabled = true;
-            #             styleViaXhr = true;
-            #           };
-            #       };
-            #   in
-            #     extensionDb;
           };
         };
         search = {
