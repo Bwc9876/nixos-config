@@ -51,7 +51,10 @@
           bean.social = true;
           music.enable = true;
           sync.enable = true;
-          dev.enable = false;
+          dev = {
+            rust = true;
+            nix = true;
+          };
         };
 
         cow = {

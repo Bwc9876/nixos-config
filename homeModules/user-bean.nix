@@ -96,7 +96,6 @@
         neovim.enable = true;
         starship.enable = true;
         dev.enable = lib.mkDefault true;
-        jj.enable = true;
         comma.enable = true;
         cat.enable = true;
 

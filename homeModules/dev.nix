@@ -5,19 +5,17 @@
   inputs,
   ...
 }: {
-  options.cow.dev = let
-    mkLangOpt = d: ((lib.mkEnableOption d) // {default = config.cow.dev.enable;});
-  in {
-    enable = lib.mkEnableOption "Dev stuff (all on by default)";
-    c = mkLangOpt "C/C++ dev stuff";
-    rust = mkLangOpt "Rust dev stuff";
-    haskell = mkLangOpt "Haskell dev stuff";
-    web = mkLangOpt "Web dev stuff";
-    nix = mkLangOpt "Nix dev stuff";
-    python = mkLangOpt "Python dev stuff";
+  options.cow.dev = {
+    enable = lib.mkEnableOption "Dev stuff";
+    c = lib.mkEnableOption "C/C++ dev stuff";
+    rust = lib.mkEnableOption "Rust dev stuff";
+    haskell = lib.mkEnableOption "Haskell dev stuff";
+    web = lib.mkEnableOption "Web dev stuff";
+    nix = lib.mkEnableOption "Nix dev stuff";
+    python = lib.mkEnableOption "Python dev stuff";
     dotnet = lib.mkEnableOption ".NET dev stuff";
-    cutter = mkLangOpt "Cutter";
-    typst = mkLangOpt "Typst";
+    cutter = lib.mkEnableOption "Cutter";
+    typst = lib.mkEnableOption "Typst";
     mc = lib.mkEnableOption "Minecraft modpack stuff";
     godot = lib.mkEnableOption "Game dev with Godot";
   };
@@ -47,14 +45,13 @@
       };
 
       cow.imperm.keepCache =
-        [
-          ".config/gh"
-        ]
-        ++ (lib.optional conf.rust ".cargo")
+        (lib.optional conf.rust ".cargo")
         ++ (lib.optionals conf.web [
           ".npm"
           ".pnpm"
         ]);
+
+      cow.jj.enable = lib.mkDefault true;
 
       programs.git = {
         enable = true;
@@ -73,8 +70,7 @@
       };
 
       home.packages = with pkgs;
-        [gh]
-        ++ (lib.optionals (conf.rust or conf.c) [
+        (lib.optionals (conf.rust or conf.c) [
           pkg-config
           gnumake
           gcc
@@ -122,7 +118,7 @@
         ++ (lib.optionals conf.typst [
           typst
           typstyle
-        ]);
-      # ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra]))); TODO: Cutter broken
+        ])
+        ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra])));
     };
 }

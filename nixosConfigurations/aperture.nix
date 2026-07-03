@@ -34,8 +34,11 @@
             enable = true;
             dev-name = "APERTURE";
           };
-          dev.mc = true;
-          dev.godot = true;
+          dev = {
+            rust = true;
+            web = true;
+            mc = true;
+          };
         };
 
         services.keyd = {
