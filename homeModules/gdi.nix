@@ -474,11 +474,11 @@
 
     catppuccin.cursors.accent = "dark";
 
-    home.pointerCursor = {
-      enable = true;
-      gtk.enable = true;
-      x11.enable = true;
-    };
+    # home.pointerCursor = {
+    #   enable = true;
+    #   gtk.enable = true;
+    #   x11.enable = true;
+    # };
 
     gtk = {
       enable = true;

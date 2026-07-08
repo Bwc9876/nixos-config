@@ -36,6 +36,9 @@
           };
           dev = {
             rust = true;
+            nix = true;
+            python = true;
+            typst = true;
             web = true;
             mc = true;
           };
