@@ -145,6 +145,12 @@
             acmeRoot = null; # DNS
             useACMEHost = "bwc9876.dev";
           };
+          virtualHosts."bincache.bwc9876.dev" = {
+            addSSL = true;
+            acmeRoot = null; # DNS
+            useACMEHost = "bwc9876.dev";
+            locations."/".proxyPass = "http://127.0.0.1:${builtins.toString config.services.nix-serve.port}";
+          };
           virtualHosts."*.tranquil.bwc9876.dev" = {
             locations."/".proxyPass = "http://127.0.0.1:${builtins.toString config.services.tranquil-pds.settings.server.port}";
             addSSL = true;
@@ -158,48 +164,10 @@
           };
         };
 
-        # No
-        # services.tranquil-pds.settings.email = {
-        #   from_address = lib.strings.join "@" [
-        #     "beanpds"
-        #     (lib.strings.join "." [
-        #       "gmail"
-        #       "com"
-        #     ])
-        #   ];
-        #   from_name = "Bean PDS";
-        # };
-
         services.postgresqlBackup = {
           enable = true;
           location = "/mnt/storage/postgesql-backups";
         };
-
-        # programs.msmtp = {
-        #   enable = true;
-        #   accounts.default = {
-        #     auth = true;
-        #     # ssshhhhh
-        #     host = "smtp.gmail.com";
-        #     user = lib.strings.join "@" [
-        #       "beanpds"
-        #       (lib.strings.join "." [
-        #         "gmail"
-        #         "com"
-        #       ])
-        #     ];
-        #     from = lib.strings.join "@" [
-        #       "beanpds"
-        #       (lib.strings.join "." [
-        #         "gmail"
-        #         "com"
-        #       ])
-        #     ];
-        #     passwordeval = "cat /nix/persist/secure/smtp-pass";
-        #     port = 587;
-        #     tls = true;
-        #   };
-        # };
 
         security.acme = {
           acceptTerms = true;
@@ -241,14 +209,21 @@
         };
       };
     }
-    (
-      {lib, ...}: {
-        virtualisation.podman.enable = true;
-        networking.firewall.allowedUDPPorts = [
-          24454
-        ];
-        cow.imperm.keep = ["/var/lib/containers"];
-      }
-    )
+    ({pkgs, ...}: {
+      services.nix-serve = {
+        enable = true;
+        package = pkgs.nix-serve-ng;
+        port = 6969;
+        secretKeyFile = "/nix/persist/secure/nix-serve.key";
+        bindAddress = "127.0.0.1";
+      };
+    })
+    {
+      virtualisation.podman.enable = true;
+      networking.firewall.allowedUDPPorts = [
+        24454
+      ];
+      cow.imperm.keep = ["/var/lib/containers"];
+    }
   ];
 }

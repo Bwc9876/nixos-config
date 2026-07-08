@@ -13,6 +13,7 @@
     util = mkDefaultOption "Programs needed to rebuild the flake and run just recipes";
     tmp = mkDefaultOption "Clear /tmp on boot and limit RuntimeDirectorySize";
     nix = mkDefaultOption "Nix tweaks: use Lix, mark flake inputs as extra deps, adjust OOM score of the build daemon, expose nixpkgs instance as 'p' in flake registry, turn off channels, etc.";
+    cache = lib.mkEnableOption "Use personal binary cache if possible";
     boot = mkDefaultOption "systemd in initrd, set kernel lockdown";
     linux-latest = mkDefaultOption "latest Linux kernel";
     sysrqs = lib.mkEnableOption "sysrqs";
@@ -45,6 +46,12 @@
         (lib.mkIf conf.tmp {
           boot.tmp.cleanOnBoot = lib.mkDefault true;
           services.logind.settings.Login.RuntimeDirectorySize = lib.mkDefault "100M";
+        })
+        (lib.mkIf conf.cache {
+          nix.settings = {
+            extra-substituters = ["https://bincache.bwc9876.dev"];
+            extra-trusted-public-keys = ["bincache.bwc9876.dev:t9OMZI4U83gkDDgfKD8eisWxGxYsd+M9IqODJ6ejR4c="];
+          };
         })
         (lib.mkIf conf.nix {
           # Make Nix builder lower OOM priority so it's killed before other stuff

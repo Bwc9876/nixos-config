@@ -22,7 +22,10 @@
     };
 
     cow = {
-      base.enable = true;
+      base = {
+        enable = true;
+        cache = true;
+      };
       bean.enable = true;
       firewall.openForUsers = true;
       print.enable = true;
