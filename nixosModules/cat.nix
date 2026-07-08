@@ -11,6 +11,7 @@
       enable = true;
       flavor = "mocha";
       accent = "green";
+      cache.enable = true;
     };
   };
 }
