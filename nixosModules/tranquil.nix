@@ -1,4 +1,6 @@
 {
+  pkgs,
+  inputs,
   config,
   lib,
   modulesPath,
@@ -43,6 +45,16 @@
         environmentFiles = [conf.envFile];
 
         settings = {
+          # TODO: Remove this (upstream? idk)
+          frontend.dir = lib.mkForce (inputs.tranquil.packages."${pkgs.system}".tranquil-frontend.overrideAttrs (final: _prev: {
+            pnpmDeps = pkgs.fetchPnpmDeps {
+              inherit (final) pname version src;
+              pnpm = pkgs.pnpm_11;
+              fetcherVersion = 4;
+              hash = "sha256-dOQToZX/i2NV09rDeCKmb/ueYg0vLakxL5JSq8F9KB0=";
+            };
+          }));
+
           server = {
             inherit (conf) port;
             hostname = conf.domainName;
