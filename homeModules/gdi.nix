@@ -472,13 +472,11 @@
       style.name = "kvantum";
     };
 
-    catppuccin.cursors.accent = "dark";
-
-    # home.pointerCursor = {
-    #   enable = true;
-    #   gtk.enable = true;
-    #   x11.enable = true;
-    # };
+    catppuccin.cursors = {
+      enable = true;
+      accent = "dark";
+    };
+    home.pointerCursor.enable = true;
 
     gtk = {
       enable = true;
