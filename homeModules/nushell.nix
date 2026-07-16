@@ -64,7 +64,7 @@
             # Utility Cmds
 
             ## Dev Shell
-            def --wrapped dev [...rest] { nix develop -c env SHELL=nu ...$rest }
+            def --wrapped dev [...rest] { nix develop -c nu -e "$env.SHELL='nu'" ...$rest }
             def --wrapped devsh [ ...rest ] { dev nu ...$rest }
             def --wrapped dvim [...rest] { dev vim ...$rest }
             def --wrapped djust [...rest] { dev just ...$rest }
