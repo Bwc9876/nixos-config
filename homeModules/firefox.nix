@@ -297,6 +297,10 @@ in {
               mkEngine ["@sgn" "@yoink"]
               "https://sourcegraph.com/search?q=lang:Nix+-repo:NixOS/*+-repo:nix-community/*+{searchTerms}"
               "png";
+            "Isabel dotfiles" =
+              mkEngine ["@idabel"]
+              "https://github.com/search?q=repo%3Aisabelroses%2Fdotfiles%20{searchTerms}&type=code"
+              "https://github.githubassets.com/favicons/favicon-dark.svg";
             "Nixpkgs Issues" =
               mkEngineForceFavicon ["@nixissues"]
               "https://github.com/NixOS/nixpkgs/issues?q=sort%3Aupdated-desc+is%3Aissue+is%3Aopen+{searchTerms}"
