@@ -17,6 +17,10 @@ in {
   config = lib.mkIf config.cow.firefox.enable {
     cow.imperm.keep = [".mozilla"];
 
+    home.packages = with pkgs; [
+      nautilus
+    ];
+
     programs.firefox = {
       inherit package;
       # I'm too lazy to move it to the new .config/mozilla
