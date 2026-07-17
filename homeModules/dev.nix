@@ -69,6 +69,10 @@
         };
       };
 
+      programs.nix-your-shell = lib.mkIf conf.nix {
+        enable = true;
+      };
+
       home.packages = with pkgs;
         (lib.optionals (conf.rust or conf.c) [
           pkg-config
