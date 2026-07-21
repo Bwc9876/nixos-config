@@ -11,7 +11,7 @@
     rust = lib.mkEnableOption "Rust dev stuff";
     haskell = lib.mkEnableOption "Haskell dev stuff";
     web = lib.mkEnableOption "Web dev stuff";
-    nix = lib.mkEnableOption "Nix dev stuff";
+    nix = (lib.mkEnableOption "Nix dev stuff") // {default = config.cow.dev.enable;};
     python = lib.mkEnableOption "Python dev stuff";
     dotnet = lib.mkEnableOption ".NET dev stuff";
     cutter = lib.mkEnableOption "Cutter";

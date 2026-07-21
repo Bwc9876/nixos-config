@@ -5,7 +5,7 @@
   ...
 }: {
   options.cow.jj = {
-    enable = lib.mkEnableOption "jj + customizations";
+    enable = (lib.mkEnableOption "jj + customizations") // {default = config.cow.dev.enable;};
   };
 
   config = let
