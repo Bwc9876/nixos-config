@@ -583,6 +583,7 @@
         enable = true;
         sunrise = "6:00";
         sunset = "22:00";
+        duration = 10; # TODO: #9694 in HM repo
       };
       swayosd = {
         enable = true;
