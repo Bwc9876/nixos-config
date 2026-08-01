@@ -60,6 +60,7 @@
         ++ (lib.optional config.cow.keepassxc.enable pkgs.keepassxc)
         ++ (lib.optional config.cow.qmplay2.enable pkgs.qmplay2)
         ++ (lib.optional config.cow.firefox.enable config.programs.firefox.package)
+        ++ (lib.optional config.cow.alacritty.enable config.programs.alacritty.package)
         ++ (lib.optional config.cow.kitty.enable config.programs.kitty.package);
     };
 

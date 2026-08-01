@@ -78,7 +78,6 @@
       };
 
       cow = {
-        kitty.enable = lib.mkDefault config.cow.gdi.enable;
         libraries.enable = true;
         imperm = {
           keepLibraries = true;

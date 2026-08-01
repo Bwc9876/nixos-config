@@ -4,11 +4,7 @@
   ...
 }: {
   options.cow.kitty = {
-    enable =
-      lib.mkEnableOption "Kitty terminal emulator + customizations"
-      // {
-        default = config.cow.gdi.enable;
-      };
+    enable = lib.mkEnableOption "Kitty terminal emulator + customizations";
   };
 
   config = lib.mkIf config.cow.kitty.enable {
