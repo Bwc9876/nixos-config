@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.cow.alacritty = {
@@ -15,6 +16,7 @@
     home.sessionVariables.TERMINAL = lib.getExe config.programs.alacritty.package;
     programs.alacritty = {
       enable = true;
+      package = pkgs.alacritty-graphics;
       settings = {
         window.opacity = 0.92;
         bell = {
