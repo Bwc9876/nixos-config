@@ -81,6 +81,8 @@ in {
           "browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint" = lock "";
           "browser.newtabpage.pinned" = lock [];
           "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = lock "";
+          "browser.newtabpage.activity-stream.discoverystream.enabled" = lock false;
+          "browser.newtabpage.activity-stream.newtabWallpapers.wallpaper" = lock "firefox-desert-dark";
 
           # URL Bar
           "browser.urlbar.suggest.weather" = lock false;
