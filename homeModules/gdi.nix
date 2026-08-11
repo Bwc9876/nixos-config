@@ -14,8 +14,6 @@
   };
 
   config = lib.mkIf config.cow.gdi.enable {
-    nixpkgs.overlays = [inputs.niri.overlays.niri];
-
     home.packages = with pkgs; [
       alsa-utils
       dconf
@@ -66,42 +64,32 @@
 
     fonts.fontconfig.enable = false;
 
-    programs.niri = {
+    wayland.windowManager.niri = {
       enable = true;
       settings = {
         prefer-no-csd = true;
 
-        environment =
-          {
-            NIXOS_OZONE_WL = "1";
-          }
-          // (builtins.mapAttrs (_: v: builtins.toString v) config.home.sessionVariables); # TODO: Hack?
+        environment = {
+          NIXOS_OZONE_WL = "1";
+        };
+        # // (builtins.mapAttrs (_: v: builtins.toString v) config.home.sessionVariables); # TODO: Hack?
 
         screenshot-path = "~/Pictures/Screenshots/%Y%m%d_%H%M%S.png";
 
-        xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite-unstable;
-
-        window-rules = [
+        window-rule._children = [
           {
-            geometry-corner-radius = let
-              s = 10.0;
-            in {
-              top-left = s;
-              top-right = s;
-              bottom-left = s;
-              bottom-right = s;
-            };
+            geometry-corner-radius = 10.0;
             clip-to-geometry = true;
           }
           {
-            matches = [{is-window-cast-target = true;}];
+            match._props = {is-window-cast-target = true;};
 
             focus-ring = {
-              active.color = "#f38ba8";
-              inactive.color = "#7d0d2d";
+              active-color = "#f38ba8";
+              inactive-color = "#7d0d2d";
             };
 
-            border.inactive.color = "#7d0d2d";
+            border.inactive-color = "#7d0d2d";
             shadow.color = "#7d0d2d70";
           }
         ];
@@ -114,12 +102,9 @@
         clipboard.disable-primary = true;
 
         input = {
-          focus-follows-mouse = {
-            enable = true;
-            max-scroll-amount = "10%";
-          };
+          focus-follows-mouse._props.max-scroll-amount = "10%";
           keyboard.numlock = true;
-          touchpad.natural-scroll = true;
+          touchpad.natural-scroll = {};
         };
 
         layout = {
@@ -135,8 +120,8 @@
           };
           default-column-width.proportion = 0.45;
           focus-ring.width = 2;
-          focus-ring.active.gradient = {
-            in' = "oklch longer hue";
+          focus-ring.active-gradient._props = {
+            "in" = "oklch longer hue";
             angle = 135;
             relative-to = "workspace-view";
             from = "#0f08";
@@ -144,170 +129,146 @@
           };
         };
 
-        binds = with config.lib.niri.actions; let
-          spawnPkg = p: spawn "${lib.getExe p}";
+        binds = let
+          emptyBind = name: {${name} = {};};
+          spawnPkg = p: args: {spawn = [(lib.getExe p)] ++ args;};
           move-column-to-workspace = n: {move-column-to-workspace = [n];};
-          spawnPlayerctl = spawnPkg pkgs.playerctl;
-          spawnRofi = spawn "rofi";
-          spawnSh = spawn "sh" "-c";
-          spawnOsd = spawn "${pkgs.swayosd}/bin/swayosd-client";
-          launchDesktop = x: spawn "${pkgs.gtk3}/bin/gtk-launch" "${x}.desktop";
-          brightness = spawnOsd "--brightness";
-          volume = spawnOsd "--output-volume";
+          focus-workspace = n: {focus-workspace = [n];};
+          spawnPlayerctl = act: spawnPkg pkgs.playerctl [act];
+          spawnRofi = args: {spawn = ["rofi"] ++ args;};
+          spawnOsd = args: {spawn = ["${pkgs.swayosd}/bin/swayosd-client"] ++ args;};
+          spawnSh = c: {spawn = ["sh" "-c" c];};
+          launchDesktop = name: {spawn = ["${pkgs.gtk3}/bin/gtk-launch" "${name}.desktop"];};
+          allowLocked = act: act // {_props.allow-when-locked = true;};
+          brightness = arg: allowLocked (spawnOsd ["--brightness" arg]);
+          volume = arg: allowLocked (spawnOsd ["--output-volume" arg]);
         in {
           # Niri Stuff
 
           ## Basics
-          "Mod+X".action = quit;
-          "Mod+Tab".action = toggle-overview;
-          "Mod+Slash".action = show-hotkey-overlay;
-          "Mod+C".action = close-window;
+          "Mod+X" = emptyBind "quit";
+          "Mod+Tab" = emptyBind "toggle-overview";
+          "Mod+Slash" = emptyBind "show-hotkey-overlay";
+          "Mod+C" = emptyBind "close-window";
 
-          "Mod+Left".action = focus-column-left;
-          "Mod+Down".action = focus-window-down;
-          "Mod+Up".action = focus-window-up;
-          "Mod+Right".action = focus-column-right;
+          "Mod+Left" = emptyBind "focus-column-left";
+          "Mod+Down" = emptyBind "focus-window-down";
+          "Mod+Up" = emptyBind "focus-window-up";
+          "Mod+Right" = emptyBind "focus-column-right";
 
-          "Mod+Shift+Left".action = move-column-left;
-          "Mod+Shift+Down".action = move-window-down;
-          "Mod+Shift+Up".action = move-window-up;
-          "Mod+Shift+Right".action = move-column-right;
+          "Mod+Shift+Left" = emptyBind "move-column-left";
+          "Mod+Shift+Down" = emptyBind "move-window-down";
+          "Mod+Shift+Up" = emptyBind "move-window-up";
+          "Mod+Shift+Right" = emptyBind "move-column-right";
 
-          "Mod+Home".action = focus-column-first;
-          "Mod+End".action = focus-column-last;
-          "Mod+Shift+Home".action = move-column-to-first;
-          "Mod+Shift+End".action = move-column-to-last;
+          "Mod+Home" = emptyBind "focus-column-first";
+          "Mod+End" = emptyBind "focus-column-last";
+          "Mod+Shift+Home" = emptyBind "move-column-to-first";
+          "Mod+Shift+End" = emptyBind "move-column-to-last";
 
-          "Mod+BracketLeft".action = consume-or-expel-window-left;
-          "Mod+BracketRight".action = consume-or-expel-window-right;
+          "Mod+BracketLeft" = emptyBind "consume-or-expel-window-left";
+          "Mod+BracketRight" = emptyBind "consume-or-expel-window-right";
 
-          "Mod+Comma".action = set-column-width "-100";
-          "Mod+Shift+Comma".action = set-column-width "-20";
-          "Mod+Period".action = set-column-width "+100";
-          "Mod+Shift+Period".action = set-column-width "+20";
+          "Mod+Comma".set-column-width = "-100";
+          "Mod+Shift+Comma".set-column-width = "-20";
+          "Mod+Period".set-column-width = "+100";
+          "Mod+Shift+Period".set-column-width = "+20";
 
-          "Mod+F".action = maximize-column;
-          "Mod+Shift+F".action = fullscreen-window;
-          "Mod+Ctrl+F".action = expand-column-to-available-width;
-          "Mod+Ctrl+Shift+F".action = toggle-windowed-fullscreen;
+          "Mod+F" = emptyBind "maximize-column";
+          "Mod+Shift+F" = emptyBind "fullscreen-window";
+          "Mod+Ctrl+F" = emptyBind "expand-column-to-available-width";
+          "Mod+Ctrl+Shift+F" = emptyBind "toggle-windowed-fullscreen";
 
-          "Mod+Page_Down".action = focus-workspace-down;
-          "Mod+Page_Up".action = focus-workspace-up;
-          "Mod+U".action = focus-workspace-down;
-          "Mod+I".action = focus-workspace-up;
-          "Mod+Shift+Page_Down".action = move-column-to-workspace-down;
-          "Mod+Shift+Page_Up".action = move-column-to-workspace-up;
-          "Mod+Shift+U".action = move-column-to-workspace-down;
-          "Mod+Shift+I".action = move-column-to-workspace-up;
+          "Mod+Page_Down" = emptyBind "focus-workspace-down";
+          "Mod+Page_Up" = emptyBind "focus-workspace-up";
+          "Mod+U" = emptyBind "focus-workspace-down";
+          "Mod+I" = emptyBind "focus-workspace-up";
+          "Mod+Shift+Page_Down" = emptyBind "move-column-to-workspace-down";
+          "Mod+Shift+Page_Up" = emptyBind "move-column-to-workspace-up";
+          "Mod+Shift+U" = emptyBind "move-column-to-workspace-down";
+          "Mod+Shift+I" = emptyBind "move-column-to-workspace-up";
 
-          "Mod+1".action = focus-workspace 1;
-          "Mod+2".action = focus-workspace 2;
-          "Mod+3".action = focus-workspace 3;
-          "Mod+4".action = focus-workspace 4;
-          "Mod+5".action = focus-workspace 5;
-          "Mod+6".action = focus-workspace 6;
-          "Mod+7".action = focus-workspace 7;
-          "Mod+8".action = focus-workspace 8;
-          "Mod+9".action = focus-workspace 9;
-          "Mod+Ctrl+1".action = move-column-to-workspace 1;
-          "Mod+Ctrl+2".action = move-column-to-workspace 2;
-          "Mod+Ctrl+3".action = move-column-to-workspace 3;
-          "Mod+Ctrl+4".action = move-column-to-workspace 4;
-          "Mod+Ctrl+5".action = move-column-to-workspace 5;
-          "Mod+Ctrl+6".action = move-column-to-workspace 6;
-          "Mod+Ctrl+7".action = move-column-to-workspace 7;
-          "Mod+Ctrl+8".action = move-column-to-workspace 8;
-          "Mod+Ctrl+9".action = move-column-to-workspace 9;
+          "Mod+1" = focus-workspace 1;
+          "Mod+2" = focus-workspace 2;
+          "Mod+3" = focus-workspace 3;
+          "Mod+4" = focus-workspace 4;
+          "Mod+5" = focus-workspace 5;
+          "Mod+6" = focus-workspace 6;
+          "Mod+7" = focus-workspace 7;
+          "Mod+8" = focus-workspace 8;
+          "Mod+9" = focus-workspace 9;
+          "Mod+Ctrl+1" = move-column-to-workspace 1;
+          "Mod+Ctrl+2" = move-column-to-workspace 2;
+          "Mod+Ctrl+3" = move-column-to-workspace 3;
+          "Mod+Ctrl+4" = move-column-to-workspace 4;
+          "Mod+Ctrl+5" = move-column-to-workspace 5;
+          "Mod+Ctrl+6" = move-column-to-workspace 6;
+          "Mod+Ctrl+7" = move-column-to-workspace 7;
+          "Mod+Ctrl+8" = move-column-to-workspace 8;
+          "Mod+Ctrl+9" = move-column-to-workspace 9;
 
-          "Mod+Escape" = {
-            action = toggle-keyboard-shortcuts-inhibit;
-            allow-inhibiting = false;
-          };
+          "Mod+Escape" =
+            emptyBind "toggle-keyboard-shortcuts-inhibit"
+            // {
+              _props.allow-inhibiting = false;
+            };
 
-          "Mod+W".action = spawn "systemctl" "--user" "restart" "waybar.service";
-          "Mod+Shift+W".action = spawn "systemctl" "--user" "stop" "waybar.service";
+          "Mod+W".spawn = ["systemctl" "--user" "restart" "waybar.service"];
+          "Mod+Shift+W".spawn = ["systemctl" "--user" "stop" "waybar.service"];
 
-          "Mod+Shift+R".action =
-            spawnSh "pkill wf-recorder --signal SIGINT ||${pkgs.nushell}/bin/nu ${../res/screenrec.nu}";
-          "Mod+Shift+S".action = {
-            screenshot = [];
-          };
-          "Print".action = {
-            screenshot = [];
-          };
-          "Mod+L".action = spawnSh "pidof hyprlock || hyprlock --grace 0";
-          "Mod+Z".action = spawn "systemctl" "suspend";
-          "Super+Alt+Ctrl+Shift+L".action = spawn "xdg-open" "https://linkedin.com";
+          "Mod+Shift+R" = spawnSh "pkill wf-recorder --signal SIGINT || ${pkgs.nushell}/bin/nu ${../res/screenrec.nu}";
+          "Mod+Shift+S".screenshot = [];
+          "Print".screenshot = [];
+          "Mod+L" = spawnSh "pidof hyprlock || hyprlock --grace 0";
+          "Mod+Z".spawn = ["systemctl" "suspend"];
+          "Super+Alt+Ctrl+Shift+L".spawn = ["xdg-open" "https://linkedin.com"];
 
           # Terminal
-          "Mod+T".action = spawnSh "exec $TERMINAL";
+          "Mod+T" = spawnSh "exec $TERMINAL";
 
           # Yazi
-          "Mod+E".action = lib.mkIf config.cow.yazi.enable (launchDesktop "yazi");
+          "Mod+E" = lib.mkIf config.cow.yazi.enable (launchDesktop "yazi");
 
           # Rofi
-          "Mod+S".action = spawnRofi "-show" "drun" "-show-icons";
-          "Mod+Space".action = spawnPkg pkgs.nushell "${../res/open-bookmark.nu}" "~/Documents/Docs/Note";
-          "Mod+Shift+E".action = spawnRofi "-modi" "emoji" "-show" "emoji";
-          "Mod+Alt+C".action =
-            spawnRofi "-show" "calc" "-modi" "calc" "-no-show-match" "-no-sort" "-calc-command"
-            "echo -n '{result}' | wl-copy";
-          "Mod+V".action =
+          "Mod+S" = spawnRofi ["-show" "drun" "-show-icons"];
+          "Mod+Space" = spawnPkg pkgs.nushell ["${../res/open-bookmark.nu}" "~/Documents/Docs/Note"];
+          "Mod+Shift+E" = spawnRofi ["-modi" "emoji" "-show" "emoji"];
+          "Mod+Alt+C" = spawnRofi [
+            "-show"
+            "calc"
+            "-modi"
+            "calc"
+            "-no-show-match"
+            "-no-sort"
+            "-calc-command"
+            "echo -n '{result}' | wl-copy"
+          ];
+          "Mod+V" =
             spawnSh "cliphist list | sed -r 's/\\[\\[ binary data (.* .iB) (.*) (.*) \\]\\]/ 󰋩 \\2 Image (\\3, \\1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy";
-          "Mod+Alt+V".action =
+          "Mod+Alt+V" =
             spawnSh "echo -e \"Yes\\nNo\" | [[ $(rofi -dmenu -mesg \"Clear Clipboard History?\" -p Clear) == \"Yes\" ]] && cliphist wipe";
 
           # Firefox
-          "Mod+Q".action = lib.mkIf config.cow.firefox.enable (launchDesktop "firefox-devedition");
+          "Mod+Q" = lib.mkIf config.cow.firefox.enable (launchDesktop "firefox-devedition");
 
           # Pavucontrol
-          "Mod+A".action = spawnPkg pkgs.pavucontrol "--tab" "5";
+          "Mod+A" = spawnPkg pkgs.pavucontrol ["--tab" "5"];
 
           # Brightness
-          "XF86MonBrightnessUp" = {
-            action = brightness "raise";
-            allow-when-locked = true;
-          };
-          "XF86MonBrightnessDown" = {
-            action = brightness "lower";
-            allow-when-locked = true;
-          };
+          "XF86MonBrightnessUp" = brightness "raise";
+          "XF86MonBrightnessDown" = brightness "lower";
 
           # Volume
-          "XF86AudioRaiseVolume" = {
-            action = volume "raise";
-            allow-when-locked = true;
-          };
-          "XF86AudioLowerVolume" = {
-            action = volume "lower";
-            allow-when-locked = true;
-          };
-          "XF86AudioMute" = {
-            action = volume "mute-toggle";
-            allow-when-locked = true;
-          };
+          "XF86AudioRaiseVolume" = volume "raise";
+          "XF86AudioLowerVolume" = volume "lower";
+          "XF86AudioMute" = volume "mute-toggle";
 
           # Playerctl
-          "XF86AudioPlay" = {
-            action = spawnPlayerctl "play-pause";
-            allow-when-locked = true;
-          };
-          "XF86AudioPause" = {
-            action = spawnPlayerctl "pause";
-            allow-when-locked = true;
-          };
-          "XF86AudioStop" = {
-            action = spawnPlayerctl "stop";
-            allow-when-locked = true;
-          };
-          "XF86AudioNext" = {
-            action = spawnPlayerctl "next";
-            allow-when-locked = true;
-          };
-          "XF86AudioPrev" = {
-            action = spawnPlayerctl "previous";
-            allow-when-locked = true;
-          };
+          "XF86AudioPlay" = spawnPlayerctl "play-pause";
+          "XF86AudioPause" = spawnPlayerctl "pause";
+          "XF86AudioStop" = spawnPlayerctl "stop";
+          "XF86AudioNext" = spawnPlayerctl "next";
+          "XF86AudioPrev" = spawnPlayerctl "previous";
         };
       };
     };
@@ -490,8 +451,6 @@
     dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
     services = {
-      gnome-keyring.enable = lib.mkForce false;
-
       swaync = {
         enable = true;
         settings = {

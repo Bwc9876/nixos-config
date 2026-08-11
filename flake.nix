@@ -48,9 +48,6 @@
     bingus.url = "git+https://knot.bwc9876.dev/did:plc:7gtakopu2pdi4knzuctkkraj";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
 
-    niri.url = "github:sodiboo/niri-flake";
-    niri.inputs.nixpkgs.follows = "nixpkgs";
-
     tangled.url = "git+https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is";
     tangled.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -78,7 +75,6 @@
     nu_plugin_dbus,
     bingus,
     spoon,
-    niri,
     tangled,
     tranquil,
   }:
@@ -90,7 +86,7 @@
         spoon.flakelightModules.ubercheck
       ];
 
-      treefmtConfig = {pkgs, ...}: {
+      treefmtConfig = {
         programs = {
           alejandra.enable = true;
           just.enable = true;
@@ -104,11 +100,10 @@
           deps = [
             inputs.nix-index-db.homeModules.nix-index
             inputs.catppuccin.homeModules.catppuccin
-            inputs.niri.homeModules.niri
             inputs.wayland-mpris-idle-inhibit.homeModules.default
             inputs.nvf.homeManagerModules.default
           ];
-          myMods = lib.mapAttrsToList (k: v: ./homeModules/${k}) (builtins.readDir ./homeModules);
+          myMods = lib.mapAttrsToList (k: _v: ./homeModules/${k}) (builtins.readDir ./homeModules);
         in
           deps ++ myMods;
       };
