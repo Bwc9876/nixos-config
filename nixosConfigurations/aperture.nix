@@ -52,8 +52,11 @@
           };
         };
 
-        home-manager.users.bean.programs.niri.settings = {
-          outputs."eDP-1".scale = 1.25;
+        home-manager.users.bean.wayland.windowManager.niri.settings = {
+          output = {
+            _args = ["eDP-1"];
+            scale = 1.25;
+          };
         };
 
         environment.systemPackages = with pkgs; [

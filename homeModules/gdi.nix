@@ -69,28 +69,33 @@
       settings = {
         prefer-no-csd = true;
 
-        environment = {
-          NIXOS_OZONE_WL = "1";
-        };
-        # // (builtins.mapAttrs (_: v: builtins.toString v) config.home.sessionVariables); # TODO: Hack?
+        environment =
+          {
+            NIXOS_OZONE_WL = "1";
+          }
+          // (builtins.mapAttrs (_: v: builtins.toString v) config.home.sessionVariables); # TODO: Hack?
 
         screenshot-path = "~/Pictures/Screenshots/%Y%m%d_%H%M%S.png";
 
-        window-rule._children = [
+        _children = [
           {
-            geometry-corner-radius = 10.0;
-            clip-to-geometry = true;
+            window-rule = {
+              geometry-corner-radius = 10.0;
+              clip-to-geometry = true;
+            };
           }
           {
-            match._props = {is-window-cast-target = true;};
+            window-rule = {
+              match._props.is-window-cast-target = true;
 
-            focus-ring = {
-              active-color = "#f38ba8";
-              inactive-color = "#7d0d2d";
+              focus-ring = {
+                active-color = "#f38ba8";
+                inactive-color = "#7d0d2d";
+              };
+
+              border.inactive-color = "#7d0d2d";
+              shadow.color = "#7d0d2d70";
             };
-
-            border.inactive-color = "#7d0d2d";
-            shadow.color = "#7d0d2d70";
           }
         ];
 
@@ -104,7 +109,10 @@
         input = {
           focus-follows-mouse._props.max-scroll-amount = "10%";
           keyboard.numlock = true;
-          touchpad.natural-scroll = {};
+          touchpad = {
+            natural-scroll = {};
+            tap = {};
+          };
         };
 
         layout = {
