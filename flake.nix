@@ -17,12 +17,14 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
 
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
     wayland-mpris-idle-inhibit.url = "git+https://knot.bwc9876.dev/did:plc:3jyd4oaj5uywmu5b3ij3leym";
     wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
+    wayland-mpris-idle-inhibit.inputs.flakelight.follows = "flakelight";
 
     fenix.url = "github:nix-community/fenix/monthly";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -44,12 +46,17 @@
 
     nu_plugin_dbus.url = "git+https://knot.bwc9876.dev/did:plc:2oab3hjwitemxd3mycmqoz3t";
     nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
+    nu_plugin_dbus.inputs.flakelight.follows = "flakelight";
 
     bingus.url = "git+https://knot.bwc9876.dev/did:plc:7gtakopu2pdi4knzuctkkraj";
     bingus.inputs.nixpkgs.follows = "nixpkgs";
+    bingus.inputs.fenix.follows = "fenix";
+    bingus.inputs.flakelight.follows = "flakelight";
+    bingus.inputs.flakelight-treefmt.follows = "flakelight-treefmt";
 
     tangled.url = "git+https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is";
     tangled.inputs.nixpkgs.follows = "nixpkgs";
+    tangled.inputs.fenix.follows = "fenix";
 
     tranquil.url = "git+https://knot1.tangled.sh/did:plc:jj6ajj6duxnlthwtnob4qyuv";
     tranquil.inputs.nixpkgs.follows = "nixpkgs";
