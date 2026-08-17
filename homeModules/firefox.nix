@@ -44,7 +44,7 @@ in {
         NoDefaultBookmarks = true;
         PasswordManagerEnabled = false;
         SearchBar = "unified";
-        EncryptedMediaExtensions = true;
+        EncryptedMediaExtensions.Enabled = true;
 
         EnableTrackingProtection = {
           Value = true;
@@ -65,7 +65,7 @@ in {
           "media.eme.enabled" = lock true; # Encrypted Media Extensions (DRM)
           "layout.css.prefers-color-scheme.content-override" = lock 0;
           "browser.startup.page" = 3;
-          "toolkit.telemetry.server" = lock "";
+          # "toolkit.telemetry.server" = lock "";
 
           # New Tab
           "browser.newtabpage.activity-stream.showSponsored" = lock false;
@@ -79,7 +79,7 @@ in {
           "browser.newtabpage.activity-stream.feeds.telemetry" = lock false;
           "browser.newtabpage.activity-stream.telemetry" = lock false;
           "browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint" = lock "";
-          "browser.newtabpage.pinned" = lock [];
+          # "browser.newtabpage.pinned" = lock false;
           "browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.havePinned" = lock "";
           "browser.newtabpage.activity-stream.discoverystream.enabled" = lock false;
           "browser.newtabpage.activity-stream.newtabWallpapers.wallpaper" = lock "firefox-desert-dark";
@@ -148,7 +148,7 @@ in {
               "react-devtools"
               "open-graph-preview-and-debug"
               "wave-accessibility-tool"
-              "style-us"
+              "styl-us"
             ]
             ++ (lib.optional config.cow.keepassxc.enable "keepassxc-browser")
           );
@@ -342,6 +342,8 @@ in {
             "Bookmarks".metaData.alias = "@b";
             "Tabs".metaData.alias = "@t";
             "bing".metaData.hidden = true;
+            "ebay".metaData.hidden = true;
+            "perplexity".metaData.hidden = true;
             "amazondotcom-us".metaData.alias = "@amz";
             "google".metaData.alias = "@g";
             "wikipedia".metaData.alias = "@w";
