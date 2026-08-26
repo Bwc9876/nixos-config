@@ -235,6 +235,17 @@ in {
             "Porkbun" = mkEngine ["@porkbun"] "https://porkbun.com/checkout/search?q={searchTerms}" "ico";
             "Http.Cat" = mkEngine ["@cat" "@hcat" "@httpcat"] "https://http.cat/{searchTerms}" "ico";
 
+            ## TruePersonSearch
+            "TruePeopleSearch Phone" = mkEngine [
+              "@tpp"
+            ] "https://www.truepeoplesearch.com/resultphone?phoneno={searchTerms}" "ico";
+            "TruePeopleSearch Name" = mkEngine [
+              "@tpn"
+            ] "https://www.truepeoplesearch.com/results?name={searchTerms}" "ico";
+            "TruePeopleSearch Email" = mkEngine [
+              "@tpe"
+            ] "https://www.truepeoplesearch.com/resultemail?email={searchTerms}" "ico";
+
             ## Rust
             "Crates.io" = mkEngine [
               "@crates"
