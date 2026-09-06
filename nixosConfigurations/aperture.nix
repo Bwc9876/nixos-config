@@ -41,6 +41,7 @@
             typst = true;
             web = true;
             mc = true;
+            incus = true;
           };
         };
 

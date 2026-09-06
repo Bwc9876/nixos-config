@@ -18,6 +18,7 @@
     typst = lib.mkEnableOption "Typst";
     mc = lib.mkEnableOption "Minecraft modpack stuff";
     godot = lib.mkEnableOption "Game dev with Godot";
+    incus = lib.mkEnableOption "Incus CLI";
   };
 
   config = let
@@ -43,6 +44,8 @@
           '';
         };
       };
+
+      cow.imperm.keep = lib.optional conf.incus ".config/incus";
 
       cow.imperm.keepCache =
         (lib.optional conf.rust ".cargo")
@@ -123,6 +126,6 @@
           typst
           typstyle
         ])
-        ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra])));
+        ++ (lib.optional conf.cutter (cutter.withPlugins (p: with p; [rz-ghidra]))) ++ (lib.optional conf.incus incus);
     };
 }
