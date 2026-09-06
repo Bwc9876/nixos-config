@@ -70,7 +70,7 @@
       };
 
       services.nginx.virtualHosts.${conf.domainName}.locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString conf.port}";
+        proxyPass = "http://[::1]:${toString conf.port}";
         proxyWebsockets = true;
         extraConfig = "client_max_body_size ${toString config.services.tranquil-pds.settings.server.max_blob_size};";
       };
