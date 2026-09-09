@@ -8,9 +8,6 @@
   options.cow.gdi = {
     enable = lib.mkEnableOption "Niri + Customizations";
     doIdle = lib.mkEnableOption "Turn off screen, sleep, etc. from inactivity";
-    extras = {
-      office = lib.mkEnableOption "Office applications";
-    };
   };
 
   config = lib.mkIf config.cow.gdi.enable {
@@ -20,25 +17,14 @@
 
       xdg-terminal-exec # For gtk-launch, etc to be able to open `Terminal` desktop entries
 
-      # Shell Components
-      hyprlock
-
-      ## Waybar Deps
-      qt6.qttools
-
       ## Audio Control
       pavucontrol
 
       ## Image Viewer
       loupe
 
-      ## Screen Recording Deps
-      wf-recorder
-      slurp
-
       ## Notifications
       libnotify
-      swaynotificationcenter
 
       ## Misc.
       wl-clipboard
@@ -69,13 +55,13 @@
       settings = {
         prefer-no-csd = true;
 
+        debug.honor-xdg-activation-with-invalid-serial = true;
+
         environment =
           {
             NIXOS_OZONE_WL = "1";
           }
           // (builtins.mapAttrs (_: v: builtins.toString v) config.home.sessionVariables); # TODO: Hack?
-
-        screenshot-path = "~/Pictures/Screenshots/%Y%m%d_%H%M%S.png";
 
         _children = [
           {
@@ -142,14 +128,13 @@
           spawnPkg = p: args: {spawn = [(lib.getExe p)] ++ args;};
           move-column-to-workspace = n: {move-column-to-workspace = [n];};
           focus-workspace = n: {focus-workspace = [n];};
-          spawnPlayerctl = act: spawnPkg pkgs.playerctl [act];
-          spawnRofi = args: {spawn = ["rofi"] ++ args;};
-          spawnOsd = args: {spawn = ["${pkgs.swayosd}/bin/swayosd-client"] ++ args;};
           spawnSh = c: {spawn = ["sh" "-c" c];};
-          launchDesktop = name: {spawn = ["${pkgs.gtk3}/bin/gtk-launch" "${name}.desktop"];};
+          spawnPlayerctl = act: spawnPkg pkgs.playerctl [act];
           allowLocked = act: act // {_props.allow-when-locked = true;};
-          brightness = arg: allowLocked (spawnOsd ["--brightness" arg]);
-          volume = arg: allowLocked (spawnOsd ["--output-volume" arg]);
+          spawnNoct = args: spawnPkg pkgs.noctalia args;
+          volume = act: spawnNoct ["msg" "volume-${act}"];
+          brightness = act: spawnNoct ["msg" "brightness-${act}"];
+          launchDesktop = name: {spawn = ["${pkgs.gtk3}/bin/gtk-launch" "${name}.desktop"];};
         in {
           # Niri Stuff
 
@@ -221,15 +206,11 @@
               _props.allow-inhibiting = false;
             };
 
-          "Mod+W".spawn = ["systemctl" "--user" "restart" "waybar.service"];
-          "Mod+Shift+W".spawn = ["systemctl" "--user" "stop" "waybar.service"];
-
-          "Mod+Shift+R" = spawnSh "pkill wf-recorder --signal SIGINT || ${pkgs.nushell}/bin/nu ${../res/screenrec.nu}";
-          "Mod+Shift+S".screenshot = [];
-          "Print".screenshot = [];
-          "Mod+L" = spawnSh "pidof hyprlock || hyprlock --grace 0";
           "Mod+Z".spawn = ["systemctl" "suspend"];
           "Super+Alt+Ctrl+Shift+L".spawn = ["xdg-open" "https://linkedin.com"];
+
+          # Noctalia
+          "Mod+S" = spawnNoct ["msg" "panel-toggle" "launcher"];
 
           # Terminal
           "Mod+T" = spawnSh "exec $TERMINAL";
@@ -237,39 +218,21 @@
           # Yazi
           "Mod+E" = lib.mkIf config.cow.yazi.enable (launchDesktop "yazi");
 
-          # Rofi
-          "Mod+S" = spawnRofi ["-show" "drun" "-show-icons"];
-          "Mod+Space" = spawnPkg pkgs.nushell ["${../res/open-bookmark.nu}" "~/Documents/Docs/Note"];
-          "Mod+Shift+E" = spawnRofi ["-modi" "emoji" "-show" "emoji"];
-          "Mod+Alt+C" = spawnRofi [
-            "-show"
-            "calc"
-            "-modi"
-            "calc"
-            "-no-show-match"
-            "-no-sort"
-            "-calc-command"
-            "echo -n '{result}' | wl-copy"
-          ];
-          "Mod+V" =
-            spawnSh "cliphist list | sed -r 's/\\[\\[ binary data (.* .iB) (.*) (.*) \\]\\]/ 󰋩 \\2 Image (\\3, \\1)/g' | rofi -dmenu -display-columns 2 -p Clipboard | cliphist decode | wl-copy";
-          "Mod+Alt+V" =
-            spawnSh "echo -e \"Yes\\nNo\" | [[ $(rofi -dmenu -mesg \"Clear Clipboard History?\" -p Clear) == \"Yes\" ]] && cliphist wipe";
-
-          # Firefox
-          "Mod+Q" = lib.mkIf config.cow.firefox.enable (launchDesktop "firefox-devedition");
-
-          # Pavucontrol
-          "Mod+A" = spawnPkg pkgs.pavucontrol ["--tab" "5"];
-
-          # Brightness
-          "XF86MonBrightnessUp" = brightness "raise";
-          "XF86MonBrightnessDown" = brightness "lower";
+          "Mod+Shift+S" = spawnNoct ["msg" "screenshot-annotate"];
+          "Mod+Shift+R" = spawnNoct ["msg" "plugin" "noctalia/screen_recorder:service" "all" "toggle"];
+          "Mod+Shift+C" = spawnNoct ["msg" "plugin" "oldirtty/color_picker:service" "all" "pick"];
+          "Mod+P" = spawnNoct ["msg" "panel-toggle" "elijaharch/wl-screen-mirror:controls"];
+          "Mod+L".spawn = ["loginctl" "lock-session"];
+          "Mod+V" = spawnNoct ["msg" "panel-open" "clipboard"];
 
           # Volume
-          "XF86AudioRaiseVolume" = volume "raise";
-          "XF86AudioLowerVolume" = volume "lower";
-          "XF86AudioMute" = volume "mute-toggle";
+          "XF86AudioRaiseVolume" = volume "up";
+          "XF86AudioLowerVolume" = volume "down";
+          "XF86AudioMute" = volume "mute";
+
+          # Brightness
+          "XF86MonBrightnessUp" = brightness "up";
+          "XF86MonBrightnessDown" = brightness "down";
 
           # Playerctl
           "XF86AudioPlay" = spawnPlayerctl "play-pause";
@@ -277,158 +240,11 @@
           "XF86AudioStop" = spawnPlayerctl "stop";
           "XF86AudioNext" = spawnPlayerctl "next";
           "XF86AudioPrev" = spawnPlayerctl "previous";
+
+          # Firefox
+          "Mod+Q" = lib.mkIf config.cow.firefox.enable (launchDesktop "firefox-devedition");
         };
       };
-    };
-
-    catppuccin.hyprlock.useDefaultConfig = false;
-    programs.hyprlock = {
-      enable = true;
-
-      settings = {
-        background = {
-          monitor = "";
-          path = "${config.cow.pictures.bg}";
-          blur_passes = 1;
-        };
-        shape = [
-          {
-            monitor = "";
-            color = "$crust";
-            position = "0, 30";
-            rounding = 10;
-            border_size = 2;
-            border_color = "$mauve";
-            size = "500, 500";
-            shadow_passes = 1;
-            shadow_size = 2;
-          }
-          {
-            monitor = "";
-            color = "$crust";
-            position = "0, -30";
-            rounding = 10;
-            border_size = 2;
-            border_color = "$mauve";
-            size = "600, 50";
-            valign = "top";
-            shadow_passes = 1;
-            shadow_size = 2;
-          }
-        ];
-        image = {
-          monitor = "";
-          path = "${config.cow.pictures.pfp}";
-          size = 150;
-          rounding = -1;
-          border_size = 4;
-          border_color = "$mauve";
-          rotate = 0;
-          position = "0, 120";
-          halign = "center";
-          valign = "center";
-        };
-        "input-field" = {
-          monitor = "";
-          size = "250, 50";
-          outline_thickness = 2;
-          dots_size = 0.25; # Scale of input-field height, 0.2 - 0.8
-          dots_spacing = 0.15; # Scale of dots' absolute size, 0.0 - 1.0
-          dots_center = false;
-          dots_rounding = -1; # -1 default circle, -2 follow input-field rounding
-          outer_color = "$surface0";
-          inner_color = "$base";
-          font_color = "$text";
-          fade_on_empty = false;
-          fade_timeout = 1000; # Milliseconds before fade_on_empty is triggered.
-          placeholder_text = ''<span foreground="##cdd6f4" style="italic">Password</span>'';
-          hide_input = false;
-          rounding = -1; # -1 means complete rounding (circle/oval)
-          check_color = "$peach";
-          fail_color = "$red"; # if authentication failed, changes outer_color and fail message color
-          fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-          fail_transition = 300; # transition time in ms between normal outer_color and fail_color
-          capslock_color = -1;
-          numlock_color = -1;
-          bothlock_color = -1; # when both locks are active. -1 means don't change outer color (same for above)
-          invert_numlock = false; # change color if numlock is off
-          swap_font_color = false; # see below
-
-          position = "0, -80";
-          halign = "center";
-          valign = "center";
-        };
-        label = [
-          {
-            monitor = "";
-            text = "$DESC";
-            color = "$text";
-            font_size = 25;
-            font_family = "sans-serif";
-            rotate = 0; # degrees, counter-clockwise
-
-            position = "0, 0";
-            halign = "center";
-            valign = "center";
-          }
-          {
-            monitor = "";
-            text = ''cmd[update:30000] echo "  $(${pkgs.uutils-coreutils-noprefix}/bin/date +"%A, %B %-d | %I:%M %p")$(${pkgs.nushell}/bin/nu ${../res/bat_display.nu})  "'';
-            color = "$text";
-            font_size = 20;
-            font_family = "sans-serif";
-            rotate = 0; # degrees, counter-clockwise
-
-            position = "0, -40";
-            halign = "center";
-            valign = "top";
-          }
-        ];
-      };
-    };
-
-    catppuccin.rofi.enable = false;
-
-    systemd.user.services = let
-      target = config.wayland.systemd.target;
-      mkShellService = {
-        desc,
-        service,
-      }: {
-        Install = {
-          WantedBy = [target];
-        };
-
-        Unit = {
-          ConditionEnvironment = "WAYLAND_DISPLAY";
-          Description = desc;
-          After = [target];
-          PartOf = [target];
-        };
-
-        Service = service;
-      };
-    in {
-      battery-notif = lib.mkIf config.cow.gdi.doIdle (mkShellService {
-        desc = "Battery Notification Service";
-
-        service = {
-          ExecStart = ''${pkgs.nushell}/bin/nu --plugins ${
-              lib.getExe inputs.nu_plugin_dbus.packages.${pkgs.system}.default
-            } -- ${../res/battery_notif.nu}'';
-          Restart = "on-failure";
-          RestartSec = "10";
-        };
-      });
-
-      swaybg = lib.mkIf config.cow.pictures.enable (mkShellService {
-        desc = "Sway Background Image";
-        service = {
-          ExecStart = "${lib.getExe pkgs.swaybg} -m fill --image ${config.cow.pictures.bg}";
-          Restart = "on-failure";
-          RestartSec = "10";
-        };
-      });
     };
 
     services.wayland-mpris-idle-inhibit = lib.mkIf config.cow.gdi.doIdle {
@@ -459,82 +275,6 @@
     dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
     services = {
-      swaync = {
-        enable = true;
-        settings = {
-          control-center-exclusive-zone = false;
-          # control-center-height = 1000;
-          control-center-margin-bottom = 10;
-          control-center-margin-left = 10;
-          control-center-margin-right = 10;
-          control-center-margin-top = 0;
-          # control-center-width = 800;
-          fit-to-screen = false;
-          hide-on-action = true;
-          hide-on-clear = false;
-          image-visibility = "when-available";
-          keyboard-shortcuts = true;
-          # notification-body-image-height = 100;
-          # notification-body-image-width = 200;
-          notification-icon-size = 32;
-          # notification-window-width = 500;
-          positionX = "center";
-          positionY = "top";
-          script-fail-notify = true;
-          scripts = {
-            all = {
-              exec = "${pkgs.nushell}/bin/nu ${../res/notification.nu} ${../res/notif-sounds}";
-              urgency = ".*";
-            };
-          };
-          timeout = 10;
-          timeout-critical = 0;
-          timeout-low = 5;
-          transition-time = 200;
-          widget-config = {
-            dnd = {
-              text = "Do Not Disturb";
-            };
-            label = {
-              max-lines = 1;
-              text = "Notification Center";
-            };
-            title = {
-              button-text = "Clear All";
-              clear-all-button = true;
-              text = "Notification Center";
-            };
-          };
-          widgets = [
-            "title"
-            "dnd"
-            "notifications"
-          ];
-        };
-      };
-
-      swayidle = let
-        lockCmd = args: "pidof hyprlock || ${lib.getExe pkgs.hyprlock} ${args} &";
-      in
-        lib.mkIf config.cow.gdi.doIdle {
-          enable = true;
-          timeouts = [
-            {
-              timeout = 120;
-              command = lockCmd "--grace 5";
-            }
-            {
-              timeout = 240;
-              command = "${pkgs.systemd}/bin/systemctl suspend";
-            }
-          ];
-          events = {
-            "before-sleep" = lockCmd "--grace 0";
-            "unlock" = "pkill hyprlock --signal SIGUSR1";
-            "lock" = lockCmd "--grace 0";
-          };
-        };
-
       cliphist = {
         enable = true;
         systemdTargets = lib.mkForce [
@@ -547,129 +287,9 @@
         tray = "never";
       };
       playerctld.enable = true;
-      wlsunset = {
-        enable = true;
-        sunrise = "6:00";
-        sunset = "22:00";
-        duration = 10; # TODO: #9694 in HM repo
-      };
-      swayosd = {
-        enable = true;
-        stylePath = pkgs.writeText "swayosd-style.css" ''
-          window#osd {
-            border-radius: 5rem;
-          }
-
-          #container {
-            padding: 5px 10px;
-          }
-        '';
-      };
     };
 
     programs = {
-      rofi = {
-        enable = true;
-        package = pkgs.rofi.override {
-          plugins = with pkgs; [
-            rofi-emoji
-            rofi-power-menu
-            rofi-bluetooth
-            rofi-calc
-            rofi-pulse-select
-          ];
-        };
-        theme = let
-          inherit (config.lib.formats.rasi) mkLiteral;
-        in {
-          "@import" = "${config.catppuccin.sources.rofi}/themes/catppuccin-${config.catppuccin.rofi.flavor}.rasi";
-          "*" =
-            (builtins.mapAttrs (name: value: mkLiteral "@${value}") {
-              "bg0" = "base";
-              "bg1" = "mantle";
-              "bg2" = "crust";
-              "bg3" = config.catppuccin.accent;
-              "fg0" = "subtext1";
-              "fg1" = "text";
-              "fg2" = "subtext0";
-              "fg3" = "overlay0";
-              "fg4" = "surface0";
-            })
-            // {
-              font = mkLiteral ''"Roboto 14"'';
-              background-color = mkLiteral "transparent";
-              text-color = mkLiteral "@fg0";
-              margin = mkLiteral "0px";
-              padding = mkLiteral "0px";
-              spacing = mkLiteral "0px";
-            };
-          "window" = {
-            location = mkLiteral "north";
-            y-offset = mkLiteral "calc(50% - 176px)";
-            width = mkLiteral "600";
-            border-radius = mkLiteral "24px";
-            background-color = mkLiteral "@bg0";
-          };
-          "mainbox" = {
-            padding = mkLiteral "12px";
-          };
-          "inputbar" = {
-            background-color = mkLiteral "@bg1";
-            border-color = mkLiteral "@bg3";
-            border = mkLiteral "2px";
-            border-radius = mkLiteral "16px";
-            padding = mkLiteral "8px 16px";
-            spacing = mkLiteral "8px";
-            children = mkLiteral "[ prompt, entry ]";
-          };
-          "prompt" = {
-            text-color = mkLiteral "@fg2";
-          };
-          "entry" = {
-            placeholder = mkLiteral ''"Search"'';
-            placeholder-color = mkLiteral "@fg3";
-          };
-          "message" = {
-            margin = mkLiteral "12px 0 0";
-            border-radius = mkLiteral "16px";
-            border-color = mkLiteral "@bg2";
-            background-color = mkLiteral "@bg2";
-          };
-          "textbox" = {
-            padding = mkLiteral "8px 24px";
-          };
-          "listview" = {
-            background-color = mkLiteral "transparent";
-            margin = mkLiteral "12px 0 0";
-            lines = mkLiteral "8";
-            columns = mkLiteral "2";
-            fixed-height = mkLiteral "false";
-          };
-          "element" = {
-            padding = mkLiteral "8px 16px";
-            spacing = mkLiteral "8px";
-            border-radius = mkLiteral "16px";
-          };
-          "element normal active" = {
-            text-color = mkLiteral "@bg3";
-          };
-          "element alternate active" = {
-            text-color = mkLiteral "@bg3";
-          };
-          "element selected normal, element selected active" = {
-            text-color = mkLiteral "@fg4";
-            background-color = mkLiteral "@bg3";
-          };
-          "element-icon" = {
-            size = mkLiteral "1em";
-            vertical-align = mkLiteral "0.5";
-          };
-          "element-text" = {
-            text-color = mkLiteral "inherit";
-          };
-        };
-        location = "center";
-      };
       nushell.extraConfig = ''
         plugin add ${inputs.nu_plugin_dbus.packages.${pkgs.system}.default}/bin/nu_plugin_dbus
       '';

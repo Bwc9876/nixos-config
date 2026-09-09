@@ -5,11 +5,7 @@
   inputs,
   ...
 }: {
-  options.cow.waybar.enable =
-    lib.mkEnableOption "Waybar + customizations"
-    // {
-      default = config.cow.gdi.enable;
-    };
+  options.cow.waybar.enable = lib.mkEnableOption "Waybar + customizations";
 
   config = lib.mkIf config.cow.waybar.enable (
     lib.mkMerge [
