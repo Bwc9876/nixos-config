@@ -64,7 +64,7 @@
     tranquil.url = "git+https://knot1.tangled.sh/did:plc:jj6ajj6duxnlthwtnob4qyuv";
     tranquil.inputs.nixpkgs.follows = "nixpkgs";
 
-    spoon.url = "git+https://codeberg.org/spoonbaker/mono";
+    spoon.url = "git+https://knot.bwc9876.dev/did:plc:m64qpmj33xm6r3sf5s44nevd";
   };
 
   outputs = inputs @ {
