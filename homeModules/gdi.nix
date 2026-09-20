@@ -64,12 +64,12 @@
           // (builtins.mapAttrs (_: v: builtins.toString v) config.home.sessionVariables); # TODO: Hack?
 
         _children = [
-          {
-            window-rule = {
-              geometry-corner-radius = 10.0;
-              clip-to-geometry = true;
-            };
-          }
+          # {
+          #   window-rule = {
+          #     geometry-corner-radius = 10.0;
+          #     clip-to-geometry = true;
+          #   };
+          # }
           {
             window-rule = {
               match._props.is-window-cast-target = true;
