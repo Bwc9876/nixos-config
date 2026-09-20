@@ -26,6 +26,8 @@
           diff-editor = ":builtin";
           merge-editor = "mergiraf";
         };
+        merge.same-change = "keep";
+        templates.git_push_bookmark = ''"ben/auto-" ++ change_id.short()'';
         git = {
           private-commits = "description('private:*')";
         };
