@@ -93,8 +93,7 @@
       inherit inputs;
       imports = [
         flakelight-treefmt.flakelightModules.default
-        spoon.flakelightModules.repl
-        spoon.flakelightModules.ubercheck
+        ./flakelightModules/repl.nix
       ];
 
       treefmtConfig = {

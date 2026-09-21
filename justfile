@@ -1,7 +1,4 @@
-GARGS := if env("SPOON_PATH", "") != "" { "--override-input spoon \"$SPOON_PATH\"" } else { "" }
-
-_default:
-    @{{ just_executable() }} --list --unsorted --justfile {{ justfile() }}
+set default-list
 
 alias u := update
 
@@ -13,38 +10,31 @@ alias b := build
 
 # b:  build the configuration
 build:
-    nh os build -k . {{ GARGS }}
-
-# bu: build and update
+    nh os build -k .
 
 alias bu := build-update
 
+# bu: build and update
 build-update:
-    nh os build -k -u . {{ GARGS }}
+    nh os build -k -u .
 
 alias bt := boot
 
 # bt: make the configuration the boot default without activating it
 boot:
-    nh os boot -k . {{ GARGS }}
+    nh os boot -k .
 
 alias s := switch
 
 # s:  activate configuration & add to boot menu
 switch:
-    nh os switch -k --ask . {{ GARGS }}
+    nh os switch -k --ask .
 
 alias c := check
 
 # c:  run all checks for the current system
 check *ARGS:
-    nom build --show-trace ".#uberCheck.$(nix eval --impure --raw --expr 'builtins.currentSystem')" --keep-going {{ GARGS }} {{ ARGS }}
-
-alias d := deploy
-
-# d:  deploy the given host
-deploy ACTION="switch" HOST="black-mesa":
-    NIX_SSHOPTS="-p 8069" nixos-rebuild {{ ACTION }} --flake .#{{ HOST }} --build-host {{ HOST }}.lan --target-host {{ HOST }}.lan --sudo --override-input spoon "git+https://codeberg.org/spoonbaker/mono?ref=devel" --refresh
+    nix flake check --keep-going {{ ARGS }}
 
 alias f := format
 
@@ -56,7 +46,7 @@ alias r := repl
 
 # r:  start a debugging repl
 repl:
-    nix repl {{ GARGS }} .#repl
+    nix repl .#repl
 
 alias gc := garbage-collect
 

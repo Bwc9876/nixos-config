@@ -753,11 +753,11 @@
     },
     "spoon": {
       "locked": {
-        "lastModified": 1789270181,
-        "narHash": "sha256-Riavu099qZ4GCqf/u1wSiWFhsdkRxaK1KmOR4U3V2yk=",
+        "lastModified": 1789959321,
+        "narHash": "sha256-AK/wBvOl6JLeEEUQbKd/mYIg9MUKbkbl4aQEgmcK8N0=",
         "ref": "refs/heads/main",
-        "rev": "1f73649dfedc4f10bd7ed6bce3e14d4d1c461df2",
-        "revCount": 539,
+        "rev": "180c37bcb851f082737ce930a5ef8a43156e7313",
+        "revCount": 545,
         "type": "git",
         "url": "https://knot.bwc9876.dev/did:plc:m64qpmj33xm6r3sf5s44nevd"
       },

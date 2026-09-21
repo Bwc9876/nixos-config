@@ -47,6 +47,8 @@
           };
         };
 
+        security.sudo.wheelNeedsPassword = false;
+
         home-manager.users.bean.cow = {
           bean.social = true;
           music.enable = true;
@@ -219,10 +221,18 @@
     })
     {
       virtualisation.podman.enable = true;
+      cow.imperm.keep = [
+        "/var/lib/containers"
+      ];
+      spoon.mc-srv.cobblemon = {
+        enable = true;
+        autoStart = true;
+        hostPort = 25565;
+        extraPorts = [ "24454:24454/udp" ];
+      };
       networking.firewall.allowedUDPPorts = [
         24454
       ];
-      cow.imperm.keep = ["/var/lib/containers"];
     }
   ];
 }
