@@ -63,6 +63,10 @@
           html.enable = dev.web;
           json.enable = dev.web;
           typescript.enable = dev.web;
+          jinja = {
+            enable = dev.web;
+            lsp.servers = ["emmet-ls"];
+          };
           markdown.enable = dev.web;
           astro.enable = dev.web;
           astro.format.enable = false;
@@ -210,6 +214,7 @@
 
         opts = {
           mouse = "";
+          tabstop = 2;
         };
 
         keymaps = [
