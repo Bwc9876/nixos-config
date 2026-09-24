@@ -7,10 +7,10 @@
   moduleArgs,
   pkgsFor,
   ...
-}:
-let
+}: let
   inherit (lib) warn mkOption;
-  inherit (lib)
+  inherit
+    (lib)
     defaultTo
     elemAt
     fileContents
@@ -23,32 +23,35 @@ let
     zipAttrsWith
     ;
 
-  hackPkgs =
-    system:
+  hackPkgs = system:
     assert warn
-      "Ellis's repl: current system `${system}` not supported by current flake, proceeding anyway"
-      true;
-    import inputs.nixpkgs {
-      inherit system;
-      inherit (config.nixpkgs) config;
-      overlays = config.withOverlays ++ [ config.packageOverlay ];
-    };
+    "Ellis's repl: current system `${system}` not supported by current flake, proceeding anyway"
+    true;
+      import inputs.nixpkgs {
+        inherit system;
+        inherit (config.nixpkgs) config;
+        overlays = config.withOverlays ++ [config.packageOverlay];
+      };
   getPkgs = system: pkgsFor.${system} or (hackPkgs system);
 
   hosts = inputs.self.nixosConfigurations;
 
-  hostname = if pathExists /etc/hostname then fileContents /etc/hostname else null;
+  hostname =
+    if pathExists /etc/hostname
+    then fileContents /etc/hostname
+    else null;
   thisHost = pipe hostname [
     (mapNullable (hn: hosts.${hn} or null))
     (defaultTo {
-      config = { };
-      options = { };
+      config = {};
+      options = {};
     })
   ];
 
-  zipper =
-    name: vals:
-    if length vals == 1 then elemAt vals 0 else trace "repl: multiple defs for ${name}" (last vals);
+  zipper = name: vals:
+    if length vals == 1
+    then elemAt vals 0
+    else trace "repl: multiple defs for ${name}" (last vals);
 
   # First line is to prevent the first line getting shifted
   banner = ''
@@ -69,8 +72,7 @@ let
     - the values `config`, `options`, `pkgs`, `lib`
     - The values `self`, `flakelight`, `moduleArgs`, `outputs`, `inputs`
   '';
-in
-{
+in {
   outputs.repl = trace banner zipAttrsWith zipper [
     lib
     thisHost.config

@@ -225,10 +225,10 @@
         "/var/lib/containers"
       ];
       spoon.mc-srv.cobblemon = {
-        enable = true;
+        enable = false;
         autoStart = true;
         hostPort = 25565;
-        extraPorts = [ "24454:24454/udp" ];
+        extraPorts = ["24454:24454/udp"];
       };
       networking.firewall.allowedUDPPorts = [
         24454

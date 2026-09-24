@@ -1,6 +1,5 @@
 {
   lib,
-
   stdenv,
   ghc,
   fetchurl,
@@ -12,15 +11,14 @@
   jre,
   runCommand,
   makeWrapper,
-}:
-let
+}: let
   inherit (lib) getExe;
 
   passthru = rec {
     unwrapped = stdenv.mkDerivation {
       name = "mc-srv-git-hook-hs-unwrapped";
       src = ./git-hook.hs;
-      nativeBuildInputs = [ ghc ];
+      nativeBuildInputs = [ghc];
       buildCommand = "ghc $src -o $out -O2"; # TODO: other args?
     };
 
@@ -44,8 +42,8 @@ let
         | transpose name version
         | where name != minecraft
         | get 0 ${
-          "" # TODO: assert exactly 1
-        }
+        "" # TODO: assert exactly 1
+      }
       let LOADER = $loader.name
       let LOADERVERSION = $loader.version
 
@@ -84,15 +82,16 @@ let
         chmod 1777 tmp
       '';
 
-      config.Entrypoint = [ "${containerScript}" ];
+      config.Entrypoint = ["${containerScript}"];
       config.WorkingDir = "/srv"; # This should be a bind mount
-      config.Env = [ "PATH=/bin:/lib/openjdk/bin" ]; # FIXME: why don't we have /bin/java?
+      config.Env = ["PATH=/bin:/lib/openjdk/bin"]; # FIXME: why don't we have /bin/java?
     };
   };
-
 in
-with passthru;
-runCommand "mc-srv-git-hook" {
-  inherit passthru;
-  nativeBuildInputs = [ makeWrapper ];
-} "makeWrapper ${unwrapped} $out --set UPDATE_CONTAINER_PATH ${updateContainer}" # TODO: does this need to make $out/bin?
+  with passthru;
+    runCommand "mc-srv-git-hook" {
+      inherit passthru;
+      nativeBuildInputs = [makeWrapper];
+    } "makeWrapper ${unwrapped} $out --set UPDATE_CONTAINER_PATH ${updateContainer}"
+# TODO: does this need to make $out/bin?
+

@@ -3,9 +3,9 @@
   lib,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkMerge
     mkIf
     mkDefault
@@ -17,7 +17,8 @@ let
     mkEnableOption
     filterAttrs
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     attrsOf
     listOf
     submodule
@@ -28,21 +29,21 @@ let
 
   servers = filterAttrs (_: srv: srv.enable) config.spoon.mc-srv;
 
-  container = pkgs.callPackage ./container.nix { };
-  git-hook = pkgs.callPackage ./git-hook.nix { };
-in
-{
+  container = pkgs.callPackage ./container.nix {};
+  git-hook = pkgs.callPackage ./git-hook.nix {};
+in {
   options.spoon.mc-srv = mkOption {
-    default = { };
+    default = {};
     type =
       attrsOf
       <| submodule (
-        { config, ... }:
-        {
+        {config, ...}: {
           options = {
-            enable = mkEnableOption "this server" // {
-              default = true;
-            };
+            enable =
+              mkEnableOption "this server"
+              // {
+                default = true;
+              };
             autoStart = mkEnableOption "starting this server automatically at boot-up";
             hostPort = mkOption {
               type = port;
@@ -55,12 +56,12 @@ in
             };
             extraPorts = mkOption {
               type = listOf str;
-              default = [ ];
+              default = [];
               description = "Extra ports to forward; `host:container`";
             };
           };
 
-          config.extraPorts = [ "${toString config.hostPort}:25565" ];
+          config.extraPorts = ["${toString config.hostPort}:25565"];
         }
       );
     description = ''
@@ -74,42 +75,38 @@ in
     '';
   };
 
-  config =
-    let
-      # TODO: healthcheck & sdnotify = healthy?
-      # TODO: persist this
-      mkGitRepo = name: {
-        "repos/${name}/HEAD" = {
-          text = "ref: refs/heads/deploy";
-          mode = "644";
-        };
-        "repos/${name}/objects/.keep".text = "";
-        "repos/${name}/refs/.keep".text = "";
-        "repos/${name}/hooks/post-receive".source = "${git-hook}";
+  config = let
+    # TODO: healthcheck & sdnotify = healthy?
+    # TODO: persist this
+    mkGitRepo = name: {
+      "repos/${name}/HEAD" = {
+        text = "ref: refs/heads/deploy";
+        mode = "644";
       };
-      mkContainer =
-        name:
-        {
-          autoStart,
-          image,
-          extraPorts,
-          ...
-        }:
-        {
-          inherit autoStart;
-          image = "${image.imageName}:${image.imageTag}";
-          imageStream = image;
-          pull = "never";
+      "repos/${name}/objects/.keep".text = "";
+      "repos/${name}/refs/.keep".text = "";
+      "repos/${name}/hooks/post-receive".source = "${git-hook}";
+    };
+    mkContainer = name: {
+      autoStart,
+      image,
+      extraPorts,
+      ...
+    }: {
+      inherit autoStart;
+      image = "${image.imageName}:${image.imageTag}";
+      imageStream = image;
+      pull = "never";
 
-          ports = extraPorts;
-          volumes = [ "${name}:/srv" ];
+      ports = extraPorts;
+      volumes = ["${name}:/srv"];
 
-          extraOptions = [
-            "--tty" # Allow `podman attach <name>`
-          ];
-        };
-    in
-    mkIf (servers != { }) {
+      extraOptions = [
+        "--tty" # Allow `podman attach <name>`
+      ];
+    };
+  in
+    mkIf (servers != {}) {
       virtualisation.oci-containers.backend = "podman";
       assertions = [
         {
@@ -117,11 +114,11 @@ in
           message = "Spoon MC: we need `virtualisation.oci-containers.backend` to be podman";
         }
       ];
-      environment.systemPackages = [ pkgs.git ];
+      environment.systemPackages = [pkgs.git];
 
       virtualisation.podman.autoPrune.enable = mkDefault true;
 
-      cow.imperm.keep = [ "/etc/repos" ];
+      cow.imperm.keep = ["/etc/repos"];
       environment.etc = mkMerge <| mapAttrsToList (name: _: mkGitRepo name) servers;
 
       virtualisation.oci-containers.containers = mapAttrs mkContainer servers;
