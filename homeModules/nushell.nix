@@ -25,27 +25,13 @@
 
       programs = {
         zoxide.enable = true;
+        carapace.enable = true;
         command-not-found.enable = !conf.commandNotFound;
         nushell = let
-          carapaceComplete = builtins.replaceStrings ["__carapace__"] ["${pkgs.carapace}/bin/carapace"] (
-            lib.fileContents ../res/nushellCompletions/carapace.nu
-          );
           cnf = lib.fileContents ../res/command_not_found.nu;
-          nu_config = let
-            doCompletions = builtins.any (x: x) (builtins.attrValues conf.completers);
-          in ''
+          nu_config = ''
             {
               show_banner: false,
-              completions: {
-                external: {
-                  enable: ${builtins.toJSON doCompletions}
-                  completer: ${
-              if doCompletions
-              then carapaceComplete
-              else ''{|spans| []}''
-            }
-                },
-              },
               hooks: {
                 ${lib.optionalString conf.commandNotFound ''
               command_not_found: ${cnf}
