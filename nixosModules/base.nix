@@ -63,7 +63,7 @@
             package = pkgs.lix;
             settings = {
               # So we can do `import <nixpkgs>`
-              nix-path = "nixpkgs=${inputs.nixpkgs}";
+              nix-path = ["nixpkgs=${inputs.nixpkgs}"];
               experimental-features = [
                 "nix-command"
                 "flakes"
