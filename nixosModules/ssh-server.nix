@@ -8,7 +8,8 @@
 
   config = lib.mkIf config.cow.ssh-server.enable {
     # For nicer term rendering
-    environment.enableAllTerminfo = true;
+    # Contour try not to break challenge!!
+    # environment.enableAllTerminfo = true;
 
     services.openssh = {
       enable = true;
