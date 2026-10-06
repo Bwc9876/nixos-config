@@ -11,6 +11,10 @@
   config = let
     conf = config.cow.jj;
   in (lib.mkIf conf.enable {
+    cow.imperm.keep = [
+      ".config/jj/repos"
+    ];
+
     programs.jujutsu = {
       enable = true;
       settings = {
@@ -18,8 +22,7 @@
           default-command = [
             "log"
             "--reversed"
-            "-n"
-            "15"
+            "--no-pager"
           ];
           pager = "less -FR";
           editor = lib.mkIf config.cow.neovim.enable "nvim";
