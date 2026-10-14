@@ -61,7 +61,7 @@
     tangled.inputs.nixpkgs.follows = "nixpkgs";
     tangled.inputs.fenix.follows = "fenix";
 
-    tranquil.url = "git+https://knot1.tangled.sh/did:plc:jj6ajj6duxnlthwtnob4qyuv?rev=2b1f9d4e37e3c5dd4b68176b67f40e4388f65877";
+    tranquil.url = "git+https://knot1.tangled.sh/did:plc:jj6ajj6duxnlthwtnob4qyuv";
     tranquil.inputs.nixpkgs.follows = "nixpkgs";
 
     spoon.url = "git+https://knot.bwc9876.dev/did:plc:m64qpmj33xm6r3sf5s44nevd";
