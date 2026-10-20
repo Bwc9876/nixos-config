@@ -215,6 +215,7 @@
     ({pkgs, ...}: {
       services.nix-serve = {
         enable = true;
+        package = pkgs.nix-serve-ng;
         port = 6969;
         secretKeyFile = "/nix/persist/secure/nix-serve.key";
         bindAddress = "127.0.0.1";
