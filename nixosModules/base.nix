@@ -27,6 +27,11 @@
         {
           time.timeZone = lib.mkDefault "America/New_York";
           programs.ssh.startAgent = true;
+
+          security.pki.caCertificateBlacklist = [
+            "Comodo AAA Services root"
+            "emSign ECC Root CA - G3"
+          ];
         }
         (lib.mkIf conf.env {
           environment.etc = {
