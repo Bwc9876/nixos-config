@@ -152,7 +152,7 @@
             addSSL = true;
             acmeRoot = null; # DNS
             useACMEHost = "bwc9876.dev";
-            locations."/".proxyPass = "http://127.0.0.1:${builtins.toString config.services.nix-serve.port}";
+            locations."/".proxyPass = "http://127.0.0.1:5000";
           };
           virtualHosts."*.tranquil.bwc9876.dev" = {
             locations."/".proxyPass = "http://127.0.0.1:${builtins.toString config.services.tranquil-pds.settings.server.port}";
@@ -212,15 +212,13 @@
         };
       };
     }
-    ({pkgs, ...}: {
-      services.nix-serve = {
+    {
+      services.harmonia.cache = {
         enable = true;
-        package = pkgs.nix-serve-ng;
-        port = 6969;
-        secretKeyFile = "/nix/persist/secure/nix-serve.key";
-        bindAddress = "127.0.0.1";
+        signKeyPaths = ["/nix/persist/secure/nix-serve.key"];
+        # port 5000
       };
-    })
+    }
     {
       virtualisation.podman.enable = true;
       cow.imperm.keep = [
