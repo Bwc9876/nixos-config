@@ -80,7 +80,6 @@
         })
         (lib.mkIf conf.boot {
           boot = {
-            initrd.systemd.enable = lib.mkDefault true;
             # kernelParams = ["lockdown=confidentiality"];
           };
         })

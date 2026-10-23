@@ -44,6 +44,7 @@
           '';
         in {
           enable = true;
+          loadSessionVariables = true;
           envFile.text = ''
             # If in a dev shell, set the shell to nu
             if $env.NIX_SHELL_LEVEL? != null {
