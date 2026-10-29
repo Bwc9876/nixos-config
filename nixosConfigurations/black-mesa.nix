@@ -47,8 +47,6 @@
           };
         };
 
-        security.sudo.wheelNeedsPassword = false;
-
         home-manager.users.bean.cow = {
           bean.social = true;
           music.enable = true;

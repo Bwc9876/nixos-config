@@ -8,8 +8,6 @@
   };
 
   config = lib.mkIf config.cow.role-desktop.enable {
-    security.sudo.wheelNeedsPassword = lib.mkDefault false;
-
     cow = {
       base.enable = true;
       bean.enable = true;
