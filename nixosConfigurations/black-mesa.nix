@@ -107,14 +107,16 @@
             envFile = "/nix/persist/secure/tranquil.env";
           };
           tangled = {
+            inherit (config.home-manager.users.bean.cow.bean) email;
             knot = {
               enable = true;
               hostname = "knot.bwc9876.dev";
-              gitUser = "gurt";
+              envFile = "/nix/persist/secure/knot.env";
             };
             spindle = {
               enable = true;
               hostname = "spindle.bwc9876.dev";
+              keyPath = "/nix/persist/secure/spindle-key.pem";
             };
           };
           imperm.keep = ["/var/lib/acme"];

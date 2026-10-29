@@ -128,7 +128,7 @@
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.impermanence.nixosModules.default
             inputs.tranquil.nixosModules.default
-            inputs.tangled.nixosModules.knot
+            inputs.tangled.nixosModules.knot-rs
             inputs.tangled.nixosModules.spindle
             inputs.noctalia.nixosModules.default
           ];
