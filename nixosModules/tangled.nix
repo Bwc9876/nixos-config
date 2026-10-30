@@ -66,6 +66,7 @@
           contact.email = conf.email;
           lfs.store_path = "${conf.knot.stateDir}/lfs";
           atproto.plc_directory = "https://plc.directory";
+          atproto.repo_signing_keys = "${conf.knot.stateDir}/repo-signing-keys.json";
           xrpc = {
             trusted_proxy_header = "x-forwarded-for";
             trusted_proxies = ["127.0.0.1" "::1"];
