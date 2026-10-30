@@ -104,7 +104,7 @@
             proxyPass = "http://localhost:5555";
             recommendedProxySettings = true;
           };
-          "/events" = {
+          "/xrpc/com.atproto.sync.subscribeRepos" = {
             proxyPass = "http://localhost:5555";
             proxyWebsockets = true;
             recommendedProxySettings = true;
@@ -118,7 +118,7 @@
             proxyPass = "http://localhost:${builtins.toString conf.spindle.port}";
             recommendedProxySettings = true;
           };
-          "/events" = {
+          "/xrpc/com.atproto.sync.subscribeRepos" = {
             proxyPass = "http://localhost:${builtins.toString conf.spindle.port}";
             proxyWebsockets = true;
             recommendedProxySettings = true;
