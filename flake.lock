@@ -19,7 +19,9 @@
     "bingus": {
       "inputs": {
         "advisory-db": "advisory-db",
-        "crane": "crane",
+        "crane": [
+          "crane"
+        ],
         "fenix": [
           "fenix"
         ],
@@ -89,36 +91,6 @@
         "owner": "ipetkov",
         "repo": "crane",
         "rev": "47b6b27ed9a3a9181415e4367d0c30ab2a0e0250",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
-    "crane_3": {
-      "locked": {
-        "lastModified": 1791754810,
-        "narHash": "sha256-cN0Mgk+sQtCJcGWs9H4M0CnLRAuC4I8aCwiBTcBJs6E=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "bd63bf1d0a0f6dcacd7549c714a671ee63b0db6a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
-    "crane_4": {
-      "locked": {
-        "lastModified": 1792350552,
-        "narHash": "sha256-292lvpvxTGKryKxh3/3tcIVi85CwYGdl4oOi113Sob8=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "e675a36b7377bebe41d548388a2501cbb16d380d",
         "type": "github"
       },
       "original": {
@@ -535,7 +507,9 @@
     },
     "nu_plugin_dbus": {
       "inputs": {
-        "crane": "crane_3",
+        "crane": [
+          "crane"
+        ],
         "flakelight": [
           "flakelight"
         ],
@@ -605,6 +579,7 @@
       "inputs": {
         "bingus": "bingus",
         "catppuccin": "catppuccin",
+        "crane": "crane",
         "fenix": "fenix",
         "flakelight": "flakelight",
         "flakelight-treefmt": "flakelight-treefmt",
@@ -739,11 +714,11 @@
         "timeless-fonts-src": "timeless-fonts-src"
       },
       "locked": {
-        "lastModified": 1793438711,
-        "narHash": "sha256-HekNMOcKg8g3xkcwpdeQGjJJXebepG9kz5sD+WyuIxY=",
+        "lastModified": 1793464945,
+        "narHash": "sha256-IbsGpJRbO0H65oMc5WweiAjVg6IQhpw90bcaGHciyg8=",
         "ref": "refs/heads/master",
-        "rev": "f8cd5c23462cded0fefafcaacdf69c9079e9c40c",
-        "revCount": 6074,
+        "rev": "6e6da663db7793bd394a64c383e92232cd3fda6b",
+        "revCount": 6076,
         "type": "git",
         "url": "https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is"
       },
@@ -789,7 +764,9 @@
     },
     "wayland-mpris-idle-inhibit": {
       "inputs": {
-        "crane": "crane_4",
+        "crane": [
+          "crane"
+        ],
         "flakelight": [
           "flakelight"
         ],

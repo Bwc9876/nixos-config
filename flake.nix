@@ -4,82 +4,105 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    flakelight.url = "github:nix-community/flakelight";
-    flakelight.inputs.nixpkgs.follows = "nixpkgs";
+    flakelight = {
+      url = "github:nix-community/flakelight";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    flakelight-treefmt.url = "github:m15a/flakelight-treefmt";
-    flakelight-treefmt.inputs.flakelight.follows = "flakelight";
+    flakelight-treefmt = {
+      url = "github:m15a/flakelight-treefmt";
+      inputs.flakelight.follows = "flakelight";
+    };
 
-    nix-index-db.url = "github:nix-community/nix-index-database";
-    nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
+    crane.url = "github:ipetkov/crane";
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-db = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    lanzaboote.url = "github:nix-community/lanzaboote";
-    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    wayland-mpris-idle-inhibit.url = "git+https://knot.bwc9876.dev/did:plc:3jyd4oaj5uywmu5b3ij3leym";
-    wayland-mpris-idle-inhibit.inputs.nixpkgs.follows = "nixpkgs";
-    wayland-mpris-idle-inhibit.inputs.flakelight.follows = "flakelight";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    fenix.url = "github:nix-community/fenix/monthly";
-    fenix.inputs.nixpkgs.follows = "nixpkgs";
+    wayland-mpris-idle-inhibit = {
+      url = "git+https://knot.bwc9876.dev/did:plc:3jyd4oaj5uywmu5b3ij3leym";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flakelight.follows = "flakelight";
+        crane.follows = "crane";
+      };
+    };
 
-    catppuccin.url = "github:catppuccin/nix";
-    catppuccin.inputs.nixpkgs.follows = "nixpkgs";
+    fenix = {
+      url = "github:nix-community/fenix/monthly";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # cat-stylus = {
-    #   url = "https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json";
-    #   flake = false;
-    # };
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nvf.url = "github:NotAShelf/nvf";
-    nvf.inputs.nixpkgs.follows = "nixpkgs";
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    impermanence.url = "github:nix-community/impermanence";
-    impermanence.inputs.nixpkgs.follows = "nixpkgs";
-    impermanence.inputs.home-manager.follows = "home-manager";
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
 
-    nu_plugin_dbus.url = "git+https://knot.bwc9876.dev/did:plc:2oab3hjwitemxd3mycmqoz3t";
-    nu_plugin_dbus.inputs.nixpkgs.follows = "nixpkgs";
-    nu_plugin_dbus.inputs.flakelight.follows = "flakelight";
+    nu_plugin_dbus = {
+      url = "git+https://knot.bwc9876.dev/did:plc:2oab3hjwitemxd3mycmqoz3t";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        crane.follows = "crane";
+        flakelight.follows = "flakelight";
+      };
+    };
 
-    bingus.url = "git+https://knot.bwc9876.dev/did:plc:7gtakopu2pdi4knzuctkkraj";
-    bingus.inputs.nixpkgs.follows = "nixpkgs";
-    bingus.inputs.fenix.follows = "fenix";
-    bingus.inputs.flakelight.follows = "flakelight";
-    bingus.inputs.flakelight-treefmt.follows = "flakelight-treefmt";
+    bingus = {
+      url = "git+https://knot.bwc9876.dev/did:plc:7gtakopu2pdi4knzuctkkraj";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        fenix.follows = "fenix";
+        crane.follows = "crane";
+        flakelight.follows = "flakelight";
+        flakelight-treefmt.follows = "flakelight-treefmt";
+      };
+    };
 
-    tangled.url = "git+https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is";
-    tangled.inputs.nixpkgs.follows = "nixpkgs";
-    tangled.inputs.fenix.follows = "fenix";
+    tangled = {
+      url = "git+https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        fenix.follows = "fenix";
+      };
+    };
 
     spoon.url = "git+https://knot.bwc9876.dev/did:plc:m64qpmj33xm6r3sf5s44nevd";
   };
 
   outputs = inputs @ {
-    self,
-    nixpkgs,
     flakelight,
     flakelight-treefmt,
-    nix-index-db,
-    home-manager,
-    nixos-hardware,
-    lanzaboote,
-    wayland-mpris-idle-inhibit,
-    fenix,
-    catppuccin,
-    # cat-stylus,
-    nvf,
-    impermanence,
-    nu_plugin_dbus,
-    bingus,
-    spoon,
-    tangled,
+    ...
   }:
     flakelight ./. {
       inherit inputs;
