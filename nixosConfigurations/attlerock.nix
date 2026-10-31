@@ -38,7 +38,7 @@
           enable = true;
           sudoer = true;
         };
-        lanzaboote.enable = true;
+        limine.enable = true;
         imperm.enable = true;
         disks = {
           enable = true;

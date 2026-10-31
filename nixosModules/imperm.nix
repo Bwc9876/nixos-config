@@ -38,8 +38,6 @@
     lib.mkIf config.cow.imperm.enable {
       users.mutableUsers = false;
 
-      boot.lanzaboote.pkiBundle = lib.mkIf config.cow.lanzaboote.enable "${persistRoot}/secure/secureboot";
-
       services.openssh.hostKeys = lib.mkIf config.cow.ssh-server.enable [
         {
           bits = 4096;

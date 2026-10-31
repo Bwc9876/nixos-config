@@ -11,7 +11,10 @@
 
     flakelight-treefmt = {
       url = "github:m15a/flakelight-treefmt";
-      inputs.flakelight.follows = "flakelight";
+      inputs = {
+        flakelight.follows = "flakelight";
+        treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+      };
     };
 
     crane.url = "github:ipetkov/crane";
@@ -28,11 +31,6 @@
 
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -139,7 +137,6 @@
           deps = [
             inputs.home-manager.nixosModules.default
             inputs.catppuccin.nixosModules.catppuccin
-            inputs.lanzaboote.nixosModules.lanzaboote
             inputs.impermanence.nixosModules.default
             inputs.tangled.nixosModules.knot-rs
             inputs.tangled.nixosModules.spindle

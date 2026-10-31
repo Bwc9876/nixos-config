@@ -39,7 +39,7 @@
           enable = true;
           sudoer = true;
         };
-        lanzaboote.enable = true;
+        limine.enable = true;
         imperm.enable = true;
         role-laptop = {
           enable = true;

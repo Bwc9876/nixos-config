@@ -67,7 +67,6 @@
         cow = {
           base.sysrqs = true;
           bean.sudoer = true;
-          # lanzaboote.enable = true;
           limine.enable = true;
           hypervisor.enable = true;
           role-laptop = {
