@@ -618,7 +618,6 @@
         "nvf": "nvf",
         "spoon": "spoon",
         "tangled": "tangled",
-        "tranquil": "tranquil",
         "wayland-mpris-idle-inhibit": "wayland-mpris-idle-inhibit"
       }
     },
@@ -764,26 +763,6 @@
       "original": {
         "type": "tarball",
         "url": "https://media.timeless.co/type/Timeless-Type-Family-1.094.zip"
-      }
-    },
-    "tranquil": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1793174858,
-        "narHash": "sha256-nEm/rDKBRKy3IamhXem2in4G2ubQeLOeNYtye7Gtpj8=",
-        "ref": "refs/heads/main",
-        "rev": "ff92d56e3e2d181370980e2f84428678b2f9f13e",
-        "revCount": 647,
-        "type": "git",
-        "url": "https://knot1.tangled.sh/did:plc:jj6ajj6duxnlthwtnob4qyuv"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://knot1.tangled.sh/did:plc:jj6ajj6duxnlthwtnob4qyuv"
       }
     },
     "treefmt-nix": {

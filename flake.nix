@@ -58,9 +58,6 @@
     tangled.inputs.nixpkgs.follows = "nixpkgs";
     tangled.inputs.fenix.follows = "fenix";
 
-    tranquil.url = "git+https://knot1.tangled.sh/did:plc:jj6ajj6duxnlthwtnob4qyuv";
-    tranquil.inputs.nixpkgs.follows = "nixpkgs";
-
     spoon.url = "git+https://knot.bwc9876.dev/did:plc:m64qpmj33xm6r3sf5s44nevd";
   };
 
@@ -83,7 +80,6 @@
     bingus,
     spoon,
     tangled,
-    tranquil,
   }:
     flakelight ./. {
       inherit inputs;
@@ -122,7 +118,6 @@
             inputs.catppuccin.nixosModules.catppuccin
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.impermanence.nixosModules.default
-            inputs.tranquil.nixosModules.default
             inputs.tangled.nixosModules.knot-rs
             inputs.tangled.nixosModules.spindle
           ];
