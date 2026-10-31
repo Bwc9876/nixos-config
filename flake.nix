@@ -37,9 +37,6 @@
     #   flake = false;
     # };
 
-    noctalia.url = "github:noctalia-dev/noctalia";
-    noctalia.inputs.nixpkgs.follows = "nixpkgs";
-
     nvf.url = "github:NotAShelf/nvf";
     nvf.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -80,7 +77,6 @@
     fenix,
     catppuccin,
     # cat-stylus,
-    noctalia,
     nvf,
     impermanence,
     nu_plugin_dbus,
@@ -112,7 +108,6 @@
             inputs.catppuccin.homeModules.catppuccin
             inputs.wayland-mpris-idle-inhibit.homeModules.default
             inputs.nvf.homeManagerModules.default
-            inputs.noctalia.homeModules.default
           ];
           myMods = lib.mapAttrsToList (k: _v: ./homeModules/${k}) (builtins.readDir ./homeModules);
         in
@@ -130,7 +125,6 @@
             inputs.tranquil.nixosModules.default
             inputs.tangled.nixosModules.knot-rs
             inputs.tangled.nixosModules.spindle
-            inputs.noctalia.nixosModules.default
           ];
           myMods = lib.mapAttrsToList (k: v: ./nixosModules/${k}) (builtins.readDir ./nixosModules);
         in

@@ -533,26 +533,6 @@
         "type": "github"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1793461235,
-        "narHash": "sha256-l2f1vpwVAnL8gB8vXzFMkqOQMBo/8w09nW1KL+BCs54=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia",
-        "rev": "5d5cda62e972469fea595cbe9a08da4be538fec2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia",
-        "type": "github"
-      }
-    },
     "nu_plugin_dbus": {
       "inputs": {
         "crane": "crane_3",
@@ -634,7 +614,6 @@
         "nix-index-db": "nix-index-db",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "noctalia": "noctalia",
         "nu_plugin_dbus": "nu_plugin_dbus",
         "nvf": "nvf",
         "spoon": "spoon",
