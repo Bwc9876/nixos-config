@@ -63,6 +63,7 @@
             ssh_listen_addr = "[::]:22";
           };
           contact.email = conf.email;
+          homepage.path = ../res/knot-home.html;
           lfs.store_path = "${conf.knot.stateDir}/lfs";
           atproto.plc_directory = "https://plc.directory";
           atproto.repo_signing_keys = "${conf.knot.stateDir}/repo-signing-keys.json";
