@@ -46,8 +46,7 @@
     conf = config.cow.tangled;
   in {
     cow.imperm.keep =
-      ["/var/lib/tangled-knot"]
-      ++ (lib.optional conf.knot.enable conf.knot.stateDir)
+      (lib.optional conf.knot.enable conf.knot.stateDir)
       ++ (lib.optionals conf.spindle.enable ["/var/lib/spindle" "/var/lib/docker"]);
 
     services.tangled = {
@@ -97,9 +96,9 @@
       };
     };
 
-    services.nginx.virtualHosts = {
-      ${conf.knot.hostname} = lib.mkIf conf.knot.enable {
-        locations = {
+    services.nginx.virtualHosts = lib.mkMerge [
+      (lib.mkIf conf.knot.enable {
+        ${conf.knot.hostname}.locations = {
           "/" = {
             proxyPass = "http://localhost:5555";
             recommendedProxySettings = true;
@@ -110,10 +109,10 @@
             recommendedProxySettings = true;
           };
         };
-      };
+      })
 
-      ${conf.spindle.hostname} = lib.mkIf conf.spindle.enable {
-        locations = {
+      (lib.mkIf conf.spindle.enable {
+        ${conf.spindle.hostname}.locations = {
           "/" = {
             proxyPass = "http://localhost:${builtins.toString conf.spindle.port}";
             recommendedProxySettings = true;
@@ -129,14 +128,10 @@
             recommendedProxySettings = true;
           };
         };
-      };
-    };
+      })
+    ];
 
     # For Spindle
     boot.kernelModules = lib.optional conf.spindle.enable "vhost_vsock";
-
-    services.openssh = lib.mkIf conf.knot.enable {
-      enable = true;
-    };
   };
 }

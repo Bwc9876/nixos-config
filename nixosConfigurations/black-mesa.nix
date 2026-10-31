@@ -113,11 +113,11 @@
               hostname = "knot.bwc9876.dev";
               envFile = "/nix/persist/secure/knot.env";
             };
-            spindle = {
-              enable = true;
-              hostname = "spindle.bwc9876.dev";
-              keyPath = "/nix/persist/secure/spindle-key.pem";
-            };
+            # spindle = {
+            #   enable = true;
+            #   hostname = "spindle.bwc9876.dev";
+            #   keyPath = "/nix/persist/secure/spindle-key.pem";
+            # };
           };
           imperm.keep = ["/var/lib/acme"];
         };
@@ -160,11 +160,11 @@
             acmeRoot = null; # DNS
             useACMEHost = "tranquil.bwc9876.dev";
           };
-          virtualHosts."spindle.bwc9876.dev" = {
-            addSSL = true;
-            acmeRoot = null; # DNS
-            useACMEHost = "bwc9876.dev";
-          };
+          # virtualHosts."spindle.bwc9876.dev" = {
+          #   addSSL = true;
+          #   acmeRoot = null; # DNS
+          #   useACMEHost = "bwc9876.dev";
+          # };
         };
 
         services.postgresqlBackup = {
