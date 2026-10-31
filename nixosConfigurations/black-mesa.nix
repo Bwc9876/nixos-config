@@ -59,7 +59,7 @@
 
         cow = {
           bean.sudoer = true;
-          lanzaboote.enable = true;
+          limine.enable = true;
           ssh-server.enable = true;
           role-desktop.enable = true;
           gaming.enable = true;
