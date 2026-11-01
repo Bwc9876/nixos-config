@@ -87,7 +87,7 @@
     };
 
     tangled = {
-      url = "git+https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is";
+      url = "git+https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is?rev=6e6da663db7793bd394a64c383e92232cd3fda6b";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         fenix.follows = "fenix";
