@@ -46,7 +46,16 @@
         username = lib.mkDefault conf.username;
         homeDirectory = lib.mkDefault "/home/${conf.username}";
         packages = lib.mkIf conf.social [
-          pkgs.signal-desktop
+          (pkgs.symlinkJoin {
+            name = "signal-desktop";
+            paths = [pkgs.signal-desktop];
+            nativeBuildInputs = [pkgs.makeWrapper];
+            # Forcing it to use libsecret because Electron's checks for if it's available is just if we're on GNOME, because no one would eeeeeeever use it otherwise.
+            postBuild = ''
+              wrapProgram $out/bin/signal-desktop \
+                --add-flags "--password-store=gnome-libsecret"
+            '';
+          })
         ];
       };
 
