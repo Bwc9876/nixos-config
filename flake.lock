@@ -3,11 +3,11 @@
     "advisory-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1792666187,
-        "narHash": "sha256-Ht/H81uHAKw5q5J5G0iwlQc15MU8D1ny2xwowi/XUhI=",
+        "lastModified": 1793358759,
+        "narHash": "sha256-hxKuHEEXkeXPb6jP2EZu1Bl/Q4d4wihs/PYBN/b2Ntw=",
         "owner": "rustsec",
         "repo": "advisory-db",
-        "rev": "640bf5a9f06e66d8721e8772766531fe77c8630d",
+        "rev": "2295466c4e9df26647fd67d8fa1c705ac2fc7f81",
         "type": "github"
       },
       "original": {
@@ -36,11 +36,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792679612,
-        "narHash": "sha256-kWLr7tkRI0kFSnqVyzPVBRIPM6HRCAnF+isv7Kt/tpc=",
+        "lastModified": 1793552985,
+        "narHash": "sha256-w3WTS1BMDpiHmeQvPoXJq5uzjFNIGkfFhG8gX6cywiU=",
         "ref": "refs/heads/main",
-        "rev": "6acd10d7217e530d827055656c1a448cfd4f40af",
-        "revCount": 92,
+        "rev": "374169de0e7911a0b5720a45e65fafa018a6bb3d",
+        "revCount": 93,
         "type": "git",
         "url": "https://knot.bwc9876.dev/did:plc:7gtakopu2pdi4knzuctkkraj"
       },
