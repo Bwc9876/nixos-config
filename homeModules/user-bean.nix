@@ -88,9 +88,10 @@
 
       cow = {
         libraries.enable = true;
+        discord.enable = lib.mkDefault conf.social;
         imperm = {
           keepLibraries = true;
-          keep = lib.mkIf conf.social [".config/Signal"];
+          keep = lib.mkIf conf.social [".config/Signal" ".config/moonlight-mod"];
         };
         pictures = {
           enable = true;
