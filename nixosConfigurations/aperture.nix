@@ -30,10 +30,10 @@
 
         home-manager.users.bean.cow = {
           bean.social = true;
-          kde-connect = {
-            enable = true;
-            dev-name = "APERTURE";
-          };
+          # kde-connect = {
+          #   enable = true;
+          #   dev-name = "APERTURE";
+          # };
           dev = {
             rust = true;
             nix = true;
