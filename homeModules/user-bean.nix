@@ -91,7 +91,7 @@
         discord.enable = lib.mkDefault conf.social;
         imperm = {
           keepLibraries = true;
-          keep = lib.mkIf conf.social [".config/Signal" ".config/moonlight-mod"];
+          keep = lib.mkIf conf.social [".config/Signal" ".config/moonlight-mod" ".config/discord"];
         };
         pictures = {
           enable = true;
