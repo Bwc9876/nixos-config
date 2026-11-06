@@ -23,8 +23,6 @@
     environment.systemPackages = with pkgs; [
       gamescope-wsi
       prismlauncher
-      owmods-gui
-      owmods-cli
       # cemu
     ];
   };

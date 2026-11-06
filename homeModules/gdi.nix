@@ -282,11 +282,5 @@
       };
       playerctld.enable = true;
     };
-
-    programs = {
-      nushell.extraConfig = ''
-        plugin add ${inputs.nu_plugin_dbus.packages.${pkgs.system}.default}/bin/nu_plugin_dbus
-      '';
-    };
   };
 }

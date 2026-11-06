@@ -10,8 +10,9 @@
     home.packages = with pkgs; [
       # steam
       # cemu
-      owmods-cli
-      owmods-gui
+      # TEMP: until the aws-lc fix makes it into nixos-unstable
+      # owmods-cli
+      # owmods-gui
       prismlauncher
     ];
 

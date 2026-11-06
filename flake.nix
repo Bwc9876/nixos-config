@@ -66,15 +66,6 @@
       };
     };
 
-    nu_plugin_dbus = {
-      url = "git+https://knot.bwc9876.dev/did:plc:2oab3hjwitemxd3mycmqoz3t";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        crane.follows = "crane";
-        flakelight.follows = "flakelight";
-      };
-    };
-
     bingus = {
       url = "git+https://knot.bwc9876.dev/did:plc:7gtakopu2pdi4knzuctkkraj";
       inputs = {
@@ -89,7 +80,8 @@
     tangled = {
       url = "git+https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is?rev=6e6da663db7793bd394a64c383e92232cd3fda6b";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        # TEMP: For aws-lc stuff, next tagged release will probably fix it
+        # nixpkgs.follows = "nixpkgs";
         fenix.follows = "fenix";
       };
     };
