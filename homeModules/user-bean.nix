@@ -63,9 +63,7 @@
         user = {
           inherit (conf) name email;
         };
-        git = {
-          sign-on-push = true;
-        };
+        revsets.git-sign-on-push = "~signed() & mine()";
         signing = {
           behavior = "drop";
           backend = "ssh";
