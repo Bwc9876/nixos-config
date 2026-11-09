@@ -77,7 +77,9 @@
 
           rust = {
             enable = dev.rust;
+            lsp.enable = false;
             extensions.crates-nvim.enable = dev.rust;
+            extensions.rustaceanvim.enable = dev.rust;
           };
           toml.enable = dev.rust;
 
