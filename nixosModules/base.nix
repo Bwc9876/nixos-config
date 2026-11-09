@@ -14,7 +14,7 @@
     tmp = mkDefaultOption "Clear /tmp on boot and limit RuntimeDirectorySize";
     nix = mkDefaultOption "Nix tweaks: use Lix, mark flake inputs as extra deps, adjust OOM score of the build daemon, expose nixpkgs instance as 'p' in flake registry, turn off channels, etc.";
     cache = lib.mkEnableOption "Use personal binary cache if possible";
-    boot = mkDefaultOption "systemd in initrd, set kernel lockdown";
+    boot = mkDefaultOption "fancy boot tree with bootvine";
     linux-latest = mkDefaultOption "latest Linux kernel";
     sysrqs = lib.mkEnableOption "sysrqs";
   };
@@ -79,9 +79,7 @@
           };
         })
         (lib.mkIf conf.boot {
-          boot = {
-            # kernelParams = ["lockdown=confidentiality"];
-          };
+          services.bootvine.enable = true;
         })
         (lib.mkIf conf.linux-latest {
           boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;

@@ -77,6 +77,11 @@
       };
     };
 
+    bootvine = {
+      url = "git+https://codeberg.org/wvhulle/bootvine";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     tangled = {
       url = "git+https://knot1.tangled.sh/did:plc:j5hmlfdrwkvtxm7cjmu7j2is?rev=6e6da663db7793bd394a64c383e92232cd3fda6b";
       inputs = {
@@ -132,6 +137,7 @@
             inputs.impermanence.nixosModules.default
             inputs.tangled.nixosModules.knot-rs
             inputs.tangled.nixosModules.spindle
+            inputs.bootvine.nixosModules.default
           ];
           myMods = lib.mapAttrsToList (k: v: ./nixosModules/${k}) (builtins.readDir ./nixosModules);
         in
