@@ -15,6 +15,10 @@
       ".config/jj/repos"
     ];
 
+    programs.jjui = {
+      enable = true;
+    };
+
     programs.jujutsu = {
       enable = true;
       settings = {
