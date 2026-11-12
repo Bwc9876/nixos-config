@@ -29,7 +29,6 @@
             zfs = lib.mkForce false;
           };
         in {
-          initrd.systemd.enable = false;
           inherit supportedFilesystems;
           initrd = {
             inherit supportedFilesystems;
