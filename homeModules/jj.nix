@@ -31,7 +31,7 @@
           pager = "less -FR";
           editor = lib.mkIf config.cow.neovim.enable "nvim";
           diff-editor = ":builtin";
-          merge-editor = "mergiraf";
+          # merge-editor = "mergiraf";
         };
         merge.same-change = "keep";
         templates.git_push_bookmark = ''"ben/auto-" ++ change_id.short()'';
